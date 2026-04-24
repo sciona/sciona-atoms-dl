@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "sciona.atoms.dl.training.online_hard_negative_mining@sciona/atoms/dl/training/atoms.py:48": {
+      "references": [
+        {
+          "ref_id": "liao2017dsb",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Online hard example mining from the DSB 2017 1st-place detection pipeline."
+          }
+        },
+        {
+          "ref_id": "repo_dsb2017",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream source: layers.py lines 149-153, torch.topk for hard negative selection."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.training.size_aware_nodule_oversampling@sciona/atoms/dl/training/atoms.py:88": {
+      "references": [
+        {
+          "ref_id": "liao2017dsb",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Size-dependent oversampling to rebalance nodule training distribution from DSB 2017 solution."
+          }
+        },
+        {
+          "ref_id": "repo_dsb2017",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream source: data_detector.py lines 60-70, threshold-based bbox repetition."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.training.softmax_temperature_proposal_sampling@sciona/atoms/dl/training/atoms.py:127": {
+      "references": [
+        {
+          "ref_id": "liao2017dsb",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Temperature-based proposal sampling motivated by CDG analysis of the DSB 2017 training pipeline."
+          }
+        },
+        {
+          "ref_id": "repo_dsb2017",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Conceptual extraction from DSB 2017 solution training strategies; no direct line correspondence."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

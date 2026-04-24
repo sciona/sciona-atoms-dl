@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "sciona.atoms.dl.loss.miss_penalty_loss@sciona/atoms/dl/loss/atoms.py:49": {
+      "references": [
+        {
+          "ref_id": "liao2017dsb",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Miss-penalty loss derived from the focal/hard-example loss structure in the DSB 2017 1st-place detection pipeline."
+          }
+        },
+        {
+          "ref_id": "repo_dsb2017",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream source: layers.py lines 155-217, conceptual miss-penalty formula from CDG analysis."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

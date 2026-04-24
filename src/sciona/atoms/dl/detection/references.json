@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "sciona.atoms.dl.detection.lung_mask_with_bone_removal@sciona/atoms/dl/detection/atoms.py:258": {
+      "references": [
+        {
+          "ref_id": "liao2017dsb",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Full lung segmentation pipeline from DSB2017 1st-place preprocessing."
+          }
+        },
+        {
+          "ref_id": "repo_dsb2017",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream source: preprocessing/step1.py lines 52-243, composing binarize_per_slice, all_slice_analysis, fill_hole, two_lung_only."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.detection.anchor_label_mapping_with_iou_dilation@sciona/atoms/dl/detection/atoms.py:328": {
+      "references": [
+        {
+          "ref_id": "liao2017dsb",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Anchor-based label assignment with IoU thresholding and dilation ignore zones for detector training."
+          }
+        },
+        {
+          "ref_id": "repo_dsb2017",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream source: data_detector.py LabelMapping.__call__ lines 276-340 and select_samples lines 342-405."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.detection.center_feature_extraction_3d@sciona/atoms/dl/detection/atoms.py:414": {
+      "references": [
+        {
+          "ref_id": "liao2017dsb",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Center feature extraction for nodule classification from DSB2017 CaseNet architecture."
+          }
+        },
+        {
+          "ref_id": "repo_dsb2017",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream source: net_classifier.py CaseNet.forward lines 163-166, center 2x2x2 max-pool."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

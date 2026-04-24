@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "sciona.atoms.dl.adversarial.auxiliary_logit_loss_fusion@sciona/atoms/dl/adversarial/atoms.py:51": {
+      "references": [
+        {
+          "ref_id": "dong2018mifgsm",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Softmax cross-entropy with auxiliary logit weighting from the MI-FGSM ensemble attack approach."
+          }
+        },
+        {
+          "ref_id": "repo_adversarial_nontarget",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream source: attack_iter.py lines 170-183, main + 0.4 * aux softmax cross-entropy."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.adversarial.std_normalized_momentum_gradient@sciona/atoms/dl/adversarial/atoms.py:97": {
+      "references": [
+        {
+          "ref_id": "dong2018mifgsm",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Targeted-attack variant of MI-FGSM momentum with double std-normalization instead of L1-mean."
+          }
+        },
+        {
+          "ref_id": "repo_adversarial_nontarget",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream source: target_attack.py lines 155-158, double std-normalization momentum accumulation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.adversarial.ensemble_prediction_label_inference@sciona/atoms/dl/adversarial/atoms.py:140": {
+      "references": [
+        {
+          "ref_id": "dong2018mifgsm",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Ensemble label inference with freeze-after-first-iteration from the MI-FGSM competition approach."
+          }
+        },
+        {
+          "ref_id": "repo_adversarial_nontarget",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream source: attack_iter.py lines 162-167, argmax over summed predictions with first-round freeze."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

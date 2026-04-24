@@ -1,0 +1,92 @@
+{
+  "nodes": [
+    {
+      "node_id": "detection_root",
+      "name": "Detection",
+      "description": "3D detection building blocks from the DSB2017 1st-place solution for pulmonary nodule detection",
+      "status": "decomposed",
+      "children": [
+        "lung_mask_with_bone_removal",
+        "anchor_label_mapping_with_iou_dilation",
+        "center_feature_extraction_3d",
+        "coordinate_aware_3d_unet"
+      ],
+      "depth": 0
+    },
+    {
+      "node_id": "lung_mask_with_bone_removal",
+      "name": "lung_mask_with_bone_removal",
+      "description": "Segment lungs from a CT volume by per-slice Gaussian thresholding, 3D connected component filtering, hole filling, and left/right separation via erosion and distance transforms",
+      "concept_type": "signal_filter",
+      "status": "atomic",
+      "type_signature": "(ct_volume: NDArray[np.float64], spacing: NDArray[np.float64], intensity_th: float = -600.0, pad_value: float = 170.0) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "ct_volume", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "spacing", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "intensity_th", "type_desc": "float", "required": false},
+        {"name": "pad_value", "type_desc": "float", "required": false}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ]
+    },
+    {
+      "node_id": "anchor_label_mapping_with_iou_dilation",
+      "name": "anchor_label_mapping_with_iou_dilation",
+      "description": "Map ground-truth targets to anchor-grid labels via 3D IoU with dilation-based ignore zones between positive and negative regions",
+      "concept_type": "data_assembly",
+      "status": "atomic",
+      "type_signature": "(input_size: tuple[int, int, int], target: NDArray[np.float64], anchors: NDArray[np.float64], stride: int, pos_th: float = 0.5, neg_th: float = 0.02, dilation_iterations: int = 1) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "input_size", "type_desc": "tuple[int, int, int]", "required": true},
+        {"name": "target", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "anchors", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "stride", "type_desc": "int", "required": true},
+        {"name": "pos_th", "type_desc": "float", "required": false},
+        {"name": "neg_th", "type_desc": "float", "required": false},
+        {"name": "dilation_iterations", "type_desc": "int", "required": false}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ]
+    },
+    {
+      "node_id": "center_feature_extraction_3d",
+      "name": "center_feature_extraction_3d",
+      "description": "Extract center 2x2x2 spatial region from a 5D feature map and max-pool to (N, C)",
+      "concept_type": "data_extraction",
+      "status": "atomic",
+      "type_signature": "(feature_map: NDArray[np.float64]) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "feature_map", "type_desc": "NDArray[np.float64]", "required": true}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ]
+    },
+    {
+      "node_id": "coordinate_aware_3d_unet",
+      "name": "coordinate_aware_3d_unet",
+      "description": "3D U-Net with coordinate injection for anchor-based nodule detection. Encoder uses PostRes blocks with channels [24,32,64,64,64] and 4 max-pool stages (stride 2). Decoder has two transposed-convolution upsample paths with channels [128,64,64]. A 3-channel normalized coordinate grid is concatenated at the back2 decoder stage, providing explicit spatial awareness. Output head produces 5 values per anchor (objectness + 4 regression targets) for anchors at [10, 30, 60] mm.",
+      "concept_type": "neural_network",
+      "is_opaque": true,
+      "status": "atomic",
+      "depth": 1,
+      "metadata": {
+        "encoder_channels": [24, 32, 64, 64, 64],
+        "decoder_channels": [128, 64, 64],
+        "anchors_mm": [10, 30, 60],
+        "coord_injection_stage": "back2",
+        "num_blocks_forward": [2, 2, 3, 3],
+        "num_blocks_backward": [3, 3],
+        "output_channels_per_anchor": 5,
+        "dropout": 0.2,
+        "stride": 4,
+        "framework": "pytorch"
+      }
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "references": {
+    "liao2017dsb": {
+      "ref_id": "liao2017dsb",
+      "type": "paper",
+      "title": "Evaluate the Malignancy of Pulmonary Nodules Using the 3D Deep Leaky Noisy-or Network",
+      "authors": ["Fangzhou Liao", "Ming Liang", "Zhe Li", "Xiaolin Hu", "Sen Song"],
+      "year": 2017,
+      "venue": "arXiv",
+      "doi": "10.48550/arXiv.1711.08324",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "1st place DSB2017 solution paper. Source for 3D U-Net detection, OHEM, center feature extraction, and miss penalty loss."
+      },
+      "url": "https://arxiv.org/abs/1711.08324"
+    },
+    "repo_dsb2017": {
+      "ref_id": "repo_dsb2017",
+      "type": "repository",
+      "title": "DSB2017 1st Place Solution",
+      "authors": ["Fangzhou Liao"],
+      "year": 2017,
+      "venue": "GitHub",
+      "url": "https://github.com/lfz/DSB2017",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "MIT-licensed source repository for DSB2017 1st place solution."
+      }
+    },
+    "dong2018mifgsm": {
+      "ref_id": "dong2018mifgsm",
+      "type": "paper",
+      "title": "Boosting Adversarial Attacks with Momentum",
+      "authors": ["Yinpeng Dong", "Fangzhou Liao", "Tianyu Pang", "Hang Su", "Jun Zhu", "Xiaolin Hu", "Jianguo Li"],
+      "year": 2018,
+      "venue": "CVPR",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "MI-FGSM paper. Source for auxiliary logit loss fusion and std-normalized momentum gradient."
+      },
+      "url": "https://arxiv.org/abs/1710.06081"
+    },
+    "repo_adversarial_nontarget": {
+      "ref_id": "repo_adversarial_nontarget",
+      "type": "repository",
+      "title": "Non-Targeted Adversarial Attacks (NIPS 2017 1st Place)",
+      "authors": ["Yinpeng Dong"],
+      "year": 2017,
+      "venue": "GitHub",
+      "url": "https://github.com/dongyp13/Non-Targeted-Adversarial-Attacks",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "Apache 2.0 source for adversarial attack implementation."
+      }
+    }
+  }
+}

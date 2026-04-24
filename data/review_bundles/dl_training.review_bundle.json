@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0",
+  "bundle_id": "sciona.atoms.dl.review_bundle.training.core.v1",
+  "provider_repo": "sciona-atoms-dl",
+  "family_batch": "dl_training",
+  "review_status": "pending",
+  "review_semantic_verdict": null,
+  "review_developer_semantic_verdict": null,
+  "trust_readiness": "unreviewed",
+  "authoritative_sources": [
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/training/atoms.py"
+    },
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/training/witnesses.py"
+    },
+    {
+      "kind": "local_references",
+      "path": "src/sciona/atoms/dl/training/references.json"
+    },
+    {
+      "kind": "local_cdg",
+      "path": "src/sciona/atoms/dl/training/cdg.json"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_training_behavior.py"
+    }
+  ],
+  "limitations": [],
+  "blocking_findings": [],
+  "required_actions": [],
+  "review_record_path": "data/review_bundles/dl_training.review_bundle.json",
+  "rows": [
+    {
+      "atom_key": "sciona.atoms.dl.training.online_hard_negative_mining",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/training/atoms.py",
+        "src/sciona/atoms/dl/training/witnesses.py",
+        "src/sciona/atoms/dl/training/references.json",
+        "src/sciona/atoms/dl/training/cdg.json",
+        "tests/test_dl_training_behavior.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_training.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.training.size_aware_nodule_oversampling",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/training/atoms.py",
+        "src/sciona/atoms/dl/training/witnesses.py",
+        "src/sciona/atoms/dl/training/references.json",
+        "src/sciona/atoms/dl/training/cdg.json",
+        "tests/test_dl_training_behavior.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_training.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.training.softmax_temperature_proposal_sampling",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/training/atoms.py",
+        "src/sciona/atoms/dl/training/witnesses.py",
+        "src/sciona/atoms/dl/training/references.json",
+        "src/sciona/atoms/dl/training/cdg.json",
+        "tests/test_dl_training_behavior.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_training.review_bundle.json"
+    }
+  ]
+}

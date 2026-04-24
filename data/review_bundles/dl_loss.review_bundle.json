@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "bundle_id": "sciona.atoms.dl.review_bundle.loss.core.v1",
+  "provider_repo": "sciona-atoms-dl",
+  "family_batch": "dl_loss",
+  "review_status": "pending",
+  "review_semantic_verdict": null,
+  "review_developer_semantic_verdict": null,
+  "trust_readiness": "unreviewed",
+  "authoritative_sources": [
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/loss/atoms.py"
+    },
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/loss/witnesses.py"
+    },
+    {
+      "kind": "local_references",
+      "path": "src/sciona/atoms/dl/loss/references.json"
+    },
+    {
+      "kind": "local_cdg",
+      "path": "src/sciona/atoms/dl/loss/cdg.json"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_loss_behavior.py"
+    }
+  ],
+  "limitations": [],
+  "blocking_findings": [],
+  "required_actions": [],
+  "review_record_path": "data/review_bundles/dl_loss.review_bundle.json",
+  "rows": [
+    {
+      "atom_key": "sciona.atoms.dl.loss.miss_penalty_loss",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/loss/atoms.py",
+        "src/sciona/atoms/dl/loss/witnesses.py",
+        "src/sciona/atoms/dl/loss/references.json",
+        "src/sciona/atoms/dl/loss/cdg.json",
+        "tests/test_dl_loss_behavior.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    }
+  ]
+}

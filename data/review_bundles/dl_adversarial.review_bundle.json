@@ -1,0 +1,180 @@
+{
+  "schema_version": "1.0",
+  "bundle_id": "sciona.atoms.review_bundle.dl.adversarial.v1",
+  "provider_repo": "sciona-atoms-dl",
+  "family_batch": "dl_adversarial",
+  "review_status": "pending",
+  "review_semantic_verdict": "pending",
+  "review_developer_semantic_verdict": "pending",
+  "trust_readiness": "pending",
+  "authoritative_sources": [
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/adversarial/atoms.py"
+    },
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/adversarial/witnesses.py"
+    },
+    {
+      "kind": "local_metadata",
+      "path": "src/sciona/atoms/dl/adversarial/references.json"
+    },
+    {
+      "kind": "local_metadata",
+      "path": "src/sciona/atoms/dl/adversarial/cdg.json"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_adversarial_behavior.py"
+    }
+  ],
+  "limitations": [
+    "Auxiliary logit loss fusion uses numerically stable log-softmax but does not support label smoothing.",
+    "Std-normalized momentum gradient uses global std across the full tensor, not per-sample std as in the original TF code.",
+    "Ensemble prediction label inference freezes labels after the first iteration; there is no mechanism to unfreeze."
+  ],
+  "blocking_findings": [],
+  "required_actions": [],
+  "review_record_path": "data/review_bundles/dl_adversarial.review_bundle.json",
+  "rows": [
+    {
+      "atom_key": "sciona.atoms.dl.adversarial.auxiliary_logit_loss_fusion",
+      "atom_name": "sciona.atoms.dl.adversarial.auxiliary_logit_loss_fusion",
+      "review_status": "pending",
+      "review_semantic_verdict": "pending",
+      "review_developer_semantic_verdict": "pending",
+      "trust_readiness": "pending",
+      "source_paths": [
+        "src/sciona/atoms/dl/adversarial/atoms.py",
+        "src/sciona/atoms/dl/adversarial/witnesses.py",
+        "src/sciona/atoms/dl/adversarial/references.json",
+        "src/sciona/atoms/dl/adversarial/cdg.json",
+        "tests/test_dl_adversarial_behavior.py"
+      ],
+      "review_record_path": "data/review_bundles/dl_adversarial.review_bundle.json",
+      "overall_verdict": "pending",
+      "structural_status": "pending",
+      "semantic_status": "pending",
+      "runtime_status": "pending",
+      "developer_semantics_status": "pending",
+      "risk_tier": "low",
+      "risk_score": null,
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
+      "risk_reasons": [],
+      "acceptability_score": null,
+      "acceptability_band": null,
+      "parity_coverage_level": null,
+      "parity_test_status": "pending",
+      "parity_fixture_count": null,
+      "parity_case_count": null,
+      "review_limitations": [
+        "Uses numerically stable log-softmax but does not support label smoothing."
+      ],
+      "review_required_actions": [],
+      "trust_blockers": [],
+      "has_references": true,
+      "references_status": "pending",
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": []
+    },
+    {
+      "atom_key": "sciona.atoms.dl.adversarial.std_normalized_momentum_gradient",
+      "atom_name": "sciona.atoms.dl.adversarial.std_normalized_momentum_gradient",
+      "review_status": "pending",
+      "review_semantic_verdict": "pending",
+      "review_developer_semantic_verdict": "pending",
+      "trust_readiness": "pending",
+      "source_paths": [
+        "src/sciona/atoms/dl/adversarial/atoms.py",
+        "src/sciona/atoms/dl/adversarial/witnesses.py",
+        "src/sciona/atoms/dl/adversarial/references.json",
+        "src/sciona/atoms/dl/adversarial/cdg.json",
+        "tests/test_dl_adversarial_behavior.py"
+      ],
+      "review_record_path": "data/review_bundles/dl_adversarial.review_bundle.json",
+      "overall_verdict": "pending",
+      "structural_status": "pending",
+      "semantic_status": "pending",
+      "runtime_status": "pending",
+      "developer_semantics_status": "pending",
+      "risk_tier": "low",
+      "risk_score": null,
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
+      "risk_reasons": [],
+      "acceptability_score": null,
+      "acceptability_band": null,
+      "parity_coverage_level": null,
+      "parity_test_status": "pending",
+      "parity_fixture_count": null,
+      "parity_case_count": null,
+      "review_limitations": [
+        "Uses global std across the full tensor, not per-sample std as in the original TF code."
+      ],
+      "review_required_actions": [],
+      "trust_blockers": [],
+      "has_references": true,
+      "references_status": "pending",
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": []
+    },
+    {
+      "atom_key": "sciona.atoms.dl.adversarial.ensemble_prediction_label_inference",
+      "atom_name": "sciona.atoms.dl.adversarial.ensemble_prediction_label_inference",
+      "review_status": "pending",
+      "review_semantic_verdict": "pending",
+      "review_developer_semantic_verdict": "pending",
+      "trust_readiness": "pending",
+      "source_paths": [
+        "src/sciona/atoms/dl/adversarial/atoms.py",
+        "src/sciona/atoms/dl/adversarial/witnesses.py",
+        "src/sciona/atoms/dl/adversarial/references.json",
+        "src/sciona/atoms/dl/adversarial/cdg.json",
+        "tests/test_dl_adversarial_behavior.py"
+      ],
+      "review_record_path": "data/review_bundles/dl_adversarial.review_bundle.json",
+      "overall_verdict": "pending",
+      "structural_status": "pending",
+      "semantic_status": "pending",
+      "runtime_status": "pending",
+      "developer_semantics_status": "pending",
+      "risk_tier": "low",
+      "risk_score": null,
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
+      "risk_reasons": [],
+      "acceptability_score": null,
+      "acceptability_band": null,
+      "parity_coverage_level": null,
+      "parity_test_status": "pending",
+      "parity_fixture_count": null,
+      "parity_case_count": null,
+      "review_limitations": [
+        "Freezes labels after the first iteration; there is no mechanism to unfreeze."
+      ],
+      "review_required_actions": [],
+      "trust_blockers": [],
+      "has_references": true,
+      "references_status": "pending",
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": []
+    }
+  ]
+}

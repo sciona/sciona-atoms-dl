@@ -1,0 +1,68 @@
+{
+  "nodes": [
+    {
+      "node_id": "training_root",
+      "name": "Training Strategies",
+      "description": "Training utilities from DSB 2017 1st-place solution: hard negative mining, size-aware oversampling, and temperature-based proposal sampling",
+      "status": "decomposed",
+      "children": [
+        "online_hard_negative_mining",
+        "size_aware_nodule_oversampling",
+        "softmax_temperature_proposal_sampling"
+      ],
+      "depth": 0
+    },
+    {
+      "node_id": "online_hard_negative_mining",
+      "name": "online_hard_negative_mining",
+      "description": "Select indices of highest-scoring negatives for hard negative mining",
+      "concept_type": "optimization",
+      "status": "atomic",
+      "type_signature": "(neg_scores: NDArray[np.float64], num_hard: int) -> NDArray[np.int64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "neg_scores", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "num_hard", "type_desc": "int", "required": true}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "NDArray[np.int64]"}
+      ]
+    },
+    {
+      "node_id": "size_aware_nodule_oversampling",
+      "name": "size_aware_nodule_oversampling",
+      "description": "Oversample bounding boxes by nodule diameter to rebalance training distribution toward larger nodules",
+      "concept_type": "data_assembly",
+      "status": "atomic",
+      "type_signature": "(bboxes: NDArray[np.float64], diameter_column: int, size_thresholds: NDArray[np.float64] = np.array([6.0, 30.0, 40.0]), repeat_counts: NDArray[np.int64] = np.array([1, 2, 4])) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "bboxes", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "diameter_column", "type_desc": "int", "required": true},
+        {"name": "size_thresholds", "type_desc": "NDArray[np.float64]", "required": false},
+        {"name": "repeat_counts", "type_desc": "NDArray[np.int64]", "required": false}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ]
+    },
+    {
+      "node_id": "softmax_temperature_proposal_sampling",
+      "name": "softmax_temperature_proposal_sampling",
+      "description": "Sample k indices without replacement from temperature-scaled softmax distribution over scores",
+      "concept_type": "randomized",
+      "status": "atomic",
+      "type_signature": "(scores: NDArray[np.float64], k: int, temperature: float = 1.0, random_state: int | None = None) -> NDArray[np.int64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "scores", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "k", "type_desc": "int", "required": true},
+        {"name": "temperature", "type_desc": "float", "required": false},
+        {"name": "random_state", "type_desc": "int | None", "required": false}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "NDArray[np.int64]"}
+      ]
+    }
+  ]
+}
