@@ -1,0 +1,84 @@
+{
+  "nodes": [
+    {
+      "node_id": "time_series_root",
+      "name": "Time Series Forecasting",
+      "description": "Time-series forecasting primitives derived from the ESRNN M4 winning approach: exponential smoothing, multiplicative seasonality, and forecast losses",
+      "status": "decomposed",
+      "children": [
+        "exponential_smoothing_level",
+        "multiplicative_seasonality_decompose",
+        "smyl_loss",
+        "pinball_loss"
+      ],
+      "depth": 0
+    },
+    {
+      "node_id": "exponential_smoothing_level",
+      "name": "exponential_smoothing_level",
+      "description": "Recursive exponential smoothing level update for a univariate time series",
+      "concept_type": "time_series_transform",
+      "status": "atomic",
+      "type_signature": "(series: NDArray[np.float64], alpha: float) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "series", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "alpha", "type_desc": "float", "required": true}
+      ],
+      "outputs": [
+        {"name": "level", "type_desc": "NDArray[np.float64]"}
+      ]
+    },
+    {
+      "node_id": "multiplicative_seasonality_decompose",
+      "name": "multiplicative_seasonality_decompose",
+      "description": "Pointwise multiplicative seasonal factors obtained by dividing observations by the smoothed level",
+      "concept_type": "time_series_transform",
+      "status": "atomic",
+      "type_signature": "(series: NDArray[np.float64], level: NDArray[np.float64], season_length: int) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "series", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "level", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "season_length", "type_desc": "int", "required": true}
+      ],
+      "outputs": [
+        {"name": "seasonal", "type_desc": "NDArray[np.float64]"}
+      ]
+    },
+    {
+      "node_id": "smyl_loss",
+      "name": "smyl_loss",
+      "description": "Scalar competition-style loss that averages sMAPE and MASE using a precomputed naive MAE denominator",
+      "concept_type": "loss_function",
+      "status": "atomic",
+      "type_signature": "(forecast: NDArray[np.float64], actual: NDArray[np.float64], naive_mae: float) -> float",
+      "depth": 1,
+      "inputs": [
+        {"name": "forecast", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "actual", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "naive_mae", "type_desc": "float", "required": true}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "float"}
+      ]
+    },
+    {
+      "node_id": "pinball_loss",
+      "name": "pinball_loss",
+      "description": "Quantile regression pinball loss averaged over all forecast elements",
+      "concept_type": "loss_function",
+      "status": "atomic",
+      "type_signature": "(forecast: NDArray[np.float64], actual: NDArray[np.float64], tau: float) -> float",
+      "depth": 1,
+      "inputs": [
+        {"name": "forecast", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "actual", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "tau", "type_desc": "float", "required": true}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "float"}
+      ]
+    }
+  ]
+}

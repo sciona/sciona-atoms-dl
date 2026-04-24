@@ -1,0 +1,120 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "sciona.atoms.dl.recommender.sampled_softmax_loss@sciona/atoms/dl/recommender/atoms.py:60": {
+      "references": [
+        {
+          "ref_id": "wilm2023tron",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Listwise sampled-softmax loss from TRON's optimized negative-sampling setup."
+          }
+        },
+        {
+          "ref_id": "repo_tron",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream source: src/shared/loss.py sampled_softmax_loss()."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.recommender.bpr_max_loss@sciona/atoms/dl/recommender/atoms.py:94": {
+      "references": [
+        {
+          "ref_id": "wilm2023tron",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "BPR-Max pairwise ranking objective with softmax-weighted negatives and regularization."
+          }
+        },
+        {
+          "ref_id": "repo_tron",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream source: src/shared/loss.py bpr_max_loss()."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.recommender.uniform_negative_sampling@sciona/atoms/dl/recommender/atoms.py:131": {
+      "references": [
+        {
+          "ref_id": "wilm2023tron",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Uniform negative sampling is one of the optimized negative-sampling primitives discussed in TRON."
+          }
+        },
+        {
+          "ref_id": "repo_tron",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream source: src/shared/sample.py sample_uniform_negatives_with_shape() and helpers."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.recommender.in_batch_negative_sampling@sciona/atoms/dl/recommender/atoms.py:170": {
+      "references": [
+        {
+          "ref_id": "wilm2023tron",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "In-batch negatives are part of TRON's optimized negative-sampling strategy."
+          }
+        },
+        {
+          "ref_id": "repo_tron",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream source: src/shared/sample.py sample_in_batch_negatives()."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.recommender.ranking_moments_extractor@sciona/atoms/dl/recommender/atoms.py:191": {
+      "references": [
+        {
+          "ref_id": "repo_recsys_2024",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream source: Utils/xgboost_functions.py computes mean/std/skewness/kurtosis over recommender position columns for reranking."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

@@ -65,6 +65,169 @@
         "confidence": "high",
         "notes": "Apache 2.0 source for adversarial attack implementation."
       }
+    },
+    "repo_kdd2020_autograph": {
+      "ref_id": "repo_kdd2020_autograph",
+      "type": "repository",
+      "title": "AutoGraph: KDD Cup 2020 AutoML on Graphs 1st Place Solution",
+      "authors": ["aister2020"],
+      "year": 2020,
+      "venue": "GitHub",
+      "url": "https://github.com/aister2020/KDDCUP_2020_AutoGraph_1st_Place",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "Apache 2.0 repository containing graph feature engineering, preprocessing, and runtime scheduling used for graph atoms."
+      }
+    },
+    "repo_kdd2020_graph_adversarial": {
+      "ref_id": "repo_kdd2020_graph_adversarial",
+      "type": "repository",
+      "title": "KDD Cup 2020 Graph Adversarial Attack and Defense 6th Place Solution",
+      "authors": ["u1234x1234"],
+      "year": 2020,
+      "venue": "GitHub",
+      "url": "https://github.com/u1234x1234/kdd-cup2020-adversarial-graph-attack-defence",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "MIT-licensed defense repository used as the source for graph convolution adjacency normalization concepts."
+      }
+    },
+    "repo_rossmann_entity_embed": {
+      "ref_id": "repo_rossmann_entity_embed",
+      "type": "repository",
+      "title": "Entity Embeddings of Categorical Variables",
+      "authors": ["entron"],
+      "year": 2016,
+      "venue": "GitHub",
+      "url": "https://github.com/entron/entity-embedding-rossmann",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "medium",
+        "notes": "MIT-licensed Rossmann solution repository exposing categorical entity embeddings in Keras."
+      }
+    },
+    "repo_birdclef_2021": {
+      "ref_id": "repo_birdclef_2021",
+      "type": "repository",
+      "title": "BirdCLEF 2021 1st Place Solution",
+      "authors": ["namakemono"],
+      "year": 2021,
+      "venue": "GitHub",
+      "url": "https://github.com/namakemono/kaggle-birdclef-2021",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "MIT-licensed repository containing baseline threshold search used for classification utility extraction."
+      }
+    },
+    "repo_recsys_2024": {
+      "ref_id": "repo_recsys_2024",
+      "type": "repository",
+      "title": "RecSys Challenge 2024 @ POLIMI 1st Place Solution",
+      "authors": ["Mauro Orazio Drago", "Sajjad Shaffaf"],
+      "year": 2024,
+      "venue": "GitHub",
+      "url": "https://github.com/madratak/RecSys_Challenge2024",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "AGPL-3.0 repository containing the ranking-statistics feature builder used in the winning reranking pipeline."
+      }
+    },
+    "smyl2020esrnn": {
+      "ref_id": "smyl2020esrnn",
+      "type": "paper",
+      "title": "A hybrid method of exponential smoothing and recurrent neural networks for time series forecasting",
+      "authors": ["Slawek Smyl"],
+      "year": 2020,
+      "venue": "International Journal of Forecasting",
+      "doi": "10.1016/j.ijforecast.2019.03.017",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "Primary ES-RNN paper describing the winning hybrid exponential smoothing and RNN approach used for M4 forecasting."
+      },
+      "url": "https://www.sciencedirect.com/science/article/pii/S0169207019301153"
+    },
+    "makridakis2018m4": {
+      "ref_id": "makridakis2018m4",
+      "type": "paper",
+      "title": "The M4 Competition: Results, findings, conclusion and way forward",
+      "authors": ["Spyros Makridakis", "Evangelos Spiliotis", "Vassilios Assimakopoulos"],
+      "year": 2018,
+      "venue": "International Journal of Forecasting",
+      "doi": "10.1016/j.ijforecast.2018.06.001",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "M4 competition results paper defining the benchmark evaluation framing around sMAPE and MASE."
+      },
+      "url": "https://www.sciencedirect.com/science/article/pii/S0169207018300785"
+    },
+    "repo_esrnn_torch": {
+      "ref_id": "repo_esrnn_torch",
+      "type": "repository",
+      "title": "Pytorch Implementation of the ES-RNN",
+      "authors": ["Kin Gutierrez", "Cristian Challu", "Federico Garza", "Max Mergenthaler"],
+      "year": 2020,
+      "venue": "GitHub",
+      "url": "https://github.com/kdgutier/esrnn_torch",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "MIT-licensed ESRNN reference implementation used for the time-series atoms."
+      }
+    },
+    "wilm2023tron": {
+      "ref_id": "wilm2023tron",
+      "type": "paper",
+      "title": "Scaling Session-Based Transformer Recommendations using Optimized Negative Sampling and Loss Functions",
+      "authors": ["Timo Wilm", "Philipp Normann", "Sophie Baumeister", "Paul-Vincent Kobow"],
+      "year": 2023,
+      "venue": "Proceedings of the 17th ACM Conference on Recommender Systems",
+      "doi": "10.1145/3604915.3610236",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "RecSys 2023 TRON paper describing optimized negative sampling and listwise losses for session-based recommendation."
+      },
+      "url": "https://arxiv.org/abs/2307.14906"
+    },
+    "repo_tron": {
+      "ref_id": "repo_tron",
+      "type": "repository",
+      "title": "TRON: Scalable Session-Based Transformer Recommender using Optimized Negative Sampling",
+      "authors": ["Timo Wilm", "Philipp Normann", "Sophie Baumeister", "Paul-Vincent Kobow"],
+      "year": 2023,
+      "venue": "GitHub",
+      "url": "https://github.com/otto-de/TRON",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "MIT-licensed official TRON repository used for recommender loss and sampling atoms."
+      }
     }
   }
 }

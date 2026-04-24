@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0",
+  "bundle_id": "sciona.atoms.dl.review_bundle.time_series.v1",
+  "provider_repo": "sciona-atoms-dl",
+  "family_batch": "dl_time_series",
+  "review_status": "pending",
+  "review_semantic_verdict": null,
+  "review_developer_semantic_verdict": null,
+  "trust_readiness": "unreviewed",
+  "authoritative_sources": [
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/time_series/atoms.py"
+    },
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/time_series/witnesses.py"
+    },
+    {
+      "kind": "local_references",
+      "path": "src/sciona/atoms/dl/time_series/references.json"
+    },
+    {
+      "kind": "local_cdg",
+      "path": "src/sciona/atoms/dl/time_series/cdg.json"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_time_series_behavior.py"
+    }
+  ],
+  "limitations": [
+    "The requested smyl_loss API is evaluation-oriented and differs from the upstream ESRNN training loss class named SmylLoss.",
+    "Multiplicative seasonality decomposition returns direct per-timestep ratios and does not learn or smooth phase-specific seasonal states."
+  ],
+  "blocking_findings": [],
+  "required_actions": [],
+  "review_record_path": "data/review_bundles/dl_time_series.review_bundle.json",
+  "rows": [
+    {
+      "atom_key": "sciona.atoms.dl.time_series.exponential_smoothing_level",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/time_series/atoms.py",
+        "src/sciona/atoms/dl/time_series/witnesses.py",
+        "src/sciona/atoms/dl/time_series/references.json",
+        "src/sciona/atoms/dl/time_series/cdg.json",
+        "tests/test_dl_time_series_behavior.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_time_series.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.time_series.multiplicative_seasonality_decompose",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/time_series/atoms.py",
+        "src/sciona/atoms/dl/time_series/witnesses.py",
+        "src/sciona/atoms/dl/time_series/references.json",
+        "src/sciona/atoms/dl/time_series/cdg.json",
+        "tests/test_dl_time_series_behavior.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_time_series.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.time_series.smyl_loss",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/time_series/atoms.py",
+        "src/sciona/atoms/dl/time_series/witnesses.py",
+        "src/sciona/atoms/dl/time_series/references.json",
+        "src/sciona/atoms/dl/time_series/cdg.json",
+        "tests/test_dl_time_series_behavior.py"
+      ],
+      "limitations": [
+        "This atom intentionally follows the requested evaluation-style API rather than the upstream training-loss class of the same name."
+      ],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_time_series.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.time_series.pinball_loss",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/time_series/atoms.py",
+        "src/sciona/atoms/dl/time_series/witnesses.py",
+        "src/sciona/atoms/dl/time_series/references.json",
+        "src/sciona/atoms/dl/time_series/cdg.json",
+        "tests/test_dl_time_series_behavior.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_time_series.review_bundle.json"
+    }
+  ]
+}

@@ -1,0 +1,105 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "sciona.atoms.dl.time_series.exponential_smoothing_level@sciona/atoms/dl/time_series/atoms.py:40": {
+      "references": [
+        {
+          "ref_id": "smyl2020esrnn",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Exponential-smoothing level recursion from the ES-RNN forecasting method."
+          }
+        },
+        {
+          "ref_id": "repo_esrnn_torch",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream source: ESRNN/utils/ESRNN.py compute_levels_seasons(), recursive level update."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.time_series.multiplicative_seasonality_decompose@sciona/atoms/dl/time_series/atoms.py:82": {
+      "references": [
+        {
+          "ref_id": "smyl2020esrnn",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Multiplicative deseasonalization by dividing the series by learned levels and seasonal states."
+          }
+        },
+        {
+          "ref_id": "repo_esrnn_torch",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream source: ESRNN/utils/ESRNN.py normalize(), adapted into an explicit seasonality-factor extraction primitive."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.time_series.smyl_loss@sciona/atoms/dl/time_series/atoms.py:116": {
+      "references": [
+        {
+          "ref_id": "makridakis2018m4",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "M4 competition evaluation combines scale-free forecast metrics including sMAPE and MASE."
+          }
+        },
+        {
+          "ref_id": "repo_esrnn_torch",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream source: ESRNN/utils_evaluation.py smape() and mase(); atom follows the repo-requested evaluation-style API rather than the training-loss class named SmylLoss."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.time_series.pinball_loss@sciona/atoms/dl/time_series/atoms.py:162": {
+      "references": [
+        {
+          "ref_id": "smyl2020esrnn",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Quantile pinball loss used for ESRNN training."
+          }
+        },
+        {
+          "ref_id": "repo_esrnn_torch",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream source: ESRNN/utils/losses.py PinballLoss forward()."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "schema_version": "1.0",
+  "bundle_id": "sciona.atoms.dl.review_bundle.recommender.v1",
+  "provider_repo": "sciona-atoms-dl",
+  "family_batch": "dl_recommender",
+  "review_status": "pending",
+  "review_semantic_verdict": null,
+  "review_developer_semantic_verdict": null,
+  "trust_readiness": "unreviewed",
+  "authoritative_sources": [
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/recommender/atoms.py"
+    },
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/recommender/witnesses.py"
+    },
+    {
+      "kind": "local_references",
+      "path": "src/sciona/atoms/dl/recommender/references.json"
+    },
+    {
+      "kind": "local_cdg",
+      "path": "src/sciona/atoms/dl/recommender/cdg.json"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_recommender_behavior.py"
+    }
+  ],
+  "limitations": [
+    "sampled_softmax_loss and bpr_max_loss omit the upstream mask argument and assume all rows are valid.",
+    "in_batch_negative_sampling samples from other batch entries only; the simplified API does not carry TRON session-boundary exclusion options."
+  ],
+  "blocking_findings": [],
+  "required_actions": [],
+  "review_record_path": "data/review_bundles/dl_recommender.review_bundle.json",
+  "rows": [
+    {
+      "atom_key": "sciona.atoms.dl.recommender.sampled_softmax_loss",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/recommender/atoms.py",
+        "src/sciona/atoms/dl/recommender/witnesses.py",
+        "src/sciona/atoms/dl/recommender/references.json",
+        "src/sciona/atoms/dl/recommender/cdg.json",
+        "tests/test_dl_recommender_behavior.py"
+      ],
+      "limitations": [
+        "This atom drops the upstream mask argument and averages over all rows."
+      ],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_recommender.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.recommender.bpr_max_loss",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/recommender/atoms.py",
+        "src/sciona/atoms/dl/recommender/witnesses.py",
+        "src/sciona/atoms/dl/recommender/references.json",
+        "src/sciona/atoms/dl/recommender/cdg.json",
+        "tests/test_dl_recommender_behavior.py"
+      ],
+      "limitations": [
+        "This atom drops the upstream mask argument and averages over all rows."
+      ],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_recommender.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.recommender.uniform_negative_sampling",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/recommender/atoms.py",
+        "src/sciona/atoms/dl/recommender/witnesses.py",
+        "src/sciona/atoms/dl/recommender/references.json",
+        "src/sciona/atoms/dl/recommender/cdg.json",
+        "tests/test_dl_recommender_behavior.py"
+      ],
+      "limitations": [
+        "The simplified API always rejects the provided excluded items and does not expose TRON's sampling-style shape logic."
+      ],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_recommender.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.recommender.in_batch_negative_sampling",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/recommender/atoms.py",
+        "src/sciona/atoms/dl/recommender/witnesses.py",
+        "src/sciona/atoms/dl/recommender/references.json",
+        "src/sciona/atoms/dl/recommender/cdg.json",
+        "tests/test_dl_recommender_behavior.py"
+      ],
+      "limitations": [
+        "The simplified API samples from the batch as a flat pool and does not preserve TRON's per-session boundary metadata."
+      ],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_recommender.review_bundle.json"
+    }
+  ]
+}
