@@ -26,7 +26,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.training.size_aware_nodule_oversampling@sciona/atoms/dl/training/atoms.py:88": {
+    "sciona.atoms.dl.training.size_aware_nodule_oversampling@sciona/atoms/dl/training/atoms.py:99": {
       "references": [
         {
           "ref_id": "liao2017dsb",
@@ -51,7 +51,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.training.softmax_temperature_proposal_sampling@sciona/atoms/dl/training/atoms.py:127": {
+    "sciona.atoms.dl.training.softmax_temperature_proposal_sampling@sciona/atoms/dl/training/atoms.py:156": {
       "references": [
         {
           "ref_id": "liao2017dsb",
@@ -71,6 +71,21 @@
             "matched_nodes": [],
             "confidence": "medium",
             "notes": "Conceptual extraction from DSB 2017 solution training strategies; no direct line correspondence."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.training.ternary_search_threshold@sciona/atoms/dl/training/atoms.py:198": {
+      "references": [
+        {
+          "ref_id": "repo_birdclef_2021",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream source: lib/bird_recognition/baseline.py calc_baseline performs ternary search over score thresholds to maximize F1."
           }
         }
       ],

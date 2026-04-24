@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "sciona.atoms.dl.graph.node_degree_bucketing@sciona/atoms/dl/graph/atoms.py:40": {
+      "references": [
+        {
+          "ref_id": "repo_kdd2020_autograph",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Degree-based categorical graph features extracted from AutoGraph feature engineering; this atom uses a logarithmic bucketing variant to expose the same anti-hub abstraction."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.graph.feature_clip_standardize@sciona/atoms/dl/graph/atoms.py:64": {
+      "references": [
+        {
+          "ref_id": "repo_kdd2020_autograph",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream source: code_submission/process_data.py standardizes model inputs with column mean/std and clips to [-3, 3]."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.graph.time_budget_estimator@sciona/atoms/dl/graph/atoms.py:96": {
+      "references": [
+        {
+          "ref_id": "repo_kdd2020_autograph",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Derived from AutoGraph runtime scheduling in code_submission/model.py, which picks the largest feasible training budget under the remaining time budget."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.graph.adjacency_smoothing@sciona/atoms/dl/graph/atoms.py:124": {
+      "references": [
+        {
+          "ref_id": "repo_kdd2020_graph_adversarial",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Faithful decomposition of the symmetric degree normalization implicitly applied by the defense repository's graph convolution stack."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

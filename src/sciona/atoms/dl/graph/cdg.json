@@ -1,0 +1,81 @@
+{
+  "nodes": [
+    {
+      "node_id": "graph_root",
+      "name": "Graph Utilities",
+      "description": "Graph preprocessing and scheduling utilities from KDD 2020 graph-learning solutions",
+      "status": "decomposed",
+      "children": [
+        "node_degree_bucketing",
+        "feature_clip_standardize",
+        "time_budget_estimator",
+        "adjacency_smoothing"
+      ],
+      "depth": 0
+    },
+    {
+      "node_id": "node_degree_bucketing",
+      "name": "node_degree_bucketing",
+      "description": "Map node degrees to log-spaced integer buckets to reduce sensitivity to hubs",
+      "concept_type": "data_assembly",
+      "status": "atomic",
+      "type_signature": "(degrees: NDArray[np.int64], num_buckets: int = 10) -> NDArray[np.int64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "degrees", "type_desc": "NDArray[np.int64]", "required": true},
+        {"name": "num_buckets", "type_desc": "int", "required": false}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "NDArray[np.int64]"}
+      ]
+    },
+    {
+      "node_id": "feature_clip_standardize",
+      "name": "feature_clip_standardize",
+      "description": "Standardize features column-wise and clip extreme values to a bounded range",
+      "concept_type": "signal_filter",
+      "status": "atomic",
+      "type_signature": "(features: NDArray[np.float64], clip_range: float = 3.0) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "features", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "clip_range", "type_desc": "float", "required": false}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ]
+    },
+    {
+      "node_id": "time_budget_estimator",
+      "name": "time_budget_estimator",
+      "description": "Estimate remaining wall-clock budget and choose the largest feasible model complexity",
+      "concept_type": "optimization",
+      "status": "atomic",
+      "type_signature": "(elapsed_seconds: float, total_budget: float, model_complexities: NDArray[np.float64]) -> int",
+      "depth": 1,
+      "inputs": [
+        {"name": "elapsed_seconds", "type_desc": "float", "required": true},
+        {"name": "total_budget", "type_desc": "float", "required": true},
+        {"name": "model_complexities", "type_desc": "NDArray[np.float64]", "required": true}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "int"}
+      ]
+    },
+    {
+      "node_id": "adjacency_smoothing",
+      "name": "adjacency_smoothing",
+      "description": "Apply symmetric degree normalization to an adjacency matrix",
+      "concept_type": "signal_filter",
+      "status": "atomic",
+      "type_signature": "(adjacency: NDArray[np.float64]) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "adjacency", "type_desc": "NDArray[np.float64]", "required": true}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ]
+    }
+  ]
+}

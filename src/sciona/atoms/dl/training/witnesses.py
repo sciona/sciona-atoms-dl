@@ -6,6 +6,8 @@ the semantic shape of the computation without executing it.
 
 from __future__ import annotations
 
+from collections.abc import Callable
+
 from sciona.ghost.abstract import AbstractArray
 
 
@@ -50,3 +52,13 @@ def witness_softmax_temperature_proposal_sampling(
     from the temperature-scaled softmax distribution.
     """
     return scores
+
+
+def witness_ternary_search_threshold(
+    scores: AbstractArray,
+    labels: AbstractArray,
+    metric_fn: Callable[[AbstractArray, AbstractArray], float],
+    n_iterations: int = 50,
+) -> float:
+    """Ghost witness for ternary threshold search."""
+    return 0.0

@@ -8,7 +8,8 @@
       "children": [
         "online_hard_negative_mining",
         "size_aware_nodule_oversampling",
-        "softmax_temperature_proposal_sampling"
+        "softmax_temperature_proposal_sampling",
+        "ternary_search_threshold"
       ],
       "depth": 0
     },
@@ -34,13 +35,13 @@
       "description": "Oversample bounding boxes by nodule diameter to rebalance training distribution toward larger nodules",
       "concept_type": "data_assembly",
       "status": "atomic",
-      "type_signature": "(bboxes: NDArray[np.float64], diameter_column: int, size_thresholds: NDArray[np.float64] = np.array([6.0, 30.0, 40.0]), repeat_counts: NDArray[np.int64] = np.array([1, 2, 4])) -> NDArray[np.float64]",
+      "type_signature": "(bboxes: NDArray[np.float64], diameter_column: int, size_thresholds: NDArray[np.float64] | None = None, repeat_counts: NDArray[np.int64] | None = None) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
         {"name": "bboxes", "type_desc": "NDArray[np.float64]", "required": true},
         {"name": "diameter_column", "type_desc": "int", "required": true},
-        {"name": "size_thresholds", "type_desc": "NDArray[np.float64]", "required": false},
-        {"name": "repeat_counts", "type_desc": "NDArray[np.int64]", "required": false}
+        {"name": "size_thresholds", "type_desc": "NDArray[np.float64] | None", "required": false},
+        {"name": "repeat_counts", "type_desc": "NDArray[np.int64] | None", "required": false}
       ],
       "outputs": [
         {"name": "result", "type_desc": "NDArray[np.float64]"}
@@ -62,6 +63,24 @@
       ],
       "outputs": [
         {"name": "result", "type_desc": "NDArray[np.int64]"}
+      ]
+    },
+    {
+      "node_id": "ternary_search_threshold",
+      "name": "ternary_search_threshold",
+      "description": "Search for a high-performing classification threshold by repeatedly shrinking a bounded interval",
+      "concept_type": "optimization",
+      "status": "atomic",
+      "type_signature": "(scores: NDArray[np.float64], labels: NDArray[np.int64], metric_fn: Callable[[NDArray[np.int64], NDArray[np.int64]], float], n_iterations: int = 50) -> float",
+      "depth": 1,
+      "inputs": [
+        {"name": "scores", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "labels", "type_desc": "NDArray[np.int64]", "required": true},
+        {"name": "metric_fn", "type_desc": "Callable[[NDArray[np.int64], NDArray[np.int64]], float]", "required": true},
+        {"name": "n_iterations", "type_desc": "int", "required": false}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "float"}
       ]
     }
   ]

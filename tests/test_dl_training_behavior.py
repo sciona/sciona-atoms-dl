@@ -14,11 +14,13 @@ def test_training_atoms_import() -> None:
         online_hard_negative_mining,
         size_aware_nodule_oversampling,
         softmax_temperature_proposal_sampling,
+        ternary_search_threshold,
     )
 
     assert callable(online_hard_negative_mining)
     assert callable(size_aware_nodule_oversampling)
     assert callable(softmax_temperature_proposal_sampling)
+    assert callable(ternary_search_threshold)
 
 
 # ---------------------------------------------------------------------------
@@ -175,3 +177,39 @@ def test_softmax_sampling_result_dtype() -> None:
     scores = np.array([1.0, 2.0, 3.0])
     result = softmax_temperature_proposal_sampling(scores, k=2, random_state=0)
     assert result.dtype == np.int64
+
+
+# ---------------------------------------------------------------------------
+# ternary_search_threshold
+# ---------------------------------------------------------------------------
+
+
+def test_ternary_search_threshold_finds_reasonable_cutoff() -> None:
+    from sciona.atoms.dl.training.atoms import ternary_search_threshold
+
+    scores = np.array([0.1, 0.2, 0.8, 0.9], dtype=np.float64)
+    labels = np.array([0, 0, 1, 1], dtype=np.int64)
+
+    def accuracy_metric(y_true: np.ndarray, y_pred: np.ndarray) -> float:
+        return float(np.mean(y_true == y_pred))
+
+    threshold = ternary_search_threshold(
+        scores,
+        labels,
+        accuracy_metric,
+        n_iterations=40,
+    )
+    assert 0.2 < threshold < 0.8
+
+
+def test_ternary_search_threshold_handles_constant_scores() -> None:
+    from sciona.atoms.dl.training.atoms import ternary_search_threshold
+
+    scores = np.array([0.5, 0.5, 0.5], dtype=np.float64)
+    labels = np.array([1, 0, 1], dtype=np.int64)
+
+    def dummy_metric(y_true: np.ndarray, y_pred: np.ndarray) -> float:
+        return float(np.mean(y_true == y_pred))
+
+    threshold = ternary_search_threshold(scores, labels, dummy_metric)
+    assert threshold == 0.5

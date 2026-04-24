@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "sciona.atoms.dl.tabular.entity_embedding_lookup@sciona/atoms/dl/tabular/atoms.py:34": {
+      "references": [
+        {
+          "ref_id": "repo_rossmann_entity_embed",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Upstream source: models.py embed_features expands categorical fields into learned embedding vectors and concatenates them."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

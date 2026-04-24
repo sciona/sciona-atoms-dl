@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "atoms": {
-    "sciona.atoms.dl.recommender.sampled_softmax_loss@sciona/atoms/dl/recommender/atoms.py:60": {
+    "sciona.atoms.dl.recommender.sampled_softmax_loss@sciona/atoms/dl/recommender/atoms.py:66": {
       "references": [
         {
           "ref_id": "wilm2023tron",
@@ -26,7 +26,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.recommender.bpr_max_loss@sciona/atoms/dl/recommender/atoms.py:94": {
+    "sciona.atoms.dl.recommender.bpr_max_loss@sciona/atoms/dl/recommender/atoms.py:99": {
       "references": [
         {
           "ref_id": "wilm2023tron",
@@ -51,7 +51,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.recommender.uniform_negative_sampling@sciona/atoms/dl/recommender/atoms.py:131": {
+    "sciona.atoms.dl.recommender.uniform_negative_sampling@sciona/atoms/dl/recommender/atoms.py:136": {
       "references": [
         {
           "ref_id": "wilm2023tron",
@@ -76,7 +76,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.recommender.in_batch_negative_sampling@sciona/atoms/dl/recommender/atoms.py:170": {
+    "sciona.atoms.dl.recommender.in_batch_negative_sampling@sciona/atoms/dl/recommender/atoms.py:175": {
       "references": [
         {
           "ref_id": "wilm2023tron",
@@ -101,7 +101,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.recommender.ranking_moments_extractor@sciona/atoms/dl/recommender/atoms.py:191": {
+    "sciona.atoms.dl.recommender.ranking_moments_extractor@sciona/atoms/dl/recommender/atoms.py:205": {
       "references": [
         {
           "ref_id": "repo_recsys_2024",

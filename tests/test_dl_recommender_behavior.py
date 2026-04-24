@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import numpy as np
+from scipy.stats import kurtosis, skew
 import pytest
 
 
@@ -8,6 +9,7 @@ def test_recommender_import() -> None:
     from sciona.atoms.dl.recommender.atoms import (
         bpr_max_loss,
         in_batch_negative_sampling,
+        ranking_moments_extractor,
         sampled_softmax_loss,
         uniform_negative_sampling,
     )
@@ -16,6 +18,7 @@ def test_recommender_import() -> None:
     assert callable(bpr_max_loss)
     assert callable(uniform_negative_sampling)
     assert callable(in_batch_negative_sampling)
+    assert callable(ranking_moments_extractor)
 
 
 def test_sampled_softmax_loss_matches_cross_entropy() -> None:
@@ -110,3 +113,20 @@ def test_in_batch_negative_sampling_zero_negatives() -> None:
     batch_items = np.array([10, 20, 30], dtype=np.int64)
     result = in_batch_negative_sampling(batch_items, num_negatives=0)
     assert result.shape == (3, 0)
+
+
+def test_ranking_moments_extractor_matches_scipy_moments() -> None:
+    from sciona.atoms.dl.recommender.atoms import ranking_moments_extractor
+
+    rank_matrix = np.array([[1.0, 2.0, 4.0], [3.0, 5.0, 7.0]], dtype=np.float64)
+    result = ranking_moments_extractor(rank_matrix)
+
+    expected = np.column_stack(
+        [
+            rank_matrix.mean(axis=1),
+            rank_matrix.std(axis=1, ddof=1),
+            skew(rank_matrix, axis=1),
+            kurtosis(rank_matrix, axis=1),
+        ]
+    )
+    assert np.allclose(result, expected)
