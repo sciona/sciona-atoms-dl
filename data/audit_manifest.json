@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-28T19:27:16.733955+00:00",
+    "generated_at": "2026-04-28T19:50:32.683571+00:00",
     "generator": "scripts/apply_audit_review_bundles.py",
     "phase": "phase_1_review_bundle_merge"
   },
@@ -2595,6 +2595,698 @@
       "review_record_path": "data/review_bundles/dl_image_augmentation.review_bundle.json"
     },
     {
+      "atom_name": "sciona.atoms.dl.loss.contrastive_loss",
+      "atom_key": "sciona.atoms.dl.loss.contrastive_loss",
+      "atom_id": "sciona.atoms.dl.loss.contrastive_loss",
+      "module_import_path": "sciona.atoms.dl.loss.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/loss/atoms.py",
+      "module_family": "loss",
+      "domain_family": "dl.loss",
+      "wrapper_symbol": "contrastive_loss",
+      "argument_names": [
+        "embedding_a",
+        "embedding_b",
+        "labels",
+        "margin"
+      ],
+      "argument_details": [
+        {
+          "name": "embedding_a",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "embedding_b",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "labels",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "margin",
+          "annotation": "float",
+          "required": true,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "float",
+      "docstring_summary": "Compute pairwise contrastive loss for same and different embedding pairs.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/witnesses.py"
+        },
+        {
+          "kind": "local_references",
+          "path": "src/sciona/atoms/dl/loss/references.json"
+        },
+        {
+          "kind": "local_cdg",
+          "path": "src/sciona/atoms/dl/loss/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "missing",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "unknown",
+      "review_developer_semantics_verdict": "unknown",
+      "trust_readiness": "unreviewed",
+      "review_required_actions": [],
+      "review_limitations": [],
+      "trust_blockers": [],
+      "structural_status": "unknown",
+      "semantic_status": "unknown",
+      "runtime_status": "unknown",
+      "developer_semantics_status": "unknown",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 0,
+      "risk_dimensions": {},
+      "risk_reasons": [],
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
+      "parity_coverage_level": "unknown",
+      "parity_test_status": "unknown",
+      "parity_fixture_count": 0,
+      "parity_case_count": 0,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.loss.crps_score",
+      "atom_key": "sciona.atoms.dl.loss.crps_score",
+      "atom_id": "sciona.atoms.dl.loss.crps_score",
+      "module_import_path": "sciona.atoms.dl.loss.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/loss/atoms.py",
+      "module_family": "loss",
+      "domain_family": "dl.loss",
+      "wrapper_symbol": "crps_score",
+      "argument_names": [
+        "cdf_predictions",
+        "true_values"
+      ],
+      "argument_details": [
+        {
+          "name": "cdf_predictions",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "true_values",
+          "annotation": "NDArray[np.int64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "float",
+      "docstring_summary": "Compute discrete CRPS against a step CDF at each observed bin index.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/witnesses.py"
+        },
+        {
+          "kind": "local_references",
+          "path": "src/sciona/atoms/dl/loss/references.json"
+        },
+        {
+          "kind": "local_cdg",
+          "path": "src/sciona/atoms/dl/loss/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "missing",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "unknown",
+      "review_developer_semantics_verdict": "unknown",
+      "trust_readiness": "unreviewed",
+      "review_required_actions": [],
+      "review_limitations": [
+        "Observed values are bin indices rather than physical yard values."
+      ],
+      "trust_blockers": [],
+      "structural_status": "unknown",
+      "semantic_status": "unknown",
+      "runtime_status": "unknown",
+      "developer_semantics_status": "unknown",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 0,
+      "risk_dimensions": {},
+      "risk_reasons": [],
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
+      "parity_coverage_level": "unknown",
+      "parity_test_status": "unknown",
+      "parity_fixture_count": 0,
+      "parity_case_count": 0,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.loss.ctc_loss",
+      "atom_key": "sciona.atoms.dl.loss.ctc_loss",
+      "atom_id": "sciona.atoms.dl.loss.ctc_loss",
+      "module_import_path": "sciona.atoms.dl.loss.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/loss/atoms.py",
+      "module_family": "loss",
+      "domain_family": "dl.loss",
+      "wrapper_symbol": "ctc_loss",
+      "argument_names": [
+        "log_probs",
+        "targets",
+        "input_lengths",
+        "target_lengths"
+      ],
+      "argument_details": [
+        {
+          "name": "log_probs",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "targets",
+          "annotation": "NDArray[np.int64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "input_lengths",
+          "annotation": "NDArray[np.int64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "target_lengths",
+          "annotation": "NDArray[np.int64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "float",
+      "docstring_summary": "Compute log-space CTC negative log-likelihood with blank label zero.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/witnesses.py"
+        },
+        {
+          "kind": "local_references",
+          "path": "src/sciona/atoms/dl/loss/references.json"
+        },
+        {
+          "kind": "local_cdg",
+          "path": "src/sciona/atoms/dl/loss/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "missing",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "unknown",
+      "review_developer_semantics_verdict": "unknown",
+      "trust_readiness": "unreviewed",
+      "review_required_actions": [],
+      "review_limitations": [
+        "Blank label is fixed to 0."
+      ],
+      "trust_blockers": [],
+      "structural_status": "unknown",
+      "semantic_status": "unknown",
+      "runtime_status": "unknown",
+      "developer_semantics_status": "unknown",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 0,
+      "risk_dimensions": {},
+      "risk_reasons": [],
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
+      "parity_coverage_level": "unknown",
+      "parity_test_status": "unknown",
+      "parity_fixture_count": 0,
+      "parity_case_count": 0,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.loss.dice_loss",
+      "atom_key": "sciona.atoms.dl.loss.dice_loss",
+      "atom_id": "sciona.atoms.dl.loss.dice_loss",
+      "module_import_path": "sciona.atoms.dl.loss.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/loss/atoms.py",
+      "module_family": "loss",
+      "domain_family": "dl.loss",
+      "wrapper_symbol": "dice_loss",
+      "argument_names": [
+        "predictions",
+        "targets",
+        "smooth"
+      ],
+      "argument_details": [
+        {
+          "name": "predictions",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "targets",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "smooth",
+          "annotation": "float",
+          "required": false,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "float",
+      "docstring_summary": "Compute soft Dice loss from probability and target masks.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/witnesses.py"
+        },
+        {
+          "kind": "local_references",
+          "path": "src/sciona/atoms/dl/loss/references.json"
+        },
+        {
+          "kind": "local_cdg",
+          "path": "src/sciona/atoms/dl/loss/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "missing",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "unknown",
+      "review_developer_semantics_verdict": "unknown",
+      "trust_readiness": "unreviewed",
+      "review_required_actions": [],
+      "review_limitations": [],
+      "trust_blockers": [],
+      "structural_status": "unknown",
+      "semantic_status": "unknown",
+      "runtime_status": "unknown",
+      "developer_semantics_status": "unknown",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 0,
+      "risk_dimensions": {},
+      "risk_reasons": [],
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
+      "parity_coverage_level": "unknown",
+      "parity_test_status": "unknown",
+      "parity_fixture_count": 0,
+      "parity_case_count": 0,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.loss.focal_loss",
+      "atom_key": "sciona.atoms.dl.loss.focal_loss",
+      "atom_id": "sciona.atoms.dl.loss.focal_loss",
+      "module_import_path": "sciona.atoms.dl.loss.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/loss/atoms.py",
+      "module_family": "loss",
+      "domain_family": "dl.loss",
+      "wrapper_symbol": "focal_loss",
+      "argument_names": [
+        "predictions",
+        "targets",
+        "alpha",
+        "gamma"
+      ],
+      "argument_details": [
+        {
+          "name": "predictions",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "targets",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "alpha",
+          "annotation": "float",
+          "required": false,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "gamma",
+          "annotation": "float",
+          "required": false,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "float",
+      "docstring_summary": "Compute binary focal loss for imbalanced classification probabilities.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/witnesses.py"
+        },
+        {
+          "kind": "local_references",
+          "path": "src/sciona/atoms/dl/loss/references.json"
+        },
+        {
+          "kind": "local_cdg",
+          "path": "src/sciona/atoms/dl/loss/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "missing",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "unknown",
+      "review_developer_semantics_verdict": "unknown",
+      "trust_readiness": "unreviewed",
+      "review_required_actions": [],
+      "review_limitations": [],
+      "trust_blockers": [],
+      "structural_status": "unknown",
+      "semantic_status": "unknown",
+      "runtime_status": "unknown",
+      "developer_semantics_status": "unknown",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 0,
+      "risk_dimensions": {},
+      "risk_reasons": [],
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
+      "parity_coverage_level": "unknown",
+      "parity_test_status": "unknown",
+      "parity_fixture_count": 0,
+      "parity_case_count": 0,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.loss.label_smoothing_ce",
+      "atom_key": "sciona.atoms.dl.loss.label_smoothing_ce",
+      "atom_id": "sciona.atoms.dl.loss.label_smoothing_ce",
+      "module_import_path": "sciona.atoms.dl.loss.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/loss/atoms.py",
+      "module_family": "loss",
+      "domain_family": "dl.loss",
+      "wrapper_symbol": "label_smoothing_ce",
+      "argument_names": [
+        "logits",
+        "targets",
+        "epsilon"
+      ],
+      "argument_details": [
+        {
+          "name": "logits",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "targets",
+          "annotation": "NDArray[np.int64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "epsilon",
+          "annotation": "float",
+          "required": true,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "float",
+      "docstring_summary": "Compute cross-entropy after mixing one-hot labels with uniform mass.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/witnesses.py"
+        },
+        {
+          "kind": "local_references",
+          "path": "src/sciona/atoms/dl/loss/references.json"
+        },
+        {
+          "kind": "local_cdg",
+          "path": "src/sciona/atoms/dl/loss/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "missing",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "unknown",
+      "review_developer_semantics_verdict": "unknown",
+      "trust_readiness": "unreviewed",
+      "review_required_actions": [],
+      "review_limitations": [],
+      "trust_blockers": [],
+      "structural_status": "unknown",
+      "semantic_status": "unknown",
+      "runtime_status": "unknown",
+      "developer_semantics_status": "unknown",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 0,
+      "risk_dimensions": {},
+      "risk_reasons": [],
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
+      "parity_coverage_level": "unknown",
+      "parity_test_status": "unknown",
+      "parity_fixture_count": 0,
+      "parity_case_count": 0,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.loss.lovasz_softmax_loss",
+      "atom_key": "sciona.atoms.dl.loss.lovasz_softmax_loss",
+      "atom_id": "sciona.atoms.dl.loss.lovasz_softmax_loss",
+      "module_import_path": "sciona.atoms.dl.loss.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/loss/atoms.py",
+      "module_family": "loss",
+      "domain_family": "dl.loss",
+      "wrapper_symbol": "lovasz_softmax_loss",
+      "argument_names": [
+        "probabilities",
+        "targets"
+      ],
+      "argument_details": [
+        {
+          "name": "probabilities",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "targets",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "float",
+      "docstring_summary": "Compute the Lovasz extension surrogate for Jaccard overlap loss.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/witnesses.py"
+        },
+        {
+          "kind": "local_references",
+          "path": "src/sciona/atoms/dl/loss/references.json"
+        },
+        {
+          "kind": "local_cdg",
+          "path": "src/sciona/atoms/dl/loss/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "missing",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "unknown",
+      "review_developer_semantics_verdict": "unknown",
+      "trust_readiness": "unreviewed",
+      "review_required_actions": [],
+      "review_limitations": [
+        "Targets are expected as binary or one-hot masks with the same shape as probabilities."
+      ],
+      "trust_blockers": [],
+      "structural_status": "unknown",
+      "semantic_status": "unknown",
+      "runtime_status": "unknown",
+      "developer_semantics_status": "unknown",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 0,
+      "risk_dimensions": {},
+      "risk_reasons": [],
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
+      "parity_coverage_level": "unknown",
+      "parity_test_status": "unknown",
+      "parity_fixture_count": 0,
+      "parity_case_count": 0,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
       "atom_name": "sciona.atoms.dl.loss.miss_penalty_loss",
       "atom_key": "sciona.atoms.dl.loss.miss_penalty_loss",
       "atom_id": "sciona.atoms.dl.loss.miss_penalty_loss",
@@ -2631,7 +3323,7 @@
       "uses_varargs": false,
       "uses_kwargs": false,
       "return_annotation": "float",
-      "docstring_summary": "Compute penalty loss for missed positive predictions.",
+      "docstring_summary": "Penalize positive examples predicted below a probability threshold.",
       "has_docstring": true,
       "authoritative_sources": [
         {
@@ -2653,6 +3345,14 @@
         {
           "kind": "local_test",
           "path": "tests/test_dl_loss_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_review_bundle.py"
         }
       ],
       "source_kind": "hand_written",
@@ -2663,6 +3363,497 @@
       "trust_readiness": "unreviewed",
       "review_required_actions": [],
       "review_limitations": [],
+      "trust_blockers": [],
+      "structural_status": "unknown",
+      "semantic_status": "unknown",
+      "runtime_status": "unknown",
+      "developer_semantics_status": "unknown",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 0,
+      "risk_dimensions": {},
+      "risk_reasons": [],
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
+      "parity_coverage_level": "unknown",
+      "parity_test_status": "unknown",
+      "parity_fixture_count": 0,
+      "parity_case_count": 0,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.loss.multimodal_nll_loss",
+      "atom_key": "sciona.atoms.dl.loss.multimodal_nll_loss",
+      "atom_id": "sciona.atoms.dl.loss.multimodal_nll_loss",
+      "module_import_path": "sciona.atoms.dl.loss.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/loss/atoms.py",
+      "module_family": "loss",
+      "domain_family": "dl.loss",
+      "wrapper_symbol": "multimodal_nll_loss",
+      "argument_names": [
+        "ground_truth",
+        "trajectories",
+        "confidences"
+      ],
+      "argument_details": [
+        {
+          "name": "ground_truth",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "trajectories",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "confidences",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "float",
+      "docstring_summary": "Compute mixture trajectory negative log-likelihood with unit variance.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/witnesses.py"
+        },
+        {
+          "kind": "local_references",
+          "path": "src/sciona/atoms/dl/loss/references.json"
+        },
+        {
+          "kind": "local_cdg",
+          "path": "src/sciona/atoms/dl/loss/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "missing",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "unknown",
+      "review_developer_semantics_verdict": "unknown",
+      "trust_readiness": "unreviewed",
+      "review_required_actions": [],
+      "review_limitations": [
+        "Uses unit variance and omits Gaussian normalization constants."
+      ],
+      "trust_blockers": [],
+      "structural_status": "unknown",
+      "semantic_status": "unknown",
+      "runtime_status": "unknown",
+      "developer_semantics_status": "unknown",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 0,
+      "risk_dimensions": {},
+      "risk_reasons": [],
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
+      "parity_coverage_level": "unknown",
+      "parity_test_status": "unknown",
+      "parity_fixture_count": 0,
+      "parity_case_count": 0,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.loss.qwk_loss",
+      "atom_key": "sciona.atoms.dl.loss.qwk_loss",
+      "atom_id": "sciona.atoms.dl.loss.qwk_loss",
+      "module_import_path": "sciona.atoms.dl.loss.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/loss/atoms.py",
+      "module_family": "loss",
+      "domain_family": "dl.loss",
+      "wrapper_symbol": "qwk_loss",
+      "argument_names": [
+        "predictions",
+        "targets",
+        "num_classes"
+      ],
+      "argument_details": [
+        {
+          "name": "predictions",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "targets",
+          "annotation": "NDArray[np.int64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "num_classes",
+          "annotation": "int",
+          "required": true,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "float",
+      "docstring_summary": "Compute differentiable quadratic weighted kappa loss for ordinal classes.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/witnesses.py"
+        },
+        {
+          "kind": "local_references",
+          "path": "src/sciona/atoms/dl/loss/references.json"
+        },
+        {
+          "kind": "local_cdg",
+          "path": "src/sciona/atoms/dl/loss/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "missing",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "unknown",
+      "review_developer_semantics_verdict": "unknown",
+      "trust_readiness": "unreviewed",
+      "review_required_actions": [],
+      "review_limitations": [],
+      "trust_blockers": [],
+      "structural_status": "unknown",
+      "semantic_status": "unknown",
+      "runtime_status": "unknown",
+      "developer_semantics_status": "unknown",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 0,
+      "risk_dimensions": {},
+      "risk_reasons": [],
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
+      "parity_coverage_level": "unknown",
+      "parity_test_status": "unknown",
+      "parity_fixture_count": 0,
+      "parity_case_count": 0,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.loss.triplet_loss",
+      "atom_key": "sciona.atoms.dl.loss.triplet_loss",
+      "atom_id": "sciona.atoms.dl.loss.triplet_loss",
+      "module_import_path": "sciona.atoms.dl.loss.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/loss/atoms.py",
+      "module_family": "loss",
+      "domain_family": "dl.loss",
+      "wrapper_symbol": "triplet_loss",
+      "argument_names": [
+        "anchor",
+        "positive",
+        "negative",
+        "margin"
+      ],
+      "argument_details": [
+        {
+          "name": "anchor",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "positive",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "negative",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "margin",
+          "annotation": "float",
+          "required": true,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "float",
+      "docstring_summary": "Compute margin triplet loss over aligned anchor, positive, and negative rows.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/witnesses.py"
+        },
+        {
+          "kind": "local_references",
+          "path": "src/sciona/atoms/dl/loss/references.json"
+        },
+        {
+          "kind": "local_cdg",
+          "path": "src/sciona/atoms/dl/loss/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "missing",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "unknown",
+      "review_developer_semantics_verdict": "unknown",
+      "trust_readiness": "unreviewed",
+      "review_required_actions": [],
+      "review_limitations": [
+        "Uses explicit triplet rows instead of mining triplets from labels."
+      ],
+      "trust_blockers": [],
+      "structural_status": "unknown",
+      "semantic_status": "unknown",
+      "runtime_status": "unknown",
+      "developer_semantics_status": "unknown",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 0,
+      "risk_dimensions": {},
+      "risk_reasons": [],
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
+      "parity_coverage_level": "unknown",
+      "parity_test_status": "unknown",
+      "parity_fixture_count": 0,
+      "parity_case_count": 0,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.loss.weighted_bce_loss",
+      "atom_key": "sciona.atoms.dl.loss.weighted_bce_loss",
+      "atom_id": "sciona.atoms.dl.loss.weighted_bce_loss",
+      "module_import_path": "sciona.atoms.dl.loss.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/loss/atoms.py",
+      "module_family": "loss",
+      "domain_family": "dl.loss",
+      "wrapper_symbol": "weighted_bce_loss",
+      "argument_names": [
+        "logits",
+        "targets",
+        "weights"
+      ],
+      "argument_details": [
+        {
+          "name": "logits",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "targets",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "weights",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "float",
+      "docstring_summary": "Compute stable binary cross-entropy with per-sample weights.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/witnesses.py"
+        },
+        {
+          "kind": "local_references",
+          "path": "src/sciona/atoms/dl/loss/references.json"
+        },
+        {
+          "kind": "local_cdg",
+          "path": "src/sciona/atoms/dl/loss/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "missing",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "unknown",
+      "review_developer_semantics_verdict": "unknown",
+      "trust_readiness": "unreviewed",
+      "review_required_actions": [],
+      "review_limitations": [],
+      "trust_blockers": [],
+      "structural_status": "unknown",
+      "semantic_status": "unknown",
+      "runtime_status": "unknown",
+      "developer_semantics_status": "unknown",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 0,
+      "risk_dimensions": {},
+      "risk_reasons": [],
+      "acceptability_score": 70,
+      "acceptability_band": "acceptable_with_limits_candidate",
+      "parity_coverage_level": "unknown",
+      "parity_test_status": "unknown",
+      "parity_fixture_count": 0,
+      "parity_case_count": 0,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.loss.weighted_multitask_loss",
+      "atom_key": "sciona.atoms.dl.loss.weighted_multitask_loss",
+      "atom_id": "sciona.atoms.dl.loss.weighted_multitask_loss",
+      "module_import_path": "sciona.atoms.dl.loss.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/loss/atoms.py",
+      "module_family": "loss",
+      "domain_family": "dl.loss",
+      "wrapper_symbol": "weighted_multitask_loss",
+      "argument_names": [
+        "losses",
+        "weights"
+      ],
+      "argument_details": [
+        {
+          "name": "losses",
+          "annotation": "list[float]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "weights",
+          "annotation": "list[float]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "float",
+      "docstring_summary": "Combine scalar task losses with fixed non-negative task weights.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/loss/witnesses.py"
+        },
+        {
+          "kind": "local_references",
+          "path": "src/sciona/atoms/dl/loss/references.json"
+        },
+        {
+          "kind": "local_cdg",
+          "path": "src/sciona/atoms/dl/loss/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_loss_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "missing",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "unknown",
+      "review_developer_semantics_verdict": "unknown",
+      "trust_readiness": "unreviewed",
+      "review_required_actions": [],
+      "review_limitations": [
+        "Implements fixed explicit weights, not learned uncertainty weighting."
+      ],
       "trust_blockers": [],
       "structural_status": "unknown",
       "semantic_status": "unknown",

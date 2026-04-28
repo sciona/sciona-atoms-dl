@@ -583,6 +583,370 @@
             "confidence": "medium",
             "notes": "Reference for sequential composition of image transforms with per-transform probabilities."
         }
+    },
+    "specialized_loss_research_2026": {
+        "ref_id": "specialized_loss_research_2026",
+        "type": "research_note",
+        "title": "Specialized Loss Function Atoms for Kaggle Competition Pipelines",
+        "authors": [
+            "Sciona deep research prompt"
+        ],
+        "year": 2026,
+        "venue": "Local research artifact",
+        "url": "research/02_research.pdf",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Local research report summarizing specialized loss functions, source candidates, expected contracts, and CDG stages."
+        }
+    },
+    "cohen1968weighted_kappa": {
+        "ref_id": "cohen1968weighted_kappa",
+        "type": "paper",
+        "title": "Weighted kappa: Nominal scale agreement provision for scaled disagreement or partial credit",
+        "authors": [
+            "Jacob Cohen"
+        ],
+        "year": 1968,
+        "venue": "Psychological Bulletin",
+        "url": "https://psycnet.apa.org/record/1968-01140-001",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Weighted kappa reference for ordinal agreement with scaled disagreement."
+        }
+    },
+    "repo_qwk_soft": {
+        "ref_id": "repo_qwk_soft",
+        "type": "repository",
+        "title": "all-in-one-place quadratic kappa soft probability implementation",
+        "authors": [
+            "ankishb"
+        ],
+        "year": 2026,
+        "venue": "GitHub",
+        "url": "https://github.com/ankishb/all-in-one-place/blob/master/quadratic-kappa-soft-ptob.py",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Research prompt identified this repository as an MIT-licensed differentiable QWK implementation."
+        }
+    },
+    "graves2006ctc": {
+        "ref_id": "graves2006ctc",
+        "type": "paper",
+        "title": "Connectionist Temporal Classification: Labelling Unsegmented Sequence Data with Recurrent Neural Networks",
+        "authors": [
+            "Alex Graves",
+            "Santiago Fernandez",
+            "Faustino Gomez",
+            "Jurgen Schmidhuber"
+        ],
+        "year": 2006,
+        "venue": "ICML",
+        "url": "https://www.cs.toronto.edu/~graves/icml_2006.pdf",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary CTC paper for blank labels and dynamic-programming alignment marginalization."
+        }
+    },
+    "repo_vadim_ctc": {
+        "ref_id": "repo_vadim_ctc",
+        "type": "repository",
+        "title": "CTC",
+        "authors": [
+            "Vadim Kantorov"
+        ],
+        "year": 2026,
+        "venue": "GitHub",
+        "url": "https://github.com/vadimkantorov/ctc",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Research prompt identified this repository as an MIT-licensed CTC reference implementation."
+        }
+    },
+    "lin2017focal": {
+        "ref_id": "lin2017focal",
+        "type": "paper",
+        "title": "Focal Loss for Dense Object Detection",
+        "authors": [
+            "Tsung-Yi Lin",
+            "Priya Goyal",
+            "Ross Girshick",
+            "Kaiming He",
+            "Piotr Dollar"
+        ],
+        "year": 2017,
+        "venue": "ICCV",
+        "url": "https://arxiv.org/abs/1708.02002",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary focal loss paper defining alpha-balanced modulated cross-entropy."
+        }
+    },
+    "berman2018lovasz": {
+        "ref_id": "berman2018lovasz",
+        "type": "paper",
+        "title": "The Lovasz-Softmax loss: A tractable surrogate for the optimization of the intersection-over-union measure in neural networks",
+        "authors": [
+            "Maxim Berman",
+            "Amal Rannen Triki",
+            "Matthew B. Blaschko"
+        ],
+        "year": 2018,
+        "venue": "CVPR",
+        "url": "https://arxiv.org/abs/1705.08790",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary Lovasz-Softmax paper for Jaccard and IoU surrogate losses."
+        }
+    },
+    "repo_lovasz_softmax": {
+        "ref_id": "repo_lovasz_softmax",
+        "type": "repository",
+        "title": "Lovasz-Softmax",
+        "authors": [
+            "Maxim Berman"
+        ],
+        "year": 2018,
+        "venue": "GitHub",
+        "url": "https://github.com/bermanmaxim/LovaszSoftmax",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "MIT-licensed reference implementation cited by the local research report."
+        }
+    },
+    "milletari2016vnet": {
+        "ref_id": "milletari2016vnet",
+        "type": "paper",
+        "title": "V-Net: Fully Convolutional Neural Networks for Volumetric Medical Image Segmentation",
+        "authors": [
+            "Fausto Milletari",
+            "Nassir Navab",
+            "Seyed-Ahmad Ahmadi"
+        ],
+        "year": 2016,
+        "venue": "3DV",
+        "url": "https://arxiv.org/abs/1606.04797",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary V-Net reference for Dice overlap loss in segmentation."
+        }
+    },
+    "repo_jeremyjordan_dice": {
+        "ref_id": "repo_jeremyjordan_dice",
+        "type": "repository",
+        "title": "Soft Dice loss gist",
+        "authors": [
+            "Jeremy Jordan"
+        ],
+        "year": 2026,
+        "venue": "GitHub Gist",
+        "url": "https://gist.github.com/jeremyjordan/9ea3032a32909f71dd2ab35fe3bacc08",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Research prompt identified this MIT gist as a simple soft Dice loss reference."
+        }
+    },
+    "gneiting2007proper_scoring": {
+        "ref_id": "gneiting2007proper_scoring",
+        "type": "paper",
+        "title": "Strictly Proper Scoring Rules, Prediction, and Estimation",
+        "authors": [
+            "Tilmann Gneiting",
+            "Adrian E. Raftery"
+        ],
+        "year": 2007,
+        "venue": "Journal of the American Statistical Association",
+        "url": "https://sites.stat.washington.edu/raftery/Research/PDF/Gneiting2007jasa.pdf",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Scoring-rule reference for CRPS and proper probabilistic forecasts."
+        }
+    },
+    "kaggle_nfl_crps_2019": {
+        "ref_id": "kaggle_nfl_crps_2019",
+        "type": "discussion",
+        "title": "NFL Big Data Bowl 2020 CRPS metric discussion",
+        "authors": [
+            "Kaggle community"
+        ],
+        "year": 2019,
+        "venue": "Kaggle",
+        "url": "https://www.kaggle.com/c/nfl-big-data-bowl-2020/discussion/119433",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Competition discussion cited by the research report for discretized CRPS over yard bins."
+        }
+    },
+    "hadsell2006contrastive": {
+        "ref_id": "hadsell2006contrastive",
+        "type": "paper",
+        "title": "Dimensionality Reduction by Learning an Invariant Mapping",
+        "authors": [
+            "Raia Hadsell",
+            "Sumit Chopra",
+            "Yann LeCun"
+        ],
+        "year": 2006,
+        "venue": "CVPR",
+        "url": "http://yann.lecun.com/exdb/publis/pdf/hadsell-chopra-lecun-06.pdf",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary contrastive loss reference for pairwise metric learning."
+        }
+    },
+    "schroff2015facenet": {
+        "ref_id": "schroff2015facenet",
+        "type": "paper",
+        "title": "FaceNet: A Unified Embedding for Face Recognition and Clustering",
+        "authors": [
+            "Florian Schroff",
+            "Dmitry Kalenichenko",
+            "James Philbin"
+        ],
+        "year": 2015,
+        "venue": "CVPR",
+        "url": "https://arxiv.org/abs/1503.03832",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary FaceNet reference for triplet loss over anchor-positive-negative embeddings."
+        }
+    },
+    "repo_tensorflow_triplet_loss": {
+        "ref_id": "repo_tensorflow_triplet_loss",
+        "type": "repository",
+        "title": "TensorFlow Triplet Loss",
+        "authors": [
+            "Olivier Moindrot"
+        ],
+        "year": 2018,
+        "venue": "GitHub",
+        "url": "https://github.com/omoindrot/tensorflow-triplet-loss",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "MIT-licensed triplet loss repository cited by the local research report."
+        }
+    },
+    "szegedy2016label_smoothing": {
+        "ref_id": "szegedy2016label_smoothing",
+        "type": "paper",
+        "title": "Rethinking the Inception Architecture for Computer Vision",
+        "authors": [
+            "Christian Szegedy",
+            "Vincent Vanhoucke",
+            "Sergey Ioffe",
+            "Jon Shlens",
+            "Zbigniew Wojna"
+        ],
+        "year": 2016,
+        "venue": "CVPR",
+        "url": "https://arxiv.org/abs/1512.00567",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Introduces label smoothing as a regularization term for classification targets."
+        }
+    },
+    "kendall2018multitask": {
+        "ref_id": "kendall2018multitask",
+        "type": "paper",
+        "title": "Multi-Task Learning Using Uncertainty to Weigh Losses for Scene Geometry and Semantics",
+        "authors": [
+            "Alex Kendall",
+            "Yarin Gal",
+            "Roberto Cipolla"
+        ],
+        "year": 2018,
+        "venue": "CVPR",
+        "url": "https://arxiv.org/abs/1705.07115",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Multitask loss weighting reference; the atom covers fixed explicit weights rather than learned uncertainty."
+        }
+    },
+    "repo_lyft_motion_fkaneko": {
+        "ref_id": "repo_lyft_motion_fkaneko",
+        "type": "repository",
+        "title": "Kaggle Lyft Motion Prediction solution",
+        "authors": [
+            "Fkaneko"
+        ],
+        "year": 2020,
+        "venue": "GitHub",
+        "url": "https://github.com/Fkaneko/kaggle-lyft-motion-pred",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Apache-2.0 repository cited by the research report for multimodal trajectory NLL."
+        }
+    },
+    "repo_jigsaw_anishazaveri": {
+        "ref_id": "repo_jigsaw_anishazaveri",
+        "type": "repository",
+        "title": "Jigsaw Unintended Bias in Toxicity Classification solution",
+        "authors": [
+            "Anisha Zaveri"
+        ],
+        "year": 2019,
+        "venue": "GitHub",
+        "url": "https://github.com/anishazaveri/jigsaw",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "MIT repository cited by the research report for weighted BCE with subgroup-aware sample weights."
+        }
     }
   }
 }

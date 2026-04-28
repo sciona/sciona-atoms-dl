@@ -3,17 +3,29 @@
     {
       "node_id": "loss_root",
       "name": "Loss Functions",
-      "description": "Loss function primitives from DSB 2017 1st-place solution: miss-penalty loss for hard positive examples",
+      "description": "Pure NumPy loss functions for deep learning competition pipelines",
       "status": "decomposed",
       "children": [
-        "miss_penalty_loss"
+        "miss_penalty_loss",
+        "qwk_loss",
+        "ctc_loss",
+        "focal_loss",
+        "lovasz_softmax_loss",
+        "dice_loss",
+        "crps_score",
+        "contrastive_loss",
+        "triplet_loss",
+        "label_smoothing_ce",
+        "weighted_multitask_loss",
+        "multimodal_nll_loss",
+        "weighted_bce_loss"
       ],
       "depth": 0
     },
     {
       "node_id": "miss_penalty_loss",
       "name": "miss_penalty_loss",
-      "description": "Negative log-likelihood penalty for positive examples predicted below a confidence threshold",
+      "description": "Penalty for positive examples predicted below a confidence threshold",
       "concept_type": "loss_function",
       "status": "atomic",
       "type_signature": "(predictions: NDArray[np.float64], labels: NDArray[np.float64], threshold: float = 0.03) -> float",
@@ -23,9 +35,188 @@
         {"name": "labels", "type_desc": "NDArray[np.float64]", "required": true},
         {"name": "threshold", "type_desc": "float", "required": false}
       ],
-      "outputs": [
-        {"name": "result", "type_desc": "float"}
-      ]
+      "outputs": [{"name": "result", "type_desc": "float"}]
+    },
+    {
+      "node_id": "qwk_loss",
+      "name": "qwk_loss",
+      "description": "Differentiable quadratic weighted kappa loss for ordinal class probabilities",
+      "concept_type": "loss_function",
+      "status": "atomic",
+      "type_signature": "(predictions: NDArray[np.float64], targets: NDArray[np.int64], num_classes: int) -> float",
+      "depth": 1,
+      "inputs": [
+        {"name": "predictions", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "targets", "type_desc": "NDArray[np.int64]", "required": true},
+        {"name": "num_classes", "type_desc": "int", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "float"}]
+    },
+    {
+      "node_id": "ctc_loss",
+      "name": "ctc_loss",
+      "description": "Log-space CTC negative log-likelihood with blank label zero",
+      "concept_type": "loss_function",
+      "status": "atomic",
+      "type_signature": "(log_probs: NDArray[np.float64], targets: NDArray[np.int64], input_lengths: NDArray[np.int64], target_lengths: NDArray[np.int64]) -> float",
+      "depth": 1,
+      "inputs": [
+        {"name": "log_probs", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "targets", "type_desc": "NDArray[np.int64]", "required": true},
+        {"name": "input_lengths", "type_desc": "NDArray[np.int64]", "required": true},
+        {"name": "target_lengths", "type_desc": "NDArray[np.int64]", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "float"}]
+    },
+    {
+      "node_id": "focal_loss",
+      "name": "focal_loss",
+      "description": "Binary focal loss that down-weights easy examples",
+      "concept_type": "loss_function",
+      "status": "atomic",
+      "type_signature": "(predictions: NDArray[np.float64], targets: NDArray[np.float64], alpha: float = 0.25, gamma: float = 2.0) -> float",
+      "depth": 1,
+      "inputs": [
+        {"name": "predictions", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "targets", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "alpha", "type_desc": "float", "required": false},
+        {"name": "gamma", "type_desc": "float", "required": false}
+      ],
+      "outputs": [{"name": "result", "type_desc": "float"}]
+    },
+    {
+      "node_id": "lovasz_softmax_loss",
+      "name": "lovasz_softmax_loss",
+      "description": "Lovasz extension surrogate for Jaccard overlap loss",
+      "concept_type": "loss_function",
+      "status": "atomic",
+      "type_signature": "(probabilities: NDArray[np.float64], targets: NDArray[np.float64]) -> float",
+      "depth": 1,
+      "inputs": [
+        {"name": "probabilities", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "targets", "type_desc": "NDArray[np.float64]", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "float"}]
+    },
+    {
+      "node_id": "dice_loss",
+      "name": "dice_loss",
+      "description": "Soft Dice loss for probability and target masks",
+      "concept_type": "loss_function",
+      "status": "atomic",
+      "type_signature": "(predictions: NDArray[np.float64], targets: NDArray[np.float64], smooth: float = 1e-6) -> float",
+      "depth": 1,
+      "inputs": [
+        {"name": "predictions", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "targets", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "smooth", "type_desc": "float", "required": false}
+      ],
+      "outputs": [{"name": "result", "type_desc": "float"}]
+    },
+    {
+      "node_id": "crps_score",
+      "name": "crps_score",
+      "description": "Discrete CRPS between predicted CDFs and observed bin indices",
+      "concept_type": "loss_function",
+      "status": "atomic",
+      "type_signature": "(cdf_predictions: NDArray[np.float64], true_values: NDArray[np.int64]) -> float",
+      "depth": 1,
+      "inputs": [
+        {"name": "cdf_predictions", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "true_values", "type_desc": "NDArray[np.int64]", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "float"}]
+    },
+    {
+      "node_id": "contrastive_loss",
+      "name": "contrastive_loss",
+      "description": "Pairwise contrastive embedding loss with a margin for different pairs",
+      "concept_type": "loss_function",
+      "status": "atomic",
+      "type_signature": "(embedding_a: NDArray[np.float64], embedding_b: NDArray[np.float64], labels: NDArray[np.float64], margin: float) -> float",
+      "depth": 1,
+      "inputs": [
+        {"name": "embedding_a", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "embedding_b", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "labels", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "margin", "type_desc": "float", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "float"}]
+    },
+    {
+      "node_id": "triplet_loss",
+      "name": "triplet_loss",
+      "description": "Margin loss over aligned anchor, positive, and negative embeddings",
+      "concept_type": "loss_function",
+      "status": "atomic",
+      "type_signature": "(anchor: NDArray[np.float64], positive: NDArray[np.float64], negative: NDArray[np.float64], margin: float) -> float",
+      "depth": 1,
+      "inputs": [
+        {"name": "anchor", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "positive", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "negative", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "margin", "type_desc": "float", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "float"}]
+    },
+    {
+      "node_id": "label_smoothing_ce",
+      "name": "label_smoothing_ce",
+      "description": "Categorical cross-entropy with one-hot labels mixed with uniform mass",
+      "concept_type": "loss_function",
+      "status": "atomic",
+      "type_signature": "(logits: NDArray[np.float64], targets: NDArray[np.int64], epsilon: float) -> float",
+      "depth": 1,
+      "inputs": [
+        {"name": "logits", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "targets", "type_desc": "NDArray[np.int64]", "required": true},
+        {"name": "epsilon", "type_desc": "float", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "float"}]
+    },
+    {
+      "node_id": "weighted_multitask_loss",
+      "name": "weighted_multitask_loss",
+      "description": "Fixed weighted sum of scalar task losses",
+      "concept_type": "loss_function",
+      "status": "atomic",
+      "type_signature": "(losses: list[float], weights: list[float]) -> float",
+      "depth": 1,
+      "inputs": [
+        {"name": "losses", "type_desc": "list[float]", "required": true},
+        {"name": "weights", "type_desc": "list[float]", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "float"}]
+    },
+    {
+      "node_id": "multimodal_nll_loss",
+      "name": "multimodal_nll_loss",
+      "description": "Confidence-weighted mixture trajectory negative log-likelihood",
+      "concept_type": "loss_function",
+      "status": "atomic",
+      "type_signature": "(ground_truth: NDArray[np.float64], trajectories: NDArray[np.float64], confidences: NDArray[np.float64]) -> float",
+      "depth": 1,
+      "inputs": [
+        {"name": "ground_truth", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "trajectories", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "confidences", "type_desc": "NDArray[np.float64]", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "float"}]
+    },
+    {
+      "node_id": "weighted_bce_loss",
+      "name": "weighted_bce_loss",
+      "description": "Stable binary cross-entropy with per-sample non-negative weights",
+      "concept_type": "loss_function",
+      "status": "atomic",
+      "type_signature": "(logits: NDArray[np.float64], targets: NDArray[np.float64], weights: NDArray[np.float64]) -> float",
+      "depth": 1,
+      "inputs": [
+        {"name": "logits", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "targets", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "weights", "type_desc": "NDArray[np.float64]", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "float"}]
     }
   ]
 }

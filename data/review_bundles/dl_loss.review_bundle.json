@@ -27,15 +27,256 @@
     {
       "kind": "local_test",
       "path": "tests/test_dl_loss_behavior.py"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_loss_references_metadata.py"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_loss_review_bundle.py"
     }
   ],
-  "limitations": [],
+  "limitations": [
+    "CTC uses blank label 0 and a single flat target vector following PyTorch-style target concatenation.",
+    "CRPS true_values are interpreted as bin indices on the final CDF axis.",
+    "Multimodal NLL uses unit variance and omits the Gaussian normalizing constant so exact confident matches evaluate to zero.",
+    "Triplet loss covers explicit aligned triplets; online semi-hard mining is not exposed by this atom signature."
+  ],
   "blocking_findings": [],
   "required_actions": [],
   "review_record_path": "data/review_bundles/dl_loss.review_bundle.json",
   "rows": [
     {
       "atom_key": "sciona.atoms.dl.loss.miss_penalty_loss",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/loss/atoms.py",
+        "src/sciona/atoms/dl/loss/witnesses.py",
+        "src/sciona/atoms/dl/loss/references.json",
+        "src/sciona/atoms/dl/loss/cdg.json",
+        "tests/test_dl_loss_behavior.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.loss.qwk_loss",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/loss/atoms.py",
+        "src/sciona/atoms/dl/loss/witnesses.py",
+        "src/sciona/atoms/dl/loss/references.json",
+        "src/sciona/atoms/dl/loss/cdg.json",
+        "tests/test_dl_loss_behavior.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.loss.ctc_loss",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/loss/atoms.py",
+        "src/sciona/atoms/dl/loss/witnesses.py",
+        "src/sciona/atoms/dl/loss/references.json",
+        "src/sciona/atoms/dl/loss/cdg.json",
+        "tests/test_dl_loss_behavior.py"
+      ],
+      "limitations": [
+        "Blank label is fixed to 0."
+      ],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.loss.focal_loss",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/loss/atoms.py",
+        "src/sciona/atoms/dl/loss/witnesses.py",
+        "src/sciona/atoms/dl/loss/references.json",
+        "src/sciona/atoms/dl/loss/cdg.json",
+        "tests/test_dl_loss_behavior.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.loss.lovasz_softmax_loss",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/loss/atoms.py",
+        "src/sciona/atoms/dl/loss/witnesses.py",
+        "src/sciona/atoms/dl/loss/references.json",
+        "src/sciona/atoms/dl/loss/cdg.json",
+        "tests/test_dl_loss_behavior.py"
+      ],
+      "limitations": [
+        "Targets are expected as binary or one-hot masks with the same shape as probabilities."
+      ],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.loss.dice_loss",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/loss/atoms.py",
+        "src/sciona/atoms/dl/loss/witnesses.py",
+        "src/sciona/atoms/dl/loss/references.json",
+        "src/sciona/atoms/dl/loss/cdg.json",
+        "tests/test_dl_loss_behavior.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.loss.crps_score",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/loss/atoms.py",
+        "src/sciona/atoms/dl/loss/witnesses.py",
+        "src/sciona/atoms/dl/loss/references.json",
+        "src/sciona/atoms/dl/loss/cdg.json",
+        "tests/test_dl_loss_behavior.py"
+      ],
+      "limitations": [
+        "Observed values are bin indices rather than physical yard values."
+      ],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.loss.contrastive_loss",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/loss/atoms.py",
+        "src/sciona/atoms/dl/loss/witnesses.py",
+        "src/sciona/atoms/dl/loss/references.json",
+        "src/sciona/atoms/dl/loss/cdg.json",
+        "tests/test_dl_loss_behavior.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.loss.triplet_loss",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/loss/atoms.py",
+        "src/sciona/atoms/dl/loss/witnesses.py",
+        "src/sciona/atoms/dl/loss/references.json",
+        "src/sciona/atoms/dl/loss/cdg.json",
+        "tests/test_dl_loss_behavior.py"
+      ],
+      "limitations": [
+        "Uses explicit triplet rows instead of mining triplets from labels."
+      ],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.loss.label_smoothing_ce",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/loss/atoms.py",
+        "src/sciona/atoms/dl/loss/witnesses.py",
+        "src/sciona/atoms/dl/loss/references.json",
+        "src/sciona/atoms/dl/loss/cdg.json",
+        "tests/test_dl_loss_behavior.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.loss.weighted_multitask_loss",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/loss/atoms.py",
+        "src/sciona/atoms/dl/loss/witnesses.py",
+        "src/sciona/atoms/dl/loss/references.json",
+        "src/sciona/atoms/dl/loss/cdg.json",
+        "tests/test_dl_loss_behavior.py"
+      ],
+      "limitations": [
+        "Implements fixed explicit weights, not learned uncertainty weighting."
+      ],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.loss.multimodal_nll_loss",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/loss/atoms.py",
+        "src/sciona/atoms/dl/loss/witnesses.py",
+        "src/sciona/atoms/dl/loss/references.json",
+        "src/sciona/atoms/dl/loss/cdg.json",
+        "tests/test_dl_loss_behavior.py"
+      ],
+      "limitations": [
+        "Uses unit variance and omits Gaussian normalization constants."
+      ],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_loss.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.loss.weighted_bce_loss",
       "review_status": "pending",
       "review_semantic_verdict": null,
       "review_developer_semantic_verdict": null,

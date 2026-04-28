@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "atoms": {
-    "sciona.atoms.dl.loss.miss_penalty_loss@sciona/atoms/dl/loss/atoms.py:47": {
+    "sciona.atoms.dl.loss.miss_penalty_loss@sciona/atoms/dl/loss/atoms.py:138": {
       "references": [
         {
           "ref_id": "liao2017dsb",
@@ -10,7 +10,7 @@
             "match_type": "manual",
             "matched_nodes": [],
             "confidence": "high",
-            "notes": "Miss-penalty loss derived from the focal/hard-example loss structure in the DSB 2017 1st-place detection pipeline."
+            "notes": "Miss-penalty loss derived from the focal/hard-example loss structure in the DSB 2017 detection pipeline."
           }
         },
         {
@@ -20,7 +20,277 @@
             "match_type": "manual",
             "matched_nodes": [],
             "confidence": "high",
-            "notes": "Upstream source: layers.py lines 155-217, conceptual miss-penalty formula from CDG analysis."
+            "notes": "Upstream MIT-licensed repository source for the earlier loss atom in this family."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.loss.qwk_loss@sciona/atoms/dl/loss/atoms.py:171": {
+      "references": [
+        {
+          "ref_id": "cohen1968weighted_kappa",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Weighted kappa is the ordinal agreement metric approximated by the differentiable probability-matrix implementation."
+          }
+        },
+        {
+          "ref_id": "repo_qwk_soft",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Research prompt cited this MIT repository as an example of soft quadratic kappa loss."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.loss.ctc_loss@sciona/atoms/dl/loss/atoms.py:224": {
+      "references": [
+        {
+          "ref_id": "graves2006ctc",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary source for CTC forward recursion with blank labels and alignment marginalization."
+          }
+        },
+        {
+          "ref_id": "repo_vadim_ctc",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Research prompt cited this MIT repository as a compact CTC implementation reference."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.loss.focal_loss@sciona/atoms/dl/loss/atoms.py:259": {
+      "references": [
+        {
+          "ref_id": "lin2017focal",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary RetinaNet paper defining focal loss with alpha and gamma modulation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.loss.lovasz_softmax_loss@sciona/atoms/dl/loss/atoms.py:288": {
+      "references": [
+        {
+          "ref_id": "berman2018lovasz",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary paper defining the Lovasz extension as a surrogate for Jaccard and IoU losses."
+          }
+        },
+        {
+          "ref_id": "repo_lovasz_softmax",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "MIT-licensed reference implementation cited by the local research report."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.loss.dice_loss@sciona/atoms/dl/loss/atoms.py:320": {
+      "references": [
+        {
+          "ref_id": "milletari2016vnet",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "V-Net popularized soft Dice loss for volumetric medical image segmentation."
+          }
+        },
+        {
+          "ref_id": "repo_jeremyjordan_dice",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Research prompt cited this MIT gist as a simple NumPy-style Dice loss reference."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.loss.crps_score@sciona/atoms/dl/loss/atoms.py:351": {
+      "references": [
+        {
+          "ref_id": "gneiting2007proper_scoring",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary scoring-rule reference for CRPS as squared distance between predictive and empirical CDFs."
+          }
+        },
+        {
+          "ref_id": "kaggle_nfl_crps_2019",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Research prompt cited the NFL Big Data Bowl discussion for the discretized competition metric."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.loss.contrastive_loss@sciona/atoms/dl/loss/atoms.py:376": {
+      "references": [
+        {
+          "ref_id": "hadsell2006contrastive",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary contrastive loss source for pulling same-label pairs together and pushing different-label pairs apart."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.loss.triplet_loss@sciona/atoms/dl/loss/atoms.py:399": {
+      "references": [
+        {
+          "ref_id": "schroff2015facenet",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "FaceNet describes triplet loss for metric learning with anchor, positive, and negative embeddings."
+          }
+        },
+        {
+          "ref_id": "repo_tensorflow_triplet_loss",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Research prompt cited this MIT repository for triplet-loss mining logic."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.loss.label_smoothing_ce@sciona/atoms/dl/loss/atoms.py:424": {
+      "references": [
+        {
+          "ref_id": "szegedy2016label_smoothing",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Introduces label smoothing as a regularizer for overconfident classifier outputs."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.loss.weighted_multitask_loss@sciona/atoms/dl/loss/atoms.py:444": {
+      "references": [
+        {
+          "ref_id": "kendall2018multitask",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Multitask loss weighting reference; this atom implements the fixed-weight aggregation boundary from the research prompt."
+          }
+        },
+        {
+          "ref_id": "specialized_loss_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Local research report identifies static weighted aggregation as the Bengali Grapheme multi-head loss atom."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.loss.multimodal_nll_loss@sciona/atoms/dl/loss/atoms.py:474": {
+      "references": [
+        {
+          "ref_id": "repo_lyft_motion_fkaneko",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Apache-2.0 Lyft Motion Prediction repository cited by the local research prompt for multimodal trajectory NLL."
+          }
+        },
+        {
+          "ref_id": "specialized_loss_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Local research report describes confidence-weighted trajectory mode selection and log-sum-exp stabilization."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.loss.weighted_bce_loss@sciona/atoms/dl/loss/atoms.py:499": {
+      "references": [
+        {
+          "ref_id": "repo_jigsaw_anishazaveri",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "MIT Jigsaw repository cited by the local research report for weighted BCE in bias-aware toxicity training."
+          }
+        },
+        {
+          "ref_id": "specialized_loss_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Local research report defines the stable logit BCE boundary with explicit per-sample weights."
           }
         }
       ],
