@@ -22,6 +22,7 @@ from scipy.ndimage import (
     gaussian_filter,
     generate_binary_structure,
 )
+from scipy.optimize import linear_sum_assignment
 from skimage import measure
 
 import icontract
@@ -29,9 +30,117 @@ from sciona.ghost.registry import register_atom
 
 from .witnesses import (
     witness_anchor_label_mapping_with_iou_dilation,
+    witness_associate_boxes,
     witness_center_feature_extraction_3d,
+    witness_decode_boxes,
+    witness_encode_boxes,
+    witness_generate_anchors,
+    witness_giou_matrix,
+    witness_iou_matrix,
     witness_lung_mask_with_bone_removal,
+    witness_masks_to_boxes,
+    witness_nms,
+    witness_nms_1d,
+    witness_soft_nms,
+    witness_threshold_detections,
+    witness_wbf,
+    witness_wbf_1d,
 )
+
+_BOX_DELTA_CLIP = float(np.log(1000.0 / 16.0))
+
+
+def _valid_xyxy_boxes(boxes: NDArray[np.float64]) -> bool:
+    return bool(
+        boxes.ndim == 2
+        and boxes.shape[1] == 4
+        and np.all(np.isfinite(boxes))
+        and np.all(boxes[:, 0] <= boxes[:, 2])
+        and np.all(boxes[:, 1] <= boxes[:, 3])
+    )
+
+
+def _positive_area_xyxy_boxes(boxes: NDArray[np.float64]) -> bool:
+    return bool(_valid_xyxy_boxes(boxes) and np.all(boxes[:, 0] < boxes[:, 2]) and np.all(boxes[:, 1] < boxes[:, 3]))
+
+
+def _valid_normalized_xyxy_boxes(boxes: NDArray[np.float64]) -> bool:
+    return bool(_valid_xyxy_boxes(boxes) and np.all((boxes >= 0.0) & (boxes <= 1.0)))
+
+
+def _valid_spans(spans: NDArray[np.float64]) -> bool:
+    return bool(
+        spans.ndim == 2
+        and spans.shape[1] == 2
+        and np.all(np.isfinite(spans))
+        and np.all(spans[:, 0] <= spans[:, 1])
+    )
+
+
+def _box_areas(boxes: NDArray[np.float64]) -> NDArray[np.float64]:
+    widths = np.maximum(boxes[:, 2] - boxes[:, 0], 0.0)
+    heights = np.maximum(boxes[:, 3] - boxes[:, 1], 0.0)
+    return widths * heights
+
+
+def _pairwise_iou(
+    boxes_a: NDArray[np.float64],
+    boxes_b: NDArray[np.float64],
+) -> NDArray[np.float64]:
+    if boxes_a.shape[0] == 0 or boxes_b.shape[0] == 0:
+        return np.zeros((boxes_a.shape[0], boxes_b.shape[0]), dtype=np.float64)
+    top_left = np.maximum(boxes_a[:, None, :2], boxes_b[None, :, :2])
+    bottom_right = np.minimum(boxes_a[:, None, 2:], boxes_b[None, :, 2:])
+    wh = np.maximum(bottom_right - top_left, 0.0)
+    intersection = wh[:, :, 0] * wh[:, :, 1]
+    union = _box_areas(boxes_a)[:, None] + _box_areas(boxes_b)[None, :] - intersection
+    return np.divide(intersection, union, out=np.zeros_like(intersection), where=union > 0.0)
+
+
+def _span_iou(span: NDArray[np.float64], spans: NDArray[np.float64]) -> NDArray[np.float64]:
+    starts = np.maximum(span[0], spans[:, 0])
+    ends = np.minimum(span[1], spans[:, 1])
+    intersection = np.maximum(ends - starts, 0.0)
+    union = (span[1] - span[0]) + (spans[:, 1] - spans[:, 0]) - intersection
+    return np.divide(intersection, union, out=np.zeros_like(intersection), where=union > 0.0)
+
+
+def _lists_aligned(
+    boxes_list: list[NDArray[np.float64]],
+    scores_list: list[NDArray[np.float64]],
+    labels_list: list[NDArray[np.int64]],
+) -> bool:
+    if not (len(boxes_list) == len(scores_list) == len(labels_list)):
+        return False
+    for boxes, scores, labels in zip(boxes_list, scores_list, labels_list):
+        if not (
+            _valid_normalized_xyxy_boxes(boxes)
+            and scores.shape == (boxes.shape[0],)
+            and labels.shape == (boxes.shape[0],)
+            and np.all(np.isfinite(scores))
+            and np.all((scores >= 0.0) & (scores <= 1.0))
+        ):
+            return False
+    return True
+
+
+def _span_lists_aligned(
+    spans_list: list[NDArray[np.float64]],
+    scores_list: list[NDArray[np.float64]],
+    labels_list: list[NDArray[np.int64]],
+) -> bool:
+    if not (len(spans_list) == len(scores_list) == len(labels_list)):
+        return False
+    for spans, scores, labels in zip(spans_list, scores_list, labels_list):
+        if not (
+            _valid_spans(spans)
+            and scores.shape == (spans.shape[0],)
+            and labels.shape == (spans.shape[0],)
+            and np.all(np.isfinite(scores))
+            and np.all((scores >= 0.0) & (scores <= 1.0))
+        ):
+            return False
+    return True
 
 
 # ---------------------------------------------------------------------------
@@ -616,3 +725,518 @@ def center_feature_extraction_3d(
     ]
     result: NDArray[np.float64] = np.max(center_cube, axis=(2, 3, 4))
     return result
+
+
+@register_atom(witness_iou_matrix)
+@icontract.require(lambda boxes_a: _valid_xyxy_boxes(boxes_a), "boxes_a must be xyxy boxes")
+@icontract.require(lambda boxes_b: _valid_xyxy_boxes(boxes_b), "boxes_b must be xyxy boxes")
+@icontract.ensure(
+    lambda boxes_a, boxes_b, result: result.shape == (boxes_a.shape[0], boxes_b.shape[0]),
+    "IoU matrix shape must match input box counts",
+)
+@icontract.ensure(
+    lambda result: bool(np.all((result >= 0.0) & (result <= 1.0))),
+    "IoU values must be in [0, 1]",
+)
+def iou_matrix(
+    boxes_a: NDArray[np.float64],
+    boxes_b: NDArray[np.float64],
+) -> NDArray[np.float64]:
+    """Compute pairwise intersection-over-union for xyxy boxes."""
+    return _pairwise_iou(boxes_a, boxes_b)
+
+
+@register_atom(witness_giou_matrix)
+@icontract.require(lambda boxes_a: _valid_xyxy_boxes(boxes_a), "boxes_a must be xyxy boxes")
+@icontract.require(lambda boxes_b: _valid_xyxy_boxes(boxes_b), "boxes_b must be xyxy boxes")
+@icontract.ensure(
+    lambda boxes_a, boxes_b, result: result.shape == (boxes_a.shape[0], boxes_b.shape[0]),
+    "GIoU matrix shape must match input box counts",
+)
+@icontract.ensure(
+    lambda result: bool(np.all((result >= -1.0 - 1e-12) & (result <= 1.0 + 1e-12))),
+    "GIoU values must stay in [-1, 1]",
+)
+def giou_matrix(
+    boxes_a: NDArray[np.float64],
+    boxes_b: NDArray[np.float64],
+) -> NDArray[np.float64]:
+    """Compute pairwise generalized IoU for xyxy boxes."""
+    iou = _pairwise_iou(boxes_a, boxes_b)
+    if boxes_a.shape[0] == 0 or boxes_b.shape[0] == 0:
+        return iou
+    top_left = np.minimum(boxes_a[:, None, :2], boxes_b[None, :, :2])
+    bottom_right = np.maximum(boxes_a[:, None, 2:], boxes_b[None, :, 2:])
+    wh = np.maximum(bottom_right - top_left, 0.0)
+    enclosure = wh[:, :, 0] * wh[:, :, 1]
+    intersection_top_left = np.maximum(boxes_a[:, None, :2], boxes_b[None, :, :2])
+    intersection_bottom_right = np.minimum(boxes_a[:, None, 2:], boxes_b[None, :, 2:])
+    intersection_wh = np.maximum(intersection_bottom_right - intersection_top_left, 0.0)
+    intersection = intersection_wh[:, :, 0] * intersection_wh[:, :, 1]
+    union = _box_areas(boxes_a)[:, None] + _box_areas(boxes_b)[None, :] - intersection
+    penalty = np.divide(
+        enclosure - union,
+        enclosure,
+        out=np.zeros_like(enclosure),
+        where=enclosure > 0.0,
+    )
+    return iou - penalty
+
+
+@register_atom(witness_nms)
+@icontract.require(lambda boxes: _valid_xyxy_boxes(boxes), "boxes must be xyxy boxes")
+@icontract.require(
+    lambda boxes, scores: scores.shape == (boxes.shape[0],) and np.all(np.isfinite(scores)),
+    "scores must be finite and match boxes",
+)
+@icontract.require(lambda iou_threshold: 0.0 <= iou_threshold <= 1.0, "threshold must be in [0, 1]")
+@icontract.ensure(lambda boxes, result: bool(np.all((result >= 0) & (result < boxes.shape[0]))), "indices must refer to input boxes")
+def nms(
+    boxes: NDArray[np.float64],
+    scores: NDArray[np.float64],
+    iou_threshold: float,
+) -> NDArray[np.int64]:
+    """Select boxes by greedy non-maximum suppression."""
+    order = np.argsort(scores)[::-1]
+    kept: list[int] = []
+    while order.size > 0:
+        current = int(order[0])
+        kept.append(current)
+        if order.size == 1:
+            break
+        overlaps = _pairwise_iou(boxes[current : current + 1], boxes[order[1:]])[0]
+        order = order[1:][overlaps <= iou_threshold]
+    return np.asarray(kept, dtype=np.int64)
+
+
+@register_atom(witness_soft_nms)
+@icontract.require(lambda boxes: _valid_xyxy_boxes(boxes), "boxes must be xyxy boxes")
+@icontract.require(
+    lambda boxes, scores: scores.shape == (boxes.shape[0],)
+    and np.all(np.isfinite(scores))
+    and np.all((scores >= 0.0) & (scores <= 1.0)),
+    "scores must be probabilities matching boxes",
+)
+@icontract.require(lambda iou_threshold: 0.0 <= iou_threshold <= 1.0, "threshold must be in [0, 1]")
+@icontract.require(lambda sigma: sigma > 0.0, "sigma must be positive")
+@icontract.require(lambda method: method in {"linear", "gaussian"}, "method must be linear or gaussian")
+@icontract.require(lambda score_threshold: 0.0 <= score_threshold <= 1.0, "score threshold must be in [0, 1]")
+@icontract.ensure(lambda result: result[0].shape[0] == result[1].shape[0], "boxes and scores must align")
+def soft_nms(
+    boxes: NDArray[np.float64],
+    scores: NDArray[np.float64],
+    iou_threshold: float,
+    sigma: float = 0.5,
+    method: str = "linear",
+    score_threshold: float = 0.001,
+) -> tuple[NDArray[np.float64], NDArray[np.float64]]:
+    """Apply Soft-NMS by decaying scores of overlapping boxes."""
+    remaining_boxes = boxes.astype(np.float64, copy=True)
+    remaining_scores = scores.astype(np.float64, copy=True)
+    selected_boxes: list[NDArray[np.float64]] = []
+    selected_scores: list[float] = []
+
+    while remaining_scores.size > 0:
+        best = int(np.argmax(remaining_scores))
+        selected_boxes.append(remaining_boxes[best].copy())
+        selected_scores.append(float(remaining_scores[best]))
+        if remaining_scores.size == 1:
+            break
+
+        current_box = remaining_boxes[best : best + 1]
+        keep_mask = np.ones(remaining_scores.shape[0], dtype=bool)
+        keep_mask[best] = False
+        candidate_boxes = remaining_boxes[keep_mask]
+        candidate_scores = remaining_scores[keep_mask]
+        overlaps = _pairwise_iou(current_box, candidate_boxes)[0]
+        if method == "linear":
+            decay = np.where(overlaps > iou_threshold, 1.0 - overlaps, 1.0)
+        else:
+            decay = np.exp(-((overlaps * overlaps) / sigma))
+        candidate_scores = candidate_scores * decay
+        alive = candidate_scores >= score_threshold
+        remaining_boxes = candidate_boxes[alive]
+        remaining_scores = candidate_scores[alive]
+
+    if not selected_boxes:
+        return (
+            np.zeros((0, 4), dtype=np.float64),
+            np.zeros((0,), dtype=np.float64),
+        )
+    return np.vstack(selected_boxes).astype(np.float64), np.asarray(selected_scores, dtype=np.float64)
+
+
+@register_atom(witness_wbf)
+@icontract.require(lambda boxes_list, scores_list, labels_list: _lists_aligned(boxes_list, scores_list, labels_list), "box, score, and label lists must align")
+@icontract.require(lambda weights, boxes_list: len(weights) == len(boxes_list) and all(weight > 0.0 for weight in weights), "weights must be positive and match models")
+@icontract.require(lambda iou_threshold: 0.0 <= iou_threshold <= 1.0, "threshold must be in [0, 1]")
+@icontract.require(lambda skip_box_thr: 0.0 <= skip_box_thr <= 1.0, "skip threshold must be in [0, 1]")
+@icontract.ensure(lambda result: result[0].shape[0] == result[1].shape[0] == result[2].shape[0], "outputs must align")
+def wbf(
+    boxes_list: list[NDArray[np.float64]],
+    scores_list: list[NDArray[np.float64]],
+    labels_list: list[NDArray[np.int64]],
+    weights: list[float],
+    iou_threshold: float = 0.55,
+    skip_box_thr: float = 0.0,
+) -> tuple[NDArray[np.float64], NDArray[np.float64], NDArray[np.int64]]:
+    """Fuse normalized boxes from multiple models by confidence-weighted averaging."""
+    candidates: list[tuple[int, int, NDArray[np.float64], float, int, float]] = []
+    for model_id, (boxes, scores, labels, weight) in enumerate(
+        zip(boxes_list, scores_list, labels_list, weights)
+    ):
+        for row in range(boxes.shape[0]):
+            if float(scores[row]) >= skip_box_thr:
+                candidates.append(
+                    (
+                        int(labels[row]),
+                        model_id,
+                        boxes[row].astype(np.float64, copy=True),
+                        float(scores[row]),
+                        row,
+                        float(scores[row]) * float(weight),
+                    )
+                )
+    candidates.sort(key=lambda item: item[5], reverse=True)
+    clusters: list[dict[str, object]] = []
+    for label, model_id, box, score, _, weighted_score in candidates:
+        best_cluster = -1
+        best_iou = 0.0
+        for cluster_index, cluster in enumerate(clusters):
+            if int(cluster["label"]) != label:
+                continue
+            overlap = float(_pairwise_iou(box.reshape(1, 4), np.asarray(cluster["box"]).reshape(1, 4))[0, 0])
+            if overlap > best_iou:
+                best_iou = overlap
+                best_cluster = cluster_index
+        if best_cluster >= 0 and best_iou >= iou_threshold:
+            cluster = clusters[best_cluster]
+            cluster["boxes"].append(box)
+            cluster["scores"].append(score)
+            cluster["model_ids"].add(model_id)
+            cluster["weighted_scores"].append(weighted_score)
+        else:
+            cluster = {
+                "label": label,
+                "boxes": [box],
+                "scores": [score],
+                "model_ids": {model_id},
+                "weighted_scores": [weighted_score],
+            }
+            clusters.append(cluster)
+        target = clusters[best_cluster] if best_cluster >= 0 and best_iou >= iou_threshold else clusters[-1]
+        box_stack = np.vstack(target["boxes"])
+        score_weights = np.asarray(target["weighted_scores"], dtype=np.float64)
+        target["box"] = np.average(box_stack, axis=0, weights=score_weights)
+
+    fused: list[tuple[NDArray[np.float64], float, int]] = []
+    model_count = max(len(weights), 1)
+    for cluster in clusters:
+        participation = min(len(cluster["model_ids"]), model_count) / float(model_count)
+        fused_score = float(np.mean(np.asarray(cluster["scores"], dtype=np.float64)) * participation)
+        fused.append((np.clip(np.asarray(cluster["box"], dtype=np.float64), 0.0, 1.0), fused_score, int(cluster["label"])))
+    fused.sort(key=lambda item: item[1], reverse=True)
+    if not fused:
+        return (
+            np.zeros((0, 4), dtype=np.float64),
+            np.zeros((0,), dtype=np.float64),
+            np.zeros((0,), dtype=np.int64),
+        )
+    return (
+        np.vstack([item[0] for item in fused]).astype(np.float64),
+        np.asarray([item[1] for item in fused], dtype=np.float64),
+        np.asarray([item[2] for item in fused], dtype=np.int64),
+    )
+
+
+@register_atom(witness_wbf_1d)
+@icontract.require(lambda spans_list, scores_list, labels_list: _span_lists_aligned(spans_list, scores_list, labels_list), "span, score, and label lists must align")
+@icontract.require(lambda weights, spans_list: len(weights) == len(spans_list) and all(weight > 0.0 for weight in weights), "weights must be positive and match models")
+@icontract.require(lambda iou_threshold: 0.0 <= iou_threshold <= 1.0, "threshold must be in [0, 1]")
+@icontract.require(lambda skip_span_thr: 0.0 <= skip_span_thr <= 1.0, "skip threshold must be in [0, 1]")
+@icontract.ensure(lambda result: result[0].shape[0] == result[1].shape[0] == result[2].shape[0], "outputs must align")
+def wbf_1d(
+    spans_list: list[NDArray[np.float64]],
+    scores_list: list[NDArray[np.float64]],
+    labels_list: list[NDArray[np.int64]],
+    weights: list[float],
+    iou_threshold: float = 0.55,
+    skip_span_thr: float = 0.0,
+) -> tuple[NDArray[np.float64], NDArray[np.float64], NDArray[np.int64]]:
+    """Fuse 1D spans from multiple models by confidence-weighted averaging."""
+    candidates: list[tuple[int, int, NDArray[np.float64], float, float]] = []
+    for model_id, (spans, scores, labels, weight) in enumerate(
+        zip(spans_list, scores_list, labels_list, weights)
+    ):
+        for row in range(spans.shape[0]):
+            if float(scores[row]) >= skip_span_thr:
+                candidates.append(
+                    (
+                        int(labels[row]),
+                        model_id,
+                        spans[row].astype(np.float64, copy=True),
+                        float(scores[row]),
+                        float(scores[row]) * float(weight),
+                    )
+                )
+    candidates.sort(key=lambda item: item[4], reverse=True)
+    clusters: list[dict[str, object]] = []
+    for label, model_id, span, score, weighted_score in candidates:
+        best_cluster = -1
+        best_iou = 0.0
+        for cluster_index, cluster in enumerate(clusters):
+            if int(cluster["label"]) != label:
+                continue
+            overlap = float(_span_iou(span, np.asarray(cluster["span"]).reshape(1, 2))[0])
+            if overlap > best_iou:
+                best_iou = overlap
+                best_cluster = cluster_index
+        if best_cluster >= 0 and best_iou >= iou_threshold:
+            cluster = clusters[best_cluster]
+            cluster["spans"].append(span)
+            cluster["scores"].append(score)
+            cluster["model_ids"].add(model_id)
+            cluster["weighted_scores"].append(weighted_score)
+        else:
+            cluster = {
+                "label": label,
+                "spans": [span],
+                "scores": [score],
+                "model_ids": {model_id},
+                "weighted_scores": [weighted_score],
+            }
+            clusters.append(cluster)
+        target = clusters[best_cluster] if best_cluster >= 0 and best_iou >= iou_threshold else clusters[-1]
+        span_stack = np.vstack(target["spans"])
+        score_weights = np.asarray(target["weighted_scores"], dtype=np.float64)
+        target["span"] = np.average(span_stack, axis=0, weights=score_weights)
+
+    fused: list[tuple[NDArray[np.float64], float, int]] = []
+    model_count = max(len(weights), 1)
+    for cluster in clusters:
+        participation = min(len(cluster["model_ids"]), model_count) / float(model_count)
+        fused_score = float(np.mean(np.asarray(cluster["scores"], dtype=np.float64)) * participation)
+        fused.append((np.asarray(cluster["span"], dtype=np.float64), fused_score, int(cluster["label"])))
+    fused.sort(key=lambda item: item[1], reverse=True)
+    if not fused:
+        return (
+            np.zeros((0, 2), dtype=np.float64),
+            np.zeros((0,), dtype=np.float64),
+            np.zeros((0,), dtype=np.int64),
+        )
+    return (
+        np.vstack([item[0] for item in fused]).astype(np.float64),
+        np.asarray([item[1] for item in fused], dtype=np.float64),
+        np.asarray([item[2] for item in fused], dtype=np.int64),
+    )
+
+
+@register_atom(witness_generate_anchors)
+@icontract.require(lambda feature_map_size: len(feature_map_size) == 2 and all(size > 0 for size in feature_map_size), "feature_map_size must be positive H,W")
+@icontract.require(lambda stride: stride > 0, "stride must be positive")
+@icontract.require(lambda sizes: len(sizes) > 0 and all(size > 0.0 for size in sizes), "sizes must be positive")
+@icontract.require(lambda aspect_ratios: len(aspect_ratios) > 0 and all(ratio > 0.0 for ratio in aspect_ratios), "ratios must be positive")
+@icontract.ensure(
+    lambda feature_map_size, sizes, aspect_ratios, result: result.shape == (
+        feature_map_size[0] * feature_map_size[1] * len(sizes) * len(aspect_ratios),
+        4,
+    ),
+    "anchor count must match grid and base-anchor count",
+)
+def generate_anchors(
+    feature_map_size: tuple[int, int],
+    stride: int,
+    sizes: tuple[float, ...],
+    aspect_ratios: tuple[float, ...],
+) -> NDArray[np.float64]:
+    """Generate grid anchors in xyxy format for a feature map."""
+    base_anchors = []
+    for size in sizes:
+        area = float(size) * float(size)
+        for ratio in aspect_ratios:
+            width = np.sqrt(area / float(ratio))
+            height = width * float(ratio)
+            base_anchors.append([-0.5 * width, -0.5 * height, 0.5 * width, 0.5 * height])
+    base = np.asarray(base_anchors, dtype=np.float64)
+    height, width = feature_map_size
+    shift_x, shift_y = np.meshgrid(
+        np.arange(width, dtype=np.float64) * float(stride),
+        np.arange(height, dtype=np.float64) * float(stride),
+    )
+    shifts = np.stack([shift_x.ravel(), shift_y.ravel(), shift_x.ravel(), shift_y.ravel()], axis=1)
+    return (shifts[:, None, :] + base[None, :, :]).reshape(-1, 4).astype(np.float64)
+
+
+@register_atom(witness_encode_boxes)
+@icontract.require(lambda anchors: _positive_area_xyxy_boxes(anchors), "anchors must be positive-area xyxy boxes")
+@icontract.require(lambda gt_boxes: _positive_area_xyxy_boxes(gt_boxes), "gt boxes must be positive-area xyxy boxes")
+@icontract.require(lambda anchors, gt_boxes: anchors.shape == gt_boxes.shape, "anchors and gt boxes must align")
+@icontract.require(lambda scales: len(scales) == 4 and all(scale > 0.0 for scale in scales), "scales must contain four positive values")
+@icontract.ensure(lambda anchors, result: result.shape == anchors.shape, "deltas must match anchor shape")
+def encode_boxes(
+    anchors: NDArray[np.float64],
+    gt_boxes: NDArray[np.float64],
+    scales: tuple[float, float, float, float] = (10.0, 10.0, 5.0, 5.0),
+) -> NDArray[np.float64]:
+    """Encode ground-truth boxes as Faster R-CNN deltas relative to anchors."""
+    anchor_widths = anchors[:, 2] - anchors[:, 0]
+    anchor_heights = anchors[:, 3] - anchors[:, 1]
+    anchor_ctr_x = anchors[:, 0] + 0.5 * anchor_widths
+    anchor_ctr_y = anchors[:, 1] + 0.5 * anchor_heights
+
+    gt_widths = gt_boxes[:, 2] - gt_boxes[:, 0]
+    gt_heights = gt_boxes[:, 3] - gt_boxes[:, 1]
+    gt_ctr_x = gt_boxes[:, 0] + 0.5 * gt_widths
+    gt_ctr_y = gt_boxes[:, 1] + 0.5 * gt_heights
+
+    wx, wy, ww, wh = scales
+    deltas = np.zeros_like(anchors, dtype=np.float64)
+    deltas[:, 0] = wx * (gt_ctr_x - anchor_ctr_x) / anchor_widths
+    deltas[:, 1] = wy * (gt_ctr_y - anchor_ctr_y) / anchor_heights
+    deltas[:, 2] = ww * np.log(gt_widths / anchor_widths)
+    deltas[:, 3] = wh * np.log(gt_heights / anchor_heights)
+    return deltas
+
+
+@register_atom(witness_decode_boxes)
+@icontract.require(lambda anchors: _positive_area_xyxy_boxes(anchors), "anchors must be positive-area xyxy boxes")
+@icontract.require(lambda anchors, deltas: deltas.shape == anchors.shape and np.all(np.isfinite(deltas)), "deltas must be finite and match anchors")
+@icontract.require(lambda scales: len(scales) == 4 and all(scale > 0.0 for scale in scales), "scales must contain four positive values")
+@icontract.ensure(lambda anchors, result: result.shape == anchors.shape, "decoded boxes must match anchor shape")
+@icontract.ensure(lambda result: _positive_area_xyxy_boxes(result), "decoded boxes must have positive area")
+def decode_boxes(
+    anchors: NDArray[np.float64],
+    deltas: NDArray[np.float64],
+    scales: tuple[float, float, float, float] = (10.0, 10.0, 5.0, 5.0),
+) -> NDArray[np.float64]:
+    """Decode Faster R-CNN deltas back into xyxy boxes."""
+    widths = anchors[:, 2] - anchors[:, 0]
+    heights = anchors[:, 3] - anchors[:, 1]
+    ctr_x = anchors[:, 0] + 0.5 * widths
+    ctr_y = anchors[:, 1] + 0.5 * heights
+
+    wx, wy, ww, wh = scales
+    dx = deltas[:, 0] / wx
+    dy = deltas[:, 1] / wy
+    dw = np.clip(deltas[:, 2] / ww, -_BOX_DELTA_CLIP, _BOX_DELTA_CLIP)
+    dh = np.clip(deltas[:, 3] / wh, -_BOX_DELTA_CLIP, _BOX_DELTA_CLIP)
+
+    pred_ctr_x = dx * widths + ctr_x
+    pred_ctr_y = dy * heights + ctr_y
+    pred_w = np.exp(dw) * widths
+    pred_h = np.exp(dh) * heights
+
+    decoded = np.zeros_like(deltas, dtype=np.float64)
+    decoded[:, 0] = pred_ctr_x - 0.5 * pred_w
+    decoded[:, 1] = pred_ctr_y - 0.5 * pred_h
+    decoded[:, 2] = pred_ctr_x + 0.5 * pred_w
+    decoded[:, 3] = pred_ctr_y + 0.5 * pred_h
+    return decoded
+
+
+@register_atom(witness_nms_1d)
+@icontract.require(lambda signal: signal.ndim == 1 and np.all(np.isfinite(signal)), "signal must be a finite vector")
+@icontract.require(lambda min_distance: min_distance > 0, "min_distance must be positive")
+@icontract.require(lambda threshold: 0.0 <= threshold <= 1.0, "threshold must be in [0, 1]")
+@icontract.ensure(lambda signal, result: bool(np.all((result >= 0) & (result < signal.shape[0]))), "peaks must be valid indices")
+def nms_1d(
+    signal: NDArray[np.float64],
+    min_distance: int,
+    threshold: float,
+) -> NDArray[np.int64]:
+    """Find local 1D peaks and suppress lower peaks within a fixed distance."""
+    if signal.size == 0:
+        return np.zeros((0,), dtype=np.int64)
+    left = np.r_[signal[0] - 1.0, signal[:-1]]
+    right = np.r_[signal[1:], signal[-1] - 1.0]
+    candidate_mask = (signal >= threshold) & (signal >= left) & (signal >= right)
+    candidate_indices = np.flatnonzero(candidate_mask)
+    if candidate_indices.size == 0:
+        return np.zeros((0,), dtype=np.int64)
+
+    plateau_peaks: list[int] = []
+    splits = np.split(candidate_indices, np.where(np.diff(candidate_indices) > 1)[0] + 1)
+    for group in splits:
+        values = signal[group]
+        max_value = np.max(values)
+        best = group[np.flatnonzero(values == max_value)]
+        plateau_peaks.append(int(best[len(best) // 2]))
+
+    peaks = np.asarray(plateau_peaks, dtype=np.int64)
+    order = peaks[np.argsort(signal[peaks])[::-1]]
+    kept: list[int] = []
+    for index in order:
+        if all(abs(int(index) - kept_index) >= min_distance for kept_index in kept):
+            kept.append(int(index))
+    return np.asarray(sorted(kept), dtype=np.int64)
+
+
+@register_atom(witness_masks_to_boxes)
+@icontract.require(
+    lambda binary_masks: binary_masks.ndim == 3 and binary_masks.dtype == np.bool_,
+    "binary_masks must have shape (N, H, W) and bool dtype",
+)
+@icontract.ensure(lambda binary_masks, result: result.shape == (binary_masks.shape[0], 4), "one box per mask is required")
+def masks_to_boxes(binary_masks: NDArray[np.bool_]) -> NDArray[np.float64]:
+    """Convert binary instance masks into xyxy bounding boxes."""
+    n_masks, height, width = binary_masks.shape
+    boxes = np.zeros((n_masks, 4), dtype=np.float64)
+    if n_masks == 0:
+        return boxes
+    x_projection = np.any(binary_masks, axis=1)
+    y_projection = np.any(binary_masks, axis=2)
+    nonempty = np.any(x_projection, axis=1) & np.any(y_projection, axis=1)
+    boxes[nonempty, 0] = np.argmax(x_projection[nonempty], axis=1)
+    boxes[nonempty, 1] = np.argmax(y_projection[nonempty], axis=1)
+    boxes[nonempty, 2] = width - 1 - np.argmax(x_projection[nonempty, ::-1], axis=1)
+    boxes[nonempty, 3] = height - 1 - np.argmax(y_projection[nonempty, ::-1], axis=1)
+    return boxes
+
+
+@register_atom(witness_associate_boxes)
+@icontract.require(lambda boxes_a: _valid_xyxy_boxes(boxes_a), "boxes_a must be xyxy boxes")
+@icontract.require(lambda boxes_b: _valid_xyxy_boxes(boxes_b), "boxes_b must be xyxy boxes")
+@icontract.require(lambda iou_threshold: 0.0 <= iou_threshold <= 1.0, "threshold must be in [0, 1]")
+@icontract.ensure(lambda result: len(result) == 4, "association must return four index arrays")
+def associate_boxes(
+    boxes_a: NDArray[np.float64],
+    boxes_b: NDArray[np.float64],
+    iou_threshold: float,
+) -> tuple[NDArray[np.int64], NDArray[np.int64], NDArray[np.int64], NDArray[np.int64]]:
+    """Associate two box sets by Hungarian matching on IoU distance."""
+    if boxes_a.shape[0] == 0 or boxes_b.shape[0] == 0:
+        return (
+            np.zeros((0,), dtype=np.int64),
+            np.zeros((0,), dtype=np.int64),
+            np.arange(boxes_a.shape[0], dtype=np.int64),
+            np.arange(boxes_b.shape[0], dtype=np.int64),
+        )
+    overlaps = _pairwise_iou(boxes_a, boxes_b)
+    row_ind, col_ind = linear_sum_assignment(1.0 - overlaps)
+    valid = overlaps[row_ind, col_ind] >= iou_threshold
+    matched_a = row_ind[valid].astype(np.int64)
+    matched_b = col_ind[valid].astype(np.int64)
+    unmatched_a = np.setdiff1d(np.arange(boxes_a.shape[0], dtype=np.int64), matched_a)
+    unmatched_b = np.setdiff1d(np.arange(boxes_b.shape[0], dtype=np.int64), matched_b)
+    return matched_a, matched_b, unmatched_a, unmatched_b
+
+
+@register_atom(witness_threshold_detections)
+@icontract.require(lambda boxes: _valid_xyxy_boxes(boxes), "boxes must be xyxy boxes")
+@icontract.require(
+    lambda boxes, scores: scores.shape == (boxes.shape[0],)
+    and np.all(np.isfinite(scores))
+    and np.all((scores >= 0.0) & (scores <= 1.0)),
+    "scores must be probabilities matching boxes",
+)
+@icontract.require(lambda threshold: 0.0 <= threshold <= 1.0, "threshold must be in [0, 1]")
+@icontract.ensure(lambda result: result[0].shape[0] == result[1].shape[0], "boxes and scores must align")
+@icontract.ensure(lambda threshold, result: bool(np.all(result[1] >= threshold)), "scores must satisfy threshold")
+def threshold_detections(
+    boxes: NDArray[np.float64],
+    scores: NDArray[np.float64],
+    threshold: float,
+) -> tuple[NDArray[np.float64], NDArray[np.float64]]:
+    """Filter detections by a minimum confidence score."""
+    keep = scores >= threshold
+    return boxes[keep].astype(np.float64, copy=True), scores[keep].astype(np.float64, copy=True)

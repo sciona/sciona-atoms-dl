@@ -947,6 +947,181 @@
             "confidence": "medium",
             "notes": "MIT repository cited by the research report for weighted BCE with subgroup-aware sample weights."
         }
+    },
+    "detection_postprocess_research_2026": {
+        "ref_id": "detection_postprocess_research_2026",
+        "type": "research_note",
+        "title": "Computational Primitives in Object Detection Post-Processing",
+        "authors": [
+            "Sciona deep research prompt"
+        ],
+        "year": 2026,
+        "venue": "Local research artifact",
+        "url": "research/03_research.pdf",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Local research report for pure-function detection post-processing atoms and clean-room implementation boundaries."
+        }
+    },
+    "rezatofighi2019giou": {
+        "ref_id": "rezatofighi2019giou",
+        "type": "paper",
+        "title": "Generalized Intersection over Union: A Metric and A Loss for Bounding Box Regression",
+        "authors": [
+            "Hamid Rezatofighi",
+            "Nathan Tsoi",
+            "JunYoung Gwak",
+            "Amir Sadeghian",
+            "Ian Reid",
+            "Silvio Savarese"
+        ],
+        "year": 2019,
+        "venue": "CVPR",
+        "url": "https://arxiv.org/abs/1902.09630",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary paper defining Generalized IoU for bounding boxes."
+        }
+    },
+    "bodla2017softnms": {
+        "ref_id": "bodla2017softnms",
+        "type": "paper",
+        "title": "Soft-NMS -- Improving Object Detection With One Line of Code",
+        "authors": [
+            "Navaneeth Bodla",
+            "Bharat Singh",
+            "Rama Chellappa",
+            "Larry S. Davis"
+        ],
+        "year": 2017,
+        "venue": "ICCV",
+        "url": "https://arxiv.org/abs/1704.04503",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary paper for Soft-NMS score decay."
+        }
+    },
+    "solovyev2021wbf": {
+        "ref_id": "solovyev2021wbf",
+        "type": "paper",
+        "title": "Weighted boxes fusion: Ensembling boxes from different object detection models",
+        "authors": [
+            "Roman Solovyev",
+            "Weimin Wang",
+            "Tatiana Gabruseva"
+        ],
+        "year": 2021,
+        "venue": "Information Fusion",
+        "url": "https://arxiv.org/abs/1910.13302",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary WBF paper for confidence-weighted coordinate fusion."
+        }
+    },
+    "repo_weighted_boxes_fusion": {
+        "ref_id": "repo_weighted_boxes_fusion",
+        "type": "repository",
+        "title": "Weighted Boxes Fusion",
+        "authors": [
+            "ZFTurbo"
+        ],
+        "year": 2021,
+        "venue": "GitHub",
+        "url": "https://github.com/ZFTurbo/Weighted-Boxes-Fusion",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "MIT repository cited by the local research report for WBF and WBF-1D."
+        }
+    },
+    "ren2015fasterrcnn": {
+        "ref_id": "ren2015fasterrcnn",
+        "type": "paper",
+        "title": "Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks",
+        "authors": [
+            "Shaoqing Ren",
+            "Kaiming He",
+            "Ross Girshick",
+            "Jian Sun"
+        ],
+        "year": 2015,
+        "venue": "NeurIPS",
+        "url": "https://arxiv.org/abs/1506.01497",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Anchor and box-delta parameterization reference."
+        }
+    },
+    "repo_detectron2": {
+        "ref_id": "repo_detectron2",
+        "type": "repository",
+        "title": "Detectron2",
+        "authors": [
+            "Facebook AI Research"
+        ],
+        "year": 2019,
+        "venue": "GitHub",
+        "url": "https://github.com/facebookresearch/detectron2",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Apache-2.0 object detection framework cited by the research report for anchor generation conventions."
+        }
+    },
+    "torchvision_masks_to_boxes": {
+        "ref_id": "torchvision_masks_to_boxes",
+        "type": "documentation",
+        "title": "TorchVision masks_to_boxes",
+        "authors": [
+            "TorchVision Developers"
+        ],
+        "year": 2026,
+        "venue": "TorchVision documentation",
+        "url": "https://docs.pytorch.org/vision/main/generated/torchvision.ops.masks_to_boxes.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Reference for mask-to-box semantics used by the clean-room NumPy atom."
+        }
+    },
+    "scipy_linear_sum_assignment": {
+        "ref_id": "scipy_linear_sum_assignment",
+        "type": "documentation",
+        "title": "scipy.optimize.linear_sum_assignment",
+        "authors": [
+            "SciPy Developers"
+        ],
+        "year": 2026,
+        "venue": "SciPy documentation",
+        "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.linear_sum_assignment.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "BSD-licensed assignment solver used for tracking association."
+        }
     }
   }
 }

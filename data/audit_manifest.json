@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "metadata": {
-    "generated_at": "2026-04-28T19:50:32.683571+00:00",
+    "generated_at": "2026-04-28T21:01:14.732160+00:00",
     "generator": "scripts/apply_audit_review_bundles.py",
     "phase": "phase_1_review_bundle_merge"
   },
@@ -388,6 +388,14 @@
         {
           "kind": "local_test",
           "path": "tests/test_dl_detection_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_review_bundle.py"
         }
       ],
       "source_kind": "hand_written",
@@ -419,6 +427,110 @@
       "parity_test_status": "pass",
       "parity_fixture_count": 2,
       "parity_case_count": 5,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_detection.review_bundle.json",
+      "has_references": true,
+      "references_status": "pass"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.detection.associate_boxes",
+      "atom_key": "sciona.atoms.dl.detection.associate_boxes",
+      "atom_id": "sciona.atoms.dl.detection.associate_boxes",
+      "module_import_path": "sciona.atoms.dl.detection.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/detection/atoms.py",
+      "module_family": "detection",
+      "domain_family": "dl.detection",
+      "wrapper_symbol": "associate_boxes",
+      "argument_names": [
+        "boxes_a",
+        "boxes_b",
+        "iou_threshold"
+      ],
+      "argument_details": [
+        {
+          "name": "boxes_a",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "boxes_b",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "iou_threshold",
+          "annotation": "float",
+          "required": true,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "tuple[NDArray[np.int64], NDArray[np.int64], NDArray[np.int64], NDArray[np.int64]]",
+      "docstring_summary": "Associate two box sets by Hungarian matching on IoU distance.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/witnesses.py"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/references.json"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "reviewed_pending",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantics_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "review_required_actions": [],
+      "review_limitations": [],
+      "trust_blockers": [],
+      "structural_status": "pass",
+      "semantic_status": "pass_with_limits",
+      "runtime_status": "pass",
+      "developer_semantics_status": "pass_with_limits",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 15,
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
+      "risk_reasons": [],
+      "acceptability_score": 85,
+      "acceptability_band": "review_ready",
+      "parity_coverage_level": "positive_path",
+      "parity_test_status": "pass",
+      "parity_fixture_count": 1,
+      "parity_case_count": 1,
       "required_actions": [],
       "blocking_findings": [],
       "review_record_path": "data/review_bundles/dl_detection.review_bundle.json",
@@ -470,6 +582,14 @@
         {
           "kind": "local_test",
           "path": "tests/test_dl_detection_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_review_bundle.py"
         }
       ],
       "source_kind": "hand_written",
@@ -501,6 +621,519 @@
       "parity_test_status": "pass",
       "parity_fixture_count": 2,
       "parity_case_count": 4,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_detection.review_bundle.json",
+      "has_references": true,
+      "references_status": "pass"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.detection.decode_boxes",
+      "atom_key": "sciona.atoms.dl.detection.decode_boxes",
+      "atom_id": "sciona.atoms.dl.detection.decode_boxes",
+      "module_import_path": "sciona.atoms.dl.detection.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/detection/atoms.py",
+      "module_family": "detection",
+      "domain_family": "dl.detection",
+      "wrapper_symbol": "decode_boxes",
+      "argument_names": [
+        "anchors",
+        "deltas",
+        "scales"
+      ],
+      "argument_details": [
+        {
+          "name": "anchors",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "deltas",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "scales",
+          "annotation": "tuple[float, float, float, float]",
+          "required": false,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "NDArray[np.float64]",
+      "docstring_summary": "Decode Faster R-CNN deltas back into xyxy boxes.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/witnesses.py"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/references.json"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "reviewed_pending",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantics_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "review_required_actions": [],
+      "review_limitations": [],
+      "trust_blockers": [],
+      "structural_status": "pass",
+      "semantic_status": "pass_with_limits",
+      "runtime_status": "pass",
+      "developer_semantics_status": "pass_with_limits",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 15,
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
+      "risk_reasons": [],
+      "acceptability_score": 85,
+      "acceptability_band": "review_ready",
+      "parity_coverage_level": "positive_path",
+      "parity_test_status": "pass",
+      "parity_fixture_count": 1,
+      "parity_case_count": 1,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_detection.review_bundle.json",
+      "has_references": true,
+      "references_status": "pass"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.detection.encode_boxes",
+      "atom_key": "sciona.atoms.dl.detection.encode_boxes",
+      "atom_id": "sciona.atoms.dl.detection.encode_boxes",
+      "module_import_path": "sciona.atoms.dl.detection.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/detection/atoms.py",
+      "module_family": "detection",
+      "domain_family": "dl.detection",
+      "wrapper_symbol": "encode_boxes",
+      "argument_names": [
+        "anchors",
+        "gt_boxes",
+        "scales"
+      ],
+      "argument_details": [
+        {
+          "name": "anchors",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "gt_boxes",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "scales",
+          "annotation": "tuple[float, float, float, float]",
+          "required": false,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "NDArray[np.float64]",
+      "docstring_summary": "Encode ground-truth boxes as Faster R-CNN deltas relative to anchors.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/witnesses.py"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/references.json"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "reviewed_pending",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantics_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "review_required_actions": [],
+      "review_limitations": [],
+      "trust_blockers": [],
+      "structural_status": "pass",
+      "semantic_status": "pass_with_limits",
+      "runtime_status": "pass",
+      "developer_semantics_status": "pass_with_limits",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 15,
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
+      "risk_reasons": [],
+      "acceptability_score": 85,
+      "acceptability_band": "review_ready",
+      "parity_coverage_level": "positive_path",
+      "parity_test_status": "pass",
+      "parity_fixture_count": 1,
+      "parity_case_count": 1,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_detection.review_bundle.json",
+      "has_references": true,
+      "references_status": "pass"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.detection.generate_anchors",
+      "atom_key": "sciona.atoms.dl.detection.generate_anchors",
+      "atom_id": "sciona.atoms.dl.detection.generate_anchors",
+      "module_import_path": "sciona.atoms.dl.detection.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/detection/atoms.py",
+      "module_family": "detection",
+      "domain_family": "dl.detection",
+      "wrapper_symbol": "generate_anchors",
+      "argument_names": [
+        "feature_map_size",
+        "stride",
+        "sizes",
+        "aspect_ratios"
+      ],
+      "argument_details": [
+        {
+          "name": "feature_map_size",
+          "annotation": "tuple[int, int]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "stride",
+          "annotation": "int",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "sizes",
+          "annotation": "tuple[float, ...]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "aspect_ratios",
+          "annotation": "tuple[float, ...]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "NDArray[np.float64]",
+      "docstring_summary": "Generate grid anchors in xyxy format for a feature map.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/witnesses.py"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/references.json"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "reviewed_pending",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantics_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "review_required_actions": [],
+      "review_limitations": [],
+      "trust_blockers": [],
+      "structural_status": "pass",
+      "semantic_status": "pass_with_limits",
+      "runtime_status": "pass",
+      "developer_semantics_status": "pass_with_limits",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 15,
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
+      "risk_reasons": [],
+      "acceptability_score": 85,
+      "acceptability_band": "review_ready",
+      "parity_coverage_level": "positive_path",
+      "parity_test_status": "pass",
+      "parity_fixture_count": 1,
+      "parity_case_count": 1,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_detection.review_bundle.json",
+      "has_references": true,
+      "references_status": "pass"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.detection.giou_matrix",
+      "atom_key": "sciona.atoms.dl.detection.giou_matrix",
+      "atom_id": "sciona.atoms.dl.detection.giou_matrix",
+      "module_import_path": "sciona.atoms.dl.detection.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/detection/atoms.py",
+      "module_family": "detection",
+      "domain_family": "dl.detection",
+      "wrapper_symbol": "giou_matrix",
+      "argument_names": [
+        "boxes_a",
+        "boxes_b"
+      ],
+      "argument_details": [
+        {
+          "name": "boxes_a",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "boxes_b",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "NDArray[np.float64]",
+      "docstring_summary": "Compute pairwise generalized IoU for xyxy boxes.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/witnesses.py"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/references.json"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "reviewed_pending",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantics_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "review_required_actions": [],
+      "review_limitations": [],
+      "trust_blockers": [],
+      "structural_status": "pass",
+      "semantic_status": "pass_with_limits",
+      "runtime_status": "pass",
+      "developer_semantics_status": "pass_with_limits",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 15,
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
+      "risk_reasons": [],
+      "acceptability_score": 85,
+      "acceptability_band": "review_ready",
+      "parity_coverage_level": "positive_path",
+      "parity_test_status": "pass",
+      "parity_fixture_count": 1,
+      "parity_case_count": 1,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_detection.review_bundle.json",
+      "has_references": true,
+      "references_status": "pass"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.detection.iou_matrix",
+      "atom_key": "sciona.atoms.dl.detection.iou_matrix",
+      "atom_id": "sciona.atoms.dl.detection.iou_matrix",
+      "module_import_path": "sciona.atoms.dl.detection.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/detection/atoms.py",
+      "module_family": "detection",
+      "domain_family": "dl.detection",
+      "wrapper_symbol": "iou_matrix",
+      "argument_names": [
+        "boxes_a",
+        "boxes_b"
+      ],
+      "argument_details": [
+        {
+          "name": "boxes_a",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "boxes_b",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "NDArray[np.float64]",
+      "docstring_summary": "Compute pairwise intersection-over-union for xyxy boxes.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/witnesses.py"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/references.json"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "reviewed_pending",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantics_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "review_required_actions": [],
+      "review_limitations": [],
+      "trust_blockers": [],
+      "structural_status": "pass",
+      "semantic_status": "pass_with_limits",
+      "runtime_status": "pass",
+      "developer_semantics_status": "pass_with_limits",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 15,
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
+      "risk_reasons": [],
+      "acceptability_score": 85,
+      "acceptability_band": "review_ready",
+      "parity_coverage_level": "positive_path",
+      "parity_test_status": "pass",
+      "parity_fixture_count": 1,
+      "parity_case_count": 1,
       "required_actions": [],
       "blocking_findings": [],
       "review_record_path": "data/review_bundles/dl_detection.review_bundle.json",
@@ -573,6 +1206,14 @@
         {
           "kind": "local_test",
           "path": "tests/test_dl_detection_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_review_bundle.py"
         }
       ],
       "source_kind": "hand_written",
@@ -606,6 +1247,783 @@
       "parity_test_status": "pass",
       "parity_fixture_count": 2,
       "parity_case_count": 4,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_detection.review_bundle.json",
+      "has_references": true,
+      "references_status": "pass"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.detection.masks_to_boxes",
+      "atom_key": "sciona.atoms.dl.detection.masks_to_boxes",
+      "atom_id": "sciona.atoms.dl.detection.masks_to_boxes",
+      "module_import_path": "sciona.atoms.dl.detection.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/detection/atoms.py",
+      "module_family": "detection",
+      "domain_family": "dl.detection",
+      "wrapper_symbol": "masks_to_boxes",
+      "argument_names": [
+        "binary_masks"
+      ],
+      "argument_details": [
+        {
+          "name": "binary_masks",
+          "annotation": "NDArray[np.bool_]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "NDArray[np.float64]",
+      "docstring_summary": "Convert binary instance masks into xyxy bounding boxes.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/witnesses.py"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/references.json"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "reviewed_pending",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantics_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "review_required_actions": [],
+      "review_limitations": [],
+      "trust_blockers": [],
+      "structural_status": "pass",
+      "semantic_status": "pass_with_limits",
+      "runtime_status": "pass",
+      "developer_semantics_status": "pass_with_limits",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 15,
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
+      "risk_reasons": [],
+      "acceptability_score": 85,
+      "acceptability_band": "review_ready",
+      "parity_coverage_level": "positive_path",
+      "parity_test_status": "pass",
+      "parity_fixture_count": 1,
+      "parity_case_count": 1,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_detection.review_bundle.json",
+      "has_references": true,
+      "references_status": "pass"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.detection.nms",
+      "atom_key": "sciona.atoms.dl.detection.nms",
+      "atom_id": "sciona.atoms.dl.detection.nms",
+      "module_import_path": "sciona.atoms.dl.detection.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/detection/atoms.py",
+      "module_family": "detection",
+      "domain_family": "dl.detection",
+      "wrapper_symbol": "nms",
+      "argument_names": [
+        "boxes",
+        "scores",
+        "iou_threshold"
+      ],
+      "argument_details": [
+        {
+          "name": "boxes",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "scores",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "iou_threshold",
+          "annotation": "float",
+          "required": true,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "NDArray[np.int64]",
+      "docstring_summary": "Select boxes by greedy non-maximum suppression.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/witnesses.py"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/references.json"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "reviewed_pending",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantics_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "review_required_actions": [],
+      "review_limitations": [],
+      "trust_blockers": [],
+      "structural_status": "pass",
+      "semantic_status": "pass_with_limits",
+      "runtime_status": "pass",
+      "developer_semantics_status": "pass_with_limits",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 15,
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
+      "risk_reasons": [],
+      "acceptability_score": 85,
+      "acceptability_band": "review_ready",
+      "parity_coverage_level": "positive_path",
+      "parity_test_status": "pass",
+      "parity_fixture_count": 1,
+      "parity_case_count": 1,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_detection.review_bundle.json",
+      "has_references": true,
+      "references_status": "pass"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.detection.nms_1d",
+      "atom_key": "sciona.atoms.dl.detection.nms_1d",
+      "atom_id": "sciona.atoms.dl.detection.nms_1d",
+      "module_import_path": "sciona.atoms.dl.detection.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/detection/atoms.py",
+      "module_family": "detection",
+      "domain_family": "dl.detection",
+      "wrapper_symbol": "nms_1d",
+      "argument_names": [
+        "signal",
+        "min_distance",
+        "threshold"
+      ],
+      "argument_details": [
+        {
+          "name": "signal",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "min_distance",
+          "annotation": "int",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "threshold",
+          "annotation": "float",
+          "required": true,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "NDArray[np.int64]",
+      "docstring_summary": "Find local 1D peaks and suppress lower peaks within a fixed distance.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/witnesses.py"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/references.json"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "reviewed_pending",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantics_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "review_required_actions": [],
+      "review_limitations": [],
+      "trust_blockers": [],
+      "structural_status": "pass",
+      "semantic_status": "pass_with_limits",
+      "runtime_status": "pass",
+      "developer_semantics_status": "pass_with_limits",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 15,
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
+      "risk_reasons": [],
+      "acceptability_score": 85,
+      "acceptability_band": "review_ready",
+      "parity_coverage_level": "positive_path",
+      "parity_test_status": "pass",
+      "parity_fixture_count": 1,
+      "parity_case_count": 1,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_detection.review_bundle.json",
+      "has_references": true,
+      "references_status": "pass"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.detection.soft_nms",
+      "atom_key": "sciona.atoms.dl.detection.soft_nms",
+      "atom_id": "sciona.atoms.dl.detection.soft_nms",
+      "module_import_path": "sciona.atoms.dl.detection.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/detection/atoms.py",
+      "module_family": "detection",
+      "domain_family": "dl.detection",
+      "wrapper_symbol": "soft_nms",
+      "argument_names": [
+        "boxes",
+        "scores",
+        "iou_threshold",
+        "sigma",
+        "method",
+        "score_threshold"
+      ],
+      "argument_details": [
+        {
+          "name": "boxes",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "scores",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "iou_threshold",
+          "annotation": "float",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "sigma",
+          "annotation": "float",
+          "required": false,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "method",
+          "annotation": "str",
+          "required": false,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "score_threshold",
+          "annotation": "float",
+          "required": false,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "tuple[NDArray[np.float64], NDArray[np.float64]]",
+      "docstring_summary": "Apply Soft-NMS by decaying scores of overlapping boxes.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/witnesses.py"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/references.json"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "reviewed_pending",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantics_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "review_required_actions": [],
+      "review_limitations": [],
+      "trust_blockers": [],
+      "structural_status": "pass",
+      "semantic_status": "pass_with_limits",
+      "runtime_status": "pass",
+      "developer_semantics_status": "pass_with_limits",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 15,
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
+      "risk_reasons": [],
+      "acceptability_score": 85,
+      "acceptability_band": "review_ready",
+      "parity_coverage_level": "positive_path",
+      "parity_test_status": "pass",
+      "parity_fixture_count": 1,
+      "parity_case_count": 1,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_detection.review_bundle.json",
+      "has_references": true,
+      "references_status": "pass"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.detection.threshold_detections",
+      "atom_key": "sciona.atoms.dl.detection.threshold_detections",
+      "atom_id": "sciona.atoms.dl.detection.threshold_detections",
+      "module_import_path": "sciona.atoms.dl.detection.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/detection/atoms.py",
+      "module_family": "detection",
+      "domain_family": "dl.detection",
+      "wrapper_symbol": "threshold_detections",
+      "argument_names": [
+        "boxes",
+        "scores",
+        "threshold"
+      ],
+      "argument_details": [
+        {
+          "name": "boxes",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "scores",
+          "annotation": "NDArray[np.float64]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "threshold",
+          "annotation": "float",
+          "required": true,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "tuple[NDArray[np.float64], NDArray[np.float64]]",
+      "docstring_summary": "Filter detections by a minimum confidence score.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/witnesses.py"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/references.json"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "reviewed_pending",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantics_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "review_required_actions": [],
+      "review_limitations": [],
+      "trust_blockers": [],
+      "structural_status": "pass",
+      "semantic_status": "pass_with_limits",
+      "runtime_status": "pass",
+      "developer_semantics_status": "pass_with_limits",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 15,
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
+      "risk_reasons": [],
+      "acceptability_score": 85,
+      "acceptability_band": "review_ready",
+      "parity_coverage_level": "positive_path",
+      "parity_test_status": "pass",
+      "parity_fixture_count": 1,
+      "parity_case_count": 1,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_detection.review_bundle.json",
+      "has_references": true,
+      "references_status": "pass"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.detection.wbf",
+      "atom_key": "sciona.atoms.dl.detection.wbf",
+      "atom_id": "sciona.atoms.dl.detection.wbf",
+      "module_import_path": "sciona.atoms.dl.detection.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/detection/atoms.py",
+      "module_family": "detection",
+      "domain_family": "dl.detection",
+      "wrapper_symbol": "wbf",
+      "argument_names": [
+        "boxes_list",
+        "scores_list",
+        "labels_list",
+        "weights",
+        "iou_threshold",
+        "skip_box_thr"
+      ],
+      "argument_details": [
+        {
+          "name": "boxes_list",
+          "annotation": "list[NDArray[np.float64]]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "scores_list",
+          "annotation": "list[NDArray[np.float64]]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "labels_list",
+          "annotation": "list[NDArray[np.int64]]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "weights",
+          "annotation": "list[float]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "iou_threshold",
+          "annotation": "float",
+          "required": false,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "skip_box_thr",
+          "annotation": "float",
+          "required": false,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "tuple[NDArray[np.float64], NDArray[np.float64], NDArray[np.int64]]",
+      "docstring_summary": "Fuse normalized boxes from multiple models by confidence-weighted averaging.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/witnesses.py"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/references.json"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "reviewed_pending",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantics_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "review_required_actions": [],
+      "review_limitations": [],
+      "trust_blockers": [],
+      "structural_status": "pass",
+      "semantic_status": "pass_with_limits",
+      "runtime_status": "pass",
+      "developer_semantics_status": "pass_with_limits",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 15,
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
+      "risk_reasons": [],
+      "acceptability_score": 85,
+      "acceptability_band": "review_ready",
+      "parity_coverage_level": "positive_path",
+      "parity_test_status": "pass",
+      "parity_fixture_count": 1,
+      "parity_case_count": 1,
+      "required_actions": [],
+      "blocking_findings": [],
+      "review_record_path": "data/review_bundles/dl_detection.review_bundle.json",
+      "has_references": true,
+      "references_status": "pass"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.detection.wbf_1d",
+      "atom_key": "sciona.atoms.dl.detection.wbf_1d",
+      "atom_id": "sciona.atoms.dl.detection.wbf_1d",
+      "module_import_path": "sciona.atoms.dl.detection.atoms",
+      "module_path": "/Users/conrad/personal/sciona-atoms-dl/src/sciona/atoms/dl/detection/atoms.py",
+      "module_family": "detection",
+      "domain_family": "dl.detection",
+      "wrapper_symbol": "wbf_1d",
+      "argument_names": [
+        "spans_list",
+        "scores_list",
+        "labels_list",
+        "weights",
+        "iou_threshold",
+        "skip_span_thr"
+      ],
+      "argument_details": [
+        {
+          "name": "spans_list",
+          "annotation": "list[NDArray[np.float64]]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "scores_list",
+          "annotation": "list[NDArray[np.float64]]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "labels_list",
+          "annotation": "list[NDArray[np.int64]]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "weights",
+          "annotation": "list[float]",
+          "required": true,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "iou_threshold",
+          "annotation": "float",
+          "required": false,
+          "kind": "positional_or_keyword"
+        },
+        {
+          "name": "skip_span_thr",
+          "annotation": "float",
+          "required": false,
+          "kind": "positional_or_keyword"
+        }
+      ],
+      "uses_varargs": false,
+      "uses_kwargs": false,
+      "return_annotation": "tuple[NDArray[np.float64], NDArray[np.float64], NDArray[np.int64]]",
+      "docstring_summary": "Fuse 1D spans from multiple models by confidence-weighted averaging.",
+      "has_docstring": true,
+      "authoritative_sources": [
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/atoms.py"
+        },
+        {
+          "kind": "local_wrapper",
+          "path": "src/sciona/atoms/dl/detection/witnesses.py"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/references.json"
+        },
+        {
+          "kind": "local_metadata",
+          "path": "src/sciona/atoms/dl/detection/cdg.json"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_behavior.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_references_metadata.py"
+        },
+        {
+          "kind": "local_test",
+          "path": "tests/test_dl_detection_review_bundle.py"
+        }
+      ],
+      "source_kind": "hand_written",
+      "review_status": "reviewed_pending",
+      "review_priority": "review_later",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantics_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "review_required_actions": [],
+      "review_limitations": [],
+      "trust_blockers": [],
+      "structural_status": "pass",
+      "semantic_status": "pass_with_limits",
+      "runtime_status": "pass",
+      "developer_semantics_status": "pass_with_limits",
+      "overall_verdict": "unknown",
+      "risk_tier": "low",
+      "risk_score": 15,
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
+      "risk_reasons": [],
+      "acceptability_score": 85,
+      "acceptability_band": "review_ready",
+      "parity_coverage_level": "positive_path",
+      "parity_test_status": "pass",
+      "parity_fixture_count": 1,
+      "parity_case_count": 1,
       "required_actions": [],
       "blocking_findings": [],
       "review_record_path": "data/review_bundles/dl_detection.review_bundle.json",

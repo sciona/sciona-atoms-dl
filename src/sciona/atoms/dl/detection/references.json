@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "atoms": {
-    "sciona.atoms.dl.detection.lung_mask_with_bone_removal@sciona/atoms/dl/detection/atoms.py:338": {
+    "sciona.atoms.dl.detection.lung_mask_with_bone_removal@sciona/atoms/dl/detection/atoms.py:447": {
       "references": [
         {
           "ref_id": "liao2017dsb",
@@ -26,7 +26,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.detection.anchor_label_mapping_with_iou_dilation@sciona/atoms/dl/detection/atoms.py:482": {
+    "sciona.atoms.dl.detection.anchor_label_mapping_with_iou_dilation@sciona/atoms/dl/detection/atoms.py:591": {
       "references": [
         {
           "ref_id": "liao2017dsb",
@@ -51,7 +51,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.detection.center_feature_extraction_3d@sciona/atoms/dl/detection/atoms.py:594": {
+    "sciona.atoms.dl.detection.center_feature_extraction_3d@sciona/atoms/dl/detection/atoms.py:703": {
       "references": [
         {
           "ref_id": "liao2017dsb",
@@ -71,6 +71,281 @@
             "matched_nodes": [],
             "confidence": "high",
             "notes": "Upstream source: net_classifier.py CaseNet.forward lines 163-166, center 2x2x2 max-pool."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.detection.iou_matrix@sciona/atoms/dl/detection/atoms.py:741": {
+      "references": [
+        {
+          "ref_id": "detection_postprocess_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report describes vectorized xyxy pairwise IoU using broadcasted intersections and unions."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.detection.giou_matrix@sciona/atoms/dl/detection/atoms.py:760": {
+      "references": [
+        {
+          "ref_id": "rezatofighi2019giou",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary Generalized IoU paper; implementation uses the formula clean-room rather than adapting AGPL code."
+          }
+        },
+        {
+          "ref_id": "detection_postprocess_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Local research report identifies GIoU as the post-processing and tracking similarity primitive."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.detection.nms@sciona/atoms/dl/detection/atoms.py:794": {
+      "references": [
+        {
+          "ref_id": "detection_postprocess_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report specifies greedy score-sorted NMS over pairwise IoU."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.detection.soft_nms@sciona/atoms/dl/detection/atoms.py:825": {
+      "references": [
+        {
+          "ref_id": "bodla2017softnms",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary Soft-NMS paper defining score decay instead of hard suppression."
+          }
+        },
+        {
+          "ref_id": "detection_postprocess_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Local research report calls for linear and Gaussian Soft-NMS variants."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.detection.wbf@sciona/atoms/dl/detection/atoms.py:875": {
+      "references": [
+        {
+          "ref_id": "solovyev2021wbf",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary weighted boxes fusion method for model-ensemble box consensus."
+          }
+        },
+        {
+          "ref_id": "repo_weighted_boxes_fusion",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "MIT repository cited by the research report; atom is a clean-room implementation of the documented clustering idea."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.detection.wbf_1d@sciona/atoms/dl/detection/atoms.py:958": {
+      "references": [
+        {
+          "ref_id": "solovyev2021wbf",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "WBF clustering principle adapted from 2D boxes to one-dimensional spans."
+          }
+        },
+        {
+          "ref_id": "detection_postprocess_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Local research report identifies text and temporal span WBF as a 1D adaptation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.detection.generate_anchors@sciona/atoms/dl/detection/atoms.py:1046": {
+      "references": [
+        {
+          "ref_id": "ren2015fasterrcnn",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Faster R-CNN anchor concept and box parameterization reference."
+          }
+        },
+        {
+          "ref_id": "repo_detectron2",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Apache-2.0 reference for grid tiling of base anchors; implementation here is clean-room NumPy."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.detection.encode_boxes@sciona/atoms/dl/detection/atoms.py:1076": {
+      "references": [
+        {
+          "ref_id": "ren2015fasterrcnn",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Faster R-CNN box delta parameterization used for clean-room encoding."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.detection.decode_boxes@sciona/atoms/dl/detection/atoms.py:1107": {
+      "references": [
+        {
+          "ref_id": "ren2015fasterrcnn",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Faster R-CNN box delta inverse transform used for clean-room decoding."
+          }
+        },
+        {
+          "ref_id": "detection_postprocess_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Local research report specifies decode-box clipping for numerical stability."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.detection.nms_1d@sciona/atoms/dl/detection/atoms.py:1142": {
+      "references": [
+        {
+          "ref_id": "detection_postprocess_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Local research report defines 1D distance suppression for temporal probability peaks; no CC BY-SA code was adapted."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.detection.masks_to_boxes@sciona/atoms/dl/detection/atoms.py:1180": {
+      "references": [
+        {
+          "ref_id": "torchvision_masks_to_boxes",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "TorchVision documents mask-to-box semantics; implementation here uses clean-room boolean projections."
+          }
+        },
+        {
+          "ref_id": "detection_postprocess_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Local research report describes boolean-axis projection for mask boxes."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.detection.associate_boxes@sciona/atoms/dl/detection/atoms.py:1201": {
+      "references": [
+        {
+          "ref_id": "scipy_linear_sum_assignment",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "SciPy BSD-licensed Hungarian assignment solver used for pairwise box association."
+          }
+        },
+        {
+          "ref_id": "detection_postprocess_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Local research report identifies IoU-based tracking association as a detection post-processing primitive."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.detection.threshold_detections@sciona/atoms/dl/detection/atoms.py:1235": {
+      "references": [
+        {
+          "ref_id": "detection_postprocess_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Local research report includes confidence thresholding as a simple composable post-processing atom."
           }
         }
       ],

@@ -3,12 +3,25 @@
     {
       "node_id": "detection_root",
       "name": "Detection",
-      "description": "3D detection building blocks from the DSB2017 1st-place solution for pulmonary nodule detection",
+      "description": "Detection preprocessing, anchor geometry, and post-processing atoms",
       "status": "decomposed",
       "children": [
         "lung_mask_with_bone_removal",
         "anchor_label_mapping_with_iou_dilation",
         "center_feature_extraction_3d",
+        "iou_matrix",
+        "giou_matrix",
+        "nms",
+        "soft_nms",
+        "wbf",
+        "wbf_1d",
+        "generate_anchors",
+        "encode_boxes",
+        "decode_boxes",
+        "nms_1d",
+        "masks_to_boxes",
+        "associate_boxes",
+        "threshold_detections",
         "coordinate_aware_3d_unet"
       ],
       "depth": 0
@@ -16,7 +29,7 @@
     {
       "node_id": "lung_mask_with_bone_removal",
       "name": "lung_mask_with_bone_removal",
-      "description": "Segment lungs from a CT volume by per-slice Gaussian thresholding, 3D connected component filtering, hole filling, and left/right separation via erosion and distance transforms",
+      "description": "Segment lungs from a CT volume by thresholding, component filtering, hole filling, and left-right separation",
       "concept_type": "signal_filter",
       "status": "atomic",
       "type_signature": "(ct_volume: NDArray[np.float64], spacing: NDArray[np.float64], intensity_th: float = -600.0, pad_value: float = 170.0) -> NDArray[np.float64]",
@@ -27,14 +40,12 @@
         {"name": "intensity_th", "type_desc": "float", "required": false},
         {"name": "pad_value", "type_desc": "float", "required": false}
       ],
-      "outputs": [
-        {"name": "result", "type_desc": "NDArray[np.float64]"}
-      ]
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
     },
     {
       "node_id": "anchor_label_mapping_with_iou_dilation",
       "name": "anchor_label_mapping_with_iou_dilation",
-      "description": "Map ground-truth targets to anchor-grid labels via 3D IoU with dilation-based ignore zones between positive and negative regions",
+      "description": "Map ground-truth targets to anchor-grid labels with IoU and dilation ignore zones",
       "concept_type": "data_assembly",
       "status": "atomic",
       "type_signature": "(input_size: tuple[int, int, int], target: NDArray[np.float64], anchors: NDArray[np.float64], stride: int, pos_th: float = 0.5, neg_th: float = 0.02, dilation_iterations: int = 1) -> NDArray[np.float64]",
@@ -48,9 +59,7 @@
         {"name": "neg_th", "type_desc": "float", "required": false},
         {"name": "dilation_iterations", "type_desc": "int", "required": false}
       ],
-      "outputs": [
-        {"name": "result", "type_desc": "NDArray[np.float64]"}
-      ]
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
     },
     {
       "node_id": "center_feature_extraction_3d",
@@ -63,14 +72,213 @@
       "inputs": [
         {"name": "feature_map", "type_desc": "NDArray[np.float64]", "required": true}
       ],
-      "outputs": [
-        {"name": "result", "type_desc": "NDArray[np.float64]"}
-      ]
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+    },
+    {
+      "node_id": "iou_matrix",
+      "name": "iou_matrix",
+      "description": "Pairwise intersection-over-union matrix for xyxy boxes",
+      "concept_type": "analysis",
+      "status": "atomic",
+      "type_signature": "(boxes_a: NDArray[np.float64], boxes_b: NDArray[np.float64]) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "boxes_a", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "boxes_b", "type_desc": "NDArray[np.float64]", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+    },
+    {
+      "node_id": "giou_matrix",
+      "name": "giou_matrix",
+      "description": "Pairwise generalized IoU matrix with smallest-enclosing-box penalty",
+      "concept_type": "analysis",
+      "status": "atomic",
+      "type_signature": "(boxes_a: NDArray[np.float64], boxes_b: NDArray[np.float64]) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "boxes_a", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "boxes_b", "type_desc": "NDArray[np.float64]", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+    },
+    {
+      "node_id": "nms",
+      "name": "nms",
+      "description": "Greedy non-maximum suppression returning retained box indices",
+      "concept_type": "signal_filter",
+      "status": "atomic",
+      "type_signature": "(boxes: NDArray[np.float64], scores: NDArray[np.float64], iou_threshold: float) -> NDArray[np.int64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "boxes", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "scores", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "iou_threshold", "type_desc": "float", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.int64]"}]
+    },
+    {
+      "node_id": "soft_nms",
+      "name": "soft_nms",
+      "description": "Soft non-maximum suppression returning filtered boxes and decayed scores",
+      "concept_type": "signal_filter",
+      "status": "atomic",
+      "type_signature": "(boxes: NDArray[np.float64], scores: NDArray[np.float64], iou_threshold: float, sigma: float = 0.5, method: str = \"linear\", score_threshold: float = 0.001) -> tuple[NDArray[np.float64], NDArray[np.float64]]",
+      "depth": 1,
+      "inputs": [
+        {"name": "boxes", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "scores", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "iou_threshold", "type_desc": "float", "required": true},
+        {"name": "sigma", "type_desc": "float", "required": false},
+        {"name": "method", "type_desc": "str", "required": false},
+        {"name": "score_threshold", "type_desc": "float", "required": false}
+      ],
+      "outputs": [{"name": "result", "type_desc": "tuple[NDArray[np.float64], NDArray[np.float64]]"}]
+    },
+    {
+      "node_id": "wbf",
+      "name": "wbf",
+      "description": "Weighted box fusion across normalized model predictions",
+      "concept_type": "signal_filter",
+      "status": "atomic",
+      "type_signature": "(boxes_list: list[NDArray[np.float64]], scores_list: list[NDArray[np.float64]], labels_list: list[NDArray[np.int64]], weights: list[float], iou_threshold: float = 0.55, skip_box_thr: float = 0.0) -> tuple[NDArray[np.float64], NDArray[np.float64], NDArray[np.int64]]",
+      "depth": 1,
+      "inputs": [
+        {"name": "boxes_list", "type_desc": "list[NDArray[np.float64]]", "required": true},
+        {"name": "scores_list", "type_desc": "list[NDArray[np.float64]]", "required": true},
+        {"name": "labels_list", "type_desc": "list[NDArray[np.int64]]", "required": true},
+        {"name": "weights", "type_desc": "list[float]", "required": true},
+        {"name": "iou_threshold", "type_desc": "float", "required": false},
+        {"name": "skip_box_thr", "type_desc": "float", "required": false}
+      ],
+      "outputs": [{"name": "result", "type_desc": "tuple[NDArray[np.float64], NDArray[np.float64], NDArray[np.int64]]"}]
+    },
+    {
+      "node_id": "wbf_1d",
+      "name": "wbf_1d",
+      "description": "Weighted fusion of one-dimensional spans across model predictions",
+      "concept_type": "signal_filter",
+      "status": "atomic",
+      "type_signature": "(spans_list: list[NDArray[np.float64]], scores_list: list[NDArray[np.float64]], labels_list: list[NDArray[np.int64]], weights: list[float], iou_threshold: float = 0.55, skip_span_thr: float = 0.0) -> tuple[NDArray[np.float64], NDArray[np.float64], NDArray[np.int64]]",
+      "depth": 1,
+      "inputs": [
+        {"name": "spans_list", "type_desc": "list[NDArray[np.float64]]", "required": true},
+        {"name": "scores_list", "type_desc": "list[NDArray[np.float64]]", "required": true},
+        {"name": "labels_list", "type_desc": "list[NDArray[np.int64]]", "required": true},
+        {"name": "weights", "type_desc": "list[float]", "required": true},
+        {"name": "iou_threshold", "type_desc": "float", "required": false},
+        {"name": "skip_span_thr", "type_desc": "float", "required": false}
+      ],
+      "outputs": [{"name": "result", "type_desc": "tuple[NDArray[np.float64], NDArray[np.float64], NDArray[np.int64]]"}]
+    },
+    {
+      "node_id": "generate_anchors",
+      "name": "generate_anchors",
+      "description": "Tile base anchors across a feature-map grid",
+      "concept_type": "analysis",
+      "status": "atomic",
+      "type_signature": "(feature_map_size: tuple[int, int], stride: int, sizes: tuple[float, ...], aspect_ratios: tuple[float, ...]) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "feature_map_size", "type_desc": "tuple[int, int]", "required": true},
+        {"name": "stride", "type_desc": "int", "required": true},
+        {"name": "sizes", "type_desc": "tuple[float, ...]", "required": true},
+        {"name": "aspect_ratios", "type_desc": "tuple[float, ...]", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+    },
+    {
+      "node_id": "encode_boxes",
+      "name": "encode_boxes",
+      "description": "Encode ground-truth xyxy boxes as deltas relative to anchors",
+      "concept_type": "analysis",
+      "status": "atomic",
+      "type_signature": "(anchors: NDArray[np.float64], gt_boxes: NDArray[np.float64], scales: tuple[float, float, float, float] = (10.0, 10.0, 5.0, 5.0)) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "anchors", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "gt_boxes", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "scales", "type_desc": "tuple[float, float, float, float]", "required": false}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+    },
+    {
+      "node_id": "decode_boxes",
+      "name": "decode_boxes",
+      "description": "Decode box deltas back into absolute xyxy boxes",
+      "concept_type": "signal_filter",
+      "status": "atomic",
+      "type_signature": "(anchors: NDArray[np.float64], deltas: NDArray[np.float64], scales: tuple[float, float, float, float] = (10.0, 10.0, 5.0, 5.0)) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "anchors", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "deltas", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "scales", "type_desc": "tuple[float, float, float, float]", "required": false}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+    },
+    {
+      "node_id": "nms_1d",
+      "name": "nms_1d",
+      "description": "Find local one-dimensional peaks and suppress nearby lower peaks",
+      "concept_type": "signal_filter",
+      "status": "atomic",
+      "type_signature": "(signal: NDArray[np.float64], min_distance: int, threshold: float) -> NDArray[np.int64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "signal", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "min_distance", "type_desc": "int", "required": true},
+        {"name": "threshold", "type_desc": "float", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.int64]"}]
+    },
+    {
+      "node_id": "masks_to_boxes",
+      "name": "masks_to_boxes",
+      "description": "Project binary instance masks to xyxy bounding boxes",
+      "concept_type": "analysis",
+      "status": "atomic",
+      "type_signature": "(binary_masks: NDArray[np.bool_]) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "binary_masks", "type_desc": "NDArray[np.bool_]", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+    },
+    {
+      "node_id": "associate_boxes",
+      "name": "associate_boxes",
+      "description": "Associate boxes across frames by Hungarian matching over IoU distance",
+      "concept_type": "analysis",
+      "status": "atomic",
+      "type_signature": "(boxes_a: NDArray[np.float64], boxes_b: NDArray[np.float64], iou_threshold: float) -> tuple[NDArray[np.int64], NDArray[np.int64], NDArray[np.int64], NDArray[np.int64]]",
+      "depth": 1,
+      "inputs": [
+        {"name": "boxes_a", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "boxes_b", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "iou_threshold", "type_desc": "float", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "tuple[NDArray[np.int64], NDArray[np.int64], NDArray[np.int64], NDArray[np.int64]]"}]
+    },
+    {
+      "node_id": "threshold_detections",
+      "name": "threshold_detections",
+      "description": "Filter boxes and scores by a confidence threshold",
+      "concept_type": "signal_filter",
+      "status": "atomic",
+      "type_signature": "(boxes: NDArray[np.float64], scores: NDArray[np.float64], threshold: float) -> tuple[NDArray[np.float64], NDArray[np.float64]]",
+      "depth": 1,
+      "inputs": [
+        {"name": "boxes", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "scores", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "threshold", "type_desc": "float", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "tuple[NDArray[np.float64], NDArray[np.float64]]"}]
     },
     {
       "node_id": "coordinate_aware_3d_unet",
       "name": "coordinate_aware_3d_unet",
-      "description": "3D U-Net with coordinate injection for anchor-based nodule detection. Encoder uses PostRes blocks with channels [24,32,64,64,64] and 4 max-pool stages (stride 2). Decoder has two transposed-convolution upsample paths with channels [128,64,64]. A 3-channel normalized coordinate grid is concatenated at the back2 decoder stage, providing explicit spatial awareness. Output head produces 5 values per anchor (objectness + 4 regression targets) for anchors at [10, 30, 60] mm.",
+      "description": "3D U-Net with coordinate injection for anchor-based nodule detection; opaque framework model, not a pure NumPy atom",
       "concept_type": "neural_network",
       "is_opaque": true,
       "status": "atomic",

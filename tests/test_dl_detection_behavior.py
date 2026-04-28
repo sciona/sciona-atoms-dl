@@ -7,12 +7,38 @@ import pytest
 def test_detection_import() -> None:
     from sciona.atoms.dl.detection.atoms import (
         anchor_label_mapping_with_iou_dilation,
+        associate_boxes,
         center_feature_extraction_3d,
+        decode_boxes,
+        encode_boxes,
+        generate_anchors,
+        giou_matrix,
+        iou_matrix,
         lung_mask_with_bone_removal,
+        masks_to_boxes,
+        nms,
+        nms_1d,
+        soft_nms,
+        threshold_detections,
+        wbf,
+        wbf_1d,
     )
     assert callable(lung_mask_with_bone_removal)
     assert callable(anchor_label_mapping_with_iou_dilation)
     assert callable(center_feature_extraction_3d)
+    assert callable(iou_matrix)
+    assert callable(giou_matrix)
+    assert callable(nms)
+    assert callable(soft_nms)
+    assert callable(wbf)
+    assert callable(wbf_1d)
+    assert callable(generate_anchors)
+    assert callable(encode_boxes)
+    assert callable(decode_boxes)
+    assert callable(nms_1d)
+    assert callable(masks_to_boxes)
+    assert callable(associate_boxes)
+    assert callable(threshold_detections)
 
 
 # ---------------------------------------------------------------------------
@@ -213,3 +239,151 @@ def test_center_feature_preserves_batch_and_channel() -> None:
         for c in range(64):
             center = fm[n, c, 4:6, 4:6, 4:6]
             assert result[n, c] == pytest.approx(np.max(center))
+
+
+def test_iou_and_giou_matrices() -> None:
+    from sciona.atoms.dl.detection.atoms import giou_matrix, iou_matrix
+
+    boxes_a = np.array([[0.0, 0.0, 2.0, 2.0], [0.0, 0.0, 1.0, 1.0]])
+    boxes_b = np.array([[0.0, 0.0, 2.0, 2.0], [2.0, 2.0, 3.0, 3.0]])
+    iou = iou_matrix(boxes_a, boxes_b)
+    giou = giou_matrix(boxes_a, boxes_b)
+    assert iou.shape == (2, 2)
+    assert iou[0, 0] == pytest.approx(1.0)
+    assert iou[0, 1] == pytest.approx(0.0)
+    assert giou[0, 0] == pytest.approx(1.0)
+    assert giou[0, 1] < 0.0
+
+
+def test_nms_suppresses_lower_scored_overlap() -> None:
+    from sciona.atoms.dl.detection.atoms import nms
+
+    boxes = np.array(
+        [[0.0, 0.0, 2.0, 2.0], [0.1, 0.1, 2.1, 2.1], [5.0, 5.0, 6.0, 6.0]],
+        dtype=np.float64,
+    )
+    scores = np.array([0.9, 0.8, 0.7], dtype=np.float64)
+    assert nms(boxes, scores, 0.5).tolist() == [0, 2]
+
+
+def test_soft_nms_decays_overlapping_score() -> None:
+    from sciona.atoms.dl.detection.atoms import soft_nms
+
+    boxes = np.array([[0.0, 0.0, 2.0, 2.0], [0.1, 0.1, 2.1, 2.1]], dtype=np.float64)
+    scores = np.array([0.9, 0.8], dtype=np.float64)
+    out_boxes, out_scores = soft_nms(
+        boxes, scores, iou_threshold=0.5, method="linear", score_threshold=0.0
+    )
+    assert out_boxes.shape == (2, 4)
+    assert out_scores[0] == pytest.approx(0.9)
+    assert 0.0 < out_scores[1] < 0.8
+
+
+def test_weighted_box_fusion_merges_model_consensus() -> None:
+    from sciona.atoms.dl.detection.atoms import wbf
+
+    boxes, scores, labels = wbf(
+        [
+            np.array([[0.10, 0.10, 0.40, 0.40]], dtype=np.float64),
+            np.array([[0.20, 0.10, 0.50, 0.40]], dtype=np.float64),
+        ],
+        [
+            np.array([0.9], dtype=np.float64),
+            np.array([0.9], dtype=np.float64),
+        ],
+        [
+            np.array([1], dtype=np.int64),
+            np.array([1], dtype=np.int64),
+        ],
+        weights=[1.0, 1.0],
+        iou_threshold=0.3,
+    )
+    assert boxes.shape == (1, 4)
+    assert boxes[0].tolist() == pytest.approx([0.15, 0.10, 0.45, 0.40])
+    assert scores[0] == pytest.approx(0.9)
+    assert labels[0] == 1
+
+
+def test_weighted_span_fusion_merges_1d_consensus() -> None:
+    from sciona.atoms.dl.detection.atoms import wbf_1d
+
+    spans, scores, labels = wbf_1d(
+        [
+            np.array([[10.0, 20.0]], dtype=np.float64),
+            np.array([[12.0, 22.0]], dtype=np.float64),
+        ],
+        [
+            np.array([0.8], dtype=np.float64),
+            np.array([0.8], dtype=np.float64),
+        ],
+        [
+            np.array([2], dtype=np.int64),
+            np.array([2], dtype=np.int64),
+        ],
+        weights=[1.0, 1.0],
+        iou_threshold=0.5,
+    )
+    assert spans.shape == (1, 2)
+    assert spans[0].tolist() == pytest.approx([11.0, 21.0])
+    assert scores[0] == pytest.approx(0.8)
+    assert labels[0] == 2
+
+
+def test_generate_anchors_count_and_origin_center() -> None:
+    from sciona.atoms.dl.detection.atoms import generate_anchors
+
+    anchors = generate_anchors((1, 1), stride=4, sizes=(2.0,), aspect_ratios=(1.0, 4.0))
+    assert anchors.shape == (2, 4)
+    assert anchors[0].tolist() == pytest.approx([-1.0, -1.0, 1.0, 1.0])
+    assert anchors[1].tolist() == pytest.approx([-0.5, -2.0, 0.5, 2.0])
+
+
+def test_encode_decode_boxes_round_trip() -> None:
+    from sciona.atoms.dl.detection.atoms import decode_boxes, encode_boxes
+
+    anchors = np.array([[0.0, 0.0, 10.0, 10.0], [10.0, 10.0, 30.0, 20.0]])
+    gt_boxes = np.array([[1.0, 2.0, 11.0, 12.0], [12.0, 8.0, 32.0, 18.0]])
+    deltas = encode_boxes(anchors, gt_boxes)
+    decoded = decode_boxes(anchors, deltas)
+    assert decoded == pytest.approx(gt_boxes)
+    assert decode_boxes(anchors, np.zeros_like(anchors)) == pytest.approx(anchors)
+
+
+def test_nms_1d_selects_separated_peak_centers() -> None:
+    from sciona.atoms.dl.detection.atoms import nms_1d
+
+    signal = np.array([0.0, 0.8, 0.8, 0.8, 0.1, 0.9, 0.2], dtype=np.float64)
+    peaks = nms_1d(signal, min_distance=3, threshold=0.5)
+    assert peaks.tolist() == [2, 5]
+
+
+def test_masks_to_boxes_handles_nonempty_and_empty_masks() -> None:
+    from sciona.atoms.dl.detection.atoms import masks_to_boxes
+
+    masks = np.zeros((2, 8, 8), dtype=bool)
+    masks[0, 2:5, 3:7] = True
+    boxes = masks_to_boxes(masks)
+    assert boxes[0].tolist() == [3.0, 2.0, 6.0, 4.0]
+    assert boxes[1].tolist() == [0.0, 0.0, 0.0, 0.0]
+
+
+def test_associate_boxes_matches_by_iou_threshold() -> None:
+    from sciona.atoms.dl.detection.atoms import associate_boxes
+
+    boxes_a = np.array([[0.0, 0.0, 2.0, 2.0], [5.0, 5.0, 6.0, 6.0]])
+    boxes_b = np.array([[0.0, 0.0, 2.0, 2.0], [8.0, 8.0, 9.0, 9.0]])
+    matched_a, matched_b, unmatched_a, unmatched_b = associate_boxes(boxes_a, boxes_b, 0.5)
+    assert matched_a.tolist() == [0]
+    assert matched_b.tolist() == [0]
+    assert unmatched_a.tolist() == [1]
+    assert unmatched_b.tolist() == [1]
+
+
+def test_threshold_detections_filters_scores_and_boxes() -> None:
+    from sciona.atoms.dl.detection.atoms import threshold_detections
+
+    boxes = np.array([[0.0, 0.0, 1.0, 1.0], [1.0, 1.0, 2.0, 2.0], [2.0, 2.0, 3.0, 3.0]])
+    scores = np.array([0.1, 0.9, 0.4], dtype=np.float64)
+    out_boxes, out_scores = threshold_detections(boxes, scores, 0.5)
+    assert out_boxes.tolist() == [[1.0, 1.0, 2.0, 2.0]]
+    assert out_scores.tolist() == [0.9]
