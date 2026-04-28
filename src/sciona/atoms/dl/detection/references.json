@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "atoms": {
-    "sciona.atoms.dl.detection.lung_mask_with_bone_removal@sciona/atoms/dl/detection/atoms.py:258": {
+    "sciona.atoms.dl.detection.lung_mask_with_bone_removal@sciona/atoms/dl/detection/atoms.py:338": {
       "references": [
         {
           "ref_id": "liao2017dsb",
@@ -26,7 +26,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.detection.anchor_label_mapping_with_iou_dilation@sciona/atoms/dl/detection/atoms.py:328": {
+    "sciona.atoms.dl.detection.anchor_label_mapping_with_iou_dilation@sciona/atoms/dl/detection/atoms.py:482": {
       "references": [
         {
           "ref_id": "liao2017dsb",
@@ -51,7 +51,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.detection.center_feature_extraction_3d@sciona/atoms/dl/detection/atoms.py:414": {
+    "sciona.atoms.dl.detection.center_feature_extraction_3d@sciona/atoms/dl/detection/atoms.py:594": {
       "references": [
         {
           "ref_id": "liao2017dsb",

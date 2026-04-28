@@ -48,6 +48,7 @@ from .witnesses import (
     lambda labels_onehot: np.allclose(labels_onehot.sum(axis=1), 1.0, atol=0.01),
     "labels_onehot rows must sum to approximately 1",
 )
+@icontract.ensure(lambda result: result >= 0.0 and bool(np.isfinite(result)), "loss must be finite and non-negative")
 def auxiliary_logit_loss_fusion(
     main_logits: NDArray[np.float64],
     labels_onehot: NDArray[np.float64],

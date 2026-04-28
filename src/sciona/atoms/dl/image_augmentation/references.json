@@ -1,0 +1,325 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "sciona.atoms.dl.image_augmentation.cutmix_apply@sciona/atoms/dl/image_augmentation/atoms.py:159": {
+      "references": [
+        {
+          "ref_id": "yun2019cutmix",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Supports cutmix_apply: replace a rectangular patch with pixels from a second image and mix labels by copied area."
+          }
+        },
+        {
+          "ref_id": "repo_cutmix_pytorch",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Supports cutmix_apply: replace a rectangular patch with pixels from a second image and mix labels by copied area."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.image_augmentation.cutout_apply@sciona/atoms/dl/image_augmentation/atoms.py:188": {
+      "references": [
+        {
+          "ref_id": "devries2017cutout",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Supports cutout_apply: fill a rectangular image region with a constant value."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.image_augmentation.gridmask_apply@sciona/atoms/dl/image_augmentation/atoms.py:206": {
+      "references": [
+        {
+          "ref_id": "chen2020gridmask",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Supports gridmask_apply: apply a periodic square masking pattern to an image."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.image_augmentation.mixup_apply@sciona/atoms/dl/image_augmentation/atoms.py:232": {
+      "references": [
+        {
+          "ref_id": "zhang2018mixup",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Supports mixup_apply: blend two images and labels using one mixing weight."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.image_augmentation.flip_apply@sciona/atoms/dl/image_augmentation/atoms.py:253": {
+      "references": [
+        {
+          "ref_id": "numpy_flip",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Supports flip_apply: reverse an array along a chosen axis."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.image_augmentation.random_crop_resize_apply@sciona/atoms/dl/image_augmentation/atoms.py:264": {
+      "references": [
+        {
+          "ref_id": "scipy_ndimage_zoom",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Supports random_crop_resize_apply: crop a known region and resize it to fixed dimensions."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.image_augmentation.affine_transform_centered@sciona/atoms/dl/image_augmentation/atoms.py:281": {
+      "references": [
+        {
+          "ref_id": "scipy_affine_transform",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Supports affine_transform_centered: apply centered rotation, scaling, and translation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.image_augmentation.brightness_contrast_apply@sciona/atoms/dl/image_augmentation/atoms.py:334": {
+      "references": [
+        {
+          "ref_id": "opencv_convert_scale_abs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Supports brightness_contrast_apply: apply clipped linear brightness and contrast adjustment."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.image_augmentation.hue_saturation_shift@sciona/atoms/dl/image_augmentation/atoms.py:351": {
+      "references": [
+        {
+          "ref_id": "smith1978hsv",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Supports hue_saturation_shift: shift hue and saturation in normalized rgb images."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.image_augmentation.grayscale_convert_apply@sciona/atoms/dl/image_augmentation/atoms.py:367": {
+      "references": [
+        {
+          "ref_id": "itu_bt601",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Supports grayscale_convert_apply: convert rgb values to one-channel luminance."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.image_augmentation.ben_graham_retinal_preprocess@sciona/atoms/dl/image_augmentation/atoms.py:379": {
+      "references": [
+        {
+          "ref_id": "ben_graham_2015_interview",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Supports ben_graham_retinal_preprocess: subtract broad retinal background blur and boost local detail."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.image_augmentation.tta_geometric_average@sciona/atoms/dl/image_augmentation/atoms.py:394": {
+      "references": [
+        {
+          "ref_id": "numpy_flip",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Supports tta_geometric_average: undo geometric test-time transforms and average predictions."
+          }
+        },
+        {
+          "ref_id": "numpy_rot90",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Supports tta_geometric_average: undo geometric test-time transforms and average predictions."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.image_augmentation.ten_crop_batch@sciona/atoms/dl/image_augmentation/atoms.py:410": {
+      "references": [
+        {
+          "ref_id": "torchvision_tencrop",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Supports ten_crop_batch: extract center, corner, and flipped crops for classification."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.image_augmentation.tta_10crop_average@sciona/atoms/dl/image_augmentation/atoms.py:435": {
+      "references": [
+        {
+          "ref_id": "torchvision_tencrop",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Supports tta_10crop_average: average model outputs over ten deterministic crops."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.image_augmentation.fold_ensemble_average@sciona/atoms/dl/image_augmentation/atoms.py:452": {
+      "references": [
+        {
+          "ref_id": "kaggle_ensemble_heuristics",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Supports fold_ensemble_average: average fold predictions by arithmetic, geometric, or rank scoring."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.image_augmentation.normalize_imagenet@sciona/atoms/dl/image_augmentation/atoms.py:475": {
+      "references": [
+        {
+          "ref_id": "torchvision_normalize",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Supports normalize_imagenet: standardize rgb channels with supplied means and standard deviations."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.image_augmentation.normalize_per_image@sciona/atoms/dl/image_augmentation/atoms.py:490": {
+      "references": [
+        {
+          "ref_id": "standard_score",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Supports normalize_per_image: normalize one image by its own mean and standard deviation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.image_augmentation.min_max_scale@sciona/atoms/dl/image_augmentation/atoms.py:506": {
+      "references": [
+        {
+          "ref_id": "minmax_scaling",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Supports min_max_scale: scale array values into the unit interval."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.image_augmentation.resize_and_pad_apply@sciona/atoms/dl/image_augmentation/atoms.py:526": {
+      "references": [
+        {
+          "ref_id": "scipy_ndimage_zoom",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Supports resize_and_pad_apply: resize preserving aspect ratio and pad to target dimensions."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.image_augmentation.compose_augmentations@sciona/atoms/dl/image_augmentation/atoms.py:557": {
+      "references": [
+        {
+          "ref_id": "albumentations_compose",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Supports compose_augmentations: apply configured transforms using explicit probability draws."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

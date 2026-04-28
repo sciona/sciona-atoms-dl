@@ -1,0 +1,449 @@
+{
+  "schema_version": "1.0",
+  "bundle_id": "sciona.atoms.dl.review_bundle.image_augmentation.core.v1",
+  "provider_repo": "sciona-atoms-dl",
+  "family_batch": "dl_image_augmentation",
+  "review_status": "pending",
+  "review_semantic_verdict": null,
+  "review_developer_semantic_verdict": null,
+  "trust_readiness": "unreviewed",
+  "authoritative_sources": [
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/image_augmentation/atoms.py"
+    },
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/image_augmentation/witnesses.py"
+    },
+    {
+      "kind": "local_references",
+      "path": "src/sciona/atoms/dl/image_augmentation/references.json"
+    },
+    {
+      "kind": "local_cdg",
+      "path": "src/sciona/atoms/dl/image_augmentation/cdg.json"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_image_augmentation_behavior.py"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_image_augmentation_references_metadata.py"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_image_augmentation_review_bundle.py"
+    }
+  ],
+  "limitations": [
+    "Higher-order atoms call user-supplied deterministic functions; semantic purity depends on those callables.",
+    "Ben Graham retinal preprocessing is a formula-level reimplementation and not a copied upstream code port."
+  ],
+  "blocking_findings": [],
+  "required_actions": [],
+  "review_record_path": "data/review_bundles/dl_image_augmentation.review_bundle.json",
+  "rows": [
+    {
+      "atom_key": "sciona.atoms.dl.image_augmentation.cutmix_apply",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/image_augmentation/atoms.py",
+        "src/sciona/atoms/dl/image_augmentation/witnesses.py",
+        "src/sciona/atoms/dl/image_augmentation/references.json",
+        "src/sciona/atoms/dl/image_augmentation/cdg.json",
+        "tests/test_dl_image_augmentation_behavior.py",
+        "tests/test_dl_image_augmentation_references_metadata.py",
+        "tests/test_dl_image_augmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_image_augmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.image_augmentation.cutout_apply",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/image_augmentation/atoms.py",
+        "src/sciona/atoms/dl/image_augmentation/witnesses.py",
+        "src/sciona/atoms/dl/image_augmentation/references.json",
+        "src/sciona/atoms/dl/image_augmentation/cdg.json",
+        "tests/test_dl_image_augmentation_behavior.py",
+        "tests/test_dl_image_augmentation_references_metadata.py",
+        "tests/test_dl_image_augmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_image_augmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.image_augmentation.gridmask_apply",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/image_augmentation/atoms.py",
+        "src/sciona/atoms/dl/image_augmentation/witnesses.py",
+        "src/sciona/atoms/dl/image_augmentation/references.json",
+        "src/sciona/atoms/dl/image_augmentation/cdg.json",
+        "tests/test_dl_image_augmentation_behavior.py",
+        "tests/test_dl_image_augmentation_references_metadata.py",
+        "tests/test_dl_image_augmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_image_augmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.image_augmentation.mixup_apply",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/image_augmentation/atoms.py",
+        "src/sciona/atoms/dl/image_augmentation/witnesses.py",
+        "src/sciona/atoms/dl/image_augmentation/references.json",
+        "src/sciona/atoms/dl/image_augmentation/cdg.json",
+        "tests/test_dl_image_augmentation_behavior.py",
+        "tests/test_dl_image_augmentation_references_metadata.py",
+        "tests/test_dl_image_augmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_image_augmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.image_augmentation.flip_apply",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/image_augmentation/atoms.py",
+        "src/sciona/atoms/dl/image_augmentation/witnesses.py",
+        "src/sciona/atoms/dl/image_augmentation/references.json",
+        "src/sciona/atoms/dl/image_augmentation/cdg.json",
+        "tests/test_dl_image_augmentation_behavior.py",
+        "tests/test_dl_image_augmentation_references_metadata.py",
+        "tests/test_dl_image_augmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_image_augmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.image_augmentation.random_crop_resize_apply",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/image_augmentation/atoms.py",
+        "src/sciona/atoms/dl/image_augmentation/witnesses.py",
+        "src/sciona/atoms/dl/image_augmentation/references.json",
+        "src/sciona/atoms/dl/image_augmentation/cdg.json",
+        "tests/test_dl_image_augmentation_behavior.py",
+        "tests/test_dl_image_augmentation_references_metadata.py",
+        "tests/test_dl_image_augmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_image_augmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.image_augmentation.affine_transform_centered",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/image_augmentation/atoms.py",
+        "src/sciona/atoms/dl/image_augmentation/witnesses.py",
+        "src/sciona/atoms/dl/image_augmentation/references.json",
+        "src/sciona/atoms/dl/image_augmentation/cdg.json",
+        "tests/test_dl_image_augmentation_behavior.py",
+        "tests/test_dl_image_augmentation_references_metadata.py",
+        "tests/test_dl_image_augmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_image_augmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.image_augmentation.brightness_contrast_apply",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/image_augmentation/atoms.py",
+        "src/sciona/atoms/dl/image_augmentation/witnesses.py",
+        "src/sciona/atoms/dl/image_augmentation/references.json",
+        "src/sciona/atoms/dl/image_augmentation/cdg.json",
+        "tests/test_dl_image_augmentation_behavior.py",
+        "tests/test_dl_image_augmentation_references_metadata.py",
+        "tests/test_dl_image_augmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_image_augmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.image_augmentation.hue_saturation_shift",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/image_augmentation/atoms.py",
+        "src/sciona/atoms/dl/image_augmentation/witnesses.py",
+        "src/sciona/atoms/dl/image_augmentation/references.json",
+        "src/sciona/atoms/dl/image_augmentation/cdg.json",
+        "tests/test_dl_image_augmentation_behavior.py",
+        "tests/test_dl_image_augmentation_references_metadata.py",
+        "tests/test_dl_image_augmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_image_augmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.image_augmentation.grayscale_convert_apply",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/image_augmentation/atoms.py",
+        "src/sciona/atoms/dl/image_augmentation/witnesses.py",
+        "src/sciona/atoms/dl/image_augmentation/references.json",
+        "src/sciona/atoms/dl/image_augmentation/cdg.json",
+        "tests/test_dl_image_augmentation_behavior.py",
+        "tests/test_dl_image_augmentation_references_metadata.py",
+        "tests/test_dl_image_augmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_image_augmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.image_augmentation.ben_graham_retinal_preprocess",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/image_augmentation/atoms.py",
+        "src/sciona/atoms/dl/image_augmentation/witnesses.py",
+        "src/sciona/atoms/dl/image_augmentation/references.json",
+        "src/sciona/atoms/dl/image_augmentation/cdg.json",
+        "tests/test_dl_image_augmentation_behavior.py",
+        "tests/test_dl_image_augmentation_references_metadata.py",
+        "tests/test_dl_image_augmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_image_augmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.image_augmentation.tta_geometric_average",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/image_augmentation/atoms.py",
+        "src/sciona/atoms/dl/image_augmentation/witnesses.py",
+        "src/sciona/atoms/dl/image_augmentation/references.json",
+        "src/sciona/atoms/dl/image_augmentation/cdg.json",
+        "tests/test_dl_image_augmentation_behavior.py",
+        "tests/test_dl_image_augmentation_references_metadata.py",
+        "tests/test_dl_image_augmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_image_augmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.image_augmentation.ten_crop_batch",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/image_augmentation/atoms.py",
+        "src/sciona/atoms/dl/image_augmentation/witnesses.py",
+        "src/sciona/atoms/dl/image_augmentation/references.json",
+        "src/sciona/atoms/dl/image_augmentation/cdg.json",
+        "tests/test_dl_image_augmentation_behavior.py",
+        "tests/test_dl_image_augmentation_references_metadata.py",
+        "tests/test_dl_image_augmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_image_augmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.image_augmentation.tta_10crop_average",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/image_augmentation/atoms.py",
+        "src/sciona/atoms/dl/image_augmentation/witnesses.py",
+        "src/sciona/atoms/dl/image_augmentation/references.json",
+        "src/sciona/atoms/dl/image_augmentation/cdg.json",
+        "tests/test_dl_image_augmentation_behavior.py",
+        "tests/test_dl_image_augmentation_references_metadata.py",
+        "tests/test_dl_image_augmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_image_augmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.image_augmentation.fold_ensemble_average",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/image_augmentation/atoms.py",
+        "src/sciona/atoms/dl/image_augmentation/witnesses.py",
+        "src/sciona/atoms/dl/image_augmentation/references.json",
+        "src/sciona/atoms/dl/image_augmentation/cdg.json",
+        "tests/test_dl_image_augmentation_behavior.py",
+        "tests/test_dl_image_augmentation_references_metadata.py",
+        "tests/test_dl_image_augmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_image_augmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.image_augmentation.normalize_imagenet",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/image_augmentation/atoms.py",
+        "src/sciona/atoms/dl/image_augmentation/witnesses.py",
+        "src/sciona/atoms/dl/image_augmentation/references.json",
+        "src/sciona/atoms/dl/image_augmentation/cdg.json",
+        "tests/test_dl_image_augmentation_behavior.py",
+        "tests/test_dl_image_augmentation_references_metadata.py",
+        "tests/test_dl_image_augmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_image_augmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.image_augmentation.normalize_per_image",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/image_augmentation/atoms.py",
+        "src/sciona/atoms/dl/image_augmentation/witnesses.py",
+        "src/sciona/atoms/dl/image_augmentation/references.json",
+        "src/sciona/atoms/dl/image_augmentation/cdg.json",
+        "tests/test_dl_image_augmentation_behavior.py",
+        "tests/test_dl_image_augmentation_references_metadata.py",
+        "tests/test_dl_image_augmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_image_augmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.image_augmentation.min_max_scale",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/image_augmentation/atoms.py",
+        "src/sciona/atoms/dl/image_augmentation/witnesses.py",
+        "src/sciona/atoms/dl/image_augmentation/references.json",
+        "src/sciona/atoms/dl/image_augmentation/cdg.json",
+        "tests/test_dl_image_augmentation_behavior.py",
+        "tests/test_dl_image_augmentation_references_metadata.py",
+        "tests/test_dl_image_augmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_image_augmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.image_augmentation.resize_and_pad_apply",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/image_augmentation/atoms.py",
+        "src/sciona/atoms/dl/image_augmentation/witnesses.py",
+        "src/sciona/atoms/dl/image_augmentation/references.json",
+        "src/sciona/atoms/dl/image_augmentation/cdg.json",
+        "tests/test_dl_image_augmentation_behavior.py",
+        "tests/test_dl_image_augmentation_references_metadata.py",
+        "tests/test_dl_image_augmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_image_augmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.image_augmentation.compose_augmentations",
+      "review_status": "pending",
+      "review_semantic_verdict": null,
+      "review_developer_semantic_verdict": null,
+      "trust_readiness": "unreviewed",
+      "source_paths": [
+        "src/sciona/atoms/dl/image_augmentation/atoms.py",
+        "src/sciona/atoms/dl/image_augmentation/witnesses.py",
+        "src/sciona/atoms/dl/image_augmentation/references.json",
+        "src/sciona/atoms/dl/image_augmentation/cdg.json",
+        "tests/test_dl_image_augmentation_behavior.py",
+        "tests/test_dl_image_augmentation_references_metadata.py",
+        "tests/test_dl_image_augmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_image_augmentation.review_bundle.json"
+    }
+  ]
+}

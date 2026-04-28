@@ -31,6 +31,7 @@ from .witnesses import witness_entity_embedding_lookup
     lambda codes: np.all(codes >= 0),
     "codes must be non-negative",
 )
+@icontract.ensure(lambda codes, result: result.ndim == 2 and result.shape[0] == codes.shape[0], "result must preserve row count")
 def entity_embedding_lookup(
     codes: NDArray[np.int64],
     embedding_matrices: list[NDArray[np.float64]],

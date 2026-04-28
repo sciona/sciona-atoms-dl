@@ -93,6 +93,7 @@ def feature_clip_standardize(
     lambda model_complexities: np.all(model_complexities >= 0.0),
     "model_complexities must be non-negative",
 )
+@icontract.ensure(lambda model_complexities, result: 0 <= result < len(model_complexities), "result must be a valid model index")
 def time_budget_estimator(
     elapsed_seconds: float,
     total_budget: float,

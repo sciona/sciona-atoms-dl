@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "atoms": {
-    "sciona.atoms.dl.loss.miss_penalty_loss@sciona/atoms/dl/loss/atoms.py:49": {
+    "sciona.atoms.dl.loss.miss_penalty_loss@sciona/atoms/dl/loss/atoms.py:47": {
       "references": [
         {
           "ref_id": "liao2017dsb",

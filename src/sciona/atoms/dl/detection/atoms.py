@@ -90,7 +90,7 @@ def _binarize_per_slice(
                 and prop.eccentricity < eccen_th
             ):
                 valid_label.add(prop.label)
-        current_bw = np.in1d(label, list(valid_label)).reshape(label.shape)
+        current_bw = np.isin(label, list(valid_label)).reshape(label.shape)
         bw[i] = current_bw
 
     return bw
@@ -179,7 +179,7 @@ def _all_slice_analysis(
             if avg_dist < dist_th:
                 valid_label.add(vol.label)
 
-    bw = np.in1d(label, list(valid_label)).reshape(label.shape)
+    bw = np.isin(label, list(valid_label)).reshape(label.shape)
 
     if cut_num > 0:
         bw1 = np.copy(bw)
@@ -196,7 +196,7 @@ def _all_slice_analysis(
             l3 = label3[indices[0][0], indices[1][0], indices[2][0]]
             if l3 > 0:
                 valid_l3.add(l3)
-        bw = np.in1d(label3, list(valid_l3)).reshape(label3.shape)
+        bw = np.isin(label3, list(valid_l3)).reshape(label3.shape)
 
     return bw, len(valid_label)
 
@@ -219,7 +219,7 @@ def _fill_hole(bw: NDArray[np.bool_]) -> NDArray[np.bool_]:
             label[-1, -1, -1],
         ]
     )
-    bw = ~np.in1d(label, list(bg_label)).reshape(label.shape)
+    bw = ~np.isin(label, list(bg_label)).reshape(label.shape)
     return bw
 
 

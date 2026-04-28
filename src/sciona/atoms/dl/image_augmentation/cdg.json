@@ -1,0 +1,703 @@
+{
+  "nodes": [
+    {
+      "node_id": "image_augmentation_root",
+      "name": "Image Augmentation",
+      "description": "Pure numpy and scipy image augmentation, preprocessing, normalization, and test-time averaging atoms",
+      "status": "decomposed",
+      "children": [
+        "cutmix_apply",
+        "cutout_apply",
+        "gridmask_apply",
+        "mixup_apply",
+        "flip_apply",
+        "random_crop_resize_apply",
+        "affine_transform_centered",
+        "brightness_contrast_apply",
+        "hue_saturation_shift",
+        "grayscale_convert_apply",
+        "ben_graham_retinal_preprocess",
+        "tta_geometric_average",
+        "ten_crop_batch",
+        "tta_10crop_average",
+        "fold_ensemble_average",
+        "normalize_imagenet",
+        "normalize_per_image",
+        "min_max_scale",
+        "resize_and_pad_apply",
+        "compose_augmentations"
+      ],
+      "depth": 0
+    },
+    {
+      "node_id": "cutmix_apply",
+      "name": "cutmix_apply",
+      "description": "Replace a rectangular patch with pixels from a second image and mix labels by copied area",
+      "concept_type": "image_augmentation",
+      "status": "atomic",
+      "type_signature": "(image_a: NDArray[np.float64], image_b: NDArray[np.float64], label_a: NDArray[np.float64], label_b: NDArray[np.float64], bbox: tuple[int, int, int, int]) -> tuple[NDArray[np.float64], NDArray[np.float64]]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image_a",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "image_b",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "label_a",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "label_b",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "bbox",
+          "type_desc": "tuple[int, int, int, int]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "tuple[NDArray[np.float64], NDArray[np.float64]]"
+        }
+      ]
+    },
+    {
+      "node_id": "cutout_apply",
+      "name": "cutout_apply",
+      "description": "Fill a rectangular image region with a constant value",
+      "concept_type": "image_augmentation",
+      "status": "atomic",
+      "type_signature": "(image: NDArray[np.float64], bbox: tuple[int, int, int, int], fill_value: float) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "bbox",
+          "type_desc": "tuple[int, int, int, int]",
+          "required": true
+        },
+        {
+          "name": "fill_value",
+          "type_desc": "float",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
+    },
+    {
+      "node_id": "gridmask_apply",
+      "name": "gridmask_apply",
+      "description": "Apply a periodic square masking pattern to an image",
+      "concept_type": "image_augmentation",
+      "status": "atomic",
+      "type_signature": "(image: NDArray[np.float64], d: int, keep_ratio: float, delta_x: int, delta_y: int, fill_value: float) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "d",
+          "type_desc": "int",
+          "required": true
+        },
+        {
+          "name": "keep_ratio",
+          "type_desc": "float",
+          "required": true
+        },
+        {
+          "name": "delta_x",
+          "type_desc": "int",
+          "required": true
+        },
+        {
+          "name": "delta_y",
+          "type_desc": "int",
+          "required": true
+        },
+        {
+          "name": "fill_value",
+          "type_desc": "float",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
+    },
+    {
+      "node_id": "mixup_apply",
+      "name": "mixup_apply",
+      "description": "Blend two images and labels using one mixing weight",
+      "concept_type": "image_augmentation",
+      "status": "atomic",
+      "type_signature": "(image_a: NDArray[np.float64], image_b: NDArray[np.float64], label_a: NDArray[np.float64], label_b: NDArray[np.float64], lam: float) -> tuple[NDArray[np.float64], NDArray[np.float64]]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image_a",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "image_b",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "label_a",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "label_b",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "lam",
+          "type_desc": "float",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "tuple[NDArray[np.float64], NDArray[np.float64]]"
+        }
+      ]
+    },
+    {
+      "node_id": "flip_apply",
+      "name": "flip_apply",
+      "description": "Reverse an array along a chosen axis",
+      "concept_type": "image_augmentation",
+      "status": "atomic",
+      "type_signature": "(image: NDArray[np.float64], axis: int) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "axis",
+          "type_desc": "int",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
+    },
+    {
+      "node_id": "random_crop_resize_apply",
+      "name": "random_crop_resize_apply",
+      "description": "Crop a known region and resize it to fixed dimensions",
+      "concept_type": "image_augmentation",
+      "status": "atomic",
+      "type_signature": "(image: NDArray[np.float64], bbox: tuple[int, int, int, int], target_size: tuple[int, int], order: int) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "bbox",
+          "type_desc": "tuple[int, int, int, int]",
+          "required": true
+        },
+        {
+          "name": "target_size",
+          "type_desc": "tuple[int, int]",
+          "required": true
+        },
+        {
+          "name": "order",
+          "type_desc": "int",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
+    },
+    {
+      "node_id": "affine_transform_centered",
+      "name": "affine_transform_centered",
+      "description": "Apply centered rotation, scaling, and translation",
+      "concept_type": "image_augmentation",
+      "status": "atomic",
+      "type_signature": "(image: NDArray[np.float64], angle_degrees: float, scale: float, dx: float, dy: float, order: int) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "angle_degrees",
+          "type_desc": "float",
+          "required": true
+        },
+        {
+          "name": "scale",
+          "type_desc": "float",
+          "required": true
+        },
+        {
+          "name": "dx",
+          "type_desc": "float",
+          "required": true
+        },
+        {
+          "name": "dy",
+          "type_desc": "float",
+          "required": true
+        },
+        {
+          "name": "order",
+          "type_desc": "int",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
+    },
+    {
+      "node_id": "brightness_contrast_apply",
+      "name": "brightness_contrast_apply",
+      "description": "Apply clipped linear brightness and contrast adjustment",
+      "concept_type": "image_augmentation",
+      "status": "atomic",
+      "type_signature": "(image: NDArray[np.float64], alpha: float, beta: float, clip_min: float = 0.0, clip_max: float = 1.0) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "alpha",
+          "type_desc": "float",
+          "required": true
+        },
+        {
+          "name": "beta",
+          "type_desc": "float",
+          "required": true
+        },
+        {
+          "name": "clip_min",
+          "type_desc": "float",
+          "required": false
+        },
+        {
+          "name": "clip_max",
+          "type_desc": "float",
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
+    },
+    {
+      "node_id": "hue_saturation_shift",
+      "name": "hue_saturation_shift",
+      "description": "Shift hue and saturation in normalized RGB images",
+      "concept_type": "image_augmentation",
+      "status": "atomic",
+      "type_signature": "(image: NDArray[np.float64], hue_shift: float, sat_shift: float) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "hue_shift",
+          "type_desc": "float",
+          "required": true
+        },
+        {
+          "name": "sat_shift",
+          "type_desc": "float",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
+    },
+    {
+      "node_id": "grayscale_convert_apply",
+      "name": "grayscale_convert_apply",
+      "description": "Convert RGB values to one-channel luminance",
+      "concept_type": "image_augmentation",
+      "status": "atomic",
+      "type_signature": "(image: NDArray[np.float64]) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
+    },
+    {
+      "node_id": "ben_graham_retinal_preprocess",
+      "name": "ben_graham_retinal_preprocess",
+      "description": "Subtract broad retinal background blur and boost local detail",
+      "concept_type": "image_augmentation",
+      "status": "atomic",
+      "type_signature": "(image: NDArray[np.float64], sigma: float) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "sigma",
+          "type_desc": "float",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
+    },
+    {
+      "node_id": "tta_geometric_average",
+      "name": "tta_geometric_average",
+      "description": "Undo geometric test-time transforms and average predictions",
+      "concept_type": "image_augmentation",
+      "status": "atomic",
+      "type_signature": "(predictions: NDArray[np.float64], transform_codes: tuple[str, ...]) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "predictions",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "transform_codes",
+          "type_desc": "tuple[str, ...]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
+    },
+    {
+      "node_id": "ten_crop_batch",
+      "name": "ten_crop_batch",
+      "description": "Extract center, corner, and flipped crops for classification",
+      "concept_type": "image_augmentation",
+      "status": "atomic",
+      "type_signature": "(image: NDArray[np.float64], crop_size: int) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "crop_size",
+          "type_desc": "int",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
+    },
+    {
+      "node_id": "tta_10crop_average",
+      "name": "tta_10crop_average",
+      "description": "Average model outputs over ten deterministic crops",
+      "concept_type": "image_augmentation",
+      "status": "atomic",
+      "type_signature": "(image: NDArray[np.float64], crop_size: int, model_func: Callable[[NDArray[np.float64]], NDArray[np.float64]]) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "crop_size",
+          "type_desc": "int",
+          "required": true
+        },
+        {
+          "name": "model_func",
+          "type_desc": "Callable[[NDArray[np.float64]], NDArray[np.float64]]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
+    },
+    {
+      "node_id": "fold_ensemble_average",
+      "name": "fold_ensemble_average",
+      "description": "Average fold predictions by arithmetic, geometric, or rank scoring",
+      "concept_type": "image_augmentation",
+      "status": "atomic",
+      "type_signature": "(predictions_matrix: NDArray[np.float64], method: str) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "predictions_matrix",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "method",
+          "type_desc": "str",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
+    },
+    {
+      "node_id": "normalize_imagenet",
+      "name": "normalize_imagenet",
+      "description": "Standardize RGB channels with supplied means and standard deviations",
+      "concept_type": "image_augmentation",
+      "status": "atomic",
+      "type_signature": "(image: NDArray[np.float64], mean: tuple[float, float, float], std: tuple[float, float, float]) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "mean",
+          "type_desc": "tuple[float, float, float]",
+          "required": true
+        },
+        {
+          "name": "std",
+          "type_desc": "tuple[float, float, float]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
+    },
+    {
+      "node_id": "normalize_per_image",
+      "name": "normalize_per_image",
+      "description": "Normalize one image by its own mean and standard deviation",
+      "concept_type": "image_augmentation",
+      "status": "atomic",
+      "type_signature": "(image: NDArray[np.float64], eps: float = 1e-8) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "eps",
+          "type_desc": "float",
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
+    },
+    {
+      "node_id": "min_max_scale",
+      "name": "min_max_scale",
+      "description": "Scale array values into the unit interval",
+      "concept_type": "image_augmentation",
+      "status": "atomic",
+      "type_signature": "(image: NDArray[np.float64], eps: float = 1e-8) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "eps",
+          "type_desc": "float",
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
+    },
+    {
+      "node_id": "resize_and_pad_apply",
+      "name": "resize_and_pad_apply",
+      "description": "Resize preserving aspect ratio and pad to target dimensions",
+      "concept_type": "image_augmentation",
+      "status": "atomic",
+      "type_signature": "(image: NDArray[np.float64], target_size: tuple[int, int], pad_value: float, order: int = 1) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "target_size",
+          "type_desc": "tuple[int, int]",
+          "required": true
+        },
+        {
+          "name": "pad_value",
+          "type_desc": "float",
+          "required": true
+        },
+        {
+          "name": "order",
+          "type_desc": "int",
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
+    },
+    {
+      "node_id": "compose_augmentations",
+      "name": "compose_augmentations",
+      "description": "Apply configured transforms using explicit probability draws",
+      "concept_type": "image_augmentation",
+      "status": "atomic",
+      "type_signature": "(image: NDArray[np.float64], transforms: Sequence[Callable[[NDArray[np.float64]], NDArray[np.float64]]], probabilities: Sequence[float], random_values: Sequence[float]) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "transforms",
+          "type_desc": "Sequence[Callable[[NDArray[np.float64]], NDArray[np.float64]]]",
+          "required": true
+        },
+        {
+          "name": "probabilities",
+          "type_desc": "Sequence[float]",
+          "required": true
+        },
+        {
+          "name": "random_values",
+          "type_desc": "Sequence[float]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
+    }
+  ]
+}

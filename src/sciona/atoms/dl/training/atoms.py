@@ -96,6 +96,7 @@ def online_hard_negative_mining(
     lambda bboxes, diameter_column: 0 <= diameter_column < bboxes.shape[1],
     "diameter_column must be a valid column index",
 )
+@icontract.ensure(lambda bboxes, result: result.ndim == 2 and result.shape[1] == bboxes.shape[1] and len(result) >= len(bboxes), "result must preserve columns and include originals")
 def size_aware_nodule_oversampling(
     bboxes: NDArray[np.float64],
     diameter_column: int,
@@ -195,6 +196,7 @@ def softmax_temperature_proposal_sampling(
     lambda n_iterations: n_iterations >= 1,
     "n_iterations must be at least 1",
 )
+@icontract.ensure(lambda result: bool(np.isfinite(result)), "threshold must be finite")
 def ternary_search_threshold(
     scores: NDArray[np.float64],
     labels: NDArray[np.int64],

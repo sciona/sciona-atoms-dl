@@ -26,7 +26,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.training.size_aware_nodule_oversampling@sciona/atoms/dl/training/atoms.py:99": {
+    "sciona.atoms.dl.training.size_aware_nodule_oversampling@sciona/atoms/dl/training/atoms.py:100": {
       "references": [
         {
           "ref_id": "liao2017dsb",
@@ -51,7 +51,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.training.softmax_temperature_proposal_sampling@sciona/atoms/dl/training/atoms.py:156": {
+    "sciona.atoms.dl.training.softmax_temperature_proposal_sampling@sciona/atoms/dl/training/atoms.py:157": {
       "references": [
         {
           "ref_id": "liao2017dsb",
@@ -76,7 +76,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.training.ternary_search_threshold@sciona/atoms/dl/training/atoms.py:198": {
+    "sciona.atoms.dl.training.ternary_search_threshold@sciona/atoms/dl/training/atoms.py:200": {
       "references": [
         {
           "ref_id": "repo_birdclef_2021",

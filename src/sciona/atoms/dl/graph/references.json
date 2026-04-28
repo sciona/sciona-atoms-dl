@@ -31,7 +31,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.graph.time_budget_estimator@sciona/atoms/dl/graph/atoms.py:96": {
+    "sciona.atoms.dl.graph.time_budget_estimator@sciona/atoms/dl/graph/atoms.py:97": {
       "references": [
         {
           "ref_id": "repo_kdd2020_autograph",
@@ -46,7 +46,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.graph.adjacency_smoothing@sciona/atoms/dl/graph/atoms.py:124": {
+    "sciona.atoms.dl.graph.adjacency_smoothing@sciona/atoms/dl/graph/atoms.py:125": {
       "references": [
         {
           "ref_id": "repo_kdd2020_graph_adversarial",

@@ -228,6 +228,361 @@
         "confidence": "high",
         "notes": "MIT-licensed official TRON repository used for recommender loss and sampling atoms."
       }
+    },
+    "yun2019cutmix": {
+        "ref_id": "yun2019cutmix",
+        "type": "paper",
+        "title": "CutMix: Regularization Strategy to Train Strong Classifiers with Localizable Features",
+        "authors": [
+            "Sangdoo Yun",
+            "Dongyoon Han",
+            "Seong Joon Oh",
+            "Sanghyuk Chun",
+            "Junsuk Choe",
+            "Youngjoon Yoo"
+        ],
+        "year": 2019,
+        "venue": "ICCV",
+        "url": "https://arxiv.org/abs/1905.04899",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary CutMix paper for patch replacement and area-based label mixing."
+        }
+    },
+    "repo_cutmix_pytorch": {
+        "ref_id": "repo_cutmix_pytorch",
+        "type": "repository",
+        "title": "Official PyTorch implementation of CutMix regularizer",
+        "authors": [
+            "NAVER Corp."
+        ],
+        "year": 2019,
+        "venue": "GitHub",
+        "url": "https://github.com/clovaai/CutMix-PyTorch",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "MIT-licensed CutMix source repository cited by the research prompt."
+        }
+    },
+    "devries2017cutout": {
+        "ref_id": "devries2017cutout",
+        "type": "paper",
+        "title": "Improved Regularization of Convolutional Neural Networks with Cutout",
+        "authors": [
+            "Terrance DeVries",
+            "Graham W. Taylor"
+        ],
+        "year": 2017,
+        "venue": "arXiv",
+        "url": "https://arxiv.org/abs/1708.04552",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary Cutout paper for rectangular image masking."
+        }
+    },
+    "chen2020gridmask": {
+        "ref_id": "chen2020gridmask",
+        "type": "paper",
+        "title": "GridMask Data Augmentation",
+        "authors": [
+            "Pengguang Chen",
+            "Shu Liu",
+            "Hengshuang Zhao",
+            "Jiaya Jia"
+        ],
+        "year": 2020,
+        "venue": "arXiv",
+        "url": "https://arxiv.org/abs/2001.04086",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary GridMask paper for periodic structured occlusion."
+        }
+    },
+    "zhang2018mixup": {
+        "ref_id": "zhang2018mixup",
+        "type": "paper",
+        "title": "mixup: Beyond Empirical Risk Minimization",
+        "authors": [
+            "Hongyi Zhang",
+            "Moustapha Cisse",
+            "Yann N. Dauphin",
+            "David Lopez-Paz"
+        ],
+        "year": 2018,
+        "venue": "ICLR",
+        "url": "https://openreview.net/forum?id=r1Ddp1-Rb",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary MixUp paper for convex input and label interpolation; the non-commercial reference code was not used."
+        }
+    },
+    "numpy_flip": {
+        "ref_id": "numpy_flip",
+        "type": "documentation",
+        "title": "numpy.flip",
+        "authors": [
+            "NumPy Developers"
+        ],
+        "year": 2026,
+        "venue": "NumPy documentation",
+        "url": "https://numpy.org/doc/stable/reference/generated/numpy.flip.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Reference for axis reversal semantics used by flip and inverse TTA."
+        }
+    },
+    "numpy_rot90": {
+        "ref_id": "numpy_rot90",
+        "type": "documentation",
+        "title": "numpy.rot90",
+        "authors": [
+            "NumPy Developers"
+        ],
+        "year": 2026,
+        "venue": "NumPy documentation",
+        "url": "https://numpy.org/doc/stable/reference/generated/numpy.rot90.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Reference for 90-degree rotation inversion used by geometric TTA."
+        }
+    },
+    "scipy_ndimage_zoom": {
+        "ref_id": "scipy_ndimage_zoom",
+        "type": "documentation",
+        "title": "scipy.ndimage.zoom",
+        "authors": [
+            "SciPy Developers"
+        ],
+        "year": 2026,
+        "venue": "SciPy documentation",
+        "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.zoom.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Reference for spline interpolation used in crop-resize and aspect-preserving resize."
+        }
+    },
+    "scipy_affine_transform": {
+        "ref_id": "scipy_affine_transform",
+        "type": "documentation",
+        "title": "scipy.ndimage.affine_transform",
+        "authors": [
+            "SciPy Developers"
+        ],
+        "year": 2026,
+        "venue": "SciPy documentation",
+        "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.affine_transform.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Reference for pull-resampling affine transform semantics."
+        }
+    },
+    "opencv_convert_scale_abs": {
+        "ref_id": "opencv_convert_scale_abs",
+        "type": "documentation",
+        "title": "OpenCV basic linear transforms",
+        "authors": [
+            "OpenCV Developers"
+        ],
+        "year": 2026,
+        "venue": "OpenCV documentation",
+        "url": "https://docs.opencv.org/4.x/d3/dc1/tutorial_basic_linear_transform.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Reference for alpha-beta brightness and contrast adjustment."
+        }
+    },
+    "smith1978hsv": {
+        "ref_id": "smith1978hsv",
+        "type": "paper",
+        "title": "Color Gamut Transform Pairs",
+        "authors": [
+            "Alvy Ray Smith"
+        ],
+        "year": 1978,
+        "venue": "SIGGRAPH",
+        "url": "https://dl.acm.org/doi/10.1145/800248.807361",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Classic HSV conversion reference used for vectorized hue and saturation shifts."
+        }
+    },
+    "itu_bt601": {
+        "ref_id": "itu_bt601",
+        "type": "standard",
+        "title": "Recommendation ITU-R BT.601",
+        "authors": [
+            "International Telecommunication Union"
+        ],
+        "year": 2011,
+        "venue": "ITU",
+        "url": "https://www.itu.int/rec/R-REC-BT.601",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Source for common luma weights used by RGB grayscale conversion."
+        }
+    },
+    "ben_graham_2015_interview": {
+        "ref_id": "ben_graham_2015_interview",
+        "type": "interview",
+        "title": "Diabetic Retinopathy Winner's Interview: 1st place, Ben Graham",
+        "authors": [
+            "Ben Graham",
+            "Kaggle"
+        ],
+        "year": 2015,
+        "venue": "Kaggle winner interview mirror",
+        "url": "https://www.cnblogs.com/yymn/p/4801910.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Conceptual source for retinal blur subtraction preprocessing; atom reimplements the formula without copying external code."
+        }
+    },
+    "torchvision_tencrop": {
+        "ref_id": "torchvision_tencrop",
+        "type": "documentation",
+        "title": "TorchVision TenCrop",
+        "authors": [
+            "TorchVision Developers"
+        ],
+        "year": 2026,
+        "venue": "TorchVision documentation",
+        "url": "https://pytorch.org/vision/stable/generated/torchvision.transforms.TenCrop.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Reference for five spatial crops plus their horizontal flips."
+        }
+    },
+    "kaggle_ensemble_heuristics": {
+        "ref_id": "kaggle_ensemble_heuristics",
+        "type": "research_note",
+        "title": "Kaggle fold ensembling heuristics from local image augmentation research",
+        "authors": [
+            "Sciona deep research prompt"
+        ],
+        "year": 2026,
+        "venue": "Local research artifact",
+        "url": "research/01_research.pdf",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Local research summary for arithmetic, geometric, and rank fold averaging."
+        }
+    },
+    "torchvision_normalize": {
+        "ref_id": "torchvision_normalize",
+        "type": "documentation",
+        "title": "TorchVision Normalize",
+        "authors": [
+            "TorchVision Developers"
+        ],
+        "year": 2026,
+        "venue": "TorchVision documentation",
+        "url": "https://pytorch.org/vision/stable/generated/torchvision.transforms.Normalize.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Reference for per-channel mean and standard deviation normalization."
+        }
+    },
+    "standard_score": {
+        "ref_id": "standard_score",
+        "type": "documentation",
+        "title": "Standard score",
+        "authors": [
+            "NIST/SEMATECH"
+        ],
+        "year": 2026,
+        "venue": "Engineering Statistics Handbook",
+        "url": "https://www.itl.nist.gov/div898/handbook/eda/section3/eda35b.htm",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Reference for subtracting mean and dividing by standard deviation."
+        }
+    },
+    "minmax_scaling": {
+        "ref_id": "minmax_scaling",
+        "type": "documentation",
+        "title": "MinMaxScaler",
+        "authors": [
+            "scikit-learn Developers"
+        ],
+        "year": 2026,
+        "venue": "scikit-learn documentation",
+        "url": "https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Reference for linear scaling into a bounded range."
+        }
+    },
+    "albumentations_compose": {
+        "ref_id": "albumentations_compose",
+        "type": "documentation",
+        "title": "Albumentations Compose",
+        "authors": [
+            "Albumentations Developers"
+        ],
+        "year": 2026,
+        "venue": "Albumentations documentation",
+        "url": "https://albumentations.ai/docs/api-reference/albumentations/core/composition/",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Reference for sequential composition of image transforms with per-transform probabilities."
+        }
     }
   }
 }
