@@ -1270,6 +1270,157 @@
             "confidence": "medium",
             "notes": "Canonical reference for attention pooling over bags in multiple-instance learning."
         }
+    },
+    "research08_video_temporal": {
+        "ref_id": "research08_video_temporal",
+        "type": "report",
+        "title": "Video Processing Primitives and Temporal Operations: Architecture and Implementation of Pure-Function Atoms",
+        "authors": [
+            "sciona-atoms research"
+        ],
+        "year": 2026,
+        "venue": "Local research report",
+        "url": "research/08_research",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local report in sciona-atoms describing pure video temporal atom boundaries, contracts, and provenance candidates."
+        }
+    },
+    "numpy_linspace_docs": {
+        "ref_id": "numpy_linspace_docs",
+        "type": "documentation",
+        "title": "numpy.linspace",
+        "authors": [
+            "NumPy Developers"
+        ],
+        "year": 2026,
+        "venue": "NumPy documentation",
+        "url": "https://numpy.org/doc/stable/reference/generated/numpy.linspace.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Reference for deterministic evenly spaced sample positions."
+        }
+    },
+    "numpy_mean_docs": {
+        "ref_id": "numpy_mean_docs",
+        "type": "documentation",
+        "title": "numpy.mean",
+        "authors": [
+            "NumPy Developers"
+        ],
+        "year": 2026,
+        "venue": "NumPy documentation",
+        "url": "https://numpy.org/doc/stable/reference/generated/numpy.mean.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Reference for arithmetic averaging over an axis."
+        }
+    },
+    "numpy_max_docs": {
+        "ref_id": "numpy_max_docs",
+        "type": "documentation",
+        "title": "numpy.max",
+        "authors": [
+            "NumPy Developers"
+        ],
+        "year": 2026,
+        "venue": "NumPy documentation",
+        "url": "https://numpy.org/doc/stable/reference/generated/numpy.max.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Reference for maximum-value reduction over an axis."
+        }
+    },
+    "vaswani2017attention": {
+        "ref_id": "vaswani2017attention",
+        "type": "paper",
+        "title": "Attention Is All You Need",
+        "authors": [
+            "Ashish Vaswani",
+            "Noam Shazeer",
+            "Niki Parmar",
+            "Jakob Uszkoreit",
+            "Llion Jones",
+            "Aidan N. Gomez",
+            "Lukasz Kaiser",
+            "Illia Polosukhin"
+        ],
+        "year": 2017,
+        "venue": "NeurIPS",
+        "url": "https://arxiv.org/abs/1706.03762",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical source for scaled dot-product attention."
+        }
+    },
+    "scipy_median_filter_docs": {
+        "ref_id": "scipy_median_filter_docs",
+        "type": "documentation",
+        "title": "scipy.ndimage.median_filter",
+        "authors": [
+            "SciPy Developers"
+        ],
+        "year": 2026,
+        "venue": "SciPy documentation",
+        "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.median_filter.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Reference for shape-preserving multidimensional median filtering."
+        }
+    },
+    "numpy_sliding_window_view_docs": {
+        "ref_id": "numpy_sliding_window_view_docs",
+        "type": "documentation",
+        "title": "numpy.lib.stride_tricks.sliding_window_view",
+        "authors": [
+            "NumPy Developers"
+        ],
+        "year": 2026,
+        "venue": "NumPy documentation",
+        "url": "https://numpy.org/doc/stable/reference/generated/numpy.lib.stride_tricks.sliding_window_view.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Reference for creating overlapping sliding-window views."
+        }
+    },
+    "numpy_repeat_docs": {
+        "ref_id": "numpy_repeat_docs",
+        "type": "documentation",
+        "title": "numpy.repeat",
+        "authors": [
+            "NumPy Developers"
+        ],
+        "year": 2026,
+        "venue": "NumPy documentation",
+        "url": "https://numpy.org/doc/stable/reference/generated/numpy.repeat.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Reference for repeating elements along an axis."
+        }
     }
   }
 }

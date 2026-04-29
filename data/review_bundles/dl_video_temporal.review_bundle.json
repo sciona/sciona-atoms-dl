@@ -1,0 +1,177 @@
+{
+  "schema_version": "1.0",
+  "bundle_id": "sciona.atoms.dl.review_bundle.video_temporal.v1",
+  "provider_repo": "sciona-atoms-dl",
+  "family_batch": "dl_video_temporal",
+  "review_status": "pending",
+  "review_semantic_verdict": "pass_with_limits",
+  "review_developer_semantic_verdict": "pass_with_limits",
+  "trust_readiness": "unreviewed",
+  "authoritative_sources": [
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/video_temporal/atoms.py"
+    },
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/video_temporal/witnesses.py"
+    },
+    {
+      "kind": "local_references",
+      "path": "src/sciona/atoms/dl/video_temporal/references.json"
+    },
+    {
+      "kind": "local_cdg",
+      "path": "src/sciona/atoms/dl/video_temporal/cdg.json"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_video_temporal_behavior.py"
+    }
+  ],
+  "limitations": [
+    "Atoms compute pure array/index operations only; video decoding, keyframe detection, optical-flow estimation, model state, and object-track lifecycle management remain external.",
+    "stack_adjacent_frames follows the local research report's 2.5D edge-padding boundary but is not attributed to a concrete upstream implementation."
+  ],
+  "blocking_findings": [],
+  "required_actions": [],
+  "review_record_path": "data/review_bundles/dl_video_temporal.review_bundle.json",
+  "rows": [
+    {
+      "atom_name": "sciona.atoms.dl.video_temporal.sample_frame_indices",
+      "atom_key": "sciona.atoms.dl.video_temporal.sample_frame_indices",
+      "review_status": "pending",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass_with_limits",
+      "trust_readiness": "unreviewed",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": ["src/sciona/atoms/dl/video_temporal/atoms.py", "src/sciona/atoms/dl/video_temporal/witnesses.py", "src/sciona/atoms/dl/video_temporal/references.json", "src/sciona/atoms/dl/video_temporal/cdg.json", "tests/test_dl_video_temporal_behavior.py"],
+      "limitations": ["This atom returns frame indices only; actual frame decoding is intentionally out of scope."],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_video_temporal.review_bundle.json"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.video_temporal.uniform_sample_indices",
+      "atom_key": "sciona.atoms.dl.video_temporal.uniform_sample_indices",
+      "review_status": "pending",
+      "review_semantic_verdict": "pass",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "unreviewed",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": ["src/sciona/atoms/dl/video_temporal/atoms.py", "src/sciona/atoms/dl/video_temporal/witnesses.py", "src/sciona/atoms/dl/video_temporal/references.json", "src/sciona/atoms/dl/video_temporal/cdg.json", "tests/test_dl_video_temporal_behavior.py"],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_video_temporal.review_bundle.json"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.video_temporal.temporal_mean_pool",
+      "atom_key": "sciona.atoms.dl.video_temporal.temporal_mean_pool",
+      "review_status": "pending",
+      "review_semantic_verdict": "pass",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "unreviewed",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": ["src/sciona/atoms/dl/video_temporal/atoms.py", "src/sciona/atoms/dl/video_temporal/witnesses.py", "src/sciona/atoms/dl/video_temporal/references.json", "src/sciona/atoms/dl/video_temporal/cdg.json", "tests/test_dl_video_temporal_behavior.py"],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_video_temporal.review_bundle.json"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.video_temporal.temporal_max_pool",
+      "atom_key": "sciona.atoms.dl.video_temporal.temporal_max_pool",
+      "review_status": "pending",
+      "review_semantic_verdict": "pass",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "unreviewed",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": ["src/sciona/atoms/dl/video_temporal/atoms.py", "src/sciona/atoms/dl/video_temporal/witnesses.py", "src/sciona/atoms/dl/video_temporal/references.json", "src/sciona/atoms/dl/video_temporal/cdg.json", "tests/test_dl_video_temporal_behavior.py"],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_video_temporal.review_bundle.json"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.video_temporal.temporal_attention_pool",
+      "atom_key": "sciona.atoms.dl.video_temporal.temporal_attention_pool",
+      "review_status": "pending",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass_with_limits",
+      "trust_readiness": "unreviewed",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": ["src/sciona/atoms/dl/video_temporal/atoms.py", "src/sciona/atoms/dl/video_temporal/witnesses.py", "src/sciona/atoms/dl/video_temporal/references.json", "src/sciona/atoms/dl/video_temporal/cdg.json", "tests/test_dl_video_temporal_behavior.py"],
+      "limitations": ["The atom computes single-head inference math only; training graphs, learned weights, masking policies, and gradient state are external."],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_video_temporal.review_bundle.json"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.video_temporal.temporal_median_filter",
+      "atom_key": "sciona.atoms.dl.video_temporal.temporal_median_filter",
+      "review_status": "pending",
+      "review_semantic_verdict": "pass",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "unreviewed",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": ["src/sciona/atoms/dl/video_temporal/atoms.py", "src/sciona/atoms/dl/video_temporal/witnesses.py", "src/sciona/atoms/dl/video_temporal/references.json", "src/sciona/atoms/dl/video_temporal/cdg.json", "tests/test_dl_video_temporal_behavior.py"],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_video_temporal.review_bundle.json"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.video_temporal.sliding_windows",
+      "atom_key": "sciona.atoms.dl.video_temporal.sliding_windows",
+      "review_status": "pending",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass_with_limits",
+      "trust_readiness": "unreviewed",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": ["src/sciona/atoms/dl/video_temporal/atoms.py", "src/sciona/atoms/dl/video_temporal/witnesses.py", "src/sciona/atoms/dl/video_temporal/references.json", "src/sciona/atoms/dl/video_temporal/cdg.json", "tests/test_dl_video_temporal_behavior.py"],
+      "limitations": ["The returned array is a read-only view; consumers that need mutation must copy it explicitly."],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_video_temporal.review_bundle.json"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.video_temporal.stack_adjacent_frames",
+      "atom_key": "sciona.atoms.dl.video_temporal.stack_adjacent_frames",
+      "review_status": "pending",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass_with_limits",
+      "trust_readiness": "unreviewed",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": ["src/sciona/atoms/dl/video_temporal/atoms.py", "src/sciona/atoms/dl/video_temporal/witnesses.py", "src/sciona/atoms/dl/video_temporal/references.json", "src/sciona/atoms/dl/video_temporal/cdg.json", "tests/test_dl_video_temporal_behavior.py"],
+      "limitations": ["This atom stacks grayscale frames only and uses deterministic edge clipping at temporal boundaries."],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_video_temporal.review_bundle.json"
+    },
+    {
+      "atom_name": "sciona.atoms.dl.video_temporal.temporal_unroll",
+      "atom_key": "sciona.atoms.dl.video_temporal.temporal_unroll",
+      "review_status": "pending",
+      "review_semantic_verdict": "pass",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "unreviewed",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": ["src/sciona/atoms/dl/video_temporal/atoms.py", "src/sciona/atoms/dl/video_temporal/witnesses.py", "src/sciona/atoms/dl/video_temporal/references.json", "src/sciona/atoms/dl/video_temporal/cdg.json", "tests/test_dl_video_temporal_behavior.py"],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_video_temporal.review_bundle.json"
+    }
+  ]
+}
+

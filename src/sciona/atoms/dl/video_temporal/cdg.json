@@ -1,0 +1,152 @@
+{
+  "nodes": [
+    {
+      "node_id": "video_temporal_root",
+      "name": "Video Temporal Operations",
+      "description": "Pure primitives for deterministic video frame indexing, temporal pooling, filtering, context stacking, window extraction, and timestep unrolling",
+      "status": "decomposed",
+      "children": [
+        "sample_frame_indices",
+        "uniform_sample_indices",
+        "temporal_mean_pool",
+        "temporal_max_pool",
+        "temporal_attention_pool",
+        "temporal_median_filter",
+        "sliding_windows",
+        "stack_adjacent_frames",
+        "temporal_unroll"
+      ],
+      "depth": 0
+    },
+    {
+      "node_id": "sample_frame_indices",
+      "name": "sample_frame_indices",
+      "description": "Compute native frame indices that approximate extraction at a target frames-per-second rate",
+      "concept_type": "data_extraction",
+      "status": "atomic",
+      "type_signature": "(total_frames: int, target_fps: float, video_fps: float) -> NDArray[np.int64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "total_frames", "type_desc": "int", "required": true},
+        {"name": "target_fps", "type_desc": "float", "required": true},
+        {"name": "video_fps", "type_desc": "float", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.int64]"}]
+    },
+    {
+      "node_id": "uniform_sample_indices",
+      "name": "uniform_sample_indices",
+      "description": "Select a fixed count of uniformly spaced frame indices over the full video timeline",
+      "concept_type": "data_extraction",
+      "status": "atomic",
+      "type_signature": "(total_frames: int, n_samples: int) -> NDArray[np.int64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "total_frames", "type_desc": "int", "required": true},
+        {"name": "n_samples", "type_desc": "int", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.int64]"}]
+    },
+    {
+      "node_id": "temporal_mean_pool",
+      "name": "temporal_mean_pool",
+      "description": "Average frame-level feature vectors over the temporal dimension",
+      "concept_type": "analysis",
+      "status": "atomic",
+      "type_signature": "(frame_predictions: NDArray[np.float64]) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "frame_predictions", "type_desc": "NDArray[np.float64]", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+    },
+    {
+      "node_id": "temporal_max_pool",
+      "name": "temporal_max_pool",
+      "description": "Take per-feature maximum activations over the temporal dimension",
+      "concept_type": "analysis",
+      "status": "atomic",
+      "type_signature": "(frame_predictions: NDArray[np.float64]) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "frame_predictions", "type_desc": "NDArray[np.float64]", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+    },
+    {
+      "node_id": "temporal_attention_pool",
+      "name": "temporal_attention_pool",
+      "description": "Apply stable scaled dot-product self-attention to frame-level features",
+      "concept_type": "analysis",
+      "status": "atomic",
+      "type_signature": "(x: NDArray[np.float64], wq: NDArray[np.float64], wk: NDArray[np.float64], wv: NDArray[np.float64]) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "x", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "wq", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "wk", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "wv", "type_desc": "NDArray[np.float64]", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+    },
+    {
+      "node_id": "temporal_median_filter",
+      "name": "temporal_median_filter",
+      "description": "Apply an odd-width median filter to a one-dimensional prediction sequence",
+      "concept_type": "signal_filter",
+      "status": "atomic",
+      "type_signature": "(predictions: NDArray[np.float64], kernel_size: int) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "predictions", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "kernel_size", "type_desc": "int", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+    },
+    {
+      "node_id": "sliding_windows",
+      "name": "sliding_windows",
+      "description": "Extract read-only overlapping temporal windows from a one-dimensional sequence",
+      "concept_type": "data_extraction",
+      "status": "atomic",
+      "type_signature": "(sequence: NDArray[np.float64], window_size: int, stride: int = 1) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "sequence", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "window_size", "type_desc": "int", "required": true},
+        {"name": "stride", "type_desc": "int", "required": false}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+    },
+    {
+      "node_id": "stack_adjacent_frames",
+      "name": "stack_adjacent_frames",
+      "description": "Stack clipped neighboring grayscale frames into channels for 2.5D temporal context",
+      "concept_type": "data_extraction",
+      "status": "atomic",
+      "type_signature": "(frames: NDArray[np.uint8], center_idx: int, num_adjacent: int) -> NDArray[np.uint8]",
+      "depth": 1,
+      "inputs": [
+        {"name": "frames", "type_desc": "NDArray[np.uint8]", "required": true},
+        {"name": "center_idx", "type_desc": "int", "required": true},
+        {"name": "num_adjacent", "type_desc": "int", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.uint8]"}]
+    },
+    {
+      "node_id": "temporal_unroll",
+      "name": "temporal_unroll",
+      "description": "Repeat block-level temporal predictions back to their original timestep granularity",
+      "concept_type": "analysis",
+      "status": "atomic",
+      "type_signature": "(aggregated: NDArray[np.float64], group_sizes: NDArray[np.int64]) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "aggregated", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "group_sizes", "type_desc": "NDArray[np.int64]", "required": true}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+    }
+  ]
+}
+

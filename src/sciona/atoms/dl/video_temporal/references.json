@@ -1,0 +1,211 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "sciona.atoms.dl.video_temporal.sample_frame_indices@sciona/atoms/dl/video_temporal/atoms.py:42": {
+      "references": [
+        {
+          "ref_id": "research08_video_temporal",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report defines the pure frame-index boundary for fixed target FPS sampling without video decoding."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.video_temporal.uniform_sample_indices@sciona/atoms/dl/video_temporal/atoms.py:65": {
+      "references": [
+        {
+          "ref_id": "research08_video_temporal",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report recommends deterministic linspace-style sampling for fixed-frame video inference."
+          }
+        },
+        {
+          "ref_id": "numpy_linspace_docs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "NumPy linspace is the deterministic source primitive for evenly spaced positions over the frame domain."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.video_temporal.temporal_mean_pool@sciona/atoms/dl/video_temporal/atoms.py:77": {
+      "references": [
+        {
+          "ref_id": "research08_video_temporal",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report identifies mean pooling as a frame-to-video aggregation primitive."
+          }
+        },
+        {
+          "ref_id": "numpy_mean_docs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "NumPy mean supplies the arithmetic aggregation over the temporal axis."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.video_temporal.temporal_max_pool@sciona/atoms/dl/video_temporal/atoms.py:86": {
+      "references": [
+        {
+          "ref_id": "research08_video_temporal",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report identifies max pooling as an event-sensitive frame-to-video aggregation primitive."
+          }
+        },
+        {
+          "ref_id": "numpy_max_docs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "NumPy max supplies the per-feature maximum over the temporal axis."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.video_temporal.temporal_attention_pool@sciona/atoms/dl/video_temporal/atoms.py:102": {
+      "references": [
+        {
+          "ref_id": "research08_video_temporal",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report specifies stable scaled dot-product temporal self-attention as a pure matrix operation."
+          }
+        },
+        {
+          "ref_id": "vaswani2017attention",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical source for scaled dot-product attention and softmax weighting."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.video_temporal.temporal_median_filter@sciona/atoms/dl/video_temporal/atoms.py:127": {
+      "references": [
+        {
+          "ref_id": "research08_video_temporal",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report identifies odd-width median filtering for suppressing isolated temporal prediction spikes."
+          }
+        },
+        {
+          "ref_id": "scipy_median_filter_docs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "SciPy ndimage median_filter is the optimized source primitive for the shape-preserving median operation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.video_temporal.sliding_windows@sciona/atoms/dl/video_temporal/atoms.py:143": {
+      "references": [
+        {
+          "ref_id": "research08_video_temporal",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report recommends read-only stride windows for efficient temporal chunk extraction."
+          }
+        },
+        {
+          "ref_id": "numpy_sliding_window_view_docs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "NumPy sliding_window_view provides the stride-based view used by the atom."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.video_temporal.stack_adjacent_frames@sciona/atoms/dl/video_temporal/atoms.py:161": {
+      "references": [
+        {
+          "ref_id": "research08_video_temporal",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Local research report defines 2.5D edge-padded neighboring-frame stacking; no external source code was copied."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.video_temporal.temporal_unroll@sciona/atoms/dl/video_temporal/atoms.py:179": {
+      "references": [
+        {
+          "ref_id": "research08_video_temporal",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report identifies repeat-based temporal unrolling back to finer timestep granularity."
+          }
+        },
+        {
+          "ref_id": "numpy_repeat_docs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "NumPy repeat supplies the leading-axis repetition used for temporal unrolling."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}
+
