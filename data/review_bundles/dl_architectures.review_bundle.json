@@ -1,0 +1,295 @@
+{
+  "schema_version": "1.0",
+  "bundle_id": "sciona.atoms.dl.review_bundle.architectures.v1",
+  "provider_repo": "sciona-atoms-dl",
+  "family_batch": "dl_architectures",
+  "review_status": "reviewed",
+  "review_semantic_verdict": "pass_with_limits",
+  "review_developer_semantic_verdict": "pass_with_limits",
+  "trust_readiness": "reviewed_with_limits",
+  "authoritative_sources": [
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/architectures/atoms.py"
+    },
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/architectures/witnesses.py"
+    },
+    {
+      "kind": "local_references",
+      "path": "src/sciona/atoms/dl/architectures/references.json"
+    },
+    {
+      "kind": "local_cdg",
+      "path": "src/sciona/atoms/dl/architectures/cdg.json"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_architectures_behavior.py"
+    }
+  ],
+  "limitations": [
+    "These atoms are opaque interface contracts and return zero-valued tensors with verified output shapes; they do not execute pretrained model internals.",
+    "The YOLO atom defaults to permissive YOLOX-style bindings; Ultralytics variant names are accepted only as flagged interfaces because the research report identifies AGPL-3.0 licensing risk.",
+    "Custom decoder, 1D U-Net, and MIL contracts capture common tensor boundaries but do not select a concrete implementation library."
+  ],
+  "blocking_findings": [],
+  "required_actions": [],
+  "review_record_path": "data/review_bundles/dl_architectures.review_bundle.json",
+  "rows": [
+    {
+      "atom_key": "sciona.atoms.dl.architectures.efficientnet_backbone",
+      "atom_name": "sciona.atoms.dl.architectures.efficientnet_backbone",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/architectures/atoms.py",
+        "src/sciona/atoms/dl/architectures/witnesses.py",
+        "src/sciona/atoms/dl/architectures/references.json",
+        "src/sciona/atoms/dl/architectures/cdg.json",
+        "tests/test_dl_architectures_behavior.py"
+      ],
+      "limitations": ["Shape-only opaque contract; no EfficientNet runtime execution."],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_architectures.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.architectures.resnet_family_backbone",
+      "atom_name": "sciona.atoms.dl.architectures.resnet_family_backbone",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/architectures/atoms.py",
+        "src/sciona/atoms/dl/architectures/witnesses.py",
+        "src/sciona/atoms/dl/architectures/references.json",
+        "src/sciona/atoms/dl/architectures/cdg.json",
+        "tests/test_dl_architectures_behavior.py"
+      ],
+      "limitations": ["Shape-only opaque contract; no residual-backbone runtime execution."],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_architectures.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.architectures.densenet_backbone",
+      "atom_name": "sciona.atoms.dl.architectures.densenet_backbone",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/architectures/atoms.py",
+        "src/sciona/atoms/dl/architectures/witnesses.py",
+        "src/sciona/atoms/dl/architectures/references.json",
+        "src/sciona/atoms/dl/architectures/cdg.json",
+        "tests/test_dl_architectures_behavior.py"
+      ],
+      "limitations": ["Shape-only opaque contract; no DenseNet runtime execution."],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_architectures.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.architectures.swin_transformer_backbone",
+      "atom_name": "sciona.atoms.dl.architectures.swin_transformer_backbone",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/architectures/atoms.py",
+        "src/sciona/atoms/dl/architectures/witnesses.py",
+        "src/sciona/atoms/dl/architectures/references.json",
+        "src/sciona/atoms/dl/architectures/cdg.json",
+        "tests/test_dl_architectures_behavior.py"
+      ],
+      "limitations": ["Shape-only opaque contract; no Swin runtime execution."],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_architectures.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.architectures.unet_2d_segmentation",
+      "atom_name": "sciona.atoms.dl.architectures.unet_2d_segmentation",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/architectures/atoms.py",
+        "src/sciona/atoms/dl/architectures/witnesses.py",
+        "src/sciona/atoms/dl/architectures/references.json",
+        "src/sciona/atoms/dl/architectures/cdg.json",
+        "tests/test_dl_architectures_behavior.py"
+      ],
+      "limitations": ["Shape-only opaque contract; no segmentation runtime execution."],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_architectures.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.architectures.unet_1d_sequence",
+      "atom_name": "sciona.atoms.dl.architectures.unet_1d_sequence",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/architectures/atoms.py",
+        "src/sciona/atoms/dl/architectures/witnesses.py",
+        "src/sciona/atoms/dl/architectures/references.json",
+        "src/sciona/atoms/dl/architectures/cdg.json",
+        "tests/test_dl_architectures_behavior.py"
+      ],
+      "limitations": ["Shape-only opaque contract; concrete 1D U-Net implementation is not selected."],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_architectures.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.architectures.yolo_object_detector",
+      "atom_name": "sciona.atoms.dl.architectures.yolo_object_detector",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/architectures/atoms.py",
+        "src/sciona/atoms/dl/architectures/witnesses.py",
+        "src/sciona/atoms/dl/architectures/references.json",
+        "src/sciona/atoms/dl/architectures/cdg.json",
+        "tests/test_dl_architectures_behavior.py"
+      ],
+      "limitations": ["Shape-only opaque contract; Ultralytics bindings require separate AGPL-3.0 license review."],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_architectures.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.architectures.whisper_asr_transformer",
+      "atom_name": "sciona.atoms.dl.architectures.whisper_asr_transformer",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/architectures/atoms.py",
+        "src/sciona/atoms/dl/architectures/witnesses.py",
+        "src/sciona/atoms/dl/architectures/references.json",
+        "src/sciona/atoms/dl/architectures/cdg.json",
+        "tests/test_dl_architectures_behavior.py"
+      ],
+      "limitations": ["Shape-only opaque contract; audio preprocessing and decoding search are excluded."],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_architectures.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.architectures.autoregressive_transformer_decoder",
+      "atom_name": "sciona.atoms.dl.architectures.autoregressive_transformer_decoder",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/architectures/atoms.py",
+        "src/sciona/atoms/dl/architectures/witnesses.py",
+        "src/sciona/atoms/dl/architectures/references.json",
+        "src/sciona/atoms/dl/architectures/cdg.json",
+        "tests/test_dl_architectures_behavior.py"
+      ],
+      "limitations": ["Shape-only opaque contract; generation loop is excluded."],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_architectures.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.architectures.recurrent_sequence_model",
+      "atom_name": "sciona.atoms.dl.architectures.recurrent_sequence_model",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/architectures/atoms.py",
+        "src/sciona/atoms/dl/architectures/witnesses.py",
+        "src/sciona/atoms/dl/architectures/references.json",
+        "src/sciona/atoms/dl/architectures/cdg.json",
+        "tests/test_dl_architectures_behavior.py"
+      ],
+      "limitations": ["Shape-only opaque contract; no recurrent-cell runtime execution."],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_architectures.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.architectures.slowfast_video_network",
+      "atom_name": "sciona.atoms.dl.architectures.slowfast_video_network",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/architectures/atoms.py",
+        "src/sciona/atoms/dl/architectures/witnesses.py",
+        "src/sciona/atoms/dl/architectures/references.json",
+        "src/sciona/atoms/dl/architectures/cdg.json",
+        "tests/test_dl_architectures_behavior.py"
+      ],
+      "limitations": ["Shape-only opaque contract; no 3D convolution runtime execution."],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_architectures.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.architectures.mil_attention_aggregator",
+      "atom_name": "sciona.atoms.dl.architectures.mil_attention_aggregator",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass_with_limits",
+      "trust_readiness": "reviewed_with_limits",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/architectures/atoms.py",
+        "src/sciona/atoms/dl/architectures/witnesses.py",
+        "src/sciona/atoms/dl/architectures/references.json",
+        "src/sciona/atoms/dl/architectures/cdg.json",
+        "tests/test_dl_architectures_behavior.py"
+      ],
+      "limitations": ["Shape-only opaque contract; attention-pooling weights are not computed."],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_architectures.review_bundle.json"
+    }
+  ]
+}
+

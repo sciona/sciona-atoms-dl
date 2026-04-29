@@ -1,0 +1,286 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "sciona.atoms.dl.architectures.efficientnet_backbone@sciona/atoms/dl/architectures/atoms.py:114": {
+      "references": [
+        {
+          "ref_id": "sciona_opaque_nn_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report specifies EfficientNet/EfficientNetV2 as one opaque family with variant-specific feature widths."
+          }
+        },
+        {
+          "ref_id": "repo_pytorch_image_models",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "timm repository provides the canonical pretrained EfficientNet and EfficientNetV2 implementation family cited by the report."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.architectures.resnet_family_backbone@sciona/atoms/dl/architectures/atoms.py:135": {
+      "references": [
+        {
+          "ref_id": "sciona_opaque_nn_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report groups ResNet, ResNeXt, and SE-ResNeXt under one residual-backbone interface."
+          }
+        },
+        {
+          "ref_id": "repo_pytorch_image_models",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "timm repository supplies the residual-family variants and pooled feature dimensions used by this contract."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.architectures.densenet_backbone@sciona/atoms/dl/architectures/atoms.py:156": {
+      "references": [
+        {
+          "ref_id": "sciona_opaque_nn_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report records the irregular DenseNet output-width mapping enforced by the atom."
+          }
+        },
+        {
+          "ref_id": "repo_pytorch_image_models",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "timm repository provides the cited DenseNet model family and pretrained-weight interface."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.architectures.swin_transformer_backbone@sciona/atoms/dl/architectures/atoms.py:176": {
+      "references": [
+        {
+          "ref_id": "sciona_opaque_nn_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report defines Swin as a pooled hierarchical-transformer backbone interface."
+          }
+        },
+        {
+          "ref_id": "repo_pytorch_image_models",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "timm repository provides Swin variants and feature dimensions cited by the report."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.architectures.unet_2d_segmentation@sciona/atoms/dl/architectures/atoms.py:200": {
+      "references": [
+        {
+          "ref_id": "sciona_opaque_nn_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report specifies the 2D U-Net segmentation input and output tensor contract."
+          }
+        },
+        {
+          "ref_id": "repo_segmentation_models_pytorch",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "segmentation_models.pytorch is cited as the standard MIT-licensed U-Net and U-Net++ implementation source."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.architectures.unet_1d_sequence@sciona/atoms/dl/architectures/atoms.py:224": {
+      "references": [
+        {
+          "ref_id": "sciona_opaque_nn_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report specifies 1D U-Net temporal segmentation shape preservation and divisibility constraints."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.architectures.yolo_object_detector@sciona/atoms/dl/architectures/atoms.py:245": {
+      "references": [
+        {
+          "ref_id": "sciona_opaque_nn_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report defines the raw YOLO-family prediction tensor and flags Ultralytics AGPL-3.0 licensing risk."
+          }
+        },
+        {
+          "ref_id": "repo_yolox",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "YOLOX is the permissive Apache-2.0 implementation recommended as the default binding target."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.architectures.whisper_asr_transformer@sciona/atoms/dl/architectures/atoms.py:271": {
+      "references": [
+        {
+          "ref_id": "sciona_opaque_nn_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report records Whisper variant-specific mel-bin counts and token-logit output shape."
+          }
+        },
+        {
+          "ref_id": "hf_whisper_docs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Hugging Face documentation is cited for the Whisper encoder-decoder interface."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.architectures.autoregressive_transformer_decoder@sciona/atoms/dl/architectures/atoms.py:297": {
+      "references": [
+        {
+          "ref_id": "sciona_opaque_nn_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report defines the teacher-forced decoder interface over encoder hidden states."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.architectures.recurrent_sequence_model@sciona/atoms/dl/architectures/atoms.py:323": {
+      "references": [
+        {
+          "ref_id": "sciona_opaque_nn_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report specifies the batch-major GRU/LSTM sequence interface."
+          }
+        },
+        {
+          "ref_id": "pytorch_recurrent_docs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "PyTorch recurrent layer documentation supports the GRU/LSTM hidden-state shape conventions."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.architectures.slowfast_video_network@sciona/atoms/dl/architectures/atoms.py:357": {
+      "references": [
+        {
+          "ref_id": "sciona_opaque_nn_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report specifies SlowFast's dual-pathway video tensor contract."
+          }
+        },
+        {
+          "ref_id": "repo_pytorchvideo",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "PyTorchVideo provides the cited SlowFast model family and two-input pathway convention."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.architectures.mil_attention_aggregator@sciona/atoms/dl/architectures/atoms.py:380": {
+      "references": [
+        {
+          "ref_id": "sciona_opaque_nn_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report defines MIL aggregation as an opaque bag-to-slide-logit contract."
+          }
+        },
+        {
+          "ref_id": "ilse2018attentionmil",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Attention-based MIL paper provides the canonical bag-level attention pooling concept."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}
+

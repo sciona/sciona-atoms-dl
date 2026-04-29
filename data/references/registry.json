@@ -1122,6 +1122,154 @@
             "confidence": "high",
             "notes": "BSD-licensed assignment solver used for tracking association."
         }
+    },
+    "sciona_opaque_nn_research_2026": {
+        "ref_id": "sciona_opaque_nn_research_2026",
+        "type": "report",
+        "title": "Research: Opaque Wrapper Specifications for Pretrained Neural Network Architectures in CDG Systems",
+        "authors": [
+            "Sciona research notes"
+        ],
+        "year": 2026,
+        "venue": "Local research report",
+        "url": "research/07_research.pdf",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report defining the opaque architecture atom boundaries, shape contracts, variants, dependencies, and licensing constraints."
+        }
+    },
+    "repo_pytorch_image_models": {
+        "ref_id": "repo_pytorch_image_models",
+        "type": "repository",
+        "title": "PyTorch Image Models",
+        "authors": [
+            "Ross Wightman",
+            "Hugging Face"
+        ],
+        "year": 2026,
+        "venue": "GitHub",
+        "url": "https://github.com/huggingface/pytorch-image-models",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Apache-2.0 repository cited for EfficientNet, ResNet-family, DenseNet, and Swin backbone interfaces."
+        }
+    },
+    "repo_segmentation_models_pytorch": {
+        "ref_id": "repo_segmentation_models_pytorch",
+        "type": "repository",
+        "title": "segmentation_models.pytorch",
+        "authors": [
+            "Pavel Yakubovskiy",
+            "qubvel-org contributors"
+        ],
+        "year": 2026,
+        "venue": "GitHub",
+        "url": "https://github.com/qubvel-org/segmentation_models.pytorch",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "MIT-licensed segmentation model repository cited for U-Net and U-Net++ encoder/decoder contracts."
+        }
+    },
+    "repo_yolox": {
+        "ref_id": "repo_yolox",
+        "type": "repository",
+        "title": "YOLOX",
+        "authors": [
+            "Megvii-BaseDetection"
+        ],
+        "year": 2021,
+        "venue": "GitHub",
+        "url": "https://github.com/Megvii-BaseDetection/YOLOX",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Apache-2.0 YOLO-family implementation recommended by the local report to avoid Ultralytics AGPL-3.0 contamination."
+        }
+    },
+    "hf_whisper_docs": {
+        "ref_id": "hf_whisper_docs",
+        "type": "documentation",
+        "title": "Whisper model documentation",
+        "authors": [
+            "Hugging Face Transformers contributors"
+        ],
+        "year": 2026,
+        "venue": "Hugging Face documentation",
+        "url": "https://huggingface.co/docs/transformers/model_doc/whisper",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Reference for Whisper log-Mel inputs, encoder-decoder structure, and token-logit interface."
+        }
+    },
+    "pytorch_recurrent_docs": {
+        "ref_id": "pytorch_recurrent_docs",
+        "type": "documentation",
+        "title": "PyTorch GRU and LSTM modules",
+        "authors": [
+            "PyTorch contributors"
+        ],
+        "year": 2026,
+        "venue": "PyTorch documentation",
+        "url": "https://pytorch.org/docs/stable/nn.html#recurrent-layers",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Reference for batch-major recurrent sequence input/output conventions."
+        }
+    },
+    "repo_pytorchvideo": {
+        "ref_id": "repo_pytorchvideo",
+        "type": "repository",
+        "title": "PyTorchVideo",
+        "authors": [
+            "Facebook AI Research"
+        ],
+        "year": 2021,
+        "venue": "GitHub",
+        "url": "https://github.com/facebookresearch/pytorchvideo",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Apache-2.0 video-model repository cited for SlowFast dual-pathway tensor structure."
+        }
+    },
+    "ilse2018attentionmil": {
+        "ref_id": "ilse2018attentionmil",
+        "type": "paper",
+        "title": "Attention-based Deep Multiple Instance Learning",
+        "authors": [
+            "Maximilian Ilse",
+            "Jakub M. Tomczak",
+            "Max Welling"
+        ],
+        "year": 2018,
+        "venue": "ICML",
+        "url": "https://arxiv.org/abs/1802.04712",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Canonical reference for attention pooling over bags in multiple-instance learning."
+        }
     }
   }
 }

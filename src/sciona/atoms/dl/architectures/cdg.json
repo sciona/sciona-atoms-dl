@@ -1,0 +1,232 @@
+{
+  "nodes": [
+    {
+      "node_id": "architectures_root",
+      "name": "Opaque Neural Network Architectures",
+      "description": "Interface contracts for pretrained neural network architecture families used as opaque CDG stages",
+      "status": "decomposed",
+      "children": [
+        "efficientnet_backbone",
+        "resnet_family_backbone",
+        "densenet_backbone",
+        "swin_transformer_backbone",
+        "unet_2d_segmentation",
+        "unet_1d_sequence",
+        "yolo_object_detector",
+        "whisper_asr_transformer",
+        "autoregressive_transformer_decoder",
+        "recurrent_sequence_model",
+        "slowfast_video_network",
+        "mil_attention_aggregator"
+      ],
+      "depth": 0
+    },
+    {
+      "node_id": "efficientnet_backbone",
+      "name": "efficientnet_backbone",
+      "description": "EfficientNet and EfficientNetV2 image feature extraction boundary for normalized images",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "type_signature": "(images: NDArray[np.float32], variant: str = \"b0\", pretrained_weights: str = \"imagenet\") -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {"name": "images", "type_desc": "NDArray[np.float32]", "required": true},
+        {"name": "variant", "type_desc": "str", "required": false},
+        {"name": "pretrained_weights", "type_desc": "str", "required": false}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+    },
+    {
+      "node_id": "resnet_family_backbone",
+      "name": "resnet_family_backbone",
+      "description": "ResNet, ResNeXt, and SE-ResNeXt global-pooled image feature extraction boundary",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "type_signature": "(images: NDArray[np.float32], variant: str = \"resnet50\", pretrained_weights: str = \"imagenet\") -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {"name": "images", "type_desc": "NDArray[np.float32]", "required": true},
+        {"name": "variant", "type_desc": "str", "required": false},
+        {"name": "pretrained_weights", "type_desc": "str", "required": false}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+    },
+    {
+      "node_id": "densenet_backbone",
+      "name": "densenet_backbone",
+      "description": "DenseNet image feature extraction boundary with variant-specific pooled width",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "type_signature": "(images: NDArray[np.float32], variant: str = \"densenet121\", pretrained_weights: str = \"imagenet\") -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {"name": "images", "type_desc": "NDArray[np.float32]", "required": true},
+        {"name": "variant", "type_desc": "str", "required": false},
+        {"name": "pretrained_weights", "type_desc": "str", "required": false}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+    },
+    {
+      "node_id": "swin_transformer_backbone",
+      "name": "swin_transformer_backbone",
+      "description": "Swin Transformer pooled image feature extraction boundary",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "type_signature": "(images: NDArray[np.float32], variant: str = \"swin_tiny_patch4_window7_224\", pretrained_weights: str = \"imagenet\") -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {"name": "images", "type_desc": "NDArray[np.float32]", "required": true},
+        {"name": "variant", "type_desc": "str", "required": false},
+        {"name": "pretrained_weights", "type_desc": "str", "required": false}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+    },
+    {
+      "node_id": "unet_2d_segmentation",
+      "name": "unet_2d_segmentation",
+      "description": "U-Net or U-Net++ semantic segmentation boundary preserving input image height and width",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "type_signature": "(images: NDArray[np.float32], num_classes: int, architecture: str = \"unet\", encoder_name: str = \"resnet34\", encoder_weights: str = \"imagenet\") -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {"name": "images", "type_desc": "NDArray[np.float32]", "required": true},
+        {"name": "num_classes", "type_desc": "int", "required": true},
+        {"name": "architecture", "type_desc": "str", "required": false},
+        {"name": "encoder_name", "type_desc": "str", "required": false},
+        {"name": "encoder_weights", "type_desc": "str", "required": false}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+    },
+    {
+      "node_id": "unet_1d_sequence",
+      "name": "unet_1d_sequence",
+      "description": "1D U-Net sequence segmentation boundary preserving temporal length",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "type_signature": "(sequence: NDArray[np.float32], num_classes: int, architecture: str = \"vanilla_1d\") -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {"name": "sequence", "type_desc": "NDArray[np.float32]", "required": true},
+        {"name": "num_classes", "type_desc": "int", "required": true},
+        {"name": "architecture", "type_desc": "str", "required": false}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+    },
+    {
+      "node_id": "yolo_object_detector",
+      "name": "yolo_object_detector",
+      "description": "YOLO-family single-stage detector boundary returning raw predictions before NMS",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "type_signature": "(images: NDArray[np.float32], num_classes: int, num_predictions: int = 8400, variant: str = \"yolox_s\") -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {"name": "images", "type_desc": "NDArray[np.float32]", "required": true},
+        {"name": "num_classes", "type_desc": "int", "required": true},
+        {"name": "num_predictions", "type_desc": "int", "required": false},
+        {"name": "variant", "type_desc": "str", "required": false}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+    },
+    {
+      "node_id": "whisper_asr_transformer",
+      "name": "whisper_asr_transformer",
+      "description": "Whisper encoder-decoder ASR boundary from log-Mel spectrograms and prompt tokens to token logits",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "type_signature": "(log_mel_spectrograms: NDArray[np.float32], decoder_input_ids: NDArray[np.int64], variant: str = \"large-v3\", vocab_size: int = 51865, task: str = \"transcribe\") -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {"name": "log_mel_spectrograms", "type_desc": "NDArray[np.float32]", "required": true},
+        {"name": "decoder_input_ids", "type_desc": "NDArray[np.int64]", "required": true},
+        {"name": "variant", "type_desc": "str", "required": false},
+        {"name": "vocab_size", "type_desc": "int", "required": false},
+        {"name": "task", "type_desc": "str", "required": false}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+    },
+    {
+      "node_id": "autoregressive_transformer_decoder",
+      "name": "autoregressive_transformer_decoder",
+      "description": "Teacher-forced transformer decoder boundary over encoder hidden states",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "type_signature": "(target_tokens: NDArray[np.int64], encoder_hidden_states: NDArray[np.float32], vocab_size: int, num_layers: int = 6, num_heads: int = 8, hidden_dim: int = 512) -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {"name": "target_tokens", "type_desc": "NDArray[np.int64]", "required": true},
+        {"name": "encoder_hidden_states", "type_desc": "NDArray[np.float32]", "required": true},
+        {"name": "vocab_size", "type_desc": "int", "required": true},
+        {"name": "num_layers", "type_desc": "int", "required": false},
+        {"name": "num_heads", "type_desc": "int", "required": false},
+        {"name": "hidden_dim", "type_desc": "int", "required": false}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+    },
+    {
+      "node_id": "recurrent_sequence_model",
+      "name": "recurrent_sequence_model",
+      "description": "GRU or LSTM sequence-model boundary returning full hidden states or final state",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "type_signature": "(sequence_features: NDArray[np.float32], hidden_size: int = 128, num_layers: int = 1, bidirectional: bool = True, return_sequences: bool = True, cell_type: str = \"gru\", dropout: float = 0.0) -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {"name": "sequence_features", "type_desc": "NDArray[np.float32]", "required": true},
+        {"name": "hidden_size", "type_desc": "int", "required": false},
+        {"name": "num_layers", "type_desc": "int", "required": false},
+        {"name": "bidirectional", "type_desc": "bool", "required": false},
+        {"name": "return_sequences", "type_desc": "bool", "required": false},
+        {"name": "cell_type", "type_desc": "str", "required": false},
+        {"name": "dropout", "type_desc": "float", "required": false}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+    },
+    {
+      "node_id": "slowfast_video_network",
+      "name": "slowfast_video_network",
+      "description": "SlowFast dual-pathway video-action boundary returning class logits",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "type_signature": "(frames: list[NDArray[np.float32]], num_classes: int = 400, variant: str = \"slowfast_r50\", slowfast_channel_reduction_ratio: int = 8) -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {"name": "frames", "type_desc": "list[NDArray[np.float32]]", "required": true},
+        {"name": "num_classes", "type_desc": "int", "required": false},
+        {"name": "variant", "type_desc": "str", "required": false},
+        {"name": "slowfast_channel_reduction_ratio", "type_desc": "int", "required": false}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+    },
+    {
+      "node_id": "mil_attention_aggregator",
+      "name": "mil_attention_aggregator",
+      "description": "Multiple-instance learning attention-pooling boundary from patch bags to slide logits",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "type_signature": "(patch_embeddings: NDArray[np.float32], num_classes: int, attention_hidden_dim: int = 256, variant: str = \"gated_attention_mil\") -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {"name": "patch_embeddings", "type_desc": "NDArray[np.float32]", "required": true},
+        {"name": "num_classes", "type_desc": "int", "required": true},
+        {"name": "attention_hidden_dim", "type_desc": "int", "required": false},
+        {"name": "variant", "type_desc": "str", "required": false}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+    }
+  ]
+}
+
