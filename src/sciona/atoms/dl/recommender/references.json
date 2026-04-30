@@ -1,7 +1,197 @@
 {
   "schema_version": "1.1",
   "atoms": {
-    "sciona.atoms.dl.recommender.sampled_softmax_loss@sciona/atoms/dl/recommender/atoms.py:66": {
+    "sciona.atoms.dl.recommender.co_occurrence_matrix@sciona/atoms/dl/recommender/atoms.py:186": {
+      "references": [
+        {
+          "ref_id": "sciona2026recommenderprimitives",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report specifies a sparse item-item co-occurrence atom with optional distance weights and zero self-links."
+          }
+        },
+        {
+          "ref_id": "nvidia2022otto_covisit",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "OTTO co-visitation retrieval architecture motivating session pair aggregation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.recommender.cooccurrence_candidates@sciona/atoms/dl/recommender/atoms.py:222": {
+      "references": [
+        {
+          "ref_id": "sciona2026recommenderprimitives",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report specifies top-k candidate retrieval by summing co-occurrence rows for recent user items."
+          }
+        },
+        {
+          "ref_id": "nvidia2022otto_covisit",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Co-visitation candidate retrieval source context from OTTO-style recommender pipelines."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.recommender.als_user_update@sciona/atoms/dl/recommender/atoms.py:249": {
+      "references": [
+        {
+          "ref_id": "hu2008implicit",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Implicit-feedback ALS confidence weighting and closed-form single-vector update."
+          }
+        },
+        {
+          "ref_id": "sciona2026recommenderprimitives",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report recommends the single update as the pure atom boundary instead of a mutable training loop."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.recommender.als_item_update@sciona/atoms/dl/recommender/atoms.py:266": {
+      "references": [
+        {
+          "ref_id": "hu2008implicit",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Symmetric implicit-feedback ALS update for solving a single item vector against fixed user factors."
+          }
+        },
+        {
+          "ref_id": "sciona2026recommenderprimitives",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report maps ALS factor updates to the recommender optimization stage."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.recommender.item_popularity_decay@sciona/atoms/dl/recommender/atoms.py:282": {
+      "references": [
+        {
+          "ref_id": "sciona2026recommenderprimitives",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report specifies exponential half-life popularity aggregation for recommender features."
+          }
+        },
+        {
+          "ref_id": "repo_numpy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Uses NumPy vectorized weighting and bincount aggregation."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.recommender.session_features@sciona/atoms/dl/recommender/atoms.py:299": {
+      "references": [
+        {
+          "ref_id": "sciona2026recommenderprimitives",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report specifies session length, unique item count, gap, and duration features."
+          }
+        },
+        {
+          "ref_id": "repo_numpy",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Uses NumPy timestamp differences and scalar reductions."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.recommender.user_item_affinity@sciona/atoms/dl/recommender/atoms.py:318": {
+      "references": [
+        {
+          "ref_id": "sciona2026recommenderprimitives",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report specifies count and recency features for pre-filtered user-item histories."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.recommender.reciprocal_rank_fusion@sciona/atoms/dl/recommender/atoms.py:338": {
+      "references": [
+        {
+          "ref_id": "cormack2009rrf",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary RRF formula using reciprocal rank scores with a positive smoothing constant."
+          }
+        },
+        {
+          "ref_id": "sciona2026recommenderprimitives",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local research report selects reciprocal rank fusion for merging multiple retrieval channels."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.recommender.sampled_softmax_loss@sciona/atoms/dl/recommender/atoms.py:377": {
       "references": [
         {
           "ref_id": "wilm2023tron",
@@ -26,7 +216,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.recommender.bpr_max_loss@sciona/atoms/dl/recommender/atoms.py:99": {
+    "sciona.atoms.dl.recommender.bpr_max_loss@sciona/atoms/dl/recommender/atoms.py:410": {
       "references": [
         {
           "ref_id": "wilm2023tron",
@@ -51,7 +241,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.recommender.uniform_negative_sampling@sciona/atoms/dl/recommender/atoms.py:136": {
+    "sciona.atoms.dl.recommender.uniform_negative_sampling@sciona/atoms/dl/recommender/atoms.py:447": {
       "references": [
         {
           "ref_id": "wilm2023tron",
@@ -76,7 +266,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.recommender.in_batch_negative_sampling@sciona/atoms/dl/recommender/atoms.py:175": {
+    "sciona.atoms.dl.recommender.in_batch_negative_sampling@sciona/atoms/dl/recommender/atoms.py:486": {
       "references": [
         {
           "ref_id": "wilm2023tron",
@@ -101,7 +291,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.recommender.ranking_moments_extractor@sciona/atoms/dl/recommender/atoms.py:205": {
+    "sciona.atoms.dl.recommender.ranking_moments_extractor@sciona/atoms/dl/recommender/atoms.py:516": {
       "references": [
         {
           "ref_id": "repo_recsys_2024",

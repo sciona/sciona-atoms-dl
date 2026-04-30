@@ -502,6 +502,72 @@
         "notes": "MIT-licensed official TRON repository used for recommender loss and sampling atoms."
       }
     },
+    "sciona2026recommenderprimitives": {
+      "ref_id": "sciona2026recommenderprimitives",
+      "type": "internal_research_report",
+      "title": "Recommender System Primitive Atoms Research",
+      "authors": ["Sciona research process"],
+      "year": 2026,
+      "venue": "sciona-atoms research/13_research.pdf",
+      "url": "file:///Users/conrad/personal/sciona-atoms/research/13_research.pdf",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "Local research report defining recommender retrieval, ALS, feature, and fusion atoms for sciona-atoms-dl."
+      }
+    },
+    "nvidia2022otto_covisit": {
+      "ref_id": "nvidia2022otto_covisit",
+      "type": "documentation",
+      "title": "Build Efficient Recommender Systems with Co-Visitation Matrices and RAPIDS cuDF",
+      "authors": ["NVIDIA Developer Blog"],
+      "year": 2022,
+      "venue": "NVIDIA Developer Blog",
+      "url": "https://developer.nvidia.com/blog/build-efficient-recommender-systems-with-co-visitation-matrices-and-rapids-cudf/",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "medium",
+        "notes": "Co-visitation matrix and candidate retrieval context for OTTO-style recommender pipelines."
+      }
+    },
+    "hu2008implicit": {
+      "ref_id": "hu2008implicit",
+      "type": "paper",
+      "title": "Collaborative Filtering for Implicit Feedback Datasets",
+      "authors": ["Yifan Hu", "Yehuda Koren", "Chris Volinsky"],
+      "year": 2008,
+      "venue": "ICDM",
+      "url": "https://yifanhu.net/PUB/cf.pdf",
+      "doi": "10.1109/ICDM.2008.22",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "Implicit-feedback ALS objective and confidence-weighted closed-form update."
+      }
+    },
+    "cormack2009rrf": {
+      "ref_id": "cormack2009rrf",
+      "type": "paper",
+      "title": "Reciprocal Rank Fusion outperforms Condorcet and Individual Rank Learning Methods",
+      "authors": ["Gordon V. Cormack", "Charles L. A. Clarke", "Stefan Buettcher"],
+      "year": 2009,
+      "venue": "SIGIR",
+      "url": "https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf",
+      "doi": "10.1145/1571941.1572114",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "Primary reciprocal rank fusion formula and default smoothing constant."
+      }
+    },
     "yun2019cutmix": {
         "ref_id": "yun2019cutmix",
         "type": "paper",

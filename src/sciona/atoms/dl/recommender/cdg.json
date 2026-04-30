@@ -3,9 +3,17 @@
     {
       "node_id": "recommender_root",
       "name": "Recommender Training",
-      "description": "Recommender-system losses and negative sampling primitives derived from the TRON RecSys 2023 codebase",
+      "description": "Recommender-system retrieval, optimization, feature, loss, and sampling primitives",
       "status": "decomposed",
       "children": [
+        "co_occurrence_matrix",
+        "cooccurrence_candidates",
+        "als_user_update",
+        "als_item_update",
+        "item_popularity_decay",
+        "session_features",
+        "user_item_affinity",
+        "reciprocal_rank_fusion",
         "sampled_softmax_loss",
         "bpr_max_loss",
         "uniform_negative_sampling",
@@ -13,6 +21,146 @@
         "ranking_moments_extractor"
       ],
       "depth": 0
+    },
+    {
+      "node_id": "co_occurrence_matrix",
+      "name": "co_occurrence_matrix",
+      "description": "Build a symmetric sparse item-item co-occurrence matrix from session item sequences",
+      "concept_type": "searching",
+      "status": "atomic",
+      "type_signature": "(sessions: list[list[int]], n_items: int, time_weights: NDArray[np.float64] | None = None) -> csr_matrix",
+      "depth": 1,
+      "inputs": [
+        {"name": "sessions", "type_desc": "list[list[int]]", "required": true},
+        {"name": "n_items", "type_desc": "int", "required": true},
+        {"name": "time_weights", "type_desc": "NDArray[np.float64] | None", "required": false}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "csr_matrix"}
+      ]
+    },
+    {
+      "node_id": "cooccurrence_candidates",
+      "name": "cooccurrence_candidates",
+      "description": "Retrieve top item candidates by summing co-occurrence rows for a user's item history",
+      "concept_type": "searching",
+      "status": "atomic",
+      "type_signature": "(user_items: NDArray[np.int64], cooccurrence: csr_matrix, k: int, filter_seen: bool = True) -> NDArray[np.int64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "user_items", "type_desc": "NDArray[np.int64]", "required": true},
+        {"name": "cooccurrence", "type_desc": "csr_matrix", "required": true},
+        {"name": "k", "type_desc": "int", "required": true},
+        {"name": "filter_seen", "type_desc": "bool", "required": false}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "NDArray[np.int64]"}
+      ]
+    },
+    {
+      "node_id": "als_user_update",
+      "name": "als_user_update",
+      "description": "Solve one implicit-feedback ALS update for a single user vector",
+      "concept_type": "optimization",
+      "status": "atomic",
+      "type_signature": "(user_interactions: csr_matrix, item_factors: NDArray[np.float64], yt_y: NDArray[np.float64], regularization: float, alpha: float = 40.0) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "user_interactions", "type_desc": "csr_matrix", "required": true},
+        {"name": "item_factors", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "yt_y", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "regularization", "type_desc": "float", "required": true},
+        {"name": "alpha", "type_desc": "float", "required": false}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ]
+    },
+    {
+      "node_id": "als_item_update",
+      "name": "als_item_update",
+      "description": "Solve one implicit-feedback ALS update for a single item vector",
+      "concept_type": "optimization",
+      "status": "atomic",
+      "type_signature": "(item_interactions: csr_matrix, user_factors: NDArray[np.float64], xt_x: NDArray[np.float64], regularization: float, alpha: float = 40.0) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "item_interactions", "type_desc": "csr_matrix", "required": true},
+        {"name": "user_factors", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "xt_x", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "regularization", "type_desc": "float", "required": true},
+        {"name": "alpha", "type_desc": "float", "required": false}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ]
+    },
+    {
+      "node_id": "item_popularity_decay",
+      "name": "item_popularity_decay",
+      "description": "Aggregate item popularity with exponential time decay",
+      "concept_type": "data_assembly",
+      "status": "atomic",
+      "type_signature": "(item_ids: NDArray[np.int64], timestamps: NDArray[np.float64], reference_time: float, half_life: float) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "item_ids", "type_desc": "NDArray[np.int64]", "required": true},
+        {"name": "timestamps", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "reference_time", "type_desc": "float", "required": true},
+        {"name": "half_life", "type_desc": "float", "required": true}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ]
+    },
+    {
+      "node_id": "session_features",
+      "name": "session_features",
+      "description": "Extract scalar length, diversity, duration, and gap features for one session",
+      "concept_type": "data_assembly",
+      "status": "atomic",
+      "type_signature": "(item_sequence: list[int], timestamps: NDArray[np.float64]) -> dict[str, float]",
+      "depth": 1,
+      "inputs": [
+        {"name": "item_sequence", "type_desc": "list[int]", "required": true},
+        {"name": "timestamps", "type_desc": "NDArray[np.float64]", "required": true}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "dict[str, float]"}
+      ]
+    },
+    {
+      "node_id": "user_item_affinity",
+      "name": "user_item_affinity",
+      "description": "Summarize a pre-filtered user-item timestamp history for ranking features",
+      "concept_type": "data_assembly",
+      "status": "atomic",
+      "type_signature": "(user_item_timestamps: NDArray[np.float64], reference_time: float) -> dict[str, float]",
+      "depth": 1,
+      "inputs": [
+        {"name": "user_item_timestamps", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "reference_time", "type_desc": "float", "required": true}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "dict[str, float]"}
+      ]
+    },
+    {
+      "node_id": "reciprocal_rank_fusion",
+      "name": "reciprocal_rank_fusion",
+      "description": "Fuse ranked candidate lists using reciprocal rank fusion scores",
+      "concept_type": "searching",
+      "status": "atomic",
+      "type_signature": "(ranked_lists: list[list[int]], k: int = 60, top_n: int = 100) -> list[int]",
+      "depth": 1,
+      "inputs": [
+        {"name": "ranked_lists", "type_desc": "list[list[int]]", "required": true},
+        {"name": "k", "type_desc": "int", "required": false},
+        {"name": "top_n", "type_desc": "int", "required": false}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "list[int]"}
+      ]
     },
     {
       "node_id": "sampled_softmax_loss",
