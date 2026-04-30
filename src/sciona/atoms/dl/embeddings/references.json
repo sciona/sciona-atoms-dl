@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "sciona.atoms.dl.embeddings.l2_normalize@sciona/atoms/dl/embeddings/atoms.py:112": {
+      "references": [
+        {
+          "ref_id": "sciona2026embeddingretrieval",
+          "match_metadata": {"similarity_score": null, "match_type": "manual", "matched_nodes": [], "confidence": "high", "notes": "Local research report candidate for epsilon-safe embedding normalization."}
+        },
+        {
+          "ref_id": "repo_numpy",
+          "match_metadata": {"similarity_score": null, "match_type": "manual", "matched_nodes": [], "confidence": "high", "notes": "Uses NumPy vector norms and broadcasting for out-of-place normalization."}
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.embeddings.cosine_similarity_matrix@sciona/atoms/dl/embeddings/atoms.py:129": {
+      "references": [
+        {
+          "ref_id": "sciona2026embeddingretrieval",
+          "match_metadata": {"similarity_score": null, "match_type": "manual", "matched_nodes": [], "confidence": "high", "notes": "Local research report candidate for zero-safe cosine similarity matrices."}
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.embeddings.alpha_query_expansion@sciona/atoms/dl/embeddings/atoms.py:152": {
+      "references": [
+        {
+          "ref_id": "arandjelovic2012three",
+          "match_metadata": {"similarity_score": null, "match_type": "manual", "matched_nodes": [], "confidence": "medium", "notes": "Query expansion and database-side augmentation background for visual retrieval."}
+        },
+        {
+          "ref_id": "radenovic2020attentionqe",
+          "match_metadata": {"similarity_score": null, "match_type": "manual", "matched_nodes": [], "confidence": "medium", "notes": "Alpha-weighted query expansion context cited by the research report."}
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.embeddings.pca_whiten_reduce@sciona/atoms/dl/embeddings/atoms.py:177": {
+      "references": [
+        {
+          "ref_id": "jegou2012negative",
+          "match_metadata": {"similarity_score": null, "match_type": "manual", "matched_nodes": [], "confidence": "high", "notes": "PCA whitening and final normalization reference for embedding retrieval."}
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.embeddings.embedding_delta@sciona/atoms/dl/embeddings/atoms.py:199": {
+      "references": [
+        {
+          "ref_id": "deltaactivations2025",
+          "match_metadata": {"similarity_score": null, "match_type": "manual", "matched_nodes": [], "confidence": "medium", "notes": "Embedding delta direction-vector context cited by the research report."}
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.embeddings.build_faiss_flat_ip@sciona/atoms/dl/embeddings/atoms.py:214": {
+      "references": [
+        {
+          "ref_id": "repo_faiss",
+          "match_metadata": {"similarity_score": null, "match_type": "manual", "matched_nodes": [], "confidence": "high", "notes": "Optional FAISS IndexFlatIP backend for exact inner-product retrieval."}
+        },
+        {
+          "ref_id": "faiss_docs",
+          "match_metadata": {"similarity_score": null, "match_type": "manual", "matched_nodes": [], "confidence": "high", "notes": "FAISS documentation for flat inner-product index search contracts."}
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.embeddings.rerank_by_distance@sciona/atoms/dl/embeddings/atoms.py:255": {
+      "references": [
+        {
+          "ref_id": "sciona2026embeddingretrieval",
+          "match_metadata": {"similarity_score": null, "match_type": "manual", "matched_nodes": [], "confidence": "high", "notes": "Local research report candidate for exact candidate reranking by embedding distance."}
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}
+

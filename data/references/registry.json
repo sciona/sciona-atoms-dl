@@ -130,6 +130,135 @@
         "notes": "MIT-licensed repository containing baseline threshold search used for classification utility extraction."
       }
     },
+    "repo_numpy": {
+      "ref_id": "repo_numpy",
+      "type": "repository",
+      "title": "NumPy",
+      "authors": ["The NumPy developers"],
+      "year": 2026,
+      "venue": "GitHub",
+      "url": "https://github.com/numpy/numpy",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "Upstream BSD-3-Clause source repository and documentation for NumPy array operations."
+      }
+    },
+    "repo_faiss": {
+      "ref_id": "repo_faiss",
+      "type": "repository",
+      "title": "Faiss",
+      "authors": ["Meta AI Research"],
+      "year": 2026,
+      "venue": "GitHub",
+      "url": "https://github.com/facebookresearch/faiss",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "MIT-licensed vector similarity search library used as the optional flat inner-product backend."
+      }
+    },
+    "faiss_docs": {
+      "ref_id": "faiss_docs",
+      "type": "documentation",
+      "title": "Faiss Documentation",
+      "authors": ["Meta AI Research"],
+      "year": 2026,
+      "venue": "faiss.ai",
+      "url": "https://faiss.ai/",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "Documentation for FAISS index construction and nearest-neighbor search contracts."
+      }
+    },
+    "sciona2026embeddingretrieval": {
+      "ref_id": "sciona2026embeddingretrieval",
+      "type": "internal_research_report",
+      "title": "Architectural Blueprint: Embedding Extraction and Similarity Search Atoms for Deep Learning Systems",
+      "authors": ["Sciona research process"],
+      "year": 2026,
+      "venue": "sciona-atoms research/11_research.pdf",
+      "url": "file:///Users/conrad/personal/sciona-atoms/research/11_research.pdf",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "Local research report and prompt file for embedding retrieval atom candidates."
+      }
+    },
+    "arandjelovic2012three": {
+      "ref_id": "arandjelovic2012three",
+      "type": "paper",
+      "title": "Three things everyone should know to improve object retrieval, while not forgetting their roots",
+      "authors": ["Relja Arandjelovic", "Andrew Zisserman"],
+      "year": 2012,
+      "venue": "CVPR",
+      "url": "https://ora.ox.ac.uk/objects/uuid:423bf16b-4ac6-4e41-bf34-bb7c20ba1b99",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "medium",
+        "notes": "Retrieval query expansion and database-side augmentation reference cited by the research report."
+      }
+    },
+    "radenovic2020attentionqe": {
+      "ref_id": "radenovic2020attentionqe",
+      "type": "paper",
+      "title": "Attention-Based Query Expansion Learning",
+      "authors": ["Filip Radenovic"],
+      "year": 2020,
+      "venue": "Publication PDF",
+      "url": "https://filipradenovic.github.io/publications/grb20.pdf",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "medium",
+        "notes": "Query expansion weighting context cited by the embedding retrieval research report."
+      }
+    },
+    "jegou2012negative": {
+      "ref_id": "jegou2012negative",
+      "type": "paper",
+      "title": "Negative Evidences and Co-occurences in Image Retrieval: The Benefit of PCA and Whitening",
+      "authors": ["Herve Jegou", "Ondrej Chum"],
+      "year": 2012,
+      "venue": "ECCV",
+      "url": "https://cmp.felk.cvut.cz/~chum/papers/Jegou-ECCV12.pdf",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "PCA whitening and embedding normalization reference cited by the research report."
+      }
+    },
+    "deltaactivations2025": {
+      "ref_id": "deltaactivations2025",
+      "type": "paper",
+      "title": "Delta Activations: A Representation for Finetuned Large Language Models",
+      "authors": ["Zhiqiu Xu", "Amish Sethi", "Mayur Naik", "Ser-Nam Lim"],
+      "year": 2025,
+      "venue": "arXiv",
+      "url": "https://arxiv.org/pdf/2509.04442",
+      "doi": "10.48550/arXiv.2509.04442",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "medium",
+        "notes": "Embedding delta vector context cited by the local research report."
+      }
+    },
     "repo_recsys_2024": {
       "ref_id": "repo_recsys_2024",
       "type": "repository",
