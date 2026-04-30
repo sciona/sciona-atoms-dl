@@ -259,6 +259,150 @@
         "notes": "Embedding delta vector context cited by the local research report."
       }
     },
+    "sciona2026segmentationmorphology": {
+      "ref_id": "sciona2026segmentationmorphology",
+      "type": "internal_research_report",
+      "title": "Segmentation Post-Processing Atoms Research",
+      "authors": ["Sciona research process"],
+      "year": 2026,
+      "venue": "sciona-atoms research/12_research.pdf",
+      "url": "file:///Users/conrad/personal/sciona-atoms/research/12_research.pdf",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "Local research report and prompt file for segmentation post-processing atom candidates."
+      }
+    },
+    "scipy_ndimage_morphology": {
+      "ref_id": "scipy_ndimage_morphology",
+      "type": "documentation",
+      "title": "scipy.ndimage binary morphology and measurements",
+      "authors": ["SciPy Developers"],
+      "year": 2026,
+      "venue": "SciPy documentation",
+      "url": "https://docs.scipy.org/doc/scipy/reference/ndimage.html",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "Documentation for binary morphology, hole filling, connected components, and object measurements."
+      }
+    },
+    "krahenbuhl2011densecrf": {
+      "ref_id": "krahenbuhl2011densecrf",
+      "type": "paper",
+      "title": "Efficient Inference in Fully Connected CRFs with Gaussian Edge Potentials",
+      "authors": ["Philipp Krahenbuhl", "Vladlen Koltun"],
+      "year": 2011,
+      "venue": "NeurIPS",
+      "url": "https://proceedings.neurips.cc/paper/2011/hash/beda24c1e1b46055dff2c39c98fd6fc1-Abstract.html",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "Dense CRF mean-field inference reference for image-conditioned segmentation refinement."
+      }
+    },
+    "repo_pydensecrf": {
+      "ref_id": "repo_pydensecrf",
+      "type": "repository",
+      "title": "pydensecrf",
+      "authors": ["Lucas Beyer"],
+      "year": 2026,
+      "venue": "GitHub",
+      "url": "https://github.com/lucasb-eyer/pydensecrf",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "medium",
+        "notes": "MIT-licensed Python wrapper for dense CRF inference used as an optional backend boundary."
+      }
+    },
+    "skimage_watershed_docs": {
+      "ref_id": "skimage_watershed_docs",
+      "type": "documentation",
+      "title": "Watershed segmentation",
+      "authors": ["scikit-image Developers"],
+      "year": 2026,
+      "venue": "scikit-image documentation",
+      "url": "https://scikit-image.org/docs/stable/auto_examples/segmentation/plot_watershed.html",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "high",
+        "notes": "Documentation for marker-controlled watershed segmentation from distance maps."
+      }
+    },
+    "kaggle_rle_standard": {
+      "ref_id": "kaggle_rle_standard",
+      "type": "documentation",
+      "title": "Efficient mask2rle",
+      "authors": ["Kaggle community"],
+      "year": 2026,
+      "venue": "Kaggle",
+      "url": "https://www.kaggle.com/code/xhlulu/efficient-mask2rle",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "medium",
+        "notes": "Reference for one-based, column-major run-length mask encoding used by segmentation competitions."
+      }
+    },
+    "rdp_docs": {
+      "ref_id": "rdp_docs",
+      "type": "documentation",
+      "title": "Ramer-Douglas-Peucker Algorithm",
+      "authors": ["rdp documentation contributors"],
+      "year": 2026,
+      "venue": "Read the Docs",
+      "url": "https://rdp.readthedocs.io/",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "medium",
+        "notes": "Documentation for epsilon-based contour simplification."
+      }
+    },
+    "rasterio_features_docs": {
+      "ref_id": "rasterio_features_docs",
+      "type": "documentation",
+      "title": "Vector Features",
+      "authors": ["Rasterio Developers"],
+      "year": 2026,
+      "venue": "Rasterio documentation",
+      "url": "https://rasterio.readthedocs.io/en/stable/topics/features.html",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "medium",
+        "notes": "Reference for rasterizing vector geometry into image masks."
+      }
+    },
+    "eumetsat_ash_rgb": {
+      "ref_id": "eumetsat_ash_rgb",
+      "type": "documentation",
+      "title": "RGB Recipes",
+      "authors": ["EUMeTrain"],
+      "year": 2020,
+      "venue": "EUMeTrain",
+      "url": "https://eumetrain.org/sites/default/files/2020-05/RGB_recipes.pdf",
+      "match_metadata": {
+        "similarity_score": null,
+        "match_type": "manual",
+        "matched_nodes": [],
+        "confidence": "medium",
+        "notes": "False-color RGB composition reference cited by the local segmentation research report."
+      }
+    },
     "repo_recsys_2024": {
       "ref_id": "repo_recsys_2024",
       "type": "repository",

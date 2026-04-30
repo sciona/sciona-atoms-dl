@@ -1,0 +1,256 @@
+{
+  "nodes": [
+    {
+      "node_id": "segmentation_postprocessing_root",
+      "parent_id": null,
+      "name": "segmentation_postprocessing",
+      "description": "Segmentation mask morphology, topology repair, serialization, rasterization, CRF, watershed, and false-color helpers.",
+      "concept_type": "signal_filter",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "morphological_close",
+        "morphological_open",
+        "dilate_mask",
+        "erode_mask",
+        "fill_holes",
+        "filter_components_by_area",
+        "dense_crf_2d",
+        "watershed_instances",
+        "mask_to_rle",
+        "rle_to_mask",
+        "smooth_contour",
+        "wkt_to_mask",
+        "false_color_composite"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": true,
+      "conceptual_summary": "Pure array post-processing operations for segmentation CDGs.",
+      "critic_notes": "",
+      "decomposition_rationale": "Each child is a separable deterministic post-processing transform or opaque CRF boundary."
+    },
+    {
+      "node_id": "morphological_close",
+      "parent_id": "segmentation_postprocessing_root",
+      "name": "morphological_close",
+      "description": "Apply binary dilation followed by erosion to close small gaps in a mask.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {"name": "mask", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "binary 2D", "required": true, "default_value_repr": ""},
+        {"name": "kernel_size", "type_desc": "int", "constraints": "positive", "required": true, "default_value_repr": ""}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "same shape binary mask", "required": true, "default_value_repr": ""}],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(mask, kernel_size) -> NDArray"
+    },
+    {
+      "node_id": "morphological_open",
+      "parent_id": "segmentation_postprocessing_root",
+      "name": "morphological_open",
+      "description": "Apply binary erosion followed by dilation to remove small foreground artifacts.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {"name": "mask", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "binary 2D", "required": true, "default_value_repr": ""},
+        {"name": "kernel_size", "type_desc": "int", "constraints": "positive", "required": true, "default_value_repr": ""}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "same shape binary mask", "required": true, "default_value_repr": ""}],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(mask, kernel_size) -> NDArray"
+    },
+    {
+      "node_id": "dilate_mask",
+      "parent_id": "segmentation_postprocessing_root",
+      "name": "dilate_mask",
+      "description": "Expand foreground regions outward by repeated binary dilation.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {"name": "mask", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "binary 2D", "required": true, "default_value_repr": ""},
+        {"name": "iterations", "type_desc": "int", "constraints": "positive", "required": true, "default_value_repr": ""}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "same shape binary mask", "required": true, "default_value_repr": ""}],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(mask, iterations) -> NDArray"
+    },
+    {
+      "node_id": "erode_mask",
+      "parent_id": "segmentation_postprocessing_root",
+      "name": "erode_mask",
+      "description": "Shrink foreground regions inward by repeated binary erosion.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {"name": "mask", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "binary 2D", "required": true, "default_value_repr": ""},
+        {"name": "iterations", "type_desc": "int", "constraints": "positive", "required": true, "default_value_repr": ""}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "same shape binary mask", "required": true, "default_value_repr": ""}],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(mask, iterations) -> NDArray"
+    },
+    {
+      "node_id": "fill_holes",
+      "parent_id": "segmentation_postprocessing_root",
+      "name": "fill_holes",
+      "description": "Fill enclosed background holes inside foreground components.",
+      "concept_type": "signal_filter",
+      "inputs": [{"name": "mask", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "binary 2D", "required": true, "default_value_repr": ""}],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "same shape binary mask with foreground area not reduced", "required": true, "default_value_repr": ""}],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(mask) -> NDArray"
+    },
+    {
+      "node_id": "filter_components_by_area",
+      "parent_id": "segmentation_postprocessing_root",
+      "name": "filter_components_by_area",
+      "description": "Remove connected foreground components smaller than the requested pixel area.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {"name": "mask", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "binary 2D", "required": true, "default_value_repr": ""},
+        {"name": "min_area", "type_desc": "int", "constraints": "nonnegative", "required": true, "default_value_repr": ""}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "same shape binary mask with foreground area not increased", "required": true, "default_value_repr": ""}],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(mask, min_area) -> NDArray"
+    },
+    {
+      "node_id": "dense_crf_2d",
+      "parent_id": "segmentation_postprocessing_root",
+      "name": "dense_crf_2d",
+      "description": "Refine class probabilities with optional DenseCRF and return hard labels.",
+      "concept_type": "analysis",
+      "inputs": [
+        {"name": "image", "type_desc": "NDArray[np.uint8]", "constraints": "HxWx3 RGB", "required": true, "default_value_repr": ""},
+        {"name": "unary", "type_desc": "NDArray[np.float64]", "constraints": "classes x H x W finite probabilities", "required": true, "default_value_repr": ""},
+        {"name": "sxy", "type_desc": "float", "constraints": "positive", "required": true, "default_value_repr": ""},
+        {"name": "srgb", "type_desc": "float", "constraints": "positive", "required": true, "default_value_repr": ""},
+        {"name": "compat", "type_desc": "float", "constraints": "nonnegative", "required": true, "default_value_repr": ""},
+        {"name": "iterations", "type_desc": "int", "constraints": "positive", "required": true, "default_value_repr": ""}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.int64]", "constraints": "HxW integer labels", "required": true, "default_value_repr": ""}],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(image, unary, sxy, srgb, compat, iterations) -> NDArray[np.int64]"
+    },
+    {
+      "node_id": "watershed_instances",
+      "parent_id": "segmentation_postprocessing_root",
+      "name": "watershed_instances",
+      "description": "Split a semantic foreground mask into instance labels using watershed flooding.",
+      "concept_type": "analysis",
+      "inputs": [
+        {"name": "distance_map", "type_desc": "NDArray[np.float64]", "constraints": "finite 2D", "required": true, "default_value_repr": ""},
+        {"name": "markers", "type_desc": "NDArray[np.integer]", "constraints": "nonnegative integer 2D", "required": true, "default_value_repr": ""},
+        {"name": "mask", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "binary 2D same shape", "required": true, "default_value_repr": ""}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.int64]", "constraints": "same shape integer instance labels", "required": true, "default_value_repr": ""}],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(distance_map, markers, mask) -> NDArray[np.int64]"
+    },
+    {
+      "node_id": "mask_to_rle",
+      "parent_id": "segmentation_postprocessing_root",
+      "name": "mask_to_rle",
+      "description": "Encode a binary mask as one-based column-major run-length pairs.",
+      "concept_type": "data_extraction",
+      "inputs": [{"name": "mask", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "binary 2D", "required": true, "default_value_repr": ""}],
+      "outputs": [{"name": "result", "type_desc": "list[int]", "constraints": "positive start-length pairs", "required": true, "default_value_repr": ""}],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(mask) -> list[int]"
+    },
+    {
+      "node_id": "rle_to_mask",
+      "parent_id": "segmentation_postprocessing_root",
+      "name": "rle_to_mask",
+      "description": "Decode one-based column-major run-length pairs into a binary mask.",
+      "concept_type": "data_extraction",
+      "inputs": [
+        {"name": "rle", "type_desc": "Sequence[int]", "constraints": "positive start-length pairs", "required": true, "default_value_repr": ""},
+        {"name": "shape", "type_desc": "tuple[int, int]", "constraints": "positive height and width", "required": true, "default_value_repr": ""}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.uint8]", "constraints": "binary mask with requested shape", "required": true, "default_value_repr": ""}],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(rle, shape) -> NDArray[np.uint8]"
+    },
+    {
+      "node_id": "smooth_contour",
+      "parent_id": "segmentation_postprocessing_root",
+      "name": "smooth_contour",
+      "description": "Simplify an ordered contour with the Ramer-Douglas-Peucker algorithm.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {"name": "points", "type_desc": "NDArray[np.float64]", "constraints": "finite Nx2", "required": true, "default_value_repr": ""},
+        {"name": "epsilon", "type_desc": "float", "constraints": "finite nonnegative", "required": true, "default_value_repr": ""}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]", "constraints": "M x 2 points with M <= N", "required": true, "default_value_repr": ""}],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(points, epsilon) -> NDArray[np.float64]"
+    },
+    {
+      "node_id": "wkt_to_mask",
+      "parent_id": "segmentation_postprocessing_root",
+      "name": "wkt_to_mask",
+      "description": "Rasterize a simple POLYGON WKT geometry into a binary mask.",
+      "concept_type": "data_extraction",
+      "inputs": [
+        {"name": "wkt_string", "type_desc": "str", "constraints": "POLYGON WKT", "required": true, "default_value_repr": ""},
+        {"name": "image_shape", "type_desc": "tuple[int, int]", "constraints": "positive height and width", "required": true, "default_value_repr": ""},
+        {"name": "transform", "type_desc": "tuple[float, float, float, float, float, float]", "constraints": "finite affine tuple", "required": true, "default_value_repr": ""}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.uint8]", "constraints": "binary raster mask", "required": true, "default_value_repr": ""}],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(wkt_string, image_shape, transform) -> NDArray[np.uint8]"
+    },
+    {
+      "node_id": "false_color_composite",
+      "parent_id": "segmentation_postprocessing_root",
+      "name": "false_color_composite",
+      "description": "Stretch red, green, and blue band arrays into an 8-bit false-color image.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {"name": "bands", "type_desc": "Mapping[str, NDArray[np.float64]]", "constraints": "red, green, blue 2D arrays with identical shape", "required": true, "default_value_repr": ""},
+        {"name": "bounds", "type_desc": "Mapping[str, tuple[float, float]]", "constraints": "strict red, green, blue ranges", "required": true, "default_value_repr": ""},
+        {"name": "gamma", "type_desc": "float", "constraints": "positive", "required": false, "default_value_repr": "1.0"}
+      ],
+      "outputs": [{"name": "result", "type_desc": "NDArray[np.uint8]", "constraints": "HxWx3 uint8 image", "required": true, "default_value_repr": ""}],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(bands, bounds, gamma=1.0) -> NDArray[np.uint8]"
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "source": "research/12_segmentation_morphology.md and research/12_research.pdf",
+    "class_name": "SegmentationPostprocessing"
+  }
+}
+

@@ -1,0 +1,353 @@
+{
+  "schema_version": "1.0",
+  "bundle_id": "sciona.atoms.dl.review_bundle.segmentation.core.v1",
+  "provider_repo": "sciona-atoms-dl",
+  "family_batch": "dl_segmentation",
+  "review_status": "reviewed",
+  "review_semantic_verdict": "pass_with_limits",
+  "review_developer_semantic_verdict": "pass",
+  "trust_readiness": "reviewed_with_limits",
+  "authoritative_sources": [
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/segmentation/atoms.py"
+    },
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/segmentation/witnesses.py"
+    },
+    {
+      "kind": "local_references",
+      "path": "src/sciona/atoms/dl/segmentation/references.json"
+    },
+    {
+      "kind": "local_cdg",
+      "path": "src/sciona/atoms/dl/segmentation/cdg.json"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_segmentation_behavior.py"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_segmentation_references_metadata.py"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_segmentation_review_bundle.py"
+    }
+  ],
+  "limitations": [
+    "dense_crf_2d uses pydensecrf when installed and otherwise falls back to unary argmax so the atom remains importable without an optional native dependency.",
+    "wkt_to_mask supports POLYGON WKT with optional interior rings and does not implement every WKT geometry type.",
+    "Morphology and watershed atoms run on CPU NumPy arrays."
+  ],
+  "blocking_findings": [],
+  "required_actions": [],
+  "review_record_path": "data/review_bundles/dl_segmentation.review_bundle.json",
+  "rows": [
+    {
+      "atom_key": "sciona.atoms.dl.segmentation.morphological_close",
+      "atom_name": "sciona.atoms.dl.segmentation.morphological_close",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "reviewed",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/segmentation/atoms.py",
+        "src/sciona/atoms/dl/segmentation/witnesses.py",
+        "src/sciona/atoms/dl/segmentation/references.json",
+        "src/sciona/atoms/dl/segmentation/cdg.json",
+        "tests/test_dl_segmentation_behavior.py",
+        "tests/test_dl_segmentation_references_metadata.py",
+        "tests/test_dl_segmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_segmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.segmentation.morphological_open",
+      "atom_name": "sciona.atoms.dl.segmentation.morphological_open",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "reviewed",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/segmentation/atoms.py",
+        "src/sciona/atoms/dl/segmentation/witnesses.py",
+        "src/sciona/atoms/dl/segmentation/references.json",
+        "src/sciona/atoms/dl/segmentation/cdg.json",
+        "tests/test_dl_segmentation_behavior.py",
+        "tests/test_dl_segmentation_references_metadata.py",
+        "tests/test_dl_segmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_segmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.segmentation.dilate_mask",
+      "atom_name": "sciona.atoms.dl.segmentation.dilate_mask",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "reviewed",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/segmentation/atoms.py",
+        "src/sciona/atoms/dl/segmentation/witnesses.py",
+        "src/sciona/atoms/dl/segmentation/references.json",
+        "src/sciona/atoms/dl/segmentation/cdg.json",
+        "tests/test_dl_segmentation_behavior.py",
+        "tests/test_dl_segmentation_references_metadata.py",
+        "tests/test_dl_segmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_segmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.segmentation.erode_mask",
+      "atom_name": "sciona.atoms.dl.segmentation.erode_mask",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "reviewed",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/segmentation/atoms.py",
+        "src/sciona/atoms/dl/segmentation/witnesses.py",
+        "src/sciona/atoms/dl/segmentation/references.json",
+        "src/sciona/atoms/dl/segmentation/cdg.json",
+        "tests/test_dl_segmentation_behavior.py",
+        "tests/test_dl_segmentation_references_metadata.py",
+        "tests/test_dl_segmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_segmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.segmentation.fill_holes",
+      "atom_name": "sciona.atoms.dl.segmentation.fill_holes",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "reviewed",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/segmentation/atoms.py",
+        "src/sciona/atoms/dl/segmentation/witnesses.py",
+        "src/sciona/atoms/dl/segmentation/references.json",
+        "src/sciona/atoms/dl/segmentation/cdg.json",
+        "tests/test_dl_segmentation_behavior.py",
+        "tests/test_dl_segmentation_references_metadata.py",
+        "tests/test_dl_segmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_segmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.segmentation.filter_components_by_area",
+      "atom_name": "sciona.atoms.dl.segmentation.filter_components_by_area",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "reviewed",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/segmentation/atoms.py",
+        "src/sciona/atoms/dl/segmentation/witnesses.py",
+        "src/sciona/atoms/dl/segmentation/references.json",
+        "src/sciona/atoms/dl/segmentation/cdg.json",
+        "tests/test_dl_segmentation_behavior.py",
+        "tests/test_dl_segmentation_references_metadata.py",
+        "tests/test_dl_segmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_segmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.segmentation.dense_crf_2d",
+      "atom_name": "sciona.atoms.dl.segmentation.dense_crf_2d",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "reviewed_with_limits",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/segmentation/atoms.py",
+        "src/sciona/atoms/dl/segmentation/witnesses.py",
+        "src/sciona/atoms/dl/segmentation/references.json",
+        "src/sciona/atoms/dl/segmentation/cdg.json",
+        "tests/test_dl_segmentation_behavior.py",
+        "tests/test_dl_segmentation_references_metadata.py",
+        "tests/test_dl_segmentation_review_bundle.py"
+      ],
+      "limitations": [
+        "Uses unary argmax when pydensecrf is not installed."
+      ],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_segmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.segmentation.watershed_instances",
+      "atom_name": "sciona.atoms.dl.segmentation.watershed_instances",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "reviewed",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/segmentation/atoms.py",
+        "src/sciona/atoms/dl/segmentation/witnesses.py",
+        "src/sciona/atoms/dl/segmentation/references.json",
+        "src/sciona/atoms/dl/segmentation/cdg.json",
+        "tests/test_dl_segmentation_behavior.py",
+        "tests/test_dl_segmentation_references_metadata.py",
+        "tests/test_dl_segmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_segmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.segmentation.mask_to_rle",
+      "atom_name": "sciona.atoms.dl.segmentation.mask_to_rle",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "reviewed",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/segmentation/atoms.py",
+        "src/sciona/atoms/dl/segmentation/witnesses.py",
+        "src/sciona/atoms/dl/segmentation/references.json",
+        "src/sciona/atoms/dl/segmentation/cdg.json",
+        "tests/test_dl_segmentation_behavior.py",
+        "tests/test_dl_segmentation_references_metadata.py",
+        "tests/test_dl_segmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_segmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.segmentation.rle_to_mask",
+      "atom_name": "sciona.atoms.dl.segmentation.rle_to_mask",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "reviewed",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/segmentation/atoms.py",
+        "src/sciona/atoms/dl/segmentation/witnesses.py",
+        "src/sciona/atoms/dl/segmentation/references.json",
+        "src/sciona/atoms/dl/segmentation/cdg.json",
+        "tests/test_dl_segmentation_behavior.py",
+        "tests/test_dl_segmentation_references_metadata.py",
+        "tests/test_dl_segmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_segmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.segmentation.smooth_contour",
+      "atom_name": "sciona.atoms.dl.segmentation.smooth_contour",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "reviewed",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/segmentation/atoms.py",
+        "src/sciona/atoms/dl/segmentation/witnesses.py",
+        "src/sciona/atoms/dl/segmentation/references.json",
+        "src/sciona/atoms/dl/segmentation/cdg.json",
+        "tests/test_dl_segmentation_behavior.py",
+        "tests/test_dl_segmentation_references_metadata.py",
+        "tests/test_dl_segmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_segmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.segmentation.wkt_to_mask",
+      "atom_name": "sciona.atoms.dl.segmentation.wkt_to_mask",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "reviewed_with_limits",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/segmentation/atoms.py",
+        "src/sciona/atoms/dl/segmentation/witnesses.py",
+        "src/sciona/atoms/dl/segmentation/references.json",
+        "src/sciona/atoms/dl/segmentation/cdg.json",
+        "tests/test_dl_segmentation_behavior.py",
+        "tests/test_dl_segmentation_references_metadata.py",
+        "tests/test_dl_segmentation_review_bundle.py"
+      ],
+      "limitations": [
+        "Supports POLYGON WKT only."
+      ],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_segmentation.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.segmentation.false_color_composite",
+      "atom_name": "sciona.atoms.dl.segmentation.false_color_composite",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "reviewed",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/segmentation/atoms.py",
+        "src/sciona/atoms/dl/segmentation/witnesses.py",
+        "src/sciona/atoms/dl/segmentation/references.json",
+        "src/sciona/atoms/dl/segmentation/cdg.json",
+        "tests/test_dl_segmentation_behavior.py",
+        "tests/test_dl_segmentation_references_metadata.py",
+        "tests/test_dl_segmentation_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_segmentation.review_bundle.json"
+    }
+  ]
+}
