@@ -27,11 +27,28 @@
       "type_signature": "(total_frames: int, target_fps: float, video_fps: float) -> NDArray[np.int64]",
       "depth": 1,
       "inputs": [
-        {"name": "total_frames", "type_desc": "int", "required": true},
-        {"name": "target_fps", "type_desc": "float", "required": true},
-        {"name": "video_fps", "type_desc": "float", "required": true}
+        {
+          "name": "total_frames",
+          "type_desc": "int",
+          "required": true
+        },
+        {
+          "name": "target_fps",
+          "type_desc": "float",
+          "required": true
+        },
+        {
+          "name": "video_fps",
+          "type_desc": "float",
+          "required": true
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.int64]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.int64]"
+        }
+      ]
     },
     {
       "node_id": "uniform_sample_indices",
@@ -42,10 +59,23 @@
       "type_signature": "(total_frames: int, n_samples: int) -> NDArray[np.int64]",
       "depth": 1,
       "inputs": [
-        {"name": "total_frames", "type_desc": "int", "required": true},
-        {"name": "n_samples", "type_desc": "int", "required": true}
+        {
+          "name": "total_frames",
+          "type_desc": "int",
+          "required": true
+        },
+        {
+          "name": "n_samples",
+          "type_desc": "int",
+          "required": true
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.int64]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.int64]"
+        }
+      ]
     },
     {
       "node_id": "temporal_mean_pool",
@@ -56,9 +86,18 @@
       "type_signature": "(frame_predictions: NDArray[np.float64]) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {"name": "frame_predictions", "type_desc": "NDArray[np.float64]", "required": true}
+        {
+          "name": "frame_predictions",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
     },
     {
       "node_id": "temporal_max_pool",
@@ -69,9 +108,18 @@
       "type_signature": "(frame_predictions: NDArray[np.float64]) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {"name": "frame_predictions", "type_desc": "NDArray[np.float64]", "required": true}
+        {
+          "name": "frame_predictions",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
     },
     {
       "node_id": "temporal_attention_pool",
@@ -82,12 +130,33 @@
       "type_signature": "(x: NDArray[np.float64], wq: NDArray[np.float64], wk: NDArray[np.float64], wv: NDArray[np.float64]) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {"name": "x", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "wq", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "wk", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "wv", "type_desc": "NDArray[np.float64]", "required": true}
+        {
+          "name": "x",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "wq",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "wk",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "wv",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
     },
     {
       "node_id": "temporal_median_filter",
@@ -98,10 +167,23 @@
       "type_signature": "(predictions: NDArray[np.float64], kernel_size: int) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {"name": "predictions", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "kernel_size", "type_desc": "int", "required": true}
+        {
+          "name": "predictions",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "kernel_size",
+          "type_desc": "int",
+          "required": true
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
     },
     {
       "node_id": "sliding_windows",
@@ -112,11 +194,33 @@
       "type_signature": "(sequence: NDArray[np.float64], window_size: int, stride: int = 1) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {"name": "sequence", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "window_size", "type_desc": "int", "required": true},
-        {"name": "stride", "type_desc": "int", "required": false}
+        {
+          "name": "sequence",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "window_size",
+          "type_desc": "int",
+          "required": true
+        },
+        {
+          "name": "stride",
+          "type_desc": "int",
+          "required": false
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ],
+      "aliases": [
+        "chunk_signal",
+        "signal_chunking",
+        "windowed_extraction"
+      ]
     },
     {
       "node_id": "stack_adjacent_frames",
@@ -127,11 +231,28 @@
       "type_signature": "(frames: NDArray[np.uint8], center_idx: int, num_adjacent: int) -> NDArray[np.uint8]",
       "depth": 1,
       "inputs": [
-        {"name": "frames", "type_desc": "NDArray[np.uint8]", "required": true},
-        {"name": "center_idx", "type_desc": "int", "required": true},
-        {"name": "num_adjacent", "type_desc": "int", "required": true}
+        {
+          "name": "frames",
+          "type_desc": "NDArray[np.uint8]",
+          "required": true
+        },
+        {
+          "name": "center_idx",
+          "type_desc": "int",
+          "required": true
+        },
+        {
+          "name": "num_adjacent",
+          "type_desc": "int",
+          "required": true
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.uint8]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.uint8]"
+        }
+      ]
     },
     {
       "node_id": "temporal_unroll",
@@ -142,11 +263,27 @@
       "type_signature": "(aggregated: NDArray[np.float64], group_sizes: NDArray[np.int64]) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {"name": "aggregated", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "group_sizes", "type_desc": "NDArray[np.int64]", "required": true}
+        {
+          "name": "aggregated",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "group_sizes",
+          "type_desc": "NDArray[np.int64]",
+          "required": true
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ],
+      "aliases": [
+        "repeat_aggregated_predictions",
+        "temporal_unrolling"
+      ]
     }
   ]
 }
-

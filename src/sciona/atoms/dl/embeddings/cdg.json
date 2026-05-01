@@ -38,11 +38,37 @@
       "description": "Return an out-of-place L2-normalized embedding array with zero-vector guards.",
       "concept_type": "analysis",
       "inputs": [
-        {"name": "embeddings", "type_desc": "NDArray[np.float64]", "constraints": "finite non-empty array", "required": true, "default_value_repr": ""},
-        {"name": "axis", "type_desc": "int", "constraints": "valid array axis", "required": false, "default_value_repr": "1"},
-        {"name": "eps", "type_desc": "float", "constraints": "positive finite", "required": false, "default_value_repr": "1e-12"}
+        {
+          "name": "embeddings",
+          "type_desc": "NDArray[np.float64]",
+          "constraints": "finite non-empty array",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "axis",
+          "type_desc": "int",
+          "constraints": "valid array axis",
+          "required": false,
+          "default_value_repr": "1"
+        },
+        {
+          "name": "eps",
+          "type_desc": "float",
+          "constraints": "positive finite",
+          "required": false,
+          "default_value_repr": "1e-12"
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]", "constraints": "same shape as embeddings", "required": true, "default_value_repr": ""}],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]",
+          "constraints": "same shape as embeddings",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
       "status": "atomic",
       "children": [],
       "depth": 1,
@@ -55,11 +81,37 @@
       "description": "Compute pairwise cosine similarities by normalizing rows before matrix multiplication.",
       "concept_type": "analysis",
       "inputs": [
-        {"name": "embeddings_a", "type_desc": "NDArray[np.float64]", "constraints": "finite 2D matrix", "required": true, "default_value_repr": ""},
-        {"name": "embeddings_b", "type_desc": "NDArray[np.float64]", "constraints": "finite 2D matrix with same feature count", "required": true, "default_value_repr": ""},
-        {"name": "eps", "type_desc": "float", "constraints": "positive finite", "required": false, "default_value_repr": "1e-12"}
+        {
+          "name": "embeddings_a",
+          "type_desc": "NDArray[np.float64]",
+          "constraints": "finite 2D matrix",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "embeddings_b",
+          "type_desc": "NDArray[np.float64]",
+          "constraints": "finite 2D matrix with same feature count",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "eps",
+          "type_desc": "float",
+          "constraints": "positive finite",
+          "required": false,
+          "default_value_repr": "1e-12"
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]", "constraints": "shape (len(embeddings_a), len(embeddings_b)); bounded [-1, 1]", "required": true, "default_value_repr": ""}],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]",
+          "constraints": "shape (len(embeddings_a), len(embeddings_b)); bounded [-1, 1]",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
       "status": "atomic",
       "children": [],
       "depth": 1,
@@ -72,17 +124,60 @@
       "description": "Expand a query by a power-weighted average of retrieved neighbor embeddings.",
       "concept_type": "analysis",
       "inputs": [
-        {"name": "query", "type_desc": "NDArray[np.float64]", "constraints": "finite 1D vector", "required": true, "default_value_repr": ""},
-        {"name": "retrieved_neighbors", "type_desc": "NDArray[np.float64]", "constraints": "finite 2D matrix with query-width columns", "required": true, "default_value_repr": ""},
-        {"name": "similarities", "type_desc": "NDArray[np.float64]", "constraints": "finite 1D vector matching neighbor rows", "required": true, "default_value_repr": ""},
-        {"name": "alpha", "type_desc": "float", "constraints": "finite nonnegative", "required": false, "default_value_repr": "3.0"},
-        {"name": "eps", "type_desc": "float", "constraints": "positive finite", "required": false, "default_value_repr": "1e-12"}
+        {
+          "name": "query",
+          "type_desc": "NDArray[np.float64]",
+          "constraints": "finite 1D vector",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "retrieved_neighbors",
+          "type_desc": "NDArray[np.float64]",
+          "constraints": "finite 2D matrix with query-width columns",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "similarities",
+          "type_desc": "NDArray[np.float64]",
+          "constraints": "finite 1D vector matching neighbor rows",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "alpha",
+          "type_desc": "float",
+          "constraints": "finite nonnegative",
+          "required": false,
+          "default_value_repr": "3.0"
+        },
+        {
+          "name": "eps",
+          "type_desc": "float",
+          "constraints": "positive finite",
+          "required": false,
+          "default_value_repr": "1e-12"
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]", "constraints": "finite vector with query shape", "required": true, "default_value_repr": ""}],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]",
+          "constraints": "finite vector with query shape",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(query, retrieved_neighbors, similarities, alpha=3.0, eps=1e-12) -> NDArray[np.float64]"
+      "type_signature": "(query, retrieved_neighbors, similarities, alpha=3.0, eps=1e-12) -> NDArray[np.float64]",
+      "aliases": [
+        "database_side_augmentation",
+        "database_side_augmentation_query_expansion",
+        "query_expansion"
+      ]
     },
     {
       "node_id": "pca_whiten_reduce",
@@ -91,11 +186,37 @@
       "description": "Project embeddings with SVD PCA, whiten components, and L2-normalize rows.",
       "concept_type": "dimensionality_reduction",
       "inputs": [
-        {"name": "embeddings", "type_desc": "NDArray[np.float64]", "constraints": "finite 2D matrix", "required": true, "default_value_repr": ""},
-        {"name": "n_components", "type_desc": "int", "constraints": "1 <= n_components <= min(embeddings.shape)", "required": true, "default_value_repr": ""},
-        {"name": "eps", "type_desc": "float", "constraints": "positive finite", "required": false, "default_value_repr": "1e-12"}
+        {
+          "name": "embeddings",
+          "type_desc": "NDArray[np.float64]",
+          "constraints": "finite 2D matrix",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "n_components",
+          "type_desc": "int",
+          "constraints": "1 <= n_components <= min(embeddings.shape)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "eps",
+          "type_desc": "float",
+          "constraints": "positive finite",
+          "required": false,
+          "default_value_repr": "1e-12"
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]", "constraints": "shape (n_rows, n_components)", "required": true, "default_value_repr": ""}],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]",
+          "constraints": "shape (n_rows, n_components)",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
       "status": "atomic",
       "children": [],
       "depth": 1,
@@ -108,10 +229,30 @@
       "description": "Return the arithmetic direction vector from an original embedding to a transformed embedding.",
       "concept_type": "analysis",
       "inputs": [
-        {"name": "original", "type_desc": "NDArray[np.float64]", "constraints": "finite array", "required": true, "default_value_repr": ""},
-        {"name": "transformed", "type_desc": "NDArray[np.float64]", "constraints": "finite array with same shape as original", "required": true, "default_value_repr": ""}
+        {
+          "name": "original",
+          "type_desc": "NDArray[np.float64]",
+          "constraints": "finite array",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "transformed",
+          "type_desc": "NDArray[np.float64]",
+          "constraints": "finite array with same shape as original",
+          "required": true,
+          "default_value_repr": ""
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]", "constraints": "transformed - original", "required": true, "default_value_repr": ""}],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]",
+          "constraints": "transformed - original",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
       "status": "atomic",
       "children": [],
       "depth": 1,
@@ -124,12 +265,44 @@
       "description": "Run exact flat inner-product retrieval over L2-normalized embeddings.",
       "concept_type": "searching",
       "inputs": [
-        {"name": "reference_embeddings", "type_desc": "NDArray[np.float64]", "constraints": "finite 2D matrix", "required": true, "default_value_repr": ""},
-        {"name": "query_embeddings", "type_desc": "NDArray[np.float64]", "constraints": "finite 2D matrix with same feature count", "required": true, "default_value_repr": ""},
-        {"name": "k", "type_desc": "int", "constraints": "1 <= k <= len(reference_embeddings)", "required": true, "default_value_repr": ""},
-        {"name": "eps", "type_desc": "float", "constraints": "positive finite", "required": false, "default_value_repr": "1e-12"}
+        {
+          "name": "reference_embeddings",
+          "type_desc": "NDArray[np.float64]",
+          "constraints": "finite 2D matrix",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "query_embeddings",
+          "type_desc": "NDArray[np.float64]",
+          "constraints": "finite 2D matrix with same feature count",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "k",
+          "type_desc": "int",
+          "constraints": "1 <= k <= len(reference_embeddings)",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "eps",
+          "type_desc": "float",
+          "constraints": "positive finite",
+          "required": false,
+          "default_value_repr": "1e-12"
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "tuple[NDArray[np.float64], NDArray[np.int64]]", "constraints": "descending scores and valid reference indices", "required": true, "default_value_repr": ""}],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "tuple[NDArray[np.float64], NDArray[np.int64]]",
+          "constraints": "descending scores and valid reference indices",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
       "status": "atomic",
       "children": [],
       "depth": 1,
@@ -142,12 +315,44 @@
       "description": "Return candidate IDs sorted by ascending Euclidean distance to the query vector.",
       "concept_type": "searching",
       "inputs": [
-        {"name": "query", "type_desc": "NDArray[np.float64]", "constraints": "finite 1D vector", "required": true, "default_value_repr": ""},
-        {"name": "candidates", "type_desc": "NDArray[np.float64]", "constraints": "finite 2D matrix with query-width columns", "required": true, "default_value_repr": ""},
-        {"name": "candidate_ids", "type_desc": "NDArray[np.int64]", "constraints": "1D ids matching candidate rows", "required": true, "default_value_repr": ""},
-        {"name": "k", "type_desc": "int", "constraints": "1 <= k <= len(candidate_ids)", "required": true, "default_value_repr": ""}
+        {
+          "name": "query",
+          "type_desc": "NDArray[np.float64]",
+          "constraints": "finite 1D vector",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "candidates",
+          "type_desc": "NDArray[np.float64]",
+          "constraints": "finite 2D matrix with query-width columns",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "candidate_ids",
+          "type_desc": "NDArray[np.int64]",
+          "constraints": "1D ids matching candidate rows",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "k",
+          "type_desc": "int",
+          "constraints": "1 <= k <= len(candidate_ids)",
+          "required": true,
+          "default_value_repr": ""
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.int64]", "constraints": "k candidate IDs sorted by distance", "required": true, "default_value_repr": ""}],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.int64]",
+          "constraints": "k candidate IDs sorted by distance",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
       "status": "atomic",
       "children": [],
       "depth": 1,
@@ -160,4 +365,3 @@
     "class_name": "EmbeddingRetrieval"
   }
 }
-

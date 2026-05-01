@@ -31,11 +31,28 @@
       "type_signature": "(images: NDArray[np.float32], variant: str = \"b0\", pretrained_weights: str = \"imagenet\") -> NDArray[np.float32]",
       "depth": 1,
       "inputs": [
-        {"name": "images", "type_desc": "NDArray[np.float32]", "required": true},
-        {"name": "variant", "type_desc": "str", "required": false},
-        {"name": "pretrained_weights", "type_desc": "str", "required": false}
+        {
+          "name": "images",
+          "type_desc": "NDArray[np.float32]",
+          "required": true
+        },
+        {
+          "name": "variant",
+          "type_desc": "str",
+          "required": false
+        },
+        {
+          "name": "pretrained_weights",
+          "type_desc": "str",
+          "required": false
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float32]"
+        }
+      ]
     },
     {
       "node_id": "resnet_family_backbone",
@@ -47,11 +64,28 @@
       "type_signature": "(images: NDArray[np.float32], variant: str = \"resnet50\", pretrained_weights: str = \"imagenet\") -> NDArray[np.float32]",
       "depth": 1,
       "inputs": [
-        {"name": "images", "type_desc": "NDArray[np.float32]", "required": true},
-        {"name": "variant", "type_desc": "str", "required": false},
-        {"name": "pretrained_weights", "type_desc": "str", "required": false}
+        {
+          "name": "images",
+          "type_desc": "NDArray[np.float32]",
+          "required": true
+        },
+        {
+          "name": "variant",
+          "type_desc": "str",
+          "required": false
+        },
+        {
+          "name": "pretrained_weights",
+          "type_desc": "str",
+          "required": false
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float32]"
+        }
+      ]
     },
     {
       "node_id": "densenet_backbone",
@@ -63,11 +97,28 @@
       "type_signature": "(images: NDArray[np.float32], variant: str = \"densenet121\", pretrained_weights: str = \"imagenet\") -> NDArray[np.float32]",
       "depth": 1,
       "inputs": [
-        {"name": "images", "type_desc": "NDArray[np.float32]", "required": true},
-        {"name": "variant", "type_desc": "str", "required": false},
-        {"name": "pretrained_weights", "type_desc": "str", "required": false}
+        {
+          "name": "images",
+          "type_desc": "NDArray[np.float32]",
+          "required": true
+        },
+        {
+          "name": "variant",
+          "type_desc": "str",
+          "required": false
+        },
+        {
+          "name": "pretrained_weights",
+          "type_desc": "str",
+          "required": false
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float32]"
+        }
+      ]
     },
     {
       "node_id": "swin_transformer_backbone",
@@ -79,11 +130,28 @@
       "type_signature": "(images: NDArray[np.float32], variant: str = \"swin_tiny_patch4_window7_224\", pretrained_weights: str = \"imagenet\") -> NDArray[np.float32]",
       "depth": 1,
       "inputs": [
-        {"name": "images", "type_desc": "NDArray[np.float32]", "required": true},
-        {"name": "variant", "type_desc": "str", "required": false},
-        {"name": "pretrained_weights", "type_desc": "str", "required": false}
+        {
+          "name": "images",
+          "type_desc": "NDArray[np.float32]",
+          "required": true
+        },
+        {
+          "name": "variant",
+          "type_desc": "str",
+          "required": false
+        },
+        {
+          "name": "pretrained_weights",
+          "type_desc": "str",
+          "required": false
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float32]"
+        }
+      ]
     },
     {
       "node_id": "unet_2d_segmentation",
@@ -95,13 +163,38 @@
       "type_signature": "(images: NDArray[np.float32], num_classes: int, architecture: str = \"unet\", encoder_name: str = \"resnet34\", encoder_weights: str = \"imagenet\") -> NDArray[np.float32]",
       "depth": 1,
       "inputs": [
-        {"name": "images", "type_desc": "NDArray[np.float32]", "required": true},
-        {"name": "num_classes", "type_desc": "int", "required": true},
-        {"name": "architecture", "type_desc": "str", "required": false},
-        {"name": "encoder_name", "type_desc": "str", "required": false},
-        {"name": "encoder_weights", "type_desc": "str", "required": false}
+        {
+          "name": "images",
+          "type_desc": "NDArray[np.float32]",
+          "required": true
+        },
+        {
+          "name": "num_classes",
+          "type_desc": "int",
+          "required": true
+        },
+        {
+          "name": "architecture",
+          "type_desc": "str",
+          "required": false
+        },
+        {
+          "name": "encoder_name",
+          "type_desc": "str",
+          "required": false
+        },
+        {
+          "name": "encoder_weights",
+          "type_desc": "str",
+          "required": false
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float32]"
+        }
+      ]
     },
     {
       "node_id": "unet_1d_sequence",
@@ -113,11 +206,28 @@
       "type_signature": "(sequence: NDArray[np.float32], num_classes: int, architecture: str = \"vanilla_1d\") -> NDArray[np.float32]",
       "depth": 1,
       "inputs": [
-        {"name": "sequence", "type_desc": "NDArray[np.float32]", "required": true},
-        {"name": "num_classes", "type_desc": "int", "required": true},
-        {"name": "architecture", "type_desc": "str", "required": false}
+        {
+          "name": "sequence",
+          "type_desc": "NDArray[np.float32]",
+          "required": true
+        },
+        {
+          "name": "num_classes",
+          "type_desc": "int",
+          "required": true
+        },
+        {
+          "name": "architecture",
+          "type_desc": "str",
+          "required": false
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float32]"
+        }
+      ]
     },
     {
       "node_id": "yolo_object_detector",
@@ -129,12 +239,38 @@
       "type_signature": "(images: NDArray[np.float32], num_classes: int, num_predictions: int = 8400, variant: str = \"yolox_s\") -> NDArray[np.float32]",
       "depth": 1,
       "inputs": [
-        {"name": "images", "type_desc": "NDArray[np.float32]", "required": true},
-        {"name": "num_classes", "type_desc": "int", "required": true},
-        {"name": "num_predictions", "type_desc": "int", "required": false},
-        {"name": "variant", "type_desc": "str", "required": false}
+        {
+          "name": "images",
+          "type_desc": "NDArray[np.float32]",
+          "required": true
+        },
+        {
+          "name": "num_classes",
+          "type_desc": "int",
+          "required": true
+        },
+        {
+          "name": "num_predictions",
+          "type_desc": "int",
+          "required": false
+        },
+        {
+          "name": "variant",
+          "type_desc": "str",
+          "required": false
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float32]"
+        }
+      ],
+      "aliases": [
+        "helmet_detection",
+        "object_detection",
+        "yolo_detection"
+      ]
     },
     {
       "node_id": "whisper_asr_transformer",
@@ -146,13 +282,38 @@
       "type_signature": "(log_mel_spectrograms: NDArray[np.float32], decoder_input_ids: NDArray[np.int64], variant: str = \"large-v3\", vocab_size: int = 51865, task: str = \"transcribe\") -> NDArray[np.float32]",
       "depth": 1,
       "inputs": [
-        {"name": "log_mel_spectrograms", "type_desc": "NDArray[np.float32]", "required": true},
-        {"name": "decoder_input_ids", "type_desc": "NDArray[np.int64]", "required": true},
-        {"name": "variant", "type_desc": "str", "required": false},
-        {"name": "vocab_size", "type_desc": "int", "required": false},
-        {"name": "task", "type_desc": "str", "required": false}
+        {
+          "name": "log_mel_spectrograms",
+          "type_desc": "NDArray[np.float32]",
+          "required": true
+        },
+        {
+          "name": "decoder_input_ids",
+          "type_desc": "NDArray[np.int64]",
+          "required": true
+        },
+        {
+          "name": "variant",
+          "type_desc": "str",
+          "required": false
+        },
+        {
+          "name": "vocab_size",
+          "type_desc": "int",
+          "required": false
+        },
+        {
+          "name": "task",
+          "type_desc": "str",
+          "required": false
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float32]"
+        }
+      ]
     },
     {
       "node_id": "autoregressive_transformer_decoder",
@@ -164,14 +325,43 @@
       "type_signature": "(target_tokens: NDArray[np.int64], encoder_hidden_states: NDArray[np.float32], vocab_size: int, num_layers: int = 6, num_heads: int = 8, hidden_dim: int = 512) -> NDArray[np.float32]",
       "depth": 1,
       "inputs": [
-        {"name": "target_tokens", "type_desc": "NDArray[np.int64]", "required": true},
-        {"name": "encoder_hidden_states", "type_desc": "NDArray[np.float32]", "required": true},
-        {"name": "vocab_size", "type_desc": "int", "required": true},
-        {"name": "num_layers", "type_desc": "int", "required": false},
-        {"name": "num_heads", "type_desc": "int", "required": false},
-        {"name": "hidden_dim", "type_desc": "int", "required": false}
+        {
+          "name": "target_tokens",
+          "type_desc": "NDArray[np.int64]",
+          "required": true
+        },
+        {
+          "name": "encoder_hidden_states",
+          "type_desc": "NDArray[np.float32]",
+          "required": true
+        },
+        {
+          "name": "vocab_size",
+          "type_desc": "int",
+          "required": true
+        },
+        {
+          "name": "num_layers",
+          "type_desc": "int",
+          "required": false
+        },
+        {
+          "name": "num_heads",
+          "type_desc": "int",
+          "required": false
+        },
+        {
+          "name": "hidden_dim",
+          "type_desc": "int",
+          "required": false
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float32]"
+        }
+      ]
     },
     {
       "node_id": "recurrent_sequence_model",
@@ -183,15 +373,48 @@
       "type_signature": "(sequence_features: NDArray[np.float32], hidden_size: int = 128, num_layers: int = 1, bidirectional: bool = True, return_sequences: bool = True, cell_type: str = \"gru\", dropout: float = 0.0) -> NDArray[np.float32]",
       "depth": 1,
       "inputs": [
-        {"name": "sequence_features", "type_desc": "NDArray[np.float32]", "required": true},
-        {"name": "hidden_size", "type_desc": "int", "required": false},
-        {"name": "num_layers", "type_desc": "int", "required": false},
-        {"name": "bidirectional", "type_desc": "bool", "required": false},
-        {"name": "return_sequences", "type_desc": "bool", "required": false},
-        {"name": "cell_type", "type_desc": "str", "required": false},
-        {"name": "dropout", "type_desc": "float", "required": false}
+        {
+          "name": "sequence_features",
+          "type_desc": "NDArray[np.float32]",
+          "required": true
+        },
+        {
+          "name": "hidden_size",
+          "type_desc": "int",
+          "required": false
+        },
+        {
+          "name": "num_layers",
+          "type_desc": "int",
+          "required": false
+        },
+        {
+          "name": "bidirectional",
+          "type_desc": "bool",
+          "required": false
+        },
+        {
+          "name": "return_sequences",
+          "type_desc": "bool",
+          "required": false
+        },
+        {
+          "name": "cell_type",
+          "type_desc": "str",
+          "required": false
+        },
+        {
+          "name": "dropout",
+          "type_desc": "float",
+          "required": false
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float32]"
+        }
+      ]
     },
     {
       "node_id": "slowfast_video_network",
@@ -203,12 +426,33 @@
       "type_signature": "(frames: list[NDArray[np.float32]], num_classes: int = 400, variant: str = \"slowfast_r50\", slowfast_channel_reduction_ratio: int = 8) -> NDArray[np.float32]",
       "depth": 1,
       "inputs": [
-        {"name": "frames", "type_desc": "list[NDArray[np.float32]]", "required": true},
-        {"name": "num_classes", "type_desc": "int", "required": false},
-        {"name": "variant", "type_desc": "str", "required": false},
-        {"name": "slowfast_channel_reduction_ratio", "type_desc": "int", "required": false}
+        {
+          "name": "frames",
+          "type_desc": "list[NDArray[np.float32]]",
+          "required": true
+        },
+        {
+          "name": "num_classes",
+          "type_desc": "int",
+          "required": false
+        },
+        {
+          "name": "variant",
+          "type_desc": "str",
+          "required": false
+        },
+        {
+          "name": "slowfast_channel_reduction_ratio",
+          "type_desc": "int",
+          "required": false
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float32]"
+        }
+      ]
     },
     {
       "node_id": "mil_attention_aggregator",
@@ -220,13 +464,33 @@
       "type_signature": "(patch_embeddings: NDArray[np.float32], num_classes: int, attention_hidden_dim: int = 256, variant: str = \"gated_attention_mil\") -> NDArray[np.float32]",
       "depth": 1,
       "inputs": [
-        {"name": "patch_embeddings", "type_desc": "NDArray[np.float32]", "required": true},
-        {"name": "num_classes", "type_desc": "int", "required": true},
-        {"name": "attention_hidden_dim", "type_desc": "int", "required": false},
-        {"name": "variant", "type_desc": "str", "required": false}
+        {
+          "name": "patch_embeddings",
+          "type_desc": "NDArray[np.float32]",
+          "required": true
+        },
+        {
+          "name": "num_classes",
+          "type_desc": "int",
+          "required": true
+        },
+        {
+          "name": "attention_hidden_dim",
+          "type_desc": "int",
+          "required": false
+        },
+        {
+          "name": "variant",
+          "type_desc": "str",
+          "required": false
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float32]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float32]"
+        }
+      ]
     }
   ]
 }
-

@@ -510,6 +510,10 @@
           "name": "result",
           "type_desc": "NDArray[np.float64]"
         }
+      ],
+      "aliases": [
+        "test_time_augmentation",
+        "test_time_augmentation_tta"
       ]
     },
     {
