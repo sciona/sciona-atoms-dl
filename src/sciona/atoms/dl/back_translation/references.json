@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "sciona.atoms.dl.back_translation.translate_text@sciona/atoms/dl/back_translation/atoms.py:31": {
+      "references": [
+        {
+          "ref_id": "hf_marian_docs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "documentation_alignment",
+            "matched_nodes": [
+              "MarianMTModel.generate",
+              "MarianTokenizer"
+            ],
+            "confidence": "high",
+            "notes": "The atom captures the MarianMT directional translation boundary while requiring the model to be preloaded outside the atom."
+          }
+        },
+        {
+          "ref_id": "repo_transformers",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "runtime_context",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "HuggingFace Transformers supplies the Apache-2.0 MarianMT execution code expected behind injected production backends."
+          }
+        },
+        {
+          "ref_id": "repo_opus_mt",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "model_provenance",
+            "matched_nodes": [
+              "Helsinki-NLP/opus-mt-{src}-{tgt}"
+            ],
+            "confidence": "high",
+            "notes": "OPUS-MT provides the Helsinki-NLP Marian translation model family used for common pivot-language back-translation."
+          }
+        },
+        {
+          "ref_id": "toxic_crusaders_2018",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "competition_stage_context",
+            "matched_nodes": [
+              "toxic_comment_1st/back_translation_augmentation"
+            ],
+            "confidence": "medium",
+            "notes": "The first-place toxic-comment solution used French, German, and Spanish back-translated text variants for augmentation and ensembling."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

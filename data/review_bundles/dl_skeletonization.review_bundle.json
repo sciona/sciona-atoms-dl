@@ -1,0 +1,124 @@
+{
+  "schema_version": "1.0",
+  "bundle_id": "sciona.atoms.dl.review_bundle.skeletonization.core.v1",
+  "provider_repo": "sciona-atoms-dl",
+  "family_batch": "dl_skeletonization",
+  "family": "dl.skeletonization",
+  "review_status": "reviewed",
+  "review_semantic_verdict": "pass_with_limits",
+  "review_developer_semantic_verdict": "pass",
+  "trust_readiness": "catalog_ready",
+  "authoritative_sources": [
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/skeletonization/atoms.py"
+    },
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/skeletonization/witnesses.py"
+    },
+    {
+      "kind": "local_references",
+      "path": "src/sciona/atoms/dl/skeletonization/references.json"
+    },
+    {
+      "kind": "local_cdg",
+      "path": "src/sciona/atoms/dl/skeletonization/cdg.json"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_skeletonization_behavior.py"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_skeletonization_references_metadata.py"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_skeletonization_review_bundle.py"
+    }
+  ],
+  "limitations": [
+    "skeletonize_2d is limited to binary 2D masks and returns a boolean skeleton.",
+    "medial_axis_2d is included as a secondary alternative because medial axes are sensitive to boundary noise.",
+    "skeleton_to_graph implements a compact local graph builder rather than depending on sknw."
+  ],
+  "blocking_findings": [],
+  "required_actions": [],
+  "review_record_path": "data/review_bundles/dl_skeletonization.review_bundle.json",
+  "rows": [
+    {
+      "atom_key": "sciona.atoms.dl.skeletonization.skeletonize_2d",
+      "atom_name": "sciona.atoms.dl.skeletonization.skeletonize_2d",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "catalog_ready",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/skeletonization/atoms.py",
+        "src/sciona/atoms/dl/skeletonization/witnesses.py",
+        "src/sciona/atoms/dl/skeletonization/references.json",
+        "src/sciona/atoms/dl/skeletonization/cdg.json",
+        "tests/test_dl_skeletonization_behavior.py",
+        "tests/test_dl_skeletonization_references_metadata.py",
+        "tests/test_dl_skeletonization_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_skeletonization.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.skeletonization.medial_axis_2d",
+      "atom_name": "sciona.atoms.dl.skeletonization.medial_axis_2d",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "catalog_ready",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/skeletonization/atoms.py",
+        "src/sciona/atoms/dl/skeletonization/witnesses.py",
+        "src/sciona/atoms/dl/skeletonization/references.json",
+        "src/sciona/atoms/dl/skeletonization/cdg.json",
+        "tests/test_dl_skeletonization_behavior.py",
+        "tests/test_dl_skeletonization_references_metadata.py",
+        "tests/test_dl_skeletonization_review_bundle.py"
+      ],
+      "limitations": [
+        "Medial axes can produce branch artifacts from small boundary irregularities."
+      ],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_skeletonization.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.skeletonization.skeleton_to_graph",
+      "atom_name": "sciona.atoms.dl.skeletonization.skeleton_to_graph",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "catalog_ready",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/skeletonization/atoms.py",
+        "src/sciona/atoms/dl/skeletonization/witnesses.py",
+        "src/sciona/atoms/dl/skeletonization/references.json",
+        "src/sciona/atoms/dl/skeletonization/cdg.json",
+        "tests/test_dl_skeletonization_behavior.py",
+        "tests/test_dl_skeletonization_references_metadata.py",
+        "tests/test_dl_skeletonization_review_bundle.py"
+      ],
+      "limitations": [
+        "The graph builder is intentionally minimal and records pixel paths rather than geospatial coordinates."
+      ],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_skeletonization.review_bundle.json"
+    }
+  ]
+}

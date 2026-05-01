@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "bundle_id": "sciona.atoms.dl.review_bundle.back_translation.core.v1",
+  "provider_repo": "sciona-atoms-dl",
+  "family_batch": "dl_back_translation",
+  "family": "dl.back_translation",
+  "review_status": "reviewed",
+  "review_semantic_verdict": "pass_with_limits",
+  "review_developer_semantic_verdict": "pass",
+  "trust_readiness": "catalog_ready",
+  "authoritative_sources": [
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/back_translation/atoms.py"
+    },
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/back_translation/witnesses.py"
+    },
+    {
+      "kind": "local_references",
+      "path": "src/sciona/atoms/dl/back_translation/references.json"
+    },
+    {
+      "kind": "local_cdg",
+      "path": "src/sciona/atoms/dl/back_translation/cdg.json"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_back_translation_behavior.py"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_back_translation_references_metadata.py"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_back_translation_review_bundle.py"
+    }
+  ],
+  "limitations": [
+    "translate_text is an opaque interface boundary and does not instantiate HuggingFace or PyTorch objects.",
+    "The orchestrator must preload model weights, tokenizer state, and device placement outside the atom.",
+    "Back-translation is represented as two translate_text calls rather than a separate monolithic atom."
+  ],
+  "blocking_findings": [],
+  "required_actions": [],
+  "review_record_path": "data/review_bundles/dl_back_translation.review_bundle.json",
+  "rows": [
+    {
+      "atom_key": "sciona.atoms.dl.back_translation.translate_text",
+      "atom_name": "sciona.atoms.dl.back_translation.translate_text",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "catalog_ready",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/back_translation/atoms.py",
+        "src/sciona/atoms/dl/back_translation/witnesses.py",
+        "src/sciona/atoms/dl/back_translation/references.json",
+        "src/sciona/atoms/dl/back_translation/cdg.json",
+        "tests/test_dl_back_translation_behavior.py",
+        "tests/test_dl_back_translation_references_metadata.py",
+        "tests/test_dl_back_translation_review_bundle.py"
+      ],
+      "limitations": [
+        "Requires an injected backend that already owns loaded model state.",
+        "Does not perform downloads, from_pretrained calls, or GPU state management."
+      ],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_back_translation.review_bundle.json"
+    }
+  ]
+}

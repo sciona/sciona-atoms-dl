@@ -1,0 +1,181 @@
+{
+  "nodes": [
+    {
+      "node_id": "skeletonization_root",
+      "parent_id": null,
+      "name": "skeletonization",
+      "description": "Thin binary road masks to centerlines and convert centerline pixels into a traversable graph.",
+      "concept_type": "signal_filter",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "skeletonize_2d",
+        "medial_axis_2d",
+        "skeleton_to_graph"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": true,
+      "conceptual_summary": "Spatial mask thinning followed by optional graph extraction for road-network pipelines.",
+      "critic_notes": "",
+      "decomposition_rationale": "The research separates raster thinning from graph extraction because they have different input and output types."
+    },
+    {
+      "node_id": "skeletonize_2d",
+      "parent_id": "skeletonization_root",
+      "name": "skeletonize_2d",
+      "description": "Reduce a binary 2D mask to a one-pixel-wide skeleton using the Zhang thinning method.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "mask",
+          "type_desc": "NDArray[np.bool_] | NDArray[np.integer]",
+          "constraints": "Binary 2D foreground mask.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.bool_]",
+          "constraints": "Binary skeleton with the same shape as mask and no foreground outside mask.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(mask: NDArray[np.bool_] | NDArray[np.integer]) -> NDArray[np.bool_]",
+      "matched_primitive": "skimage.morphology.skeletonize",
+      "primitive_binding_confidence": 0.95,
+      "primitive_binding_source": "research/21_skeletonization.md",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": true,
+      "parallelizable": true,
+      "conceptual_summary": "Deterministic 2D morphological thinning for road-mask centerline extraction.",
+      "critic_notes": "",
+      "decomposition_rationale": "This is the primary skeletonization atom recommended by the research packet."
+    },
+    {
+      "node_id": "medial_axis_2d",
+      "parent_id": "skeletonization_root",
+      "name": "medial_axis_2d",
+      "description": "Compute a deterministic 2D medial axis skeleton and optionally return its distance map.",
+      "concept_type": "signal_filter",
+      "inputs": [
+        {
+          "name": "mask",
+          "type_desc": "NDArray[np.bool_] | NDArray[np.integer]",
+          "constraints": "Binary 2D foreground mask.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "return_distance",
+          "type_desc": "bool",
+          "constraints": "Whether to return the distance transform alongside the skeleton.",
+          "required": false,
+          "default_value_repr": "False"
+        },
+        {
+          "name": "rng_seed",
+          "type_desc": "int",
+          "constraints": "Nonnegative seed for deterministic medial-axis tie-breaking.",
+          "required": false,
+          "default_value_repr": "42"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.bool_] | tuple[NDArray[np.bool_], NDArray[np.float64]]",
+          "constraints": "Skeleton, or skeleton plus nonnegative distance map, preserving mask shape.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(mask: NDArray[np.bool_] | NDArray[np.integer], return_distance: bool = False, rng_seed: int = 42) -> NDArray[np.bool_] | tuple[NDArray[np.bool_], NDArray[np.float64]]",
+      "matched_primitive": "skimage.morphology.medial_axis",
+      "primitive_binding_confidence": 0.9,
+      "primitive_binding_source": "research/21_skeletonization.md",
+      "is_optional": true,
+      "is_opaque": false,
+      "is_external": true,
+      "parallelizable": true,
+      "conceptual_summary": "Distance-ridge skeleton extraction with explicit deterministic seed control.",
+      "critic_notes": "The research notes medial-axis sensitivity to boundary noise; this atom is secondary to skeletonize_2d.",
+      "decomposition_rationale": "Medial axis returns useful width information and has different determinism controls from Zhang thinning."
+    },
+    {
+      "node_id": "skeleton_to_graph",
+      "parent_id": "skeletonization_root",
+      "name": "skeleton_to_graph",
+      "description": "Convert a binary centerline skeleton into a NetworkX MultiGraph with node centroids and weighted pixel paths.",
+      "concept_type": "graph_traversal",
+      "inputs": [
+        {
+          "name": "skeleton",
+          "type_desc": "NDArray[np.bool_] | NDArray[np.integer]",
+          "constraints": "Binary 2D skeleton with at least one foreground pixel.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "networkx.MultiGraph",
+          "constraints": "Graph nodes have pts and o attributes; graph edges have pts and weight attributes.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(skeleton: NDArray[np.bool_] | NDArray[np.integer]) -> networkx.MultiGraph",
+      "matched_primitive": "local degree-based skeleton graph extraction",
+      "primitive_binding_confidence": 0.75,
+      "primitive_binding_source": "research/21_skeletonization.md",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": true,
+      "conceptual_summary": "Endpoint and junction clustering followed by degree-two chain tracing.",
+      "critic_notes": "The local implementation avoids the optional sknw dependency while preserving the graph contract needed by the research stage.",
+      "decomposition_rationale": "Graph extraction has a graph output and is separated from raster skeletonization."
+    }
+  ],
+  "edges": [
+    {
+      "source": "skeletonize_2d",
+      "target": "skeleton_to_graph",
+      "label": "skeleton"
+    },
+    {
+      "source": "medial_axis_2d",
+      "target": "skeleton_to_graph",
+      "label": "skeleton"
+    }
+  ],
+  "metadata": {
+    "provider_repo": "sciona-atoms-dl",
+    "research_source": "research/21_skeletonization.md",
+    "solution_stage": "spacenet3_roads_1st/skeletonization",
+    "primary_dependency": "scikit-image",
+    "graph_dependency": "networkx"
+  }
+}

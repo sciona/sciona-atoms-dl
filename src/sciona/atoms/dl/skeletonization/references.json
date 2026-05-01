@@ -1,0 +1,86 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "sciona.atoms.dl.skeletonization.skeletonize_2d@sciona/atoms/dl/skeletonization/atoms.py:108": {
+      "references": [
+        {
+          "ref_id": "skimage_skeletonize_docs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "documentation_alignment",
+            "matched_nodes": [
+              "skimage.morphology.skeletonize"
+            ],
+            "confidence": "high",
+            "notes": "The atom delegates 2D binary thinning to scikit-image skeletonize with the deterministic Zhang method."
+          }
+        },
+        {
+          "ref_id": "zhang1984thinning",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "algorithm_context",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "The Zhang-Suen paper describes the two-pass thinning method used for the 2D skeleton."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.skeletonization.medial_axis_2d@sciona/atoms/dl/skeletonization/atoms.py:121": {
+      "references": [
+        {
+          "ref_id": "skimage_medial_axis_docs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "documentation_alignment",
+            "matched_nodes": [
+              "skimage.morphology.medial_axis"
+            ],
+            "confidence": "high",
+            "notes": "The atom delegates medial-axis extraction to scikit-image and passes an explicit rng seed for deterministic tie-breaking."
+          }
+        },
+        {
+          "ref_id": "blum1967medial",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "algorithm_context",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Blum's medial-axis formulation provides the geometric basis for distance-ridge skeleton extraction."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.skeletonization.skeleton_to_graph@sciona/atoms/dl/skeletonization/atoms.py:149": {
+      "references": [
+        {
+          "ref_id": "repo_sknw",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "design_reference",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "The research packet cites sknw for endpoint, junction, and path graph extraction; the local atom implements the same boundary without adding the optional dependency."
+          }
+        },
+        {
+          "ref_id": "networkx_multigraph_docs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "api_context",
+            "matched_nodes": [
+              "networkx.MultiGraph"
+            ],
+            "confidence": "high",
+            "notes": "The atom returns a NetworkX MultiGraph with node centroids and weighted pixel-path edges."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

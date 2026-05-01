@@ -1760,6 +1760,206 @@
             "confidence": "high",
             "notes": "Reference for repeating elements along an axis."
         }
+    },
+    "repo_scikit_image": {
+        "ref_id": "repo_scikit_image",
+        "type": "repository",
+        "title": "scikit-image",
+        "authors": [
+            "scikit-image Developers"
+        ],
+        "year": null,
+        "venue": "GitHub",
+        "url": "https://github.com/scikit-image/scikit-image",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "BSD-3-Clause image-processing library providing morphology skeletonization routines."
+        }
+    },
+    "skimage_skeletonize_docs": {
+        "ref_id": "skimage_skeletonize_docs",
+        "type": "documentation",
+        "title": "skimage.morphology.skeletonize",
+        "authors": [
+            "scikit-image Developers"
+        ],
+        "year": 2026,
+        "venue": "scikit-image documentation",
+        "url": "https://scikit-image.org/docs/stable/api/skimage.morphology.html#skimage.morphology.skeletonize",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "API reference for binary morphological skeletonization used by skeletonize_2d."
+        }
+    },
+    "skimage_medial_axis_docs": {
+        "ref_id": "skimage_medial_axis_docs",
+        "type": "documentation",
+        "title": "skimage.morphology.medial_axis",
+        "authors": [
+            "scikit-image Developers"
+        ],
+        "year": 2026,
+        "venue": "scikit-image documentation",
+        "url": "https://scikit-image.org/docs/stable/api/skimage.morphology.html#skimage.morphology.medial_axis",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "API reference for medial-axis extraction and seeded tie-breaking used by medial_axis_2d."
+        }
+    },
+    "zhang1984thinning": {
+        "ref_id": "zhang1984thinning",
+        "type": "paper",
+        "title": "A fast parallel algorithm for thinning digital patterns",
+        "authors": [
+            "T. Y. Zhang",
+            "C. Y. Suen"
+        ],
+        "year": 1984,
+        "venue": "Communications of the ACM",
+        "doi": "10.1145/357994.358023",
+        "url": "https://doi.org/10.1145/357994.358023",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary paper for the parallel thinning algorithm used by scikit-image's 2D Zhang method."
+        }
+    },
+    "blum1967medial": {
+        "ref_id": "blum1967medial",
+        "type": "paper",
+        "title": "A transformation for extracting new descriptors of shape",
+        "authors": [
+            "Harry Blum"
+        ],
+        "year": 1967,
+        "venue": "Models for the Perception of Speech and Visual Form",
+        "url": "https://doi.org/10.7551/mitpress/4705.003.0010",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Foundational medial-axis transform reference for distance-ridge skeleton extraction."
+        }
+    },
+    "repo_sknw": {
+        "ref_id": "repo_sknw",
+        "type": "repository",
+        "title": "sknw",
+        "authors": [
+            "Image-Py Contributors"
+        ],
+        "year": null,
+        "venue": "GitHub",
+        "url": "https://github.com/Image-Py/sknw",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Reference skeleton-to-graph package cited by the research packet; the local atom implements a minimal NetworkX graph builder."
+        }
+    },
+    "networkx_multigraph_docs": {
+        "ref_id": "networkx_multigraph_docs",
+        "type": "documentation",
+        "title": "networkx.MultiGraph",
+        "authors": [
+            "NetworkX Developers"
+        ],
+        "year": 2026,
+        "venue": "NetworkX documentation",
+        "url": "https://networkx.org/documentation/stable/reference/classes/multigraph.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "API reference for the graph object returned by skeleton_to_graph."
+        }
+    },
+    "hf_marian_docs": {
+        "ref_id": "hf_marian_docs",
+        "type": "documentation",
+        "title": "MarianMT",
+        "authors": [
+            "HuggingFace Transformers Developers"
+        ],
+        "year": 2026,
+        "venue": "HuggingFace Transformers documentation",
+        "url": "https://huggingface.co/docs/transformers/en/model_doc/marian",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Documentation for MarianMT model and tokenizer interfaces used for translation backends."
+        }
+    },
+    "repo_transformers": {
+        "ref_id": "repo_transformers",
+        "type": "repository",
+        "title": "Transformers",
+        "authors": [
+            "HuggingFace Transformers Developers"
+        ],
+        "year": null,
+        "venue": "GitHub",
+        "url": "https://github.com/huggingface/transformers",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Apache-2.0 execution library that implements MarianMT model inference."
+        }
+    },
+    "repo_opus_mt": {
+        "ref_id": "repo_opus_mt",
+        "type": "repository",
+        "title": "OPUS-MT",
+        "authors": [
+            "Helsinki-NLP Contributors"
+        ],
+        "year": null,
+        "venue": "GitHub",
+        "url": "https://github.com/Helsinki-NLP/Opus-MT",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Open neural machine translation model family used by Helsinki-NLP/opus-mt language-pair checkpoints."
+        }
+    },
+    "toxic_crusaders_2018": {
+        "ref_id": "toxic_crusaders_2018",
+        "type": "competition_writeup",
+        "title": "Toxic Comment Classification Challenge 1st place solution overview",
+        "authors": [
+            "Toxic Crusaders"
+        ],
+        "year": 2018,
+        "venue": "Kaggle",
+        "url": "https://www.kaggle.com/competitions/jigsaw-toxic-comment-classification-challenge/writeups/toxic-crusaders-1st-place-solution-overview",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Competition writeup cited by the research packet for French, German, and Spanish back-translation in toxic-comment modeling."
+        }
     }
   }
 }

@@ -1,0 +1,111 @@
+{
+  "nodes": [
+    {
+      "node_id": "back_translation_augmentation_root",
+      "parent_id": null,
+      "name": "back_translation_augmentation",
+      "description": "Represent toxic-comment back-translation as two directional calls to an opaque neural machine translation atom.",
+      "concept_type": "neural_network",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "translate_text"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": true,
+      "is_external": false,
+      "parallelizable": true,
+      "conceptual_summary": "Single-pass translation is the atom; back-translation is pipeline orchestration of two passes.",
+      "critic_notes": "Model download, tokenizer/model loading, cache writes, and device placement must happen outside the atom.",
+      "decomposition_rationale": "The research packet concludes that MarianMT inference is opaque but has a clear deterministic I/O boundary when model state is injected."
+    },
+    {
+      "node_id": "translate_text",
+      "parent_id": "back_translation_augmentation_root",
+      "name": "translate_text",
+      "description": "Translate text between languages using a preloaded MarianMT-style translation backend.",
+      "concept_type": "neural_network",
+      "inputs": [
+        {
+          "name": "text",
+          "type_desc": "str",
+          "constraints": "Non-empty source text.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "src_lang",
+          "type_desc": "str",
+          "constraints": "Non-empty source language code.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "tgt_lang",
+          "type_desc": "str",
+          "constraints": "Non-empty target language code different from src_lang.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "model_path",
+          "type_desc": "str | pathlib.Path",
+          "constraints": "Identifier or local path for the frozen model supplied by the orchestrator.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "model",
+          "type_desc": "Callable[[str, str, str], str]",
+          "constraints": "Preloaded translation backend callable accepting text, src_lang, and tgt_lang.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "str",
+          "constraints": "Non-empty translated text.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(text: str, src_lang: str, tgt_lang: str, model_path: str | pathlib.Path, model: Callable[[str, str, str], str]) -> str",
+      "matched_primitive": "HuggingFace MarianMTModel.generate",
+      "primitive_binding_confidence": 0.8,
+      "primitive_binding_source": "research/22_back_translation.md",
+      "is_optional": false,
+      "is_opaque": true,
+      "is_external": false,
+      "parallelizable": true,
+      "conceptual_summary": "Deterministic text-to-text translation through injected frozen model state.",
+      "critic_notes": "This atom intentionally does not call from_pretrained or instantiate transformers objects.",
+      "decomposition_rationale": "Back-translation composes two translate_text calls, such as en-to-fr followed by fr-to-en."
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "provider_repo": "sciona-atoms-dl",
+    "research_source": "research/22_back_translation.md",
+    "solution_stage": "toxic_comment_1st/back_translation_augmentation",
+    "primary_dependency": "transformers",
+    "recommended_models": [
+      "Helsinki-NLP/opus-mt-en-fr",
+      "Helsinki-NLP/opus-mt-fr-en",
+      "Helsinki-NLP/opus-mt-en-de",
+      "Helsinki-NLP/opus-mt-de-en",
+      "Helsinki-NLP/opus-mt-en-es",
+      "Helsinki-NLP/opus-mt-es-en"
+    ]
+  }
+}
