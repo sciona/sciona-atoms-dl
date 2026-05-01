@@ -26,6 +26,7 @@ from .witnesses import (
     witness_lovasz_softmax_loss,
     witness_miss_penalty_loss,
     witness_multimodal_nll_loss,
+    witness_quantile_spread_to_confidence,
     witness_qwk_loss,
     witness_triplet_loss,
     witness_weighted_bce_loss,
@@ -504,3 +505,30 @@ def weighted_bce_loss(
     """Compute stable binary cross-entropy with per-sample weights."""
     per_element = np.maximum(logits, 0.0) - logits * targets + np.log1p(np.exp(-np.abs(logits)))
     return float(np.mean(weights * per_element))
+
+
+@register_atom(witness_quantile_spread_to_confidence)
+@icontract.require(
+    lambda q_low, q_high: q_low.shape == q_high.shape,
+    "q_low and q_high must have the same shape",
+)
+@icontract.require(lambda q_low: q_low.ndim >= 1, "q_low must be at least 1-D")
+@icontract.require(lambda min_sigma: min_sigma > 0.0, "min_sigma must be positive")
+@icontract.ensure(
+    lambda result, q_low: result.shape == q_low.shape,
+    "result must preserve shape",
+)
+@icontract.ensure(lambda result, min_sigma: np.all(result >= min_sigma), "sigma must be at least min_sigma")
+def quantile_spread_to_confidence(
+    q_low: NDArray[np.float64],
+    q_high: NDArray[np.float64],
+    min_sigma: float = 70.0,
+) -> NDArray[np.float64]:
+    """Convert quantile spread to confidence interval width, clipped.
+
+    Takes the difference between upper and lower quantile predictions
+    and clips to a minimum width, useful for converting quantile
+    regression outputs into confidence-weighted loss terms.
+    """
+    sigma = np.maximum(q_high - q_low, min_sigma)
+    return sigma

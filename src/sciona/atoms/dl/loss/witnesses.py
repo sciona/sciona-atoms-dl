@@ -118,3 +118,12 @@ def witness_weighted_bce_loss(
 ) -> float:
     """Mirror weighted binary cross-entropy over matching arrays."""
     return 0.0
+
+
+def witness_quantile_spread_to_confidence(
+    q_low: AbstractArray,
+    q_high: AbstractArray,
+    min_sigma: float = 70.0,
+) -> AbstractArray:
+    """Ghost witness for quantile spread to confidence conversion."""
+    return AbstractArray(shape=q_low.shape, dtype="float64")

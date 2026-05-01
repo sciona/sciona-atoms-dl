@@ -1,0 +1,50 @@
+{
+  "nodes": [
+    {
+      "node_id": "text_similarity_root",
+      "name": "Text Similarity",
+      "description": "String distance and similarity metrics for text matching",
+      "status": "decomposed",
+      "children": [
+        "levenshtein_distance",
+        "jaro_winkler_similarity"
+      ],
+      "depth": 0
+    },
+    {
+      "node_id": "levenshtein_distance",
+      "name": "levenshtein_distance",
+      "description": "Compute minimum edit distance between two strings via dynamic programming",
+      "concept_type": "searching",
+      "status": "atomic",
+      "type_signature": "(s1: str, s2: str) -> int",
+      "depth": 1,
+      "inputs": [
+        {"name": "s1", "type_desc": "str", "required": true},
+        {"name": "s2", "type_desc": "str", "required": true}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "int"}
+      ],
+      "aliases": ["string_similarity", "edit_distance"]
+    },
+    {
+      "node_id": "jaro_winkler_similarity",
+      "name": "jaro_winkler_similarity",
+      "description": "Compute prefix-weighted Jaro-Winkler string similarity score in [0, 1]",
+      "concept_type": "analysis",
+      "status": "atomic",
+      "type_signature": "(s1: str, s2: str, p: float = 0.1) -> float",
+      "depth": 1,
+      "inputs": [
+        {"name": "s1", "type_desc": "str", "required": true},
+        {"name": "s2", "type_desc": "str", "required": true},
+        {"name": "p", "type_desc": "float", "required": false}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "float"}
+      ],
+      "aliases": ["string_similarity_score"]
+    }
+  ]
+}

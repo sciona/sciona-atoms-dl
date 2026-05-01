@@ -17,7 +17,27 @@
         "autoregressive_transformer_decoder",
         "recurrent_sequence_model",
         "slowfast_video_network",
-        "mil_attention_aggregator"
+        "mil_attention_aggregator",
+        "ctc_decoder_head",
+        "protein_embedding_transformer",
+        "extreme_multilabel_classifier",
+        "transformer_encoder_layer",
+        "masked_language_model_pretrain",
+        "flex_attention_mask",
+        "graph_transformer_encoder",
+        "soft_attention_alignment",
+        "multimodal_bilinear_fusion",
+        "lightgbm_train",
+        "xgboost_train",
+        "denoising_autoencoder",
+        "stochastic_weight_averaging",
+        "multi_task_classification_heads",
+        "linear_prediction_head",
+        "dual_head_regression",
+        "face_detector",
+        "graph_neural_network",
+        "sentence_transformer",
+        "heterogeneous_graph_sampler"
       ],
       "depth": 0
     },
@@ -489,6 +509,753 @@
         {
           "name": "result",
           "type_desc": "NDArray[np.float32]"
+        }
+      ]
+    },
+    {
+      "node_id": "ctc_decoder_head",
+      "name": "CTC Decoder Head",
+      "description": "Opaque pretrained model. CTC decoding head on top of encoder logits, producing decoded token sequences via connectionist temporal classification",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "ctc_decoding",
+        "ctc_decode_head"
+      ],
+      "type_signature": "(logits: NDArray[np.float32]) -> list[list[int]]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "logits",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (B, T, V) where B=batch, T=time steps, V=vocab size"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "decoded_sequences",
+          "type_desc": "list[list[int]]",
+          "constraints": "list of decoded token index sequences, one per batch element"
+        }
+      ]
+    },
+    {
+      "node_id": "protein_embedding_transformer",
+      "name": "Protein Embedding Transformer",
+      "description": "Opaque pretrained model. ESM-1b / ESM-2 protein sequence embedding transformer producing fixed-size representations from amino acid sequences",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "esm_embedding",
+        "protein_embeddings",
+        "embeddings_generation"
+      ],
+      "type_signature": "(sequence: str, variant: str = \"esm2_t33_650M\") -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "sequence",
+          "type_desc": "str",
+          "required": true,
+          "constraints": "amino acid sequence string using standard single-letter codes"
+        },
+        {
+          "name": "variant",
+          "type_desc": "str",
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "embedding",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (D,) embedding vector"
+        }
+      ]
+    },
+    {
+      "node_id": "extreme_multilabel_classifier",
+      "name": "Extreme Multi-Label Classifier",
+      "description": "Opaque pretrained model. GORetrieval-style extreme multi-label text classifier mapping text to high-dimensional label scores",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "goretrieval",
+        "multilabel_text_classifier",
+        "modality_2_literature"
+      ],
+      "type_signature": "(text: str) -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "text",
+          "type_desc": "str",
+          "required": true,
+          "constraints": "input text string"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "scores",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (N_classes,) float32 scores, one per label"
+        }
+      ]
+    },
+    {
+      "node_id": "transformer_encoder_layer",
+      "name": "Transformer Encoder Layer",
+      "description": "Opaque pretrained model. Single transformer encoder layer with multi-head self-attention and feed-forward network",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "transformer_smoothing",
+        "self_attention_layer"
+      ],
+      "type_signature": "(x: NDArray[np.float32], num_heads: int = 8, ff_dim: int = 2048, dropout: float = 0.1) -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "x",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (B, T, D) where B=batch, T=sequence length, D=model dim"
+        },
+        {
+          "name": "num_heads",
+          "type_desc": "int",
+          "required": false
+        },
+        {
+          "name": "ff_dim",
+          "type_desc": "int",
+          "required": false
+        },
+        {
+          "name": "dropout",
+          "type_desc": "float",
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (B, T, D) same as input"
+        }
+      ]
+    },
+    {
+      "node_id": "masked_language_model_pretrain",
+      "name": "Masked Language Model Pretraining",
+      "description": "Opaque pretrained model. MLM pretraining pass (BERT/RoBERTa-style) for domain adaptation via masked token prediction",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "domain_adaptation",
+        "mlm_pretraining"
+      ],
+      "type_signature": "(token_ids: NDArray[np.int64], mask: NDArray[np.bool_], model_name: str = \"bert-base-uncased\") -> OpaqueModelState",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "token_ids",
+          "type_desc": "NDArray[np.int64]",
+          "required": true,
+          "constraints": "shape (B, T) int64 token IDs"
+        },
+        {
+          "name": "mask",
+          "type_desc": "NDArray[np.bool_]",
+          "required": true,
+          "constraints": "shape (B, T) bool mask indicating which tokens to predict"
+        },
+        {
+          "name": "model_name",
+          "type_desc": "str",
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model_state",
+          "type_desc": "OpaqueModelState",
+          "constraints": "fine-tuned model state (opaque)"
+        }
+      ]
+    },
+    {
+      "node_id": "flex_attention_mask",
+      "name": "Flex Attention Mask",
+      "description": "Opaque pretrained model. Custom causal or structured attention mask pattern for flexible attention computation",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "attention_masking",
+        "custom_attention_mask"
+      ],
+      "type_signature": "(mask_spec: Union[NDArray[np.float32], MaskSpecification]) -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "mask_spec",
+          "type_desc": "Union[NDArray[np.float32], MaskSpecification]",
+          "required": true,
+          "constraints": "shape (B, H, T, T) or mask specification object"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "attention_weights",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (B, H, T, T) attention weights"
+        }
+      ]
+    },
+    {
+      "node_id": "graph_transformer_encoder",
+      "name": "Graph Transformer Encoder",
+      "description": "Opaque pretrained model. Graph Transformer with edge features for structural message passing (e.g. DynEdge)",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "graph_transformer",
+        "dynedge"
+      ],
+      "type_signature": "(node_features: NDArray[np.float32], edge_index: NDArray[np.int64], edge_features: NDArray[np.float32]) -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "node_features",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (N, D) where N=nodes, D=feature dim"
+        },
+        {
+          "name": "edge_index",
+          "type_desc": "NDArray[np.int64]",
+          "required": true,
+          "constraints": "shape (2, E) source and target node indices"
+        },
+        {
+          "name": "edge_features",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (E, D_e) edge feature vectors"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "updated_node_features",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (N, D) updated node representations"
+        }
+      ]
+    },
+    {
+      "node_id": "soft_attention_alignment",
+      "name": "Soft Attention Alignment",
+      "description": "Opaque pretrained model. Cross-modal soft attention alignment where text queries attend over image region keys",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "attention_alignment",
+        "cross_modal_attention"
+      ],
+      "type_signature": "(query: NDArray[np.float32], keys: NDArray[np.float32]) -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "query",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (D_text,) query vector"
+        },
+        {
+          "name": "keys",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (K, D_img) key vectors from image regions"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "attended_feature",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (D,) attended feature vector"
+        }
+      ]
+    },
+    {
+      "node_id": "multimodal_bilinear_fusion",
+      "name": "Multimodal Bilinear Fusion",
+      "description": "Opaque pretrained model. Bilinear pooling for fusing two modality feature vectors into a joint representation",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "feature_fusion",
+        "bilinear_fusion",
+        "mfb_pooling"
+      ],
+      "type_signature": "(features_a: NDArray[np.float32], features_b: NDArray[np.float32], output_dim: int = 1024) -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "features_a",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (D_a,) feature vector from modality A"
+        },
+        {
+          "name": "features_b",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (D_b,) feature vector from modality B"
+        },
+        {
+          "name": "output_dim",
+          "type_desc": "int",
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "fused",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (D_fused,) fused feature vector"
+        }
+      ]
+    },
+    {
+      "node_id": "lightgbm_train",
+      "name": "LightGBM Training",
+      "description": "Opaque pretrained model. LightGBM gradient boosting decision tree training producing a compiled model",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "lightgbm_training",
+        "gbdt_training"
+      ],
+      "type_signature": "(features: NDArray[np.float32], targets: NDArray[np.float32], params: dict) -> OpaqueModelState",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "features",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (N, D) training feature matrix"
+        },
+        {
+          "name": "targets",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (N,) target values"
+        },
+        {
+          "name": "params",
+          "type_desc": "dict",
+          "required": true,
+          "constraints": "LightGBM parameter dictionary"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model",
+          "type_desc": "OpaqueModelState",
+          "constraints": "trained LightGBM model (opaque)"
+        }
+      ]
+    },
+    {
+      "node_id": "xgboost_train",
+      "name": "XGBoost Training",
+      "description": "Opaque pretrained model. XGBoost gradient boosting training producing a compiled model",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "xgboost_training"
+      ],
+      "type_signature": "(features: NDArray[np.float32], targets: NDArray[np.float32], params: dict) -> OpaqueModelState",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "features",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (N, D) training feature matrix"
+        },
+        {
+          "name": "targets",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (N,) target values"
+        },
+        {
+          "name": "params",
+          "type_desc": "dict",
+          "required": true,
+          "constraints": "XGBoost parameter dictionary"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model",
+          "type_desc": "OpaqueModelState",
+          "constraints": "trained XGBoost model (opaque)"
+        }
+      ]
+    },
+    {
+      "node_id": "denoising_autoencoder",
+      "name": "Denoising Autoencoder",
+      "description": "Opaque pretrained model. Denoising autoencoder for unsupervised feature extraction via input corruption and reconstruction",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "dae_features",
+        "denoising_autoencoder_features"
+      ],
+      "type_signature": "(features: NDArray[np.float32], noise_fraction: float = 0.1, hidden_dim: int = 256) -> tuple[NDArray[np.float32], NDArray[np.float32]]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "features",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (N, D) input features"
+        },
+        {
+          "name": "noise_fraction",
+          "type_desc": "float",
+          "required": false,
+          "constraints": "fraction of input dimensions to corrupt"
+        },
+        {
+          "name": "hidden_dim",
+          "type_desc": "int",
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "reconstructed",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (N, D) reconstructed features"
+        },
+        {
+          "name": "hidden",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (N, H) hidden representations"
+        }
+      ]
+    },
+    {
+      "node_id": "stochastic_weight_averaging",
+      "name": "Stochastic Weight Averaging",
+      "description": "Opaque pretrained model. SWA model weight averaging across training checkpoints for improved generalization",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "swa",
+        "weight_averaging"
+      ],
+      "type_signature": "(checkpoints: list[OpaqueModelState], swa_lr: float = 0.05) -> OpaqueModelState",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "checkpoints",
+          "type_desc": "list[OpaqueModelState]",
+          "required": true,
+          "constraints": "list of model checkpoint states to average"
+        },
+        {
+          "name": "swa_lr",
+          "type_desc": "float",
+          "required": false,
+          "constraints": "SWA learning rate schedule parameter"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "averaged_model",
+          "type_desc": "OpaqueModelState",
+          "constraints": "averaged model state"
+        }
+      ]
+    },
+    {
+      "node_id": "multi_task_classification_heads",
+      "name": "Multi-Task Classification Heads",
+      "description": "Opaque pretrained model. Multiple classification heads on a shared backbone, each producing independent logits",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "multi_task_heads",
+        "multihead_classifier"
+      ],
+      "type_signature": "(features: NDArray[np.float32], num_classes_per_head: list[int]) -> list[NDArray[np.float32]]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "features",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (B, D) shared backbone features"
+        },
+        {
+          "name": "num_classes_per_head",
+          "type_desc": "list[int]",
+          "required": true,
+          "constraints": "list of number of classes for each classification head"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "logits_per_head",
+          "type_desc": "list[NDArray[np.float32]]",
+          "constraints": "list of (B, C_i) logit tensors, one per head"
+        }
+      ]
+    },
+    {
+      "node_id": "linear_prediction_head",
+      "name": "Linear Prediction Head",
+      "description": "Opaque pretrained model. Single linear layer mapping backbone features to target predictions",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "output_head",
+        "regression_head",
+        "prediction_head"
+      ],
+      "type_signature": "(features: NDArray[np.float32], num_outputs: int) -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "features",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (B, D) input features"
+        },
+        {
+          "name": "num_outputs",
+          "type_desc": "int",
+          "required": true,
+          "constraints": "number of output classes or regression targets"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "predictions",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (B, C) predictions"
+        }
+      ]
+    },
+    {
+      "node_id": "dual_head_regression",
+      "name": "Dual Head Regression",
+      "description": "Opaque pretrained model. Two-target regression head with L1 loss for simultaneous prediction of two continuous targets",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "dual_head_output",
+        "multi_target_head"
+      ],
+      "type_signature": "(features: NDArray[np.float32]) -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "features",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (B, D) input features"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "predictions",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (B, 2) two-target predictions"
+        }
+      ]
+    },
+    {
+      "node_id": "face_detector",
+      "name": "Face Detector",
+      "description": "Opaque pretrained model. MTCNN/RetinaFace face detection producing bounding boxes, landmarks, and confidence scores",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "face_detection",
+        "mtcnn",
+        "retinaface"
+      ],
+      "type_signature": "(image: NDArray[np.uint8]) -> tuple[NDArray[np.float32], NDArray[np.float32], NDArray[np.float32]]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image",
+          "type_desc": "NDArray[np.uint8]",
+          "required": true,
+          "constraints": "shape (H, W, 3) uint8 RGB image"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "boxes",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (K, 4) bounding boxes"
+        },
+        {
+          "name": "landmarks",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (K, 5, 2) facial landmarks"
+        },
+        {
+          "name": "scores",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (K,) detection confidence scores"
+        }
+      ]
+    },
+    {
+      "node_id": "graph_neural_network",
+      "name": "Graph Neural Network",
+      "description": "Opaque pretrained model. GCN/GNN message passing forward pass producing updated node representations",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "gcn",
+        "gnn_forward",
+        "message_passing_network"
+      ],
+      "type_signature": "(node_features: NDArray[np.float32], edge_index: NDArray[np.int64], num_layers: int = 3, hidden_dim: int = 256) -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "node_features",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (N, D) node feature matrix"
+        },
+        {
+          "name": "edge_index",
+          "type_desc": "NDArray[np.int64]",
+          "required": true,
+          "constraints": "shape (2, E) edge index tensor"
+        },
+        {
+          "name": "num_layers",
+          "type_desc": "int",
+          "required": false
+        },
+        {
+          "name": "hidden_dim",
+          "type_desc": "int",
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "updated_node_features",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (N, D') updated node features"
+        }
+      ]
+    },
+    {
+      "node_id": "sentence_transformer",
+      "name": "Sentence Transformer",
+      "description": "Opaque pretrained model. Sentence-level text embedding extraction producing fixed-size dense vectors",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "sentence_embedding",
+        "text_embedding",
+        "embedding_extraction"
+      ],
+      "type_signature": "(text: str, model_name: str = \"all-MiniLM-L6-v2\") -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "text",
+          "type_desc": "str",
+          "required": true,
+          "constraints": "input text string"
+        },
+        {
+          "name": "model_name",
+          "type_desc": "str",
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "embedding",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (D,) float32 embedding vector"
+        }
+      ]
+    },
+    {
+      "node_id": "heterogeneous_graph_sampler",
+      "name": "Heterogeneous Graph Sampler",
+      "description": "Opaque pretrained model. DGL-style heterogeneous neighborhood sampling for mini-batch training on large graphs",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "graph_sampling",
+        "neighborhood_sampling"
+      ],
+      "type_signature": "(graph: HeterogeneousGraph, seed_nodes: NDArray[np.int64], fanouts: list[int]) -> SampledSubgraph",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "graph",
+          "type_desc": "HeterogeneousGraph",
+          "required": true,
+          "constraints": "heterogeneous graph with typed nodes and edges"
+        },
+        {
+          "name": "seed_nodes",
+          "type_desc": "NDArray[np.int64]",
+          "required": true,
+          "constraints": "seed node IDs to sample neighborhoods around"
+        },
+        {
+          "name": "fanouts",
+          "type_desc": "list[int]",
+          "required": true,
+          "constraints": "number of neighbors to sample per layer"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "subgraph",
+          "type_desc": "SampledSubgraph",
+          "constraints": "sampled subgraph for mini-batch computation"
         }
       ]
     }
