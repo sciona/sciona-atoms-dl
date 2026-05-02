@@ -125,6 +125,10 @@
       "name": "skeleton_to_graph",
       "description": "Convert a binary centerline skeleton into a NetworkX MultiGraph with node centroids and weighted pixel paths.",
       "concept_type": "graph_traversal",
+      "aliases": [
+        "graph_generation",
+        "pixel_to_graph"
+      ],
       "inputs": [
         {
           "name": "skeleton",

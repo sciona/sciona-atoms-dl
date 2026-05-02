@@ -37,7 +37,12 @@
         "face_detector",
         "graph_neural_network",
         "sentence_transformer",
-        "heterogeneous_graph_sampler"
+        "heterogeneous_graph_sampler",
+        "htdemucs_source_separation",
+        "mosaic_augmentation",
+        "foldseek_structural_similarity",
+        "spatial_squeeze_excitation",
+        "sequence_tagging_trainer"
       ],
       "depth": 0
     },
@@ -48,6 +53,10 @@
       "concept_type": "neural_network",
       "status": "atomic",
       "is_opaque": true,
+      "aliases": [
+        "spatial_feature_extraction",
+        "slice_embedding_extraction"
+      ],
       "type_signature": "(images: NDArray[np.float32], variant: str = \"b0\", pretrained_weights: str = \"imagenet\") -> NDArray[np.float32]",
       "depth": 1,
       "inputs": [
@@ -1256,6 +1265,183 @@
           "name": "subgraph",
           "type_desc": "SampledSubgraph",
           "constraints": "sampled subgraph for mini-batch computation"
+        }
+      ]
+    },
+    {
+      "node_id": "htdemucs_source_separation",
+      "name": "HTDemucs Source Separation",
+      "description": "Opaque pretrained model. Vocal isolation and source separation via HTDemucs, splitting a mono/stereo waveform into stems (vocals, drums, bass, other)",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "vocal_isolation",
+        "source_separation",
+        "music_separation"
+      ],
+      "type_signature": "(waveform: NDArray[np.float32]) -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "waveform",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (samples,) float32 audio waveform"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "stems",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (stems, samples) separated audio stems"
+        }
+      ]
+    },
+    {
+      "node_id": "mosaic_augmentation",
+      "name": "Mosaic Augmentation",
+      "description": "4-image mosaic stitching augmentation for object detection, combining four images and their bounding boxes into a single training sample",
+      "concept_type": "sampler",
+      "status": "atomic",
+      "is_opaque": false,
+      "aliases": [
+        "mosaic_augmentation",
+        "mosaic_4image"
+      ],
+      "type_signature": "(images: list[NDArray[np.float32]], boxes: list[NDArray[np.float32]]) -> tuple[NDArray[np.float32], NDArray[np.float32]]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "images",
+          "type_desc": "list[NDArray[np.float32]]",
+          "required": true,
+          "constraints": "4x (H, W, 3) images"
+        },
+        {
+          "name": "boxes",
+          "type_desc": "list[NDArray[np.float32]]",
+          "required": true,
+          "constraints": "4x bounding box arrays, each (N_i, 4+)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "stitched_image",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (2H, 2W, 3) stitched mosaic image"
+        },
+        {
+          "name": "adjusted_boxes",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "concatenated and offset-adjusted bounding boxes"
+        }
+      ]
+    },
+    {
+      "node_id": "foldseek_structural_similarity",
+      "name": "Foldseek Structural Similarity",
+      "description": "Opaque pretrained model. Protein 3D structure comparison via Foldseek structural alignment, producing a similarity score between two PDB structures",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "structural_similarity",
+        "foldseek_knn",
+        "modality_1_structural"
+      ],
+      "type_signature": "(structure_a: str, structure_b: str) -> float",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "structure_a",
+          "type_desc": "str",
+          "required": true,
+          "constraints": "PDB structure representation (path or content)"
+        },
+        {
+          "name": "structure_b",
+          "type_desc": "str",
+          "required": true,
+          "constraints": "PDB structure representation (path or content)"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "similarity_score",
+          "type_desc": "float",
+          "constraints": "structural similarity score"
+        }
+      ]
+    },
+    {
+      "node_id": "spatial_squeeze_excitation",
+      "name": "Spatial Squeeze-Excitation",
+      "description": "Opaque pretrained model. Spatial squeeze-and-excitation attention block that re-weights feature map channels based on spatial statistics",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "spatial_se_block",
+        "squeeze_excitation_spatial"
+      ],
+      "type_signature": "(feature_map: NDArray[np.float32]) -> NDArray[np.float32]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "feature_map",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (B, C, H, W) input feature map"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "reweighted",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (B, C, H, W) spatially re-weighted feature map"
+        }
+      ]
+    },
+    {
+      "node_id": "sequence_tagging_trainer",
+      "name": "Sequence Tagging Trainer",
+      "description": "Opaque pretrained model. Token-level BIO sequence classifier training producing a trained model state for named entity recognition and similar tagging tasks",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "sequence_tagging_training",
+        "bio_classifier_training",
+        "ner_training"
+      ],
+      "type_signature": "(token_ids: NDArray[np.int64], bio_labels: NDArray[np.int64], model_config: dict) -> OpaqueModelState",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "token_ids",
+          "type_desc": "NDArray[np.int64]",
+          "required": true,
+          "constraints": "shape (B, T) tokenized input sequences"
+        },
+        {
+          "name": "bio_labels",
+          "type_desc": "NDArray[np.int64]",
+          "required": true,
+          "constraints": "shape (B, T) BIO tag label indices"
+        },
+        {
+          "name": "model_config",
+          "type_desc": "dict",
+          "required": true,
+          "constraints": "model and training configuration dictionary"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model_state",
+          "type_desc": "OpaqueModelState",
+          "constraints": "trained sequence tagging model state (opaque)"
         }
       ]
     }
