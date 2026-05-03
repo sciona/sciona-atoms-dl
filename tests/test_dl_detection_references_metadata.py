@@ -8,6 +8,8 @@ EXPECTED_ATOMS = {
     "lung_mask_with_bone_removal",
     "anchor_label_mapping_with_iou_dilation",
     "center_feature_extraction_3d",
+    "margin_expanded_face_crop",
+    "face_similarity_align",
     "iou_matrix",
     "giou_matrix",
     "nms",

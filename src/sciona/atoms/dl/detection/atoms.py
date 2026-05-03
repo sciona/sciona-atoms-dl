@@ -21,6 +21,7 @@ from scipy.ndimage import (
     distance_transform_edt,
     gaussian_filter,
     generate_binary_structure,
+    map_coordinates,
 )
 from scipy.optimize import linear_sum_assignment
 from skimage import measure
@@ -32,8 +33,10 @@ from .witnesses import (
     witness_anchor_label_mapping_with_iou_dilation,
     witness_associate_boxes,
     witness_center_feature_extraction_3d,
+    witness_margin_expanded_face_crop,
     witness_decode_boxes,
     witness_encode_boxes,
+    witness_face_similarity_align,
     witness_generate_anchors,
     witness_giou_matrix,
     witness_iou_matrix,
@@ -75,6 +78,99 @@ def _valid_spans(spans: NDArray[np.float64]) -> bool:
         and np.all(np.isfinite(spans))
         and np.all(spans[:, 0] <= spans[:, 1])
     )
+
+
+def _valid_image_array(image: NDArray[np.float64]) -> bool:
+    return bool(
+        image.ndim in {2, 3}
+        and image.shape[0] > 0
+        and image.shape[1] > 0
+        and np.issubdtype(image.dtype, np.number)
+        and np.all(np.isfinite(image))
+    )
+
+
+def _valid_landmarks(landmarks: NDArray[np.float64]) -> bool:
+    return bool(landmarks.shape == (5, 2) and np.all(np.isfinite(landmarks)))
+
+
+def _nondegenerate_landmarks(landmarks: NDArray[np.float64]) -> bool:
+    if not _valid_landmarks(landmarks):
+        return False
+    centered = landmarks - np.mean(landmarks, axis=0)
+    return bool(np.linalg.matrix_rank(centered) == 2 and np.sum(centered**2) > 0.0)
+
+
+def _positive_output_size(output_size: tuple[int, int]) -> bool:
+    return bool(len(output_size) == 2 and output_size[0] > 0 and output_size[1] > 0)
+
+
+def _crop_bounds(
+    image_shape: tuple[int, ...],
+    bbox: NDArray[np.float64],
+    margin: float,
+) -> tuple[int, int, int, int]:
+    height, width = image_shape[:2]
+    x1, y1, x2, y2 = [float(value) for value in bbox]
+    box_width = x2 - x1
+    box_height = y2 - y1
+    pad_x = float(margin) * box_width
+    pad_y = float(margin) * box_height
+    left = max(0, int(np.floor(x1 - pad_x)))
+    top = max(0, int(np.floor(y1 - pad_y)))
+    right = min(width, int(np.ceil(x2 + pad_x)))
+    bottom = min(height, int(np.ceil(y2 + pad_y)))
+    return left, top, right, bottom
+
+
+def _crop_has_area(image: NDArray[np.float64], bbox: NDArray[np.float64], margin: float) -> bool:
+    if not (_valid_xyxy_boxes(bbox.reshape(1, 4)) and np.isfinite(margin) and margin >= 0.0):
+        return False
+    left, top, right, bottom = _crop_bounds(image.shape, bbox, margin)
+    return bool(right > left and bottom > top)
+
+
+def _estimate_similarity_transform(
+    src_landmarks: NDArray[np.float64],
+    dst_landmarks: NDArray[np.float64],
+) -> tuple[float, NDArray[np.float64], NDArray[np.float64]]:
+    src = np.asarray(src_landmarks, dtype=np.float64)
+    dst = np.asarray(dst_landmarks, dtype=np.float64)
+    src_mean = np.mean(src, axis=0)
+    dst_mean = np.mean(dst, axis=0)
+    src_centered = src - src_mean
+    dst_centered = dst - dst_mean
+    covariance = src_centered.T @ dst_centered
+    u_matrix, singular_values, vt_matrix = np.linalg.svd(covariance)
+    rotation = u_matrix @ vt_matrix
+    if np.linalg.det(rotation) < 0.0:
+        vt_matrix[-1, :] *= -1.0
+        rotation = u_matrix @ vt_matrix
+    scale = float(np.sum(singular_values) / np.sum(src_centered**2))
+    translation = dst_mean - scale * (src_mean @ rotation)
+    return scale, rotation, translation
+
+
+def _sample_similarity_aligned(
+    image: NDArray[np.float64],
+    scale: float,
+    rotation: NDArray[np.float64],
+    translation: NDArray[np.float64],
+    output_size: tuple[int, int],
+    order: int,
+) -> NDArray[np.float64]:
+    out_height, out_width = output_size
+    rows, cols = np.indices((out_height, out_width), dtype=np.float64)
+    dst_points = np.stack([cols.ravel(), rows.ravel()], axis=1)
+    src_points = ((dst_points - translation) @ rotation.T) / scale
+    coords = [src_points[:, 1].reshape(output_size), src_points[:, 0].reshape(output_size)]
+    if image.ndim == 2:
+        return map_coordinates(image, coords, order=order, mode="constant", cval=0.0, prefilter=order > 1)
+    channels = [
+        map_coordinates(image[:, :, channel], coords, order=order, mode="constant", cval=0.0, prefilter=order > 1)
+        for channel in range(image.shape[2])
+    ]
+    return np.stack(channels, axis=2)
 
 
 def _box_areas(boxes: NDArray[np.float64]) -> NDArray[np.float64]:
@@ -1240,3 +1336,48 @@ def threshold_detections(
     """Filter detections by a minimum confidence score."""
     keep = scores >= threshold
     return boxes[keep].astype(np.float64, copy=True), scores[keep].astype(np.float64, copy=True)
+
+
+@register_atom(witness_margin_expanded_face_crop)
+@icontract.require(lambda image: _valid_image_array(image), "image must be a finite 2D or HWC numeric array")
+@icontract.require(lambda bbox: isinstance(bbox, np.ndarray) and bbox.shape == (4,), "bbox must be a length-4 xyxy array")
+@icontract.require(lambda bbox: _valid_xyxy_boxes(bbox.reshape(1, 4)), "bbox must be a finite xyxy box")
+@icontract.require(lambda margin: np.isfinite(margin) and margin >= 0.0, "margin must be non-negative")
+@icontract.require(lambda image, bbox, margin: _crop_has_area(image, bbox, margin), "expanded crop must overlap image")
+@icontract.ensure(lambda result: result.shape[0] > 0 and result.shape[1] > 0, "crop must have positive height and width")
+@icontract.ensure(lambda image, result: result.ndim == image.ndim, "crop preserves image rank")
+def margin_expanded_face_crop(
+    image: NDArray[np.float64],
+    bbox: NDArray[np.float64],
+    margin: float,
+) -> NDArray[np.float64]:
+    """Expand an xyxy face box by a fractional margin, clip to image bounds, and crop."""
+    left, top, right, bottom = _crop_bounds(image.shape, bbox, float(margin))
+    return np.asarray(image[top:bottom, left:right], dtype=image.dtype).copy()
+
+
+@register_atom(witness_face_similarity_align)
+@icontract.require(lambda image: _valid_image_array(image), "image must be a finite 2D or HWC numeric array")
+@icontract.require(lambda src_landmarks: _nondegenerate_landmarks(src_landmarks), "source landmarks must be 5 non-collinear xy points")
+@icontract.require(lambda dst_landmarks: _nondegenerate_landmarks(dst_landmarks), "target landmarks must be 5 non-collinear xy points")
+@icontract.require(lambda output_size: _positive_output_size(output_size), "output_size must be positive H,W")
+@icontract.require(lambda order: order in {0, 1, 2, 3, 4, 5}, "order must be a scipy spline order")
+@icontract.ensure(lambda output_size, result: result.shape[:2] == output_size, "aligned image must match requested size")
+@icontract.ensure(lambda result: np.all(np.isfinite(result)), "aligned image must be finite")
+def face_similarity_align(
+    image: NDArray[np.float64],
+    src_landmarks: NDArray[np.float64],
+    dst_landmarks: NDArray[np.float64],
+    output_size: tuple[int, int],
+    order: int = 1,
+) -> NDArray[np.float64]:
+    """Align a face image to target landmarks using a 2D similarity transform."""
+    scale, rotation, translation = _estimate_similarity_transform(src_landmarks, dst_landmarks)
+    return _sample_similarity_aligned(
+        np.asarray(image, dtype=np.float64),
+        scale,
+        rotation,
+        translation,
+        output_size,
+        int(order),
+    )

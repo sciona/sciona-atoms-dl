@@ -541,6 +541,30 @@
           "name": "result",
           "type_desc": "NDArray[np.float64]"
         }
+      ],
+      "common_patterns": [
+        {
+          "pattern_id": "prediction_averaging",
+          "description": "Average predictions from multiple models",
+          "atoms": [
+            "voting_classifier_soft_probabilities",
+            "voting_regressor_average",
+            "ranked_prediction_blend",
+            "fold_ensemble_average"
+          ],
+          "ordering": "alternatives",
+          "when": "Stage describes ensembling, blending, or averaging model predictions"
+        },
+        {
+          "pattern_id": "cross_validation_with_ensemble",
+          "description": "Split data into CV folds then average out-of-fold predictions",
+          "atoms": [
+            "cross_validation",
+            "fold_ensemble_average"
+          ],
+          "ordering": "sequential",
+          "when": "Stage describes cross-validated training with fold averaging"
+        }
       ]
     },
     {

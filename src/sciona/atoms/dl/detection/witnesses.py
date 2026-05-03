@@ -174,3 +174,25 @@ def witness_threshold_detections(
 ) -> tuple[AbstractArray, AbstractArray]:
     """Mirror confidence filtering as retained boxes and scores."""
     return AbstractArray(), AbstractArray()
+
+
+def witness_margin_expanded_face_crop(
+    image: AbstractArray,
+    bbox: AbstractArray,
+    margin: float,
+) -> AbstractArray:
+    """Mirror margin-expanded face cropping as an image-like array."""
+    return AbstractArray()
+
+
+def witness_face_similarity_align(
+    image: AbstractArray,
+    src_landmarks: AbstractArray,
+    dst_landmarks: AbstractArray,
+    output_size: tuple[int, int],
+    order: int = 1,
+) -> AbstractArray:
+    """Mirror landmark alignment as an output-size image crop."""
+    if len(image.shape) == 3:
+        return AbstractArray(shape=(output_size[0], output_size[1], image.shape[2]), dtype="float64")
+    return AbstractArray(shape=(output_size[0], output_size[1]), dtype="float64")

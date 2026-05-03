@@ -1761,6 +1761,155 @@
             "notes": "Reference for repeating elements along an axis."
         }
     },
+    "face_detection_alignment_research_2026": {
+        "ref_id": "face_detection_alignment_research_2026",
+        "type": "local_research",
+        "title": "Research: Face Detection & Alignment Atoms",
+        "authors": [
+            "sciona-atoms research"
+        ],
+        "year": 2026,
+        "venue": "Local research packet",
+        "url": "research/19_face_detection.md",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local prompt and research result defining face detection as opaque and landmark alignment/cropping as pure atoms."
+        }
+    },
+    "numpy_indexing_docs": {
+        "ref_id": "numpy_indexing_docs",
+        "type": "documentation",
+        "title": "NumPy indexing on ndarrays",
+        "authors": [
+            "NumPy Developers"
+        ],
+        "year": 2026,
+        "venue": "NumPy documentation",
+        "url": "https://numpy.org/doc/stable/user/basics.indexing.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Reference for deterministic slice-based array cropping."
+        }
+    },
+    "zhang2016mtcnn": {
+        "ref_id": "zhang2016mtcnn",
+        "type": "paper",
+        "title": "Joint Face Detection and Alignment Using Multitask Cascaded Convolutional Networks",
+        "authors": [
+            "Kaipeng Zhang",
+            "Zhanpeng Zhang",
+            "Zhifeng Li",
+            "Yu Qiao"
+        ],
+        "year": 2016,
+        "venue": "IEEE Signal Processing Letters",
+        "url": "https://arxiv.org/abs/1604.02878",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary MTCNN reference for joint face box and landmark detection."
+        }
+    },
+    "repo_facenet_pytorch": {
+        "ref_id": "repo_facenet_pytorch",
+        "type": "repository",
+        "title": "facenet-pytorch",
+        "authors": [
+            "Timesler"
+        ],
+        "year": null,
+        "venue": "GitHub",
+        "url": "https://github.com/timesler/facenet-pytorch",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "MIT-licensed PyTorch MTCNN implementation cited as the recommended opaque detector backend."
+        }
+    },
+    "repo_insightface": {
+        "ref_id": "repo_insightface",
+        "type": "repository",
+        "title": "InsightFace",
+        "authors": [
+            "InsightFace Contributors"
+        ],
+        "year": null,
+        "venue": "GitHub",
+        "url": "https://github.com/deepinsight/insightface",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Repository cited for RetinaFace context; common pretrained model weights are treated as commercial-use restricted, so it is not the recommended opaque backend."
+        }
+    },
+    "karras2019stylegan": {
+        "ref_id": "karras2019stylegan",
+        "type": "paper",
+        "title": "A Style-Based Generator Architecture for Generative Adversarial Networks",
+        "authors": [
+            "Tero Karras",
+            "Samuli Laine",
+            "Timo Aila"
+        ],
+        "year": 2019,
+        "venue": "CVPR",
+        "url": "https://arxiv.org/abs/1812.04948",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "FFHQ dataset and face-alignment context for landmark-normalized face crops."
+        }
+    },
+    "numpy_svd_docs": {
+        "ref_id": "numpy_svd_docs",
+        "type": "documentation",
+        "title": "numpy.linalg.svd",
+        "authors": [
+            "NumPy Developers"
+        ],
+        "year": 2026,
+        "venue": "NumPy documentation",
+        "url": "https://numpy.org/doc/stable/reference/generated/numpy.linalg.svd.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Reference for singular value decomposition used by the least-squares similarity transform estimate."
+        }
+    },
+    "scipy_map_coordinates_docs": {
+        "ref_id": "scipy_map_coordinates_docs",
+        "type": "documentation",
+        "title": "scipy.ndimage.map_coordinates",
+        "authors": [
+            "SciPy Developers"
+        ],
+        "year": 2026,
+        "venue": "SciPy documentation",
+        "url": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.map_coordinates.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Reference for coordinate-based image resampling used by face alignment."
+        }
+    },
     "repo_scikit_image": {
         "ref_id": "repo_scikit_image",
         "type": "repository",

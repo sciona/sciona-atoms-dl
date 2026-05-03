@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "atoms": {
-    "sciona.atoms.dl.detection.lung_mask_with_bone_removal@sciona/atoms/dl/detection/atoms.py:447": {
+    "sciona.atoms.dl.detection.lung_mask_with_bone_removal@sciona/atoms/dl/detection/atoms.py:543": {
       "references": [
         {
           "ref_id": "liao2017dsb",
@@ -26,7 +26,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.detection.anchor_label_mapping_with_iou_dilation@sciona/atoms/dl/detection/atoms.py:591": {
+    "sciona.atoms.dl.detection.anchor_label_mapping_with_iou_dilation@sciona/atoms/dl/detection/atoms.py:687": {
       "references": [
         {
           "ref_id": "liao2017dsb",
@@ -51,7 +51,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.detection.center_feature_extraction_3d@sciona/atoms/dl/detection/atoms.py:703": {
+    "sciona.atoms.dl.detection.center_feature_extraction_3d@sciona/atoms/dl/detection/atoms.py:799": {
       "references": [
         {
           "ref_id": "liao2017dsb",
@@ -76,7 +76,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.detection.iou_matrix@sciona/atoms/dl/detection/atoms.py:741": {
+    "sciona.atoms.dl.detection.iou_matrix@sciona/atoms/dl/detection/atoms.py:837": {
       "references": [
         {
           "ref_id": "detection_postprocess_research_2026",
@@ -91,7 +91,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.detection.giou_matrix@sciona/atoms/dl/detection/atoms.py:760": {
+    "sciona.atoms.dl.detection.giou_matrix@sciona/atoms/dl/detection/atoms.py:856": {
       "references": [
         {
           "ref_id": "rezatofighi2019giou",
@@ -116,7 +116,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.detection.nms@sciona/atoms/dl/detection/atoms.py:794": {
+    "sciona.atoms.dl.detection.nms@sciona/atoms/dl/detection/atoms.py:890": {
       "references": [
         {
           "ref_id": "detection_postprocess_research_2026",
@@ -131,7 +131,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.detection.soft_nms@sciona/atoms/dl/detection/atoms.py:825": {
+    "sciona.atoms.dl.detection.soft_nms@sciona/atoms/dl/detection/atoms.py:921": {
       "references": [
         {
           "ref_id": "bodla2017softnms",
@@ -156,7 +156,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.detection.wbf@sciona/atoms/dl/detection/atoms.py:875": {
+    "sciona.atoms.dl.detection.wbf@sciona/atoms/dl/detection/atoms.py:971": {
       "references": [
         {
           "ref_id": "solovyev2021wbf",
@@ -181,7 +181,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.detection.wbf_1d@sciona/atoms/dl/detection/atoms.py:958": {
+    "sciona.atoms.dl.detection.wbf_1d@sciona/atoms/dl/detection/atoms.py:1054": {
       "references": [
         {
           "ref_id": "solovyev2021wbf",
@@ -206,7 +206,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.detection.generate_anchors@sciona/atoms/dl/detection/atoms.py:1046": {
+    "sciona.atoms.dl.detection.generate_anchors@sciona/atoms/dl/detection/atoms.py:1142": {
       "references": [
         {
           "ref_id": "ren2015fasterrcnn",
@@ -231,7 +231,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.detection.encode_boxes@sciona/atoms/dl/detection/atoms.py:1076": {
+    "sciona.atoms.dl.detection.encode_boxes@sciona/atoms/dl/detection/atoms.py:1172": {
       "references": [
         {
           "ref_id": "ren2015fasterrcnn",
@@ -246,7 +246,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.detection.decode_boxes@sciona/atoms/dl/detection/atoms.py:1107": {
+    "sciona.atoms.dl.detection.decode_boxes@sciona/atoms/dl/detection/atoms.py:1203": {
       "references": [
         {
           "ref_id": "ren2015fasterrcnn",
@@ -271,7 +271,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.detection.nms_1d@sciona/atoms/dl/detection/atoms.py:1142": {
+    "sciona.atoms.dl.detection.nms_1d@sciona/atoms/dl/detection/atoms.py:1238": {
       "references": [
         {
           "ref_id": "detection_postprocess_research_2026",
@@ -286,7 +286,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.detection.masks_to_boxes@sciona/atoms/dl/detection/atoms.py:1180": {
+    "sciona.atoms.dl.detection.masks_to_boxes@sciona/atoms/dl/detection/atoms.py:1276": {
       "references": [
         {
           "ref_id": "torchvision_masks_to_boxes",
@@ -311,7 +311,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.detection.associate_boxes@sciona/atoms/dl/detection/atoms.py:1201": {
+    "sciona.atoms.dl.detection.associate_boxes@sciona/atoms/dl/detection/atoms.py:1297": {
       "references": [
         {
           "ref_id": "scipy_linear_sum_assignment",
@@ -336,7 +336,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.detection.threshold_detections@sciona/atoms/dl/detection/atoms.py:1235": {
+    "sciona.atoms.dl.detection.threshold_detections@sciona/atoms/dl/detection/atoms.py:1331": {
       "references": [
         {
           "ref_id": "detection_postprocess_research_2026",
@@ -346,6 +346,76 @@
             "matched_nodes": [],
             "confidence": "medium",
             "notes": "Local research report includes confidence thresholding as a simple composable post-processing atom."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.detection.margin_expanded_face_crop@sciona/atoms/dl/detection/atoms.py:1349": {
+      "references": [
+        {
+          "ref_id": "face_detection_alignment_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local 19-series research packet defines margin-expanded face cropping as the pure array boundary after detector inference."
+          }
+        },
+        {
+          "ref_id": "numpy_indexing_docs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "library_semantics",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "The crop is implemented with deterministic NumPy slicing after clipping the expanded box to image bounds."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.detection.face_similarity_align@sciona/atoms/dl/detection/atoms.py:1367": {
+      "references": [
+        {
+          "ref_id": "face_detection_alignment_research_2026",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Local 19-series research packet identifies five-landmark similarity alignment as decomposable geometry for face alignment crops."
+          }
+        },
+        {
+          "ref_id": "numpy_svd_docs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "library_semantics",
+            "matched_nodes": ["numpy.linalg.svd"],
+            "confidence": "high",
+            "notes": "The atom estimates the least-squares similarity transform through a small SVD-based Procrustes solve."
+          }
+        },
+        {
+          "ref_id": "scipy_map_coordinates_docs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "library_semantics",
+            "matched_nodes": ["scipy.ndimage.map_coordinates"],
+            "confidence": "high",
+            "notes": "The aligned output canvas is sampled from the input image with SciPy coordinate interpolation."
+          }
+        },
+        {
+          "ref_id": "karras2019stylegan",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "paper_context",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "FFHQ-style face alignment motivates landmark-normalized crops, while this atom keeps the target template explicit."
           }
         }
       ],

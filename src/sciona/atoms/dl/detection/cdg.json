@@ -9,6 +9,9 @@
         "lung_mask_with_bone_removal",
         "anchor_label_mapping_with_iou_dilation",
         "center_feature_extraction_3d",
+        "mtcnn_face_detector",
+        "margin_expanded_face_crop",
+        "face_similarity_align",
         "iou_matrix",
         "giou_matrix",
         "nms",
@@ -35,12 +38,33 @@
       "type_signature": "(ct_volume: NDArray[np.float64], spacing: NDArray[np.float64], intensity_th: float = -600.0, pad_value: float = 170.0) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {"name": "ct_volume", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "spacing", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "intensity_th", "type_desc": "float", "required": false},
-        {"name": "pad_value", "type_desc": "float", "required": false}
+        {
+          "name": "ct_volume",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "spacing",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "intensity_th",
+          "type_desc": "float",
+          "required": false
+        },
+        {
+          "name": "pad_value",
+          "type_desc": "float",
+          "required": false
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
     },
     {
       "node_id": "anchor_label_mapping_with_iou_dilation",
@@ -51,15 +75,48 @@
       "type_signature": "(input_size: tuple[int, int, int], target: NDArray[np.float64], anchors: NDArray[np.float64], stride: int, pos_th: float = 0.5, neg_th: float = 0.02, dilation_iterations: int = 1) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {"name": "input_size", "type_desc": "tuple[int, int, int]", "required": true},
-        {"name": "target", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "anchors", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "stride", "type_desc": "int", "required": true},
-        {"name": "pos_th", "type_desc": "float", "required": false},
-        {"name": "neg_th", "type_desc": "float", "required": false},
-        {"name": "dilation_iterations", "type_desc": "int", "required": false}
+        {
+          "name": "input_size",
+          "type_desc": "tuple[int, int, int]",
+          "required": true
+        },
+        {
+          "name": "target",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "anchors",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "stride",
+          "type_desc": "int",
+          "required": true
+        },
+        {
+          "name": "pos_th",
+          "type_desc": "float",
+          "required": false
+        },
+        {
+          "name": "neg_th",
+          "type_desc": "float",
+          "required": false
+        },
+        {
+          "name": "dilation_iterations",
+          "type_desc": "int",
+          "required": false
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
     },
     {
       "node_id": "center_feature_extraction_3d",
@@ -70,9 +127,128 @@
       "type_signature": "(feature_map: NDArray[np.float64]) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {"name": "feature_map", "type_desc": "NDArray[np.float64]", "required": true}
+        {
+          "name": "feature_map",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
+    },
+    {
+      "node_id": "mtcnn_face_detector",
+      "name": "mtcnn_face_detector",
+      "description": "MTCNN neural face detector that returns face boxes, five-point landmarks, and confidence scores; opaque framework model, not a pure NumPy atom",
+      "concept_type": "neural_network",
+      "is_opaque": true,
+      "status": "atomic",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "frames",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "boxes",
+          "type_desc": "list[NDArray[np.float64]]"
+        },
+        {
+          "name": "landmarks",
+          "type_desc": "list[NDArray[np.float64]]"
+        },
+        {
+          "name": "scores",
+          "type_desc": "list[NDArray[np.float64]]"
+        }
+      ],
+      "metadata": {
+        "framework": "pytorch",
+        "recommended_backend": "facenet-pytorch MTCNN",
+        "license_rationale": "facenet-pytorch is MIT-licensed; RetinaFace source may be permissive but common pretrained weights are restricted to non-commercial use.",
+        "reason_opaque": "Detector inference is a pretrained neural network cascade with image pyramids and internal NMS; only its array outputs feed pure atoms."
+      }
+    },
+    {
+      "node_id": "margin_expanded_face_crop",
+      "name": "margin_expanded_face_crop",
+      "description": "Expand an xyxy face box by a fractional margin, clip to image bounds, and crop the image",
+      "concept_type": "geometry",
+      "status": "atomic",
+      "type_signature": "(image: NDArray[np.float64], bbox: NDArray[np.float64], margin: float) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "bbox",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "margin",
+          "type_desc": "float",
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
+    },
+    {
+      "node_id": "face_similarity_align",
+      "name": "face_similarity_align",
+      "description": "Estimate a 2D similarity transform from five facial landmarks and resample the aligned face canvas",
+      "concept_type": "geometry",
+      "status": "atomic",
+      "type_signature": "(image: NDArray[np.float64], src_landmarks: NDArray[np.float64], dst_landmarks: NDArray[np.float64], output_size: tuple[int, int], order: int = 1) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "src_landmarks",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "dst_landmarks",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "output_size",
+          "type_desc": "tuple[int, int]",
+          "required": true
+        },
+        {
+          "name": "order",
+          "type_desc": "int",
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
     },
     {
       "node_id": "iou_matrix",
@@ -83,10 +259,23 @@
       "type_signature": "(boxes_a: NDArray[np.float64], boxes_b: NDArray[np.float64]) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {"name": "boxes_a", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "boxes_b", "type_desc": "NDArray[np.float64]", "required": true}
+        {
+          "name": "boxes_a",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "boxes_b",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
     },
     {
       "node_id": "giou_matrix",
@@ -97,10 +286,23 @@
       "type_signature": "(boxes_a: NDArray[np.float64], boxes_b: NDArray[np.float64]) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {"name": "boxes_a", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "boxes_b", "type_desc": "NDArray[np.float64]", "required": true}
+        {
+          "name": "boxes_a",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "boxes_b",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
     },
     {
       "node_id": "nms",
@@ -111,11 +313,40 @@
       "type_signature": "(boxes: NDArray[np.float64], scores: NDArray[np.float64], iou_threshold: float) -> NDArray[np.int64]",
       "depth": 1,
       "inputs": [
-        {"name": "boxes", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "scores", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "iou_threshold", "type_desc": "float", "required": true}
+        {
+          "name": "boxes",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "scores",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "iou_threshold",
+          "type_desc": "float",
+          "required": true
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.int64]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.int64]"
+        }
+      ],
+      "common_patterns": [
+        {
+          "pattern_id": "nms_detection_pipeline",
+          "description": "Filter low-confidence detections then suppress overlapping boxes",
+          "atoms": [
+            "threshold_detections",
+            "nms"
+          ],
+          "ordering": "sequential",
+          "when": "Stage describes detection post-processing with NMS"
+        }
+      ]
     },
     {
       "node_id": "soft_nms",
@@ -126,14 +357,43 @@
       "type_signature": "(boxes: NDArray[np.float64], scores: NDArray[np.float64], iou_threshold: float, sigma: float = 0.5, method: str = \"linear\", score_threshold: float = 0.001) -> tuple[NDArray[np.float64], NDArray[np.float64]]",
       "depth": 1,
       "inputs": [
-        {"name": "boxes", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "scores", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "iou_threshold", "type_desc": "float", "required": true},
-        {"name": "sigma", "type_desc": "float", "required": false},
-        {"name": "method", "type_desc": "str", "required": false},
-        {"name": "score_threshold", "type_desc": "float", "required": false}
+        {
+          "name": "boxes",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "scores",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "iou_threshold",
+          "type_desc": "float",
+          "required": true
+        },
+        {
+          "name": "sigma",
+          "type_desc": "float",
+          "required": false
+        },
+        {
+          "name": "method",
+          "type_desc": "str",
+          "required": false
+        },
+        {
+          "name": "score_threshold",
+          "type_desc": "float",
+          "required": false
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "tuple[NDArray[np.float64], NDArray[np.float64]]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "tuple[NDArray[np.float64], NDArray[np.float64]]"
+        }
+      ]
     },
     {
       "node_id": "wbf",
@@ -144,14 +404,55 @@
       "type_signature": "(boxes_list: list[NDArray[np.float64]], scores_list: list[NDArray[np.float64]], labels_list: list[NDArray[np.int64]], weights: list[float], iou_threshold: float = 0.55, skip_box_thr: float = 0.0) -> tuple[NDArray[np.float64], NDArray[np.float64], NDArray[np.int64]]",
       "depth": 1,
       "inputs": [
-        {"name": "boxes_list", "type_desc": "list[NDArray[np.float64]]", "required": true},
-        {"name": "scores_list", "type_desc": "list[NDArray[np.float64]]", "required": true},
-        {"name": "labels_list", "type_desc": "list[NDArray[np.int64]]", "required": true},
-        {"name": "weights", "type_desc": "list[float]", "required": true},
-        {"name": "iou_threshold", "type_desc": "float", "required": false},
-        {"name": "skip_box_thr", "type_desc": "float", "required": false}
+        {
+          "name": "boxes_list",
+          "type_desc": "list[NDArray[np.float64]]",
+          "required": true
+        },
+        {
+          "name": "scores_list",
+          "type_desc": "list[NDArray[np.float64]]",
+          "required": true
+        },
+        {
+          "name": "labels_list",
+          "type_desc": "list[NDArray[np.int64]]",
+          "required": true
+        },
+        {
+          "name": "weights",
+          "type_desc": "list[float]",
+          "required": true
+        },
+        {
+          "name": "iou_threshold",
+          "type_desc": "float",
+          "required": false
+        },
+        {
+          "name": "skip_box_thr",
+          "type_desc": "float",
+          "required": false
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "tuple[NDArray[np.float64], NDArray[np.float64], NDArray[np.int64]]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "tuple[NDArray[np.float64], NDArray[np.float64], NDArray[np.int64]]"
+        }
+      ],
+      "common_patterns": [
+        {
+          "pattern_id": "weighted_box_fusion_pipeline",
+          "description": "Filter low-confidence boxes then fuse overlapping detections",
+          "atoms": [
+            "threshold_detections",
+            "wbf"
+          ],
+          "ordering": "sequential",
+          "when": "Stage describes weighted box fusion for object detection"
+        }
+      ]
     },
     {
       "node_id": "wbf_1d",
@@ -162,14 +463,43 @@
       "type_signature": "(spans_list: list[NDArray[np.float64]], scores_list: list[NDArray[np.float64]], labels_list: list[NDArray[np.int64]], weights: list[float], iou_threshold: float = 0.55, skip_span_thr: float = 0.0) -> tuple[NDArray[np.float64], NDArray[np.float64], NDArray[np.int64]]",
       "depth": 1,
       "inputs": [
-        {"name": "spans_list", "type_desc": "list[NDArray[np.float64]]", "required": true},
-        {"name": "scores_list", "type_desc": "list[NDArray[np.float64]]", "required": true},
-        {"name": "labels_list", "type_desc": "list[NDArray[np.int64]]", "required": true},
-        {"name": "weights", "type_desc": "list[float]", "required": true},
-        {"name": "iou_threshold", "type_desc": "float", "required": false},
-        {"name": "skip_span_thr", "type_desc": "float", "required": false}
+        {
+          "name": "spans_list",
+          "type_desc": "list[NDArray[np.float64]]",
+          "required": true
+        },
+        {
+          "name": "scores_list",
+          "type_desc": "list[NDArray[np.float64]]",
+          "required": true
+        },
+        {
+          "name": "labels_list",
+          "type_desc": "list[NDArray[np.int64]]",
+          "required": true
+        },
+        {
+          "name": "weights",
+          "type_desc": "list[float]",
+          "required": true
+        },
+        {
+          "name": "iou_threshold",
+          "type_desc": "float",
+          "required": false
+        },
+        {
+          "name": "skip_span_thr",
+          "type_desc": "float",
+          "required": false
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "tuple[NDArray[np.float64], NDArray[np.float64], NDArray[np.int64]]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "tuple[NDArray[np.float64], NDArray[np.float64], NDArray[np.int64]]"
+        }
+      ]
     },
     {
       "node_id": "generate_anchors",
@@ -180,12 +510,33 @@
       "type_signature": "(feature_map_size: tuple[int, int], stride: int, sizes: tuple[float, ...], aspect_ratios: tuple[float, ...]) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {"name": "feature_map_size", "type_desc": "tuple[int, int]", "required": true},
-        {"name": "stride", "type_desc": "int", "required": true},
-        {"name": "sizes", "type_desc": "tuple[float, ...]", "required": true},
-        {"name": "aspect_ratios", "type_desc": "tuple[float, ...]", "required": true}
+        {
+          "name": "feature_map_size",
+          "type_desc": "tuple[int, int]",
+          "required": true
+        },
+        {
+          "name": "stride",
+          "type_desc": "int",
+          "required": true
+        },
+        {
+          "name": "sizes",
+          "type_desc": "tuple[float, ...]",
+          "required": true
+        },
+        {
+          "name": "aspect_ratios",
+          "type_desc": "tuple[float, ...]",
+          "required": true
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
     },
     {
       "node_id": "encode_boxes",
@@ -196,11 +547,28 @@
       "type_signature": "(anchors: NDArray[np.float64], gt_boxes: NDArray[np.float64], scales: tuple[float, float, float, float] = (10.0, 10.0, 5.0, 5.0)) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {"name": "anchors", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "gt_boxes", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "scales", "type_desc": "tuple[float, float, float, float]", "required": false}
+        {
+          "name": "anchors",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "gt_boxes",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "scales",
+          "type_desc": "tuple[float, float, float, float]",
+          "required": false
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
     },
     {
       "node_id": "decode_boxes",
@@ -211,11 +579,28 @@
       "type_signature": "(anchors: NDArray[np.float64], deltas: NDArray[np.float64], scales: tuple[float, float, float, float] = (10.0, 10.0, 5.0, 5.0)) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {"name": "anchors", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "deltas", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "scales", "type_desc": "tuple[float, float, float, float]", "required": false}
+        {
+          "name": "anchors",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "deltas",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "scales",
+          "type_desc": "tuple[float, float, float, float]",
+          "required": false
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
     },
     {
       "node_id": "nms_1d",
@@ -226,11 +611,28 @@
       "type_signature": "(signal: NDArray[np.float64], min_distance: int, threshold: float) -> NDArray[np.int64]",
       "depth": 1,
       "inputs": [
-        {"name": "signal", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "min_distance", "type_desc": "int", "required": true},
-        {"name": "threshold", "type_desc": "float", "required": true}
+        {
+          "name": "signal",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "min_distance",
+          "type_desc": "int",
+          "required": true
+        },
+        {
+          "name": "threshold",
+          "type_desc": "float",
+          "required": true
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.int64]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.int64]"
+        }
+      ]
     },
     {
       "node_id": "masks_to_boxes",
@@ -241,9 +643,18 @@
       "type_signature": "(binary_masks: NDArray[np.bool_]) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {"name": "binary_masks", "type_desc": "NDArray[np.bool_]", "required": true}
+        {
+          "name": "binary_masks",
+          "type_desc": "NDArray[np.bool_]",
+          "required": true
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "NDArray[np.float64]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.float64]"
+        }
+      ]
     },
     {
       "node_id": "associate_boxes",
@@ -254,11 +665,28 @@
       "type_signature": "(boxes_a: NDArray[np.float64], boxes_b: NDArray[np.float64], iou_threshold: float) -> tuple[NDArray[np.int64], NDArray[np.int64], NDArray[np.int64], NDArray[np.int64]]",
       "depth": 1,
       "inputs": [
-        {"name": "boxes_a", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "boxes_b", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "iou_threshold", "type_desc": "float", "required": true}
+        {
+          "name": "boxes_a",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "boxes_b",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "iou_threshold",
+          "type_desc": "float",
+          "required": true
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "tuple[NDArray[np.int64], NDArray[np.int64], NDArray[np.int64], NDArray[np.int64]]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "tuple[NDArray[np.int64], NDArray[np.int64], NDArray[np.int64], NDArray[np.int64]]"
+        }
+      ]
     },
     {
       "node_id": "threshold_detections",
@@ -269,11 +697,50 @@
       "type_signature": "(boxes: NDArray[np.float64], scores: NDArray[np.float64], threshold: float) -> tuple[NDArray[np.float64], NDArray[np.float64]]",
       "depth": 1,
       "inputs": [
-        {"name": "boxes", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "scores", "type_desc": "NDArray[np.float64]", "required": true},
-        {"name": "threshold", "type_desc": "float", "required": true}
+        {
+          "name": "boxes",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "scores",
+          "type_desc": "NDArray[np.float64]",
+          "required": true
+        },
+        {
+          "name": "threshold",
+          "type_desc": "float",
+          "required": true
+        }
       ],
-      "outputs": [{"name": "result", "type_desc": "tuple[NDArray[np.float64], NDArray[np.float64]]"}]
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "tuple[NDArray[np.float64], NDArray[np.float64]]"
+        }
+      ],
+      "common_patterns": [
+        {
+          "pattern_id": "nms_detection_pipeline",
+          "description": "Filter low-confidence detections then suppress overlapping boxes",
+          "atoms": [
+            "threshold_detections",
+            "nms"
+          ],
+          "ordering": "sequential",
+          "when": "Stage describes detection post-processing with NMS"
+        },
+        {
+          "pattern_id": "weighted_box_fusion_pipeline",
+          "description": "Filter low-confidence boxes then fuse overlapping detections",
+          "atoms": [
+            "threshold_detections",
+            "wbf"
+          ],
+          "ordering": "sequential",
+          "when": "Stage describes weighted box fusion for object detection"
+        }
+      ]
     },
     {
       "node_id": "coordinate_aware_3d_unet",
@@ -284,12 +751,34 @@
       "status": "atomic",
       "depth": 1,
       "metadata": {
-        "encoder_channels": [24, 32, 64, 64, 64],
-        "decoder_channels": [128, 64, 64],
-        "anchors_mm": [10, 30, 60],
+        "encoder_channels": [
+          24,
+          32,
+          64,
+          64,
+          64
+        ],
+        "decoder_channels": [
+          128,
+          64,
+          64
+        ],
+        "anchors_mm": [
+          10,
+          30,
+          60
+        ],
         "coord_injection_stage": "back2",
-        "num_blocks_forward": [2, 2, 3, 3],
-        "num_blocks_backward": [3, 3],
+        "num_blocks_forward": [
+          2,
+          2,
+          3,
+          3
+        ],
+        "num_blocks_backward": [
+          3,
+          3
+        ],
         "output_channels_per_anchor": 5,
         "dropout": 0.2,
         "stride": 4,

@@ -9,8 +9,10 @@ def test_detection_import() -> None:
         anchor_label_mapping_with_iou_dilation,
         associate_boxes,
         center_feature_extraction_3d,
+        margin_expanded_face_crop,
         decode_boxes,
         encode_boxes,
+        face_similarity_align,
         generate_anchors,
         giou_matrix,
         iou_matrix,
@@ -26,6 +28,8 @@ def test_detection_import() -> None:
     assert callable(lung_mask_with_bone_removal)
     assert callable(anchor_label_mapping_with_iou_dilation)
     assert callable(center_feature_extraction_3d)
+    assert callable(margin_expanded_face_crop)
+    assert callable(face_similarity_align)
     assert callable(iou_matrix)
     assert callable(giou_matrix)
     assert callable(nms)
@@ -387,3 +391,72 @@ def test_threshold_detections_filters_scores_and_boxes() -> None:
     out_boxes, out_scores = threshold_detections(boxes, scores, 0.5)
     assert out_boxes.tolist() == [[1.0, 1.0, 2.0, 2.0]]
     assert out_scores.tolist() == [0.9]
+
+
+def test_margin_expanded_face_crop_expands_and_clips_box() -> None:
+    from sciona.atoms.dl.detection.atoms import margin_expanded_face_crop
+
+    image = np.arange(10 * 12, dtype=np.float64).reshape(10, 12)
+    crop = margin_expanded_face_crop(image, np.array([2.0, 3.0, 6.0, 7.0]), margin=0.25)
+
+    assert crop.shape == (6, 6)
+    np.testing.assert_array_equal(crop, image[2:8, 1:7])
+
+
+def test_margin_expanded_face_crop_preserves_color_channels() -> None:
+    from sciona.atoms.dl.detection.atoms import margin_expanded_face_crop
+
+    image = np.zeros((8, 9, 3), dtype=np.float64)
+    image[:, :, 1] = 5.0
+    crop = margin_expanded_face_crop(image, np.array([0.0, 1.0, 4.0, 5.0]), margin=0.5)
+
+    assert crop.shape == (7, 6, 3)
+    assert np.all(crop[:, :, 1] == 5.0)
+
+
+def test_face_similarity_align_identity_samples_requested_canvas() -> None:
+    from sciona.atoms.dl.detection.atoms import face_similarity_align
+
+    image = np.arange(10 * 12, dtype=np.float64).reshape(10, 12)
+    landmarks = np.array(
+        [[2.0, 2.0], [7.0, 2.0], [4.5, 4.0], [3.0, 7.0], [6.0, 7.0]],
+        dtype=np.float64,
+    )
+
+    aligned = face_similarity_align(image, landmarks, landmarks, output_size=(10, 12), order=0)
+
+    assert aligned.shape == image.shape
+    np.testing.assert_allclose(aligned, image)
+
+
+def test_face_similarity_align_translation_maps_landmarks_to_template() -> None:
+    from sciona.atoms.dl.detection.atoms import face_similarity_align
+
+    image = np.arange(10 * 12, dtype=np.float64).reshape(10, 12)
+    source = np.array(
+        [[2.0, 2.0], [7.0, 2.0], [4.5, 4.0], [3.0, 7.0], [6.0, 7.0]],
+        dtype=np.float64,
+    )
+    target = source + np.array([1.0, 1.0], dtype=np.float64)
+
+    aligned = face_similarity_align(image, source, target, output_size=(10, 12), order=0)
+
+    assert aligned[3, 3] == image[2, 2]
+    assert aligned[8, 7] == image[7, 6]
+
+
+def test_face_similarity_align_preserves_channels() -> None:
+    from sciona.atoms.dl.detection.atoms import face_similarity_align
+
+    image = np.zeros((8, 8, 3), dtype=np.float64)
+    image[:, :, 0] = np.arange(8, dtype=np.float64)[None, :]
+    image[:, :, 1] = np.arange(8, dtype=np.float64)[:, None]
+    landmarks = np.array(
+        [[2.0, 2.0], [5.0, 2.0], [3.5, 3.5], [2.5, 5.0], [4.5, 5.0]],
+        dtype=np.float64,
+    )
+
+    aligned = face_similarity_align(image, landmarks, landmarks, output_size=(8, 8), order=0)
+
+    assert aligned.shape == image.shape
+    np.testing.assert_allclose(aligned, image)

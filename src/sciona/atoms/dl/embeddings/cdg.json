@@ -72,7 +72,19 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(embeddings, axis=1, eps=1e-12) -> NDArray[np.float64]"
+      "type_signature": "(embeddings, axis=1, eps=1e-12) -> NDArray[np.float64]",
+      "common_patterns": [
+        {
+          "pattern_id": "cosine_retrieval_pipeline",
+          "description": "L2-normalize embeddings then compute pairwise cosine similarity",
+          "atoms": [
+            "l2_normalize",
+            "cosine_similarity_matrix"
+          ],
+          "ordering": "sequential",
+          "when": "Stage describes cosine similarity search or embedding retrieval"
+        }
+      ]
     },
     {
       "node_id": "cosine_similarity_matrix",
@@ -115,7 +127,19 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(embeddings_a, embeddings_b, eps=1e-12) -> NDArray[np.float64]"
+      "type_signature": "(embeddings_a, embeddings_b, eps=1e-12) -> NDArray[np.float64]",
+      "common_patterns": [
+        {
+          "pattern_id": "cosine_retrieval_pipeline",
+          "description": "L2-normalize embeddings then compute pairwise cosine similarity",
+          "atoms": [
+            "l2_normalize",
+            "cosine_similarity_matrix"
+          ],
+          "ordering": "sequential",
+          "when": "Stage describes cosine similarity search or embedding retrieval"
+        }
+      ]
     },
     {
       "node_id": "alpha_query_expansion",

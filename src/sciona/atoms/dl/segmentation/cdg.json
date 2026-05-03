@@ -71,7 +71,20 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(mask, kernel_size) -> NDArray"
+      "type_signature": "(mask, kernel_size) -> NDArray",
+      "common_patterns": [
+        {
+          "pattern_id": "morphological_cleanup",
+          "description": "Close gaps, fill holes, remove small components from binary mask",
+          "atoms": [
+            "morphological_close",
+            "fill_holes",
+            "filter_components_by_area"
+          ],
+          "ordering": "sequential",
+          "when": "Stage describes mask cleanup or morphological post-processing"
+        }
+      ]
     },
     {
       "node_id": "morphological_open",
@@ -208,7 +221,20 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(mask) -> NDArray"
+      "type_signature": "(mask) -> NDArray",
+      "common_patterns": [
+        {
+          "pattern_id": "morphological_cleanup",
+          "description": "Close gaps, fill holes, remove small components from binary mask",
+          "atoms": [
+            "morphological_close",
+            "fill_holes",
+            "filter_components_by_area"
+          ],
+          "ordering": "sequential",
+          "when": "Stage describes mask cleanup or morphological post-processing"
+        }
+      ]
     },
     {
       "node_id": "filter_components_by_area",
@@ -244,7 +270,20 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(mask, min_area) -> NDArray"
+      "type_signature": "(mask, min_area) -> NDArray",
+      "common_patterns": [
+        {
+          "pattern_id": "morphological_cleanup",
+          "description": "Close gaps, fill holes, remove small components from binary mask",
+          "atoms": [
+            "morphological_close",
+            "fill_holes",
+            "filter_components_by_area"
+          ],
+          "ordering": "sequential",
+          "when": "Stage describes mask cleanup or morphological post-processing"
+        }
+      ]
     },
     {
       "node_id": "dense_crf_2d",

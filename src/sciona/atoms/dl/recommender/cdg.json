@@ -136,6 +136,18 @@
         "als_collaborative_filtering",
         "collaborative_filtering",
         "matrix_factorization_als"
+      ],
+      "common_patterns": [
+        {
+          "pattern_id": "als_recommendation",
+          "description": "Alternating least squares: update user factors then item factors",
+          "atoms": [
+            "als_user_update",
+            "als_item_update"
+          ],
+          "ordering": "sequential",
+          "when": "Stage describes ALS matrix factorization or collaborative filtering"
+        }
       ]
     },
     {
@@ -177,6 +189,18 @@
         {
           "name": "result",
           "type_desc": "NDArray[np.float64]"
+        }
+      ],
+      "common_patterns": [
+        {
+          "pattern_id": "als_recommendation",
+          "description": "Alternating least squares: update user factors then item factors",
+          "atoms": [
+            "als_user_update",
+            "als_item_update"
+          ],
+          "ordering": "sequential",
+          "when": "Stage describes ALS matrix factorization or collaborative filtering"
         }
       ]
     },

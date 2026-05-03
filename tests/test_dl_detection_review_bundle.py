@@ -8,6 +8,8 @@ EXPECTED_ATOMS = {
     "sciona.atoms.dl.detection.lung_mask_with_bone_removal",
     "sciona.atoms.dl.detection.anchor_label_mapping_with_iou_dilation",
     "sciona.atoms.dl.detection.center_feature_extraction_3d",
+    "sciona.atoms.dl.detection.margin_expanded_face_crop",
+    "sciona.atoms.dl.detection.face_similarity_align",
     "sciona.atoms.dl.detection.iou_matrix",
     "sciona.atoms.dl.detection.giou_matrix",
     "sciona.atoms.dl.detection.nms",
