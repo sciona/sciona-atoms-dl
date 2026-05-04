@@ -1,0 +1,113 @@
+{
+  "schema_version": "1.1",
+  "atoms": {
+    "sciona.atoms.dl.perception_3d.voxelize_point_cloud@sciona/atoms/dl/perception_3d/atoms.py:214": {
+      "references": [
+        {
+          "ref_id": "repo_voxelize3d",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "algorithmic_alignment",
+            "matched_nodes": [
+              "voxelize"
+            ],
+            "confidence": "medium",
+            "notes": "The atom preserves the hard-voxel preprocessing boundary while using a compact NumPy implementation instead of CUDA kernels."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.perception_3d.project_image_to_points@sciona/atoms/dl/perception_3d/atoms.py:272": {
+      "references": [
+        {
+          "ref_id": "repo_nuscenes_devkit",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "geometry_alignment",
+            "matched_nodes": [
+              "calibration projection",
+              "points_in_box style geometry utilities"
+            ],
+            "confidence": "high",
+            "notes": "The projection path matches the calibrated homogeneous-transform and pinhole-camera geometry used by nuScenes tooling."
+          }
+        },
+        {
+          "ref_id": "vora2020pointpainting",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "method_boundary",
+            "matched_nodes": [
+              "point painting"
+            ],
+            "confidence": "high",
+            "notes": "The atom implements the deterministic feature-appending boundary used by point painting, leaving semantic network inference outside the atom."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.perception_3d.rasterize_bev@sciona/atoms/dl/perception_3d/atoms.py:327": {
+      "references": [
+        {
+          "ref_id": "repo_l5kit",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "data_assembly_alignment",
+            "matched_nodes": [
+              "rasterizer"
+            ],
+            "confidence": "high",
+            "notes": "The atom captures the ego-centric scene rasterization primitive while omitting L5Kit's dataset-specific map and semantic channel machinery."
+          }
+        },
+        {
+          "ref_id": "repo_nuscenes_devkit",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "coordinate_frame_context",
+            "matched_nodes": [
+              "ego pose",
+              "map polyline geometry"
+            ],
+            "confidence": "medium",
+            "notes": "nuScenes map and pose utilities provide supporting context for ego-frame vector-to-raster conversions."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    },
+    "sciona.atoms.dl.perception_3d.ransac_homography@sciona/atoms/dl/perception_3d/atoms.py:366": {
+      "references": [
+        {
+          "ref_id": "hartley2004multiple_view",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "algorithmic_alignment",
+            "matched_nodes": [
+              "normalized DLT",
+              "homography"
+            ],
+            "confidence": "high",
+            "notes": "The atom uses normalized DLT to fit the 3x3 projective transform from paired 2D coordinates."
+          }
+        },
+        {
+          "ref_id": "opencv_homography_docs",
+          "match_metadata": {
+            "similarity_score": null,
+            "match_type": "spatial_verification_context",
+            "matched_nodes": [
+              "findHomography",
+              "RANSAC"
+            ],
+            "confidence": "high",
+            "notes": "OpenCV documents the same spatial-verification boundary of fitting a homography while returning a RANSAC inlier mask."
+          }
+        }
+      ],
+      "auto_attribution_runs": []
+    }
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "schema_version": "1.0",
+  "bundle_id": "sciona.atoms.dl.review_bundle.perception_3d.core.v1",
+  "provider_repo": "sciona-atoms-dl",
+  "family_batch": "dl_perception_3d",
+  "family": "dl.perception_3d",
+  "review_status": "reviewed",
+  "review_semantic_verdict": "pass_with_limits",
+  "review_developer_semantic_verdict": "pass",
+  "trust_readiness": "catalog_ready",
+  "authoritative_sources": [
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/perception_3d/atoms.py"
+    },
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/perception_3d/witnesses.py"
+    },
+    {
+      "kind": "local_references",
+      "path": "src/sciona/atoms/dl/perception_3d/references.json"
+    },
+    {
+      "kind": "local_cdg",
+      "path": "src/sciona/atoms/dl/perception_3d/cdg.json"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_perception_3d_behavior.py"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_perception_3d_references_metadata.py"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_perception_3d_review_bundle.py"
+    }
+  ],
+  "limitations": [
+    "voxelize_point_cloud is a deterministic CPU hard-voxelizer and does not implement GPU sparse tensor kernels.",
+    "project_image_to_points appends feature-map samples but does not compute neural image features or reason about occlusion.",
+    "rasterize_bev emits two binary channels rather than a full dataset-specific semantic raster stack.",
+    "ransac_homography verifies 2D planar correspondences and does not perform feature detection or descriptor matching."
+  ],
+  "blocking_findings": [],
+  "required_actions": [],
+  "review_record_path": "data/review_bundles/dl_perception_3d.review_bundle.json",
+  "rows": [
+    {
+      "atom_key": "sciona.atoms.dl.perception_3d.voxelize_point_cloud",
+      "atom_name": "sciona.atoms.dl.perception_3d.voxelize_point_cloud",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "catalog_ready",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/perception_3d/atoms.py",
+        "src/sciona/atoms/dl/perception_3d/witnesses.py",
+        "src/sciona/atoms/dl/perception_3d/references.json",
+        "src/sciona/atoms/dl/perception_3d/cdg.json",
+        "tests/test_dl_perception_3d_behavior.py",
+        "tests/test_dl_perception_3d_references_metadata.py",
+        "tests/test_dl_perception_3d_review_bundle.py"
+      ],
+      "limitations": [
+        "Stores only the first observed points per voxel up to the configured cap."
+      ],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_perception_3d.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.perception_3d.project_image_to_points",
+      "atom_name": "sciona.atoms.dl.perception_3d.project_image_to_points",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "catalog_ready",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/perception_3d/atoms.py",
+        "src/sciona/atoms/dl/perception_3d/witnesses.py",
+        "src/sciona/atoms/dl/perception_3d/references.json",
+        "src/sciona/atoms/dl/perception_3d/cdg.json",
+        "tests/test_dl_perception_3d_behavior.py",
+        "tests/test_dl_perception_3d_references_metadata.py",
+        "tests/test_dl_perception_3d_review_bundle.py"
+      ],
+      "limitations": [
+        "Out-of-image or non-positive-depth projections receive zero appended features."
+      ],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_perception_3d.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.perception_3d.rasterize_bev",
+      "atom_name": "sciona.atoms.dl.perception_3d.rasterize_bev",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "catalog_ready",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/perception_3d/atoms.py",
+        "src/sciona/atoms/dl/perception_3d/witnesses.py",
+        "src/sciona/atoms/dl/perception_3d/references.json",
+        "src/sciona/atoms/dl/perception_3d/cdg.json",
+        "tests/test_dl_perception_3d_behavior.py",
+        "tests/test_dl_perception_3d_references_metadata.py",
+        "tests/test_dl_perception_3d_review_bundle.py"
+      ],
+      "limitations": [
+        "Draws agent and map occupancy, not typed lane classes or traffic-control metadata."
+      ],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_perception_3d.review_bundle.json"
+    },
+    {
+      "atom_key": "sciona.atoms.dl.perception_3d.ransac_homography",
+      "atom_name": "sciona.atoms.dl.perception_3d.ransac_homography",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "catalog_ready",
+      "has_references": true,
+      "references_status": "pass",
+      "source_paths": [
+        "src/sciona/atoms/dl/perception_3d/atoms.py",
+        "src/sciona/atoms/dl/perception_3d/witnesses.py",
+        "src/sciona/atoms/dl/perception_3d/references.json",
+        "src/sciona/atoms/dl/perception_3d/cdg.json",
+        "tests/test_dl_perception_3d_behavior.py",
+        "tests/test_dl_perception_3d_references_metadata.py",
+        "tests/test_dl_perception_3d_review_bundle.py"
+      ],
+      "limitations": [],
+      "blocking_findings": [],
+      "required_actions": [],
+      "review_record_path": "data/review_bundles/dl_perception_3d.review_bundle.json"
+    }
+  ]
+}

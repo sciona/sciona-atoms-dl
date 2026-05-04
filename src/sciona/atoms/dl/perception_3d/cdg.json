@@ -1,0 +1,305 @@
+{
+  "nodes": [
+    {
+      "node_id": "perception_3d_root",
+      "parent_id": null,
+      "name": "perception_3d",
+      "description": "Represent common 3D perception preprocessing and spatial verification primitives.",
+      "concept_type": "data_assembly",
+      "inputs": [],
+      "outputs": [],
+      "status": "decomposed",
+      "children": [
+        "voxelize_point_cloud",
+        "project_image_to_points",
+        "rasterize_bev",
+        "ransac_homography"
+      ],
+      "depth": 0,
+      "type_signature": "",
+      "matched_primitive": null,
+      "primitive_binding_confidence": 0.0,
+      "primitive_binding_source": "",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": true,
+      "conceptual_summary": "3D perception pipelines build point voxels, fuse image evidence, draw ego-centric BEV rasters, and verify image correspondences.",
+      "critic_notes": "Model inference, learned feature extraction, GPU kernels, and dataset-specific metadata loading are outside this atom family.",
+      "decomposition_rationale": "The research packet identified four separable deterministic primitives used across 3D detection, motion forecasting, and image retrieval solutions."
+    },
+    {
+      "node_id": "voxelize_point_cloud",
+      "parent_id": "perception_3d_root",
+      "name": "voxelize_point_cloud",
+      "description": "Assign point-cloud rows to fixed xyz voxels with capped per-voxel storage.",
+      "concept_type": "data_assembly",
+      "inputs": [
+        {
+          "name": "points",
+          "type_desc": "NDArray[np.floating]",
+          "constraints": "Finite N x D array with at least xyz columns.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "voxel_size",
+          "type_desc": "tuple[float, float, float]",
+          "constraints": "Positive voxel widths for x, y, z.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "point_range",
+          "type_desc": "tuple[float, float, float, float, float, float]",
+          "constraints": "xyz minimum bounds followed by larger xyz maximum bounds.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "max_points_per_voxel",
+          "type_desc": "int",
+          "constraints": "Positive cap on stored points per voxel.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "tuple[NDArray[np.floating], NDArray[np.int64], NDArray[np.int64]]",
+          "constraints": "Voxel features, voxel xyz coordinates, and saturated point counts.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(points: NDArray[np.floating], voxel_size: tuple[float, float, float], point_range: tuple[float, float, float, float, float, float], max_points_per_voxel: int) -> tuple[NDArray[np.floating], NDArray[np.int64], NDArray[np.int64]]",
+      "matched_primitive": "hard voxelization",
+      "primitive_binding_confidence": 0.86,
+      "primitive_binding_source": "research/24_3d_perception.md",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": true,
+      "conceptual_summary": "Convert unordered point rows into fixed-size voxel buckets for sparse 3D detection backbones.",
+      "critic_notes": "This CPU atom does not implement GPU scatter kernels, dynamic voxelization, or learned voxel feature encoders.",
+      "decomposition_rationale": "Voxelization is a preprocessing boundary reused by LiDAR detectors before learned feature extraction."
+    },
+    {
+      "node_id": "project_image_to_points",
+      "parent_id": "perception_3d_root",
+      "name": "project_image_to_points",
+      "description": "Project 3D points into a camera feature map and append bilinear samples.",
+      "concept_type": "geometry",
+      "inputs": [
+        {
+          "name": "points_3d",
+          "type_desc": "NDArray[np.floating]",
+          "constraints": "Finite N x D array with at least xyz columns.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "image_features",
+          "type_desc": "NDArray[np.floating]",
+          "constraints": "Finite H x W x C image feature tensor.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "intrinsic",
+          "type_desc": "NDArray[np.floating]",
+          "constraints": "Finite 3x3 or 3x4 projection matrix.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "extrinsic",
+          "type_desc": "NDArray[np.floating]",
+          "constraints": "Finite 4x4 transform into camera coordinates.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "image_shape",
+          "type_desc": "tuple[int, int]",
+          "constraints": "Positive image height and width.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.floating]",
+          "constraints": "N rows with original point columns plus sampled image channels.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(points_3d: NDArray[np.floating], image_features: NDArray[np.floating], intrinsic: NDArray[np.floating], extrinsic: NDArray[np.floating], image_shape: tuple[int, int]) -> NDArray[np.floating]",
+      "matched_primitive": "point painting projection",
+      "primitive_binding_confidence": 0.82,
+      "primitive_binding_source": "research/24_3d_perception.md",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": true,
+      "conceptual_summary": "Fuse 2D image evidence into 3D point rows through camera projection and interpolation.",
+      "critic_notes": "Camera calibration selection, occlusion handling, and neural image feature computation are outside this atom.",
+      "decomposition_rationale": "Projection and bilinear feature lookup are deterministic geometry pieces of multi-modal LiDAR-camera fusion."
+    },
+    {
+      "node_id": "rasterize_bev",
+      "parent_id": "perception_3d_root",
+      "name": "rasterize_bev",
+      "description": "Draw agent trajectories and static map polylines into a two-channel ego-centric BEV raster.",
+      "concept_type": "data_assembly",
+      "inputs": [
+        {
+          "name": "agents",
+          "type_desc": "NDArray[np.floating]",
+          "constraints": "Finite A x T x K tensor with xy coordinates in the first two columns.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "map_elements",
+          "type_desc": "Sequence[NDArray[np.floating]]",
+          "constraints": "Finite polylines with xy columns.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "ego_pose",
+          "type_desc": "NDArray[np.floating]",
+          "constraints": "Finite x, y, yaw vector.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "raster_size",
+          "type_desc": "tuple[int, int]",
+          "constraints": "Positive height and width.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "resolution",
+          "type_desc": "float",
+          "constraints": "Positive finite metres per pixel.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "NDArray[np.uint8]",
+          "constraints": "Binary tensor with shape 2 x H x W.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(agents: NDArray[np.floating], map_elements: Sequence[NDArray[np.floating]], ego_pose: NDArray[np.floating], raster_size: tuple[int, int], resolution: float) -> NDArray[np.uint8]",
+      "matched_primitive": "BEV rasterization",
+      "primitive_binding_confidence": 0.78,
+      "primitive_binding_source": "research/24_3d_perception.md",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": true,
+      "conceptual_summary": "Convert vector scene context into image-like BEV channels for motion models.",
+      "critic_notes": "This atom omits semantic color palettes, map API calls, and history/future channel expansion.",
+      "decomposition_rationale": "Rasterization is a deterministic data assembly step distinct from learned motion forecasting."
+    },
+    {
+      "node_id": "ransac_homography",
+      "parent_id": "perception_3d_root",
+      "name": "ransac_homography",
+      "description": "Estimate a homography from noisy point correspondences with RANSAC inlier selection.",
+      "concept_type": "geometry",
+      "inputs": [
+        {
+          "name": "src_points",
+          "type_desc": "NDArray[np.floating]",
+          "constraints": "Finite N x 2 source coordinates with N >= 4.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "dst_points",
+          "type_desc": "NDArray[np.floating]",
+          "constraints": "Finite N x 2 destination coordinates paired with src_points.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "threshold",
+          "type_desc": "float",
+          "constraints": "Positive finite reprojection-error threshold.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "max_iterations",
+          "type_desc": "int",
+          "constraints": "Positive number of random samples.",
+          "required": true,
+          "default_value_repr": ""
+        },
+        {
+          "name": "seed",
+          "type_desc": "int",
+          "constraints": "Deterministic random seed.",
+          "required": false,
+          "default_value_repr": "0"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type_desc": "tuple[NDArray[np.float64], NDArray[np.bool_]]",
+          "constraints": "3x3 homography matrix and length-N inlier mask.",
+          "required": true,
+          "default_value_repr": ""
+        }
+      ],
+      "status": "atomic",
+      "children": [],
+      "depth": 1,
+      "type_signature": "(src_points: NDArray[np.floating], dst_points: NDArray[np.floating], threshold: float, max_iterations: int, seed: int = 0) -> tuple[NDArray[np.float64], NDArray[np.bool_]]",
+      "matched_primitive": "DLT homography with RANSAC",
+      "primitive_binding_confidence": 0.84,
+      "primitive_binding_source": "research/24_3d_perception.md",
+      "is_optional": false,
+      "is_opaque": false,
+      "is_external": false,
+      "parallelizable": true,
+      "conceptual_summary": "Reject bad feature matches by fitting a planar projective transform and scoring reprojection error.",
+      "critic_notes": "Feature detection, descriptor matching, and bundle adjustment are outside this atom.",
+      "decomposition_rationale": "Spatial verification is a reusable geometry primitive in image retrieval and matching pipelines."
+    }
+  ],
+  "edges": [],
+  "metadata": {
+    "provider_repo": "sciona-atoms-dl",
+    "research_source": "research/24_3d_perception.md",
+    "solution_stages": [
+      "lyft_3d_object_detection_1st/voxelization",
+      "lyft_3d_object_detection_1st/multi_modal_fusion",
+      "lyft_motion_1st/bev_rasterization",
+      "facebook_image_similarity_1st/spatial_verification"
+    ],
+    "primary_dependency": "numpy"
+  }
+}

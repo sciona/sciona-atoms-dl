@@ -2109,6 +2109,118 @@
             "confidence": "medium",
             "notes": "Competition writeup cited by the research packet for French, German, and Spanish back-translation in toxic-comment modeling."
         }
+    },
+    "repo_voxelize3d": {
+        "ref_id": "repo_voxelize3d",
+        "type": "repository",
+        "title": "voxelize3d",
+        "authors": [
+            "Daniel Havir"
+        ],
+        "year": null,
+        "venue": "GitHub",
+        "url": "https://github.com/danielhavir/voxelize3d",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "medium",
+            "notes": "Reference implementation context for hard point-cloud voxelization in 3D detection preprocessing."
+        }
+    },
+    "repo_nuscenes_devkit": {
+        "ref_id": "repo_nuscenes_devkit",
+        "type": "repository",
+        "title": "nuScenes devkit",
+        "authors": [
+            "Motional"
+        ],
+        "year": null,
+        "venue": "GitHub",
+        "url": "https://github.com/nutonomy/nuscenes-devkit",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Apache-2.0 development kit with calibration geometry and point projection helpers relevant to LiDAR-camera fusion."
+        }
+    },
+    "vora2020pointpainting": {
+        "ref_id": "vora2020pointpainting",
+        "type": "paper",
+        "title": "PointPainting: Sequential Fusion for 3D Object Detection",
+        "authors": [
+            "Sourabh Vora",
+            "Alex H. Lang",
+            "Bassam Helou",
+            "Oscar Beijbom"
+        ],
+        "year": 2020,
+        "venue": "CVPR",
+        "url": "https://openaccess.thecvf.com/content_CVPR_2020/html/Vora_PointPainting_Sequential_Fusion_for_3D_Object_Detection_CVPR_2020_paper.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Primary paper for appending image-derived semantic features to projected LiDAR points."
+        }
+    },
+    "repo_l5kit": {
+        "ref_id": "repo_l5kit",
+        "type": "repository",
+        "title": "L5Kit",
+        "authors": [
+            "Woven by Toyota"
+        ],
+        "year": null,
+        "venue": "GitHub",
+        "url": "https://github.com/woven-planet/l5kit",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Reference autonomy toolkit for ego-centric rasterization of agents and map elements used in motion prediction pipelines."
+        }
+    },
+    "opencv_homography_docs": {
+        "ref_id": "opencv_homography_docs",
+        "type": "documentation",
+        "title": "OpenCV feature matching and homography tutorial",
+        "authors": [
+            "OpenCV Developers"
+        ],
+        "year": 2026,
+        "venue": "OpenCV documentation",
+        "url": "https://docs.opencv.org/4.x/d1/de0/tutorial_py_feature_homography.html",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Documentation reference for estimating homographies with RANSAC-style inlier masks during spatial verification."
+        }
+    },
+    "hartley2004multiple_view": {
+        "ref_id": "hartley2004multiple_view",
+        "type": "book",
+        "title": "Multiple View Geometry in Computer Vision",
+        "authors": [
+            "Richard Hartley",
+            "Andrew Zisserman"
+        ],
+        "year": 2004,
+        "venue": "Cambridge University Press",
+        "url": "https://www.cambridge.org/core/books/multiple-view-geometry-in-computer-vision/0B6F289C78B2B23F596CAA76D3D43F7A",
+        "match_metadata": {
+            "similarity_score": null,
+            "match_type": "manual",
+            "matched_nodes": [],
+            "confidence": "high",
+            "notes": "Canonical reference for normalized DLT homography estimation and geometric reprojection error."
+        }
     }
   }
 }
