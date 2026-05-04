@@ -62,3 +62,17 @@ def witness_ternary_search_threshold(
 ) -> float:
     """Ghost witness for ternary threshold search."""
     return 0.0
+
+
+def witness_multisample_dropout(
+    features: AbstractArray,
+    num_samples: int = 5,
+    drop_rate: float = 0.5,
+    seed: int = 42,
+) -> AbstractArray:
+    """Ghost witness for multi-sample dropout averaging.
+
+    Takes a 2-D feature array and returns an array of the same shape
+    after averaging multiple independent dropout masks.
+    """
+    return features

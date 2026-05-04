@@ -42,7 +42,10 @@
         "mosaic_augmentation",
         "foldseek_structural_similarity",
         "spatial_squeeze_excitation",
-        "sequence_tagging_trainer"
+        "sequence_tagging_trainer",
+        "superpoint_extractor",
+        "loftr_dense_matcher",
+        "superglue_matcher"
       ],
       "depth": 0
     },
@@ -1442,6 +1445,145 @@
           "name": "model_state",
           "type_desc": "OpaqueModelState",
           "constraints": "trained sequence tagging model state (opaque)"
+        }
+      ]
+    },
+    {
+      "node_id": "superpoint_extractor",
+      "name": "superpoint_extractor",
+      "description": "SuperPoint CNN for sparse keypoint detection and descriptor extraction. Produces repeatable sub-pixel keypoints with 256-dim descriptors.",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "superpoint_extraction",
+        "sparse_keypoint_detection",
+        "superpoint_features"
+      ],
+      "type_signature": "(image: NDArray[np.uint8]) -> tuple[NDArray[np.float32], NDArray[np.float32], NDArray[np.float32]]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image",
+          "type_desc": "NDArray[np.uint8]",
+          "required": true,
+          "constraints": "shape (H, W, 3) uint8 image"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "keypoints",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (K, 2) keypoint coordinates"
+        },
+        {
+          "name": "descriptors",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (K, 256) descriptor vectors"
+        },
+        {
+          "name": "scores",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (K,) keypoint scores"
+        }
+      ]
+    },
+    {
+      "node_id": "loftr_dense_matcher",
+      "name": "loftr_dense_matcher",
+      "description": "LoFTR transformer-based dense correspondence matcher. Produces semi-dense matches between image pairs without explicit keypoint detection.",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "loftr_extraction",
+        "dense_matching",
+        "loftr_correspondence"
+      ],
+      "type_signature": "(image_a: NDArray[np.uint8], image_b: NDArray[np.uint8]) -> tuple[NDArray[np.float32], NDArray[np.float32], NDArray[np.float32]]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "image_a",
+          "type_desc": "NDArray[np.uint8]",
+          "required": true,
+          "constraints": "shape (H, W, 3) uint8 image"
+        },
+        {
+          "name": "image_b",
+          "type_desc": "NDArray[np.uint8]",
+          "required": true,
+          "constraints": "shape (H, W, 3) uint8 image"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "coords_a",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (M, 2) matched coordinates in image_a"
+        },
+        {
+          "name": "coords_b",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (M, 2) matched coordinates in image_b"
+        },
+        {
+          "name": "confidence",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (M,) match confidence scores"
+        }
+      ]
+    },
+    {
+      "node_id": "superglue_matcher",
+      "name": "superglue_matcher",
+      "description": "SuperGlue graph neural network for sparse keypoint matching. Jointly reasons about keypoint correspondences using attention over descriptors.",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "is_opaque": true,
+      "aliases": [
+        "superglue_matching",
+        "keypoint_matching",
+        "sparse_matching"
+      ],
+      "type_signature": "(descriptors_a: NDArray[np.float32], descriptors_b: NDArray[np.float32], keypoints_a: NDArray[np.float32], keypoints_b: NDArray[np.float32]) -> tuple[NDArray[np.int64], NDArray[np.float32]]",
+      "depth": 1,
+      "inputs": [
+        {
+          "name": "descriptors_a",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (K1, 256) descriptors from image A"
+        },
+        {
+          "name": "descriptors_b",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (K2, 256) descriptors from image B"
+        },
+        {
+          "name": "keypoints_a",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (K1, 2) keypoint coordinates from image A"
+        },
+        {
+          "name": "keypoints_b",
+          "type_desc": "NDArray[np.float32]",
+          "required": true,
+          "constraints": "shape (K2, 2) keypoint coordinates from image B"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "match_indices",
+          "type_desc": "NDArray[np.int64]",
+          "constraints": "shape (M, 2) matched keypoint index pairs"
+        },
+        {
+          "name": "confidence",
+          "type_desc": "NDArray[np.float32]",
+          "constraints": "shape (M,) match confidence scores"
         }
       ]
     }

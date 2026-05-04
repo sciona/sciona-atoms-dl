@@ -9,7 +9,8 @@
         "online_hard_negative_mining",
         "size_aware_nodule_oversampling",
         "softmax_temperature_proposal_sampling",
-        "ternary_search_threshold"
+        "ternary_search_threshold",
+        "multisample_dropout"
       ],
       "depth": 0
     },
@@ -81,6 +82,29 @@
       ],
       "outputs": [
         {"name": "result", "type_desc": "float"}
+      ]
+    },
+    {
+      "node_id": "multisample_dropout",
+      "name": "multisample_dropout",
+      "description": "Apply multiple independent dropout masks and average the results to reduce variance",
+      "concept_type": "neural_network",
+      "status": "atomic",
+      "aliases": [
+        "multisample_dropout",
+        "multi_sample_dropout",
+        "averaged_dropout"
+      ],
+      "type_signature": "(features: NDArray[np.float64], num_samples: int = 5, drop_rate: float = 0.5, seed: int = 42) -> NDArray[np.float64]",
+      "depth": 1,
+      "inputs": [
+        {"name": "features", "type_desc": "NDArray[np.float64]", "required": true, "constraints": "shape (B, D) 2D feature matrix"},
+        {"name": "num_samples", "type_desc": "int", "required": false},
+        {"name": "drop_rate", "type_desc": "float", "required": false},
+        {"name": "seed", "type_desc": "int", "required": false}
+      ],
+      "outputs": [
+        {"name": "result", "type_desc": "NDArray[np.float64]", "constraints": "shape (B, D) same as input"}
       ]
     }
   ]

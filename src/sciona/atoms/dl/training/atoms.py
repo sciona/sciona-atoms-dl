@@ -23,6 +23,7 @@ import icontract
 from sciona.ghost.registry import register_atom
 
 from .witnesses import (
+    witness_multisample_dropout,
     witness_online_hard_negative_mining,
     witness_size_aware_nodule_oversampling,
     witness_softmax_temperature_proposal_sampling,
@@ -228,3 +229,34 @@ def ternary_search_threshold(
             upper = th2
 
     return (lower + upper) / 2.0
+
+
+# ---------------------------------------------------------------------------
+# Atom 5: Multi-sample dropout
+# ---------------------------------------------------------------------------
+
+
+@register_atom(witness_multisample_dropout)
+@icontract.require(lambda features: features.ndim == 2, "Features must be 2D (batch, dim)")
+@icontract.require(lambda num_samples: num_samples >= 1, "Need at least 1 dropout sample")
+@icontract.require(lambda drop_rate: 0.0 <= drop_rate < 1.0, "Drop rate must be in [0, 1)")
+@icontract.ensure(lambda result, features: result.shape == features.shape, "Output shape preserved")
+def multisample_dropout(
+    features: NDArray[np.float64],
+    num_samples: int = 5,
+    drop_rate: float = 0.5,
+    seed: int = 42,
+) -> NDArray[np.float64]:
+    """Apply multiple independent dropout masks and average the results.
+
+    Reduces variance compared to single dropout by averaging over num_samples
+    independent binary masks. Each mask zeros elements with probability drop_rate
+    and scales survivors by 1/(1-drop_rate).
+    """
+    rng = np.random.default_rng(seed)
+    scale = 1.0 / (1.0 - drop_rate)
+    total = np.zeros_like(features)
+    for _ in range(num_samples):
+        mask = (rng.random(features.shape) >= drop_rate).astype(features.dtype)
+        total += features * mask * scale
+    return total / num_samples

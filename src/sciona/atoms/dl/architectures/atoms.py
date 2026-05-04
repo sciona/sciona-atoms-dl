@@ -19,10 +19,13 @@ from .witnesses import (
     witness_autoregressive_transformer_decoder,
     witness_densenet_backbone,
     witness_efficientnet_backbone,
+    witness_loftr_dense_matcher,
     witness_mil_attention_aggregator,
     witness_recurrent_sequence_model,
     witness_resnet_family_backbone,
     witness_slowfast_video_network,
+    witness_superglue_matcher,
+    witness_superpoint_extractor,
     witness_swin_transformer_backbone,
     witness_unet_1d_sequence,
     witness_unet_2d_segmentation,
@@ -390,4 +393,98 @@ def mil_attention_aggregator(
     """
     _ = attention_hidden_dim, variant
     return np.zeros((patch_embeddings.shape[0], num_classes), dtype=np.float32)
+
+
+# ---------------------------------------------------------------------------
+# SuperPoint sparse keypoint extractor
+# ---------------------------------------------------------------------------
+
+
+@register_atom(witness_superpoint_extractor)
+@icontract.require(lambda image: image.dtype == np.uint8 and image.ndim == 3 and image.shape[2] == 3, "image must be (H, W, 3) uint8")
+@icontract.ensure(lambda result: result[0].ndim == 2 and result[0].shape[1] == 2, "keypoints must be (K, 2)")
+@icontract.ensure(lambda result: result[1].ndim == 2 and result[1].shape[1] == 256, "descriptors must be (K, 256)")
+@icontract.ensure(lambda result: result[2].ndim == 1, "scores must be (K,)")
+@icontract.ensure(lambda result: result[0].shape[0] == result[1].shape[0] == result[2].shape[0], "K must be consistent")
+def superpoint_extractor(
+    image: NDArray[np.uint8],
+) -> tuple[NDArray[np.float32], NDArray[np.float32], NDArray[np.float32]]:
+    """Represent SuperPoint CNN keypoint detection and descriptor extraction.
+
+    The atom exposes the sparse keypoint boundary: an image enters and
+    sub-pixel keypoint coordinates, 256-dim descriptors, and confidence
+    scores leave. Model internals remain opaque.
+    """
+    k = 0
+    return (
+        np.zeros((k, 2), dtype=np.float32),
+        np.zeros((k, 256), dtype=np.float32),
+        np.zeros((k,), dtype=np.float32),
+    )
+
+
+# ---------------------------------------------------------------------------
+# LoFTR dense correspondence matcher
+# ---------------------------------------------------------------------------
+
+
+@register_atom(witness_loftr_dense_matcher)
+@icontract.require(lambda image_a: image_a.dtype == np.uint8 and image_a.ndim == 3 and image_a.shape[2] == 3, "image_a must be (H, W, 3) uint8")
+@icontract.require(lambda image_b: image_b.dtype == np.uint8 and image_b.ndim == 3 and image_b.shape[2] == 3, "image_b must be (H, W, 3) uint8")
+@icontract.ensure(lambda result: result[0].ndim == 2 and result[0].shape[1] == 2, "coords_a must be (M, 2)")
+@icontract.ensure(lambda result: result[1].ndim == 2 and result[1].shape[1] == 2, "coords_b must be (M, 2)")
+@icontract.ensure(lambda result: result[2].ndim == 1, "confidence must be (M,)")
+@icontract.ensure(lambda result: result[0].shape[0] == result[1].shape[0] == result[2].shape[0], "M must be consistent")
+def loftr_dense_matcher(
+    image_a: NDArray[np.uint8],
+    image_b: NDArray[np.uint8],
+) -> tuple[NDArray[np.float32], NDArray[np.float32], NDArray[np.float32]]:
+    """Represent LoFTR transformer-based dense correspondence matching.
+
+    The atom exposes the dense matching boundary: two images enter and
+    matched coordinate pairs with confidence scores leave. The attention-based
+    matching internals remain opaque.
+    """
+    _ = image_a, image_b
+    m = 0
+    return (
+        np.zeros((m, 2), dtype=np.float32),
+        np.zeros((m, 2), dtype=np.float32),
+        np.zeros((m,), dtype=np.float32),
+    )
+
+
+# ---------------------------------------------------------------------------
+# SuperGlue sparse keypoint matcher
+# ---------------------------------------------------------------------------
+
+
+@register_atom(witness_superglue_matcher)
+@icontract.require(lambda descriptors_a: descriptors_a.ndim == 2 and descriptors_a.shape[1] == 256, "descriptors_a must be (K1, 256)")
+@icontract.require(lambda descriptors_b: descriptors_b.ndim == 2 and descriptors_b.shape[1] == 256, "descriptors_b must be (K2, 256)")
+@icontract.require(lambda keypoints_a: keypoints_a.ndim == 2 and keypoints_a.shape[1] == 2, "keypoints_a must be (K1, 2)")
+@icontract.require(lambda keypoints_b: keypoints_b.ndim == 2 and keypoints_b.shape[1] == 2, "keypoints_b must be (K2, 2)")
+@icontract.require(lambda descriptors_a, keypoints_a: descriptors_a.shape[0] == keypoints_a.shape[0], "K1 must be consistent between descriptors_a and keypoints_a")
+@icontract.require(lambda descriptors_b, keypoints_b: descriptors_b.shape[0] == keypoints_b.shape[0], "K2 must be consistent between descriptors_b and keypoints_b")
+@icontract.ensure(lambda result: result[0].ndim == 2 and result[0].shape[1] == 2, "match_indices must be (M, 2)")
+@icontract.ensure(lambda result: result[1].ndim == 1, "confidence must be (M,)")
+@icontract.ensure(lambda result: result[0].shape[0] == result[1].shape[0], "M must be consistent")
+def superglue_matcher(
+    descriptors_a: NDArray[np.float32],
+    descriptors_b: NDArray[np.float32],
+    keypoints_a: NDArray[np.float32],
+    keypoints_b: NDArray[np.float32],
+) -> tuple[NDArray[np.int64], NDArray[np.float32]]:
+    """Represent SuperGlue graph neural network keypoint matching.
+
+    The atom exposes the sparse matching boundary: descriptor and keypoint
+    pairs from two images enter and matched index pairs with confidence
+    scores leave. The attention-based GNN internals remain opaque.
+    """
+    _ = descriptors_a, descriptors_b, keypoints_a, keypoints_b
+    m = 0
+    return (
+        np.zeros((m, 2), dtype=np.int64),
+        np.zeros((m,), dtype=np.float32),
+    )
 

@@ -126,3 +126,28 @@ def witness_mil_attention_aggregator(
     """Witness bags of patch embeddings becoming slide-level logits."""
     return AbstractArray()
 
+
+def witness_superpoint_extractor(
+    image: AbstractArray,
+) -> tuple[AbstractArray, AbstractArray, AbstractArray]:
+    """Witness SuperPoint keypoint detection and descriptor extraction."""
+    return AbstractArray(), AbstractArray(), AbstractArray()
+
+
+def witness_loftr_dense_matcher(
+    image_a: AbstractArray,
+    image_b: AbstractArray,
+) -> tuple[AbstractArray, AbstractArray, AbstractArray]:
+    """Witness LoFTR dense correspondence matching between image pairs."""
+    return AbstractArray(), AbstractArray(), AbstractArray()
+
+
+def witness_superglue_matcher(
+    descriptors_a: AbstractArray,
+    descriptors_b: AbstractArray,
+    keypoints_a: AbstractArray,
+    keypoints_b: AbstractArray,
+) -> tuple[AbstractArray, AbstractArray]:
+    """Witness SuperGlue sparse keypoint matching."""
+    return AbstractArray(), AbstractArray()
+
