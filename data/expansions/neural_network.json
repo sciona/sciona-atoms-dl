@@ -193,6 +193,167 @@
         "after_summary": "A progressive image-resizing schedule prepares inputs before forward passes.",
         "information_flow_effect": "Preserves image classification or segmentation outputs while changing the training curriculum."
       }
+    },
+    {
+      "rule_name": "insert_sequence_cnn_recurrent_backbone_before_loss",
+      "operation_type": "insert",
+      "applies_to": "neural_network.forward_pass->loss_computation",
+      "source_cdg_path": "src/sciona/atoms/dl/architectures/cdg.json",
+      "insert_before": "Loss Computation",
+      "runtime_diagnostic": "requires_sequence_cnn_recurrent_backbone",
+      "name": "CNN-Recurrent Sequence Backbone",
+      "intent": "Insert a CNN plus bidirectional LSTM/GRU sequence encoder before task loss computation.",
+      "dejargonized_summary": "Use a 1D/2D CNN followed by Bidirectional LSTM or GRU layers for sequence, trajectory, review, or video-style inputs.",
+      "trigger": {
+        "metric_name": "requires_sequence_cnn_recurrent_backbone",
+        "comparison": "gt",
+        "threshold": 0.0,
+        "required_any_intermediate_keys": ["requires_sequence_cnn_recurrent_backbone", "use_bilstm_gru_backbone"]
+      },
+      "action_classes": ["insert_correction", "replace_stage"],
+      "rewrite": {
+        "before_summary": "Forward-pass features feed loss computation directly.",
+        "after_summary": "A CNN-recurrent sequence encoder refines forward-pass features before loss computation.",
+        "information_flow_effect": "Preserves task outputs while adding temporal or ordered-context representation."
+      }
+    },
+    {
+      "rule_name": "insert_gem_pooling_after_forward",
+      "operation_type": "insert",
+      "applies_to": "neural_network.forward_pass->loss_computation",
+      "source_cdg_path": "src/sciona/atoms/dl/architectures/cdg.json",
+      "insert_after": "Forward Pass",
+      "runtime_diagnostic": "requires_gem_pooling",
+      "name": "Generalized Mean Pooling",
+      "intent": "Insert GeM or GAP-style global pooling after convolutional feature extraction.",
+      "dejargonized_summary": "Pool feature maps with Generalized Mean pooling or Global Average Pooling before the prediction head.",
+      "trigger": {
+        "metric_name": "requires_gem_pooling",
+        "comparison": "gt",
+        "threshold": 0.0,
+        "required_any_intermediate_keys": ["requires_gem_pooling", "use_gem_pooling", "use_gap_pooling"]
+      },
+      "action_classes": ["smooth_or_aggregate"],
+      "rewrite": {
+        "before_summary": "Forward-pass feature maps feed the head or loss directly.",
+        "after_summary": "Feature maps are globally pooled with GeM/GAP before the head or loss.",
+        "information_flow_effect": "Preserves prediction semantics while changing spatial feature aggregation."
+      }
+    },
+    {
+      "rule_name": "insert_multi_sample_dropout_before_loss",
+      "operation_type": "insert",
+      "applies_to": "neural_network.forward_pass->loss_computation",
+      "source_cdg_path": "src/sciona/atoms/dl/architectures/cdg.json",
+      "insert_before": "Loss Computation",
+      "runtime_diagnostic": "requires_multi_sample_dropout",
+      "name": "Multi-Sample Dropout",
+      "intent": "Insert multi-sample dropout before loss computation to stabilize logits.",
+      "dejargonized_summary": "Average several dropout-mask predictions from the task head before computing loss.",
+      "trigger": {
+        "metric_name": "requires_multi_sample_dropout",
+        "comparison": "gt",
+        "threshold": 0.0,
+        "required_any_intermediate_keys": ["requires_multi_sample_dropout", "use_multi_sample_dropout"]
+      },
+      "action_classes": ["smooth_or_aggregate"],
+      "rewrite": {
+        "before_summary": "One forward pass produces logits for loss computation.",
+        "after_summary": "Several dropout-mask logits are averaged before loss computation.",
+        "information_flow_effect": "Preserves output shape while reducing head-level variance."
+      }
+    },
+    {
+      "rule_name": "insert_hard_negative_mining_before_loss",
+      "operation_type": "insert",
+      "applies_to": "neural_network.forward_pass->loss_computation",
+      "source_cdg_path": "src/sciona/atoms/dl/loss/cdg.json",
+      "insert_before": "Loss Computation",
+      "runtime_diagnostic": "requires_hard_negative_mining",
+      "name": "Hard Negative Mining",
+      "intent": "Insert hard-negative or hard-triplet selection before contrastive, triplet, or ranking losses.",
+      "dejargonized_summary": "Choose difficult negative examples or triplets before computing embedding or ranking loss.",
+      "trigger": {
+        "metric_name": "requires_hard_negative_mining",
+        "comparison": "gt",
+        "threshold": 0.0,
+        "required_any_intermediate_keys": ["requires_hard_negative_mining", "use_hard_negative_mining"]
+      },
+      "action_classes": ["precondition", "gate_or_validate"],
+      "rewrite": {
+        "before_summary": "Embeddings feed loss computation without mined negatives.",
+        "after_summary": "Hard negatives or hard triplets are selected and fed into loss computation.",
+        "information_flow_effect": "Preserves embedding outputs while changing which training pairs dominate the loss."
+      }
+    },
+    {
+      "rule_name": "insert_multilabel_sigmoid_head_before_loss",
+      "operation_type": "insert",
+      "applies_to": "neural_network.forward_pass->loss_computation",
+      "source_cdg_path": "src/sciona/atoms/dl/architectures/cdg.json",
+      "insert_before": "Loss Computation",
+      "runtime_diagnostic": "requires_multilabel_sigmoid_head",
+      "name": "Multi-Label Sigmoid Head",
+      "intent": "Insert a multi-label or auxiliary multi-task sigmoid classification head before loss computation.",
+      "dejargonized_summary": "Predict independent label logits with a sigmoid head for multi-label or multi-task classification.",
+      "trigger": {
+        "metric_name": "requires_multilabel_sigmoid_head",
+        "comparison": "gt",
+        "threshold": 0.0,
+        "required_any_intermediate_keys": ["requires_multilabel_sigmoid_head", "use_multilabel_sigmoid_head"]
+      },
+      "action_classes": ["insert_correction"],
+      "rewrite": {
+        "before_summary": "Forward-pass features feed loss computation directly.",
+        "after_summary": "A multi-label sigmoid head emits independent label logits before loss computation.",
+        "information_flow_effect": "Preserves downstream loss semantics while changing the prediction head contract for multi-label tasks."
+      }
+    },
+    {
+      "rule_name": "insert_multilabel_focal_bce_loss_before_loss",
+      "operation_type": "insert",
+      "applies_to": "neural_network.forward_pass->loss_computation",
+      "source_cdg_path": "src/sciona/atoms/dl/loss/cdg.json",
+      "insert_before": "Loss Computation",
+      "runtime_diagnostic": "requires_multilabel_focal_bce_loss",
+      "name": "Multi-Label Focal/BCE Loss",
+      "intent": "Insert multi-label focal, BCE, or label-smoothed BCE loss handling before generic loss computation.",
+      "dejargonized_summary": "Use multi-label focal loss or BCE with label smoothing for imbalanced multi-label classification.",
+      "trigger": {
+        "metric_name": "requires_multilabel_focal_bce_loss",
+        "comparison": "gt",
+        "threshold": 0.0,
+        "required_any_intermediate_keys": ["requires_multilabel_focal_bce_loss", "use_multilabel_focal_loss"]
+      },
+      "action_classes": ["replace_stage", "precondition"],
+      "rewrite": {
+        "before_summary": "Forward-pass outputs feed a generic loss.",
+        "after_summary": "Multi-label focal/BCE loss handling feeds the generic loss stage.",
+        "information_flow_effect": "Preserves label output shape while changing the per-label loss weighting."
+      }
+    },
+    {
+      "rule_name": "insert_arcface_margin_loss_before_loss",
+      "operation_type": "insert",
+      "applies_to": "neural_network.forward_pass->loss_computation",
+      "source_cdg_path": "src/sciona/atoms/dl/loss/cdg.json",
+      "insert_before": "Loss Computation",
+      "runtime_diagnostic": "requires_arcface_margin_loss",
+      "name": "ArcFace Margin Loss",
+      "intent": "Insert additive angular margin loss preparation for ArcFace and sub-center ArcFace variants.",
+      "dejargonized_summary": "Use ArcFace or sub-center ArcFace angular margins for identity, retrieval, or fine-grained classification embeddings.",
+      "trigger": {
+        "metric_name": "requires_arcface_margin_loss",
+        "comparison": "gt",
+        "threshold": 0.0,
+        "required_any_intermediate_keys": ["requires_arcface_margin_loss", "use_arcface", "use_subcenter_arcface"]
+      },
+      "action_classes": ["replace_stage", "precondition"],
+      "rewrite": {
+        "before_summary": "Forward-pass embeddings feed a generic classification or metric loss.",
+        "after_summary": "ArcFace-style angular-margin preparation feeds loss computation.",
+        "information_flow_effect": "Preserves class or embedding outputs while changing the margin geometry used for training."
+      }
     }
   ],
   "audit": {
