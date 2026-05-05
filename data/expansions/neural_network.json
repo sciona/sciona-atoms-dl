@@ -101,6 +101,98 @@
         "after_summary": "Weight distribution checking is inserted after parameter update.",
         "information_flow_effect": "Adds parameter-scale evidence without changing the learned model state."
       }
+    },
+    {
+      "rule_name": "insert_swa_checkpoint_averaging_after_update",
+      "operation_type": "insert",
+      "applies_to": "neural_network.parameter_update",
+      "source_cdg_path": "src/sciona/atoms/dl/training/cdg.json",
+      "insert_after": "Parameter Update",
+      "runtime_diagnostic": "requires_swa",
+      "name": "Stochastic Weight Averaging",
+      "intent": "Average late-training checkpoints so recurring SWA solution deltas are represented as a reusable training-loop refinement.",
+      "dejargonized_summary": "Add Stochastic Weight Averaging (SWA) after parameter updates to average several late checkpoints.",
+      "trigger": {
+        "metric_name": "requires_swa",
+        "comparison": "gt",
+        "threshold": 0.0,
+        "required_any_intermediate_keys": ["requires_swa", "use_swa", "stochastic_weight_averaging"]
+      },
+      "action_classes": ["smooth_or_aggregate"],
+      "rewrite": {
+        "before_summary": "The final checkpoint is used directly after training.",
+        "after_summary": "Late checkpoints are averaged into an SWA model before final evaluation.",
+        "information_flow_effect": "Preserves model output semantics while smoothing weight-space variance."
+      }
+    },
+    {
+      "rule_name": "insert_mixed_precision_training_before_forward",
+      "operation_type": "insert",
+      "applies_to": "neural_network.forward_pass",
+      "source_cdg_path": "src/sciona/atoms/dl/training/cdg.json",
+      "insert_before": "Forward Pass",
+      "runtime_diagnostic": "requires_mixed_precision",
+      "name": "Mixed-Precision Training",
+      "intent": "Configure fp16 or bf16 mixed precision before neural-network forward and backward passes.",
+      "dejargonized_summary": "Run training with mixed precision such as FP16 or BF16 to reduce memory use and speed up training.",
+      "trigger": {
+        "metric_name": "requires_mixed_precision",
+        "comparison": "gt",
+        "threshold": 0.0,
+        "required_any_intermediate_keys": ["requires_mixed_precision", "use_mixed_precision"]
+      },
+      "action_classes": ["precondition"],
+      "rewrite": {
+        "before_summary": "Training runs in default numeric precision.",
+        "after_summary": "Mixed-precision autocast and scaling are configured before forward/backward passes.",
+        "information_flow_effect": "Preserves training semantics while changing numeric execution policy."
+      }
+    },
+    {
+      "rule_name": "insert_adversarial_weight_perturbation_before_update",
+      "operation_type": "insert",
+      "applies_to": "neural_network.backward_pass->parameter_update",
+      "source_cdg_path": "src/sciona/atoms/dl/training/cdg.json",
+      "insert_before": "Parameter Update",
+      "runtime_diagnostic": "requires_awp",
+      "name": "Adversarial Weight Perturbation",
+      "intent": "Insert AWP between gradient computation and parameter update when robustness-oriented training is required.",
+      "dejargonized_summary": "Perturb weights adversarially during training before applying the normal update.",
+      "trigger": {
+        "metric_name": "requires_awp",
+        "comparison": "gt",
+        "threshold": 0.0,
+        "required_any_intermediate_keys": ["requires_awp", "use_adversarial_weight_perturbation"]
+      },
+      "action_classes": ["precondition", "gate_or_validate"],
+      "rewrite": {
+        "before_summary": "Gradients flow directly into the parameter update.",
+        "after_summary": "Adversarial Weight Perturbation modifies the update step before parameters are committed.",
+        "information_flow_effect": "Preserves the training-loop contract while adding robustness regularization."
+      }
+    },
+    {
+      "rule_name": "insert_progressive_resizing_before_forward",
+      "operation_type": "insert",
+      "applies_to": "neural_network.forward_pass",
+      "source_cdg_path": "src/sciona/atoms/dl/training/cdg.json",
+      "insert_before": "Forward Pass",
+      "runtime_diagnostic": "requires_progressive_resizing",
+      "name": "Progressive Image Resizing",
+      "intent": "Insert a resolution schedule so image models train from smaller to larger input sizes.",
+      "dejargonized_summary": "Train image models with progressive resizing, such as 224 to 448 or 224 to 512 pixels.",
+      "trigger": {
+        "metric_name": "requires_progressive_resizing",
+        "comparison": "gt",
+        "threshold": 0.0,
+        "required_any_intermediate_keys": ["requires_progressive_resizing", "use_progressive_resizing"]
+      },
+      "action_classes": ["precondition"],
+      "rewrite": {
+        "before_summary": "Images feed the forward pass at one fixed resolution.",
+        "after_summary": "A progressive image-resizing schedule prepares inputs before forward passes.",
+        "information_flow_effect": "Preserves image classification or segmentation outputs while changing the training curriculum."
+      }
     }
   ],
   "audit": {
