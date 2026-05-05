@@ -341,7 +341,7 @@
       "runtime_diagnostic": "requires_arcface_margin_loss",
       "name": "ArcFace Margin Loss",
       "intent": "Insert additive angular margin loss preparation for ArcFace and sub-center ArcFace variants.",
-      "dejargonized_summary": "Use ArcFace or sub-center ArcFace angular margins for identity, retrieval, or fine-grained classification embeddings.",
+      "dejargonized_summary": "Use ArcFace or sub-center ArcFace angular margins for identity, retrieval, or fine-grained classification embeddings, including Dynamic Margin ArcFace Scaling, Dynamic Margin Scaling, and Dynamic Margin scaling.",
       "trigger": {
         "metric_name": "requires_arcface_margin_loss",
         "comparison": "gt",
@@ -438,6 +438,18 @@
       "trigger": {"metric_name": "requires_regularization", "comparison": "gt", "threshold": 0.0, "required_any_intermediate_keys": ["requires_regularization", "use_dropout_l2_regularization"]},
       "action_classes": ["precondition"],
       "rewrite": {"before_summary": "Forward-pass features feed loss computation with default regularization.", "after_summary": "Regularized features or head outputs feed loss computation.", "information_flow_effect": "Preserves output shape while reducing overfitting risk."}
+    },
+    {
+      "rule_name": "insert_test_time_augmentation_after_forward",
+      "operation_type": "insert",
+      "applies_to": "neural_network.forward_pass->loss_computation",
+      "runtime_diagnostic": "requires_test_time_augmentation",
+      "name": "Test-Time Augmentation",
+      "intent": "Insert inference-time augmentation and prediction averaging after the model forward pass.",
+      "dejargonized_summary": "Use Test-Time Augmentation (TTA), Multi-scale Test-Time Augmentation (TTA), Test-Time Augmentation (TTA) with flipping, or Test-Time Augmentation (TTA) with scaling.",
+      "trigger": {"metric_name": "requires_test_time_augmentation", "comparison": "gt", "threshold": 0.0, "required_any_intermediate_keys": ["requires_test_time_augmentation", "use_test_time_augmentation", "use_tta"]},
+      "action_classes": ["smooth_or_aggregate"],
+      "rewrite": {"before_summary": "One inference view produces predictions directly.", "after_summary": "Multiple augmented inference views are averaged before prediction output.", "information_flow_effect": "Preserves prediction targets while smoothing inference over safe augmentations."}
     },
     {
       "rule_name": "insert_siamese_metric_backbone_before_loss",
