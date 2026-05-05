@@ -1,0 +1,133 @@
+{
+  "asset_id": "family.neural_network.expansions.v1",
+  "asset_version": "phase2.v1",
+  "family": "neural_network",
+  "family_aliases": [
+    "neural_network_training",
+    "deep_learning"
+  ],
+  "domain": "deep_learning",
+  "name": "Neural Network Expansion Inventory",
+  "summary": "Declarative refinements for neural-network forward, loss, backward, and parameter-update runtime stages.",
+  "operations": [
+    {
+      "rule_name": "insert_gradient_explosion_detection_after_backward",
+      "operation_type": "insert",
+      "applies_to": "neural_network.backward_pass",
+      "source_cdg_path": "src/sciona/atoms/dl/training/cdg.json",
+      "insert_after": "Backward Pass",
+      "runtime_diagnostic": "gradient_max_norm",
+      "name": "Detect Gradient Explosion",
+      "intent": "Measure gradient norm after backpropagation so unstable training is visible before parameter update.",
+      "dejargonized_summary": "Add a check for gradients that have become too large.",
+      "trigger": {
+        "metric_name": "gradient_max_norm",
+        "comparison": "gt",
+        "threshold": 100.0,
+        "required_intermediate_keys": ["gradient_max_norm"]
+      },
+      "action_classes": ["gate_or_validate"],
+      "rewrite": {
+        "before_summary": "Backward pass output feeds downstream training stages directly.",
+        "after_summary": "Gradient explosion detection is inserted after the backward pass.",
+        "information_flow_effect": "Adds explicit gradient-scale evidence without changing model outputs."
+      }
+    },
+    {
+      "rule_name": "insert_activation_statistics_after_forward",
+      "operation_type": "insert",
+      "applies_to": "neural_network.forward_pass",
+      "source_cdg_path": "src/sciona/atoms/dl/architectures/cdg.json",
+      "insert_after": "Forward Pass",
+      "runtime_diagnostic": "dead_neuron_fraction",
+      "name": "Analyze Activation Statistics",
+      "intent": "Measure dead activation fraction after the forward pass for opaque backbones, heads, and feature blocks.",
+      "dejargonized_summary": "Add a check for activations that are stuck off too often.",
+      "trigger": {
+        "metric_name": "dead_neuron_fraction",
+        "comparison": "gt",
+        "threshold": 0.5,
+        "required_intermediate_keys": ["dead_neuron_fraction"]
+      },
+      "action_classes": ["gate_or_validate"],
+      "rewrite": {
+        "before_summary": "Forward-pass activations feed loss or downstream stages directly.",
+        "after_summary": "Activation statistics analysis is inserted after the forward pass.",
+        "information_flow_effect": "Adds activation-health evidence for architecture and training review."
+      }
+    },
+    {
+      "rule_name": "insert_loss_convergence_monitoring_after_loss",
+      "operation_type": "insert",
+      "applies_to": "neural_network.loss_computation",
+      "source_cdg_path": "src/sciona/atoms/dl/loss/cdg.json",
+      "insert_after": "Loss Computation",
+      "runtime_diagnostic": "loss_plateau_ratio",
+      "name": "Monitor Loss Convergence",
+      "intent": "Monitor loss-history change after loss computation to flag plateaued training.",
+      "dejargonized_summary": "Add a check for loss that has stopped improving.",
+      "trigger": {
+        "metric_name": "loss_plateau_ratio",
+        "comparison": "lt",
+        "threshold": 0.000001,
+        "required_intermediate_keys": ["loss_plateau_ratio"]
+      },
+      "action_classes": ["gate_or_validate", "smooth_or_aggregate"],
+      "rewrite": {
+        "before_summary": "Loss values feed backward pass or training control directly.",
+        "after_summary": "Loss convergence monitoring is inserted after loss computation.",
+        "information_flow_effect": "Adds convergence evidence while preserving the loss contract."
+      }
+    },
+    {
+      "rule_name": "insert_weight_distribution_check_after_update",
+      "operation_type": "insert",
+      "applies_to": "neural_network.parameter_update",
+      "source_cdg_path": "src/sciona/atoms/dl/architectures/cdg.json",
+      "insert_after": "Parameter Update",
+      "runtime_diagnostic": "weight_norm_ratio",
+      "name": "Check Weight Distribution",
+      "intent": "Check layer weight norms after parameter update so imbalanced weights are visible.",
+      "dejargonized_summary": "Add a check for weight norms that differ too much across layers.",
+      "trigger": {
+        "metric_name": "weight_norm_ratio",
+        "comparison": "gt",
+        "threshold": 100.0,
+        "required_intermediate_keys": ["weight_norm_ratio"]
+      },
+      "action_classes": ["gate_or_validate"],
+      "rewrite": {
+        "before_summary": "Updated parameters feed the next training or inference stage directly.",
+        "after_summary": "Weight distribution checking is inserted after parameter update.",
+        "information_flow_effect": "Adds parameter-scale evidence without changing the learned model state."
+      }
+    }
+  ],
+  "audit": {
+    "provenance": "sciona-atoms-dl provider expansion standardization",
+    "source_kind": "provider_asset",
+    "review_status": "transitional",
+    "rationale": "Standardizes provider-owned metadata for neural-network expansion rules implemented in sciona-matcher.",
+    "dejargonized_summary": "These refinements add checks for exploding gradients, inactive activations, stalled loss, and imbalanced weights in deep-learning pipelines.",
+    "migration_readiness": {
+      "status": "in_progress",
+      "target_repository": "../sciona-atoms-dl",
+      "target_scope": "deep_learning.neural_network",
+      "rationale": "Provider asset is aligned to current matcher rule names and grounded in DL architecture, training, and loss CDGs."
+    },
+    "uncertainty_notes": [
+      "Trigger thresholds mirror current matcher diagnostics and may be refined with provider benchmark evidence."
+    ],
+    "references": [
+      {
+        "title": "Matcher neural_network expansion rules",
+        "note": "Rule names and trigger metrics mirror sciona/principal/expansion_rules/neural_network.py."
+      },
+      {
+        "title": "sciona-atoms-dl architecture, training, and loss CDGs",
+        "note": "Source context under src/sciona/atoms/dl/architectures, training, and loss."
+      }
+    ],
+    "maintainers": ["sciona-atoms-dl"]
+  }
+}
