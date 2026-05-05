@@ -522,6 +522,54 @@
       "trigger": {"metric_name": "requires_dice_bce_loss", "comparison": "gt", "threshold": 0.0, "required_any_intermediate_keys": ["requires_dice_bce_loss", "use_dice_bce_loss", "use_bce_loss"]},
       "action_classes": ["replace_stage"],
       "rewrite": {"before_summary": "Forward-pass logits feed a generic loss.", "after_summary": "Dice/BCE loss handling feeds the generic loss stage.", "information_flow_effect": "Preserves mask or label outputs while changing loss geometry."}
+    },
+    {
+      "rule_name": "insert_multiple_instance_learning_head_before_loss",
+      "operation_type": "insert",
+      "applies_to": "neural_network.forward_pass->loss_computation",
+      "runtime_diagnostic": "requires_multiple_instance_learning_head",
+      "name": "Multiple Instance Learning Head",
+      "intent": "Insert bag-level aggregation for patch, tile, instance, or slide-level supervision.",
+      "dejargonized_summary": "Use a Multiple Instance Learning (MIL) head, including Chowder Multiple Instance Learning (MIL), to aggregate instance embeddings into bag-level predictions.",
+      "trigger": {"metric_name": "requires_multiple_instance_learning_head", "comparison": "gt", "threshold": 0.0, "required_any_intermediate_keys": ["requires_multiple_instance_learning_head", "use_mil_head", "use_chowder_mil"]},
+      "action_classes": ["smooth_or_aggregate"],
+      "rewrite": {"before_summary": "Instance or patch embeddings feed a generic loss directly.", "after_summary": "A MIL aggregation head converts instance embeddings into bag-level logits before loss computation.", "information_flow_effect": "Preserves bag-level prediction semantics while adding explicit instance-to-bag aggregation."}
+    },
+    {
+      "rule_name": "insert_specaugment_before_forward",
+      "operation_type": "insert",
+      "applies_to": "neural_network.source->forward_pass",
+      "runtime_diagnostic": "requires_specaugment",
+      "name": "SpecAugment",
+      "intent": "Insert spectrogram masking augmentation before the forward pass.",
+      "dejargonized_summary": "Apply SpecAugment (frequency/time masking) or SpecAugment (time/frequency masking) to spectrogram-like inputs during training.",
+      "trigger": {"metric_name": "requires_specaugment", "comparison": "gt", "threshold": 0.0, "required_any_intermediate_keys": ["requires_specaugment", "use_specaugment"]},
+      "action_classes": ["precondition"],
+      "rewrite": {"before_summary": "Training batches feed the forward pass unchanged.", "after_summary": "Frequency and time masking are applied to spectrogram-like batches before the forward pass.", "information_flow_effect": "Preserves input/output tensor semantics while increasing augmentation coverage."}
+    },
+    {
+      "rule_name": "insert_non_maximum_suppression_after_forward",
+      "operation_type": "insert",
+      "applies_to": "neural_network.forward_pass->loss_computation",
+      "runtime_diagnostic": "requires_nms",
+      "name": "Non-Maximum Suppression",
+      "intent": "Insert post-forward suppression for overlapping detections or triplets.",
+      "dejargonized_summary": "Use Class-aware Non-Maximum Suppression (NMS) or Non-Maximum Suppression (NMS) for triplets after detection predictions.",
+      "trigger": {"metric_name": "requires_nms", "comparison": "gt", "threshold": 0.0, "required_any_intermediate_keys": ["requires_nms", "use_nms", "use_class_aware_nms"]},
+      "action_classes": ["gate_or_validate"],
+      "rewrite": {"before_summary": "Forward-pass detections feed loss computation or output directly.", "after_summary": "NMS-filtered detections feed loss computation or output.", "information_flow_effect": "Preserves detection semantics while removing duplicate overlapping predictions."}
+    },
+    {
+      "rule_name": "insert_stochastic_depth_before_forward",
+      "operation_type": "insert",
+      "applies_to": "neural_network.source->forward_pass",
+      "runtime_diagnostic": "requires_stochastic_depth",
+      "name": "Stochastic Depth",
+      "intent": "Insert residual-path regularization for deep residual, Swin, or transformer layers.",
+      "dejargonized_summary": "Use Stochastic Depth for Swin layers, Stochastic Depth for Transformer layers, or DropPath-style regularization during training.",
+      "trigger": {"metric_name": "requires_stochastic_depth", "comparison": "gt", "threshold": 0.0, "required_any_intermediate_keys": ["requires_stochastic_depth", "use_stochastic_depth", "use_drop_path"]},
+      "action_classes": ["precondition"],
+      "rewrite": {"before_summary": "Training batches feed every residual or transformer layer deterministically.", "after_summary": "Stochastic depth regularization is applied before residual or transformer forward passes.", "information_flow_effect": "Preserves model outputs while regularizing residual-path training dynamics."}
     }
   ],
   "audit": {
