@@ -133,8 +133,8 @@
       "insert_before": "Forward Pass",
       "runtime_diagnostic": "requires_mixed_precision",
       "name": "Mixed-Precision Training",
-      "intent": "Configure fp16 or bf16 mixed precision before neural-network forward and backward passes.",
-      "dejargonized_summary": "Run training with mixed precision such as FP16 or BF16 to reduce memory use and speed up training.",
+      "intent": "Configure fp16 or bf16 automatic mixed precision before neural-network forward and backward passes without changing the model topology.",
+      "dejargonized_summary": "Run training with FP16 or BF16 autocast, and loss scaling when needed, to reduce memory use and improve throughput while keeping the same network structure.",
       "trigger": {
         "metric_name": "requires_mixed_precision",
         "comparison": "gt",
@@ -144,7 +144,7 @@
       "action_classes": ["precondition"],
       "rewrite": {
         "before_summary": "Training runs in default numeric precision.",
-        "after_summary": "Mixed-precision autocast and scaling are configured before forward/backward passes.",
+        "after_summary": "Automatic mixed-precision autocast and loss scaling are configured before forward/backward passes.",
         "information_flow_effect": "Preserves training semantics while changing numeric execution policy."
       }
     },
@@ -179,18 +179,18 @@
       "insert_before": "Forward Pass",
       "runtime_diagnostic": "requires_progressive_resizing",
       "name": "Progressive Image Resizing",
-      "intent": "Insert a resolution schedule so image models train from smaller to larger input sizes.",
-      "dejargonized_summary": "Train image models with progressive resizing, such as 224 to 448 or 224 to 512 pixels.",
+      "intent": "Insert a resolution schedule or high-resolution input policy so image models train from cheaper views to larger task-relevant views.",
+      "dejargonized_summary": "Train image models with progressive resizing or high-resolution crops, windows, and tiles when small inputs miss important detail.",
       "trigger": {
         "metric_name": "requires_progressive_resizing",
         "comparison": "gt",
         "threshold": 0.0,
-        "required_any_intermediate_keys": ["requires_progressive_resizing", "use_progressive_resizing"]
+        "required_any_intermediate_keys": ["requires_progressive_resizing", "use_progressive_resizing", "requires_high_resolution_training", "use_high_resolution_training"]
       },
       "action_classes": ["precondition"],
       "rewrite": {
         "before_summary": "Images feed the forward pass at one fixed resolution.",
-        "after_summary": "A progressive image-resizing schedule prepares inputs before forward passes.",
+        "after_summary": "A progressive resizing or high-resolution input policy prepares inputs before forward passes.",
         "information_flow_effect": "Preserves image classification or segmentation outputs while changing the training curriculum."
       }
     },
@@ -361,8 +361,8 @@
       "applies_to": "neural_network.input->forward_pass",
       "runtime_diagnostic": "requires_training_augmentation",
       "name": "Training Data Augmentation",
-      "intent": "Insert reusable competition augmentations before neural-network forward passes.",
-      "dejargonized_summary": "Apply MixUp, CutMix, XYMasking, frequency MixUp, frequency masking, heavy rotation/flip, color jitter, blur, motion blur, or noise augmentation.",
+      "intent": "Insert reusable label-preserving augmentation before neural-network forward passes.",
+      "dejargonized_summary": "Apply label-preserving transformations such as mixing examples, masking regions or frequency bands, rotations, flips, color changes, blur, or noise during training.",
       "trigger": {"metric_name": "requires_training_augmentation", "comparison": "gt", "threshold": 0.0, "required_any_intermediate_keys": ["requires_training_augmentation", "use_mixup_cutmix", "use_heavy_augmentation"]},
       "action_classes": ["precondition"],
       "rewrite": {"before_summary": "Training batches feed the forward pass directly.", "after_summary": "Training batches are augmented before the forward pass.", "information_flow_effect": "Preserves label semantics while increasing training variation."}
@@ -374,7 +374,7 @@
       "runtime_diagnostic": "requires_domain_specific_finetuning",
       "name": "Domain-Specific Fine-Tuning",
       "intent": "Insert domain-specific pretraining, supervised fine-tuning, or adapters before task training.",
-      "dejargonized_summary": "Use AIME-specific SFT, organ-specific adapters, Xeno-Canto pretraining, or other domain-specific fine-tuning before the task forward pass.",
+      "dejargonized_summary": "Start from domain-adapted weights, curated supervised fine-tuning, or small task adapters when a generic pretrained model lacks the needed domain context.",
       "trigger": {"metric_name": "requires_domain_specific_finetuning", "comparison": "gt", "threshold": 0.0, "required_any_intermediate_keys": ["requires_domain_specific_finetuning", "use_domain_adapters", "use_large_scale_pretraining"]},
       "action_classes": ["precondition", "replace_stage"],
       "rewrite": {"before_summary": "The task model starts from a generic initialization.", "after_summary": "The task model starts from domain-specific pretraining or adapter-tuned weights.", "information_flow_effect": "Preserves model outputs while changing initialization and adaptation context."}
@@ -445,11 +445,11 @@
       "applies_to": "neural_network.forward_pass->loss_computation",
       "runtime_diagnostic": "requires_test_time_augmentation",
       "name": "Test-Time Augmentation",
-      "intent": "Insert inference-time augmentation and prediction averaging after the model forward pass.",
-      "dejargonized_summary": "Use Test-Time Augmentation (TTA), Multi-scale Test-Time Augmentation (TTA), Test-Time Augmentation (TTA) with flipping, or Test-Time Augmentation (TTA) with scaling.",
+      "intent": "Insert inference-time augmentation and prediction aggregation after the model forward pass.",
+      "dejargonized_summary": "Run inference under label-preserving views such as crops, flips, scales, windows, or other safe augmentations, then average or otherwise aggregate the predictions.",
       "trigger": {"metric_name": "requires_test_time_augmentation", "comparison": "gt", "threshold": 0.0, "required_any_intermediate_keys": ["requires_test_time_augmentation", "use_test_time_augmentation", "use_tta"]},
       "action_classes": ["smooth_or_aggregate"],
-      "rewrite": {"before_summary": "One inference view produces predictions directly.", "after_summary": "Multiple augmented inference views are averaged before prediction output.", "information_flow_effect": "Preserves prediction targets while smoothing inference over safe augmentations."}
+      "rewrite": {"before_summary": "One inference view produces predictions directly.", "after_summary": "Multiple augmented inference views are aggregated before prediction output.", "information_flow_effect": "Preserves prediction targets while smoothing inference over safe label-preserving transforms."}
     },
     {
       "rule_name": "insert_siamese_metric_backbone_before_loss",
@@ -565,8 +565,8 @@
       "applies_to": "neural_network.source->forward_pass",
       "runtime_diagnostic": "requires_stochastic_depth",
       "name": "Stochastic Depth",
-      "intent": "Insert residual-path regularization for deep residual, Swin, or transformer layers.",
-      "dejargonized_summary": "Use Stochastic Depth for Swin layers, Stochastic Depth for Transformer layers, or DropPath-style regularization during training.",
+      "intent": "Insert residual-path regularization for deep residual, convolutional, or transformer layers.",
+      "dejargonized_summary": "Randomly drop residual paths during training with stochastic depth or DropPath-style regularization.",
       "trigger": {"metric_name": "requires_stochastic_depth", "comparison": "gt", "threshold": 0.0, "required_any_intermediate_keys": ["requires_stochastic_depth", "use_stochastic_depth", "use_drop_path"]},
       "action_classes": ["precondition"],
       "rewrite": {"before_summary": "Training batches feed every residual or transformer layer deterministically.", "after_summary": "Stochastic depth regularization is applied before residual or transformer forward passes.", "information_flow_effect": "Preserves model outputs while regularizing residual-path training dynamics."}
