@@ -570,6 +570,31 @@
       "trigger": {"metric_name": "requires_stochastic_depth", "comparison": "gt", "threshold": 0.0, "required_any_intermediate_keys": ["requires_stochastic_depth", "use_stochastic_depth", "use_drop_path"]},
       "action_classes": ["precondition"],
       "rewrite": {"before_summary": "Training batches feed every residual or transformer layer deterministically.", "after_summary": "Stochastic depth regularization is applied before residual or transformer forward passes.", "information_flow_effect": "Preserves model outputs while regularizing residual-path training dynamics."}
+    },
+    {
+      "rule_name": "insert_coordinate_regression_head_before_loss",
+      "operation_type": "insert",
+      "applies_to": "neural_network.forward_pass->loss_computation",
+      "runtime_diagnostic": "requires_coordinate_regression_head",
+      "name": "Coordinate Regression Head",
+      "intent": "Insert a coordinate, offset, or continuous-geometry prediction head before loss computation.",
+      "dejargonized_summary": "Add a head that predicts 2D or 3D coordinates, xyz values, keypoints, offsets, or other continuous geometry targets from neural features.",
+      "trigger": {
+        "metric_name": "requires_coordinate_regression_head",
+        "comparison": "gt",
+        "threshold": 0.0,
+        "required_any_intermediate_keys": [
+          "requires_coordinate_regression_head",
+          "use_coordinate_regression_head",
+          "use_3d_coordinate_head"
+        ]
+      },
+      "action_classes": ["replace_stage"],
+      "rewrite": {
+        "before_summary": "Forward-pass features feed a generic loss or generic prediction head.",
+        "after_summary": "Forward-pass features feed a coordinate-regression head before geometry-aware loss computation.",
+        "information_flow_effect": "Preserves sample-level prediction semantics while changing the output head to continuous coordinates or offsets."
+      }
     }
   ],
   "audit": {
