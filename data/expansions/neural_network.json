@@ -464,6 +464,32 @@
       "rewrite": {"before_summary": "Single-example features feed loss computation.", "after_summary": "Pairwise Siamese embeddings feed loss computation.", "information_flow_effect": "Preserves embedding semantics while adding paired comparison structure."}
     },
     {
+      "rule_name": "insert_large_backbone_scale_attention_before_loss",
+      "operation_type": "insert",
+      "applies_to": "neural_network.forward_pass->loss_computation",
+      "runtime_diagnostic": "requires_large_backbone_scale_attention",
+      "name": "Large-Backbone Scale Attention",
+      "intent": "Insert a high-capacity vision backbone and scale-aware attention block before task loss computation.",
+      "dejargonized_summary": "Use a larger image backbone such as ConvNeXt-Large, EfficientNet-V2, or a comparable pretrained vision model, then combine multi-scale features with scale-aware attention.",
+      "trigger": {
+        "metric_name": "requires_large_backbone_scale_attention",
+        "comparison": "gt",
+        "threshold": 0.0,
+        "required_any_intermediate_keys": [
+          "requires_large_backbone_scale_attention",
+          "use_large_backbone_scale_attention",
+          "use_convnext_large_backbone",
+          "use_efficientnet_v2_backbone"
+        ]
+      },
+      "action_classes": ["replace_stage", "smooth_or_aggregate"],
+      "rewrite": {
+        "before_summary": "Forward-pass features feed the task head or loss through a generic backbone representation.",
+        "after_summary": "High-capacity backbone features are fused with scale-aware attention before the task head or loss.",
+        "information_flow_effect": "Preserves prediction targets while increasing visual feature capacity and scale handling."
+      }
+    },
+    {
       "rule_name": "insert_graph_interaction_network_before_loss",
       "operation_type": "insert",
       "applies_to": "neural_network.forward_pass->loss_computation",
