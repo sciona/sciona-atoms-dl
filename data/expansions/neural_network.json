@@ -649,6 +649,32 @@
         "after_summary": "Forward-pass features feed a coordinate-regression head before geometry-aware loss computation.",
         "information_flow_effect": "Preserves sample-level prediction semantics while changing the output head to continuous coordinates or offsets."
       }
+    },
+    {
+      "rule_name": "insert_spatiotemporal_unet_attention_before_loss",
+      "operation_type": "insert",
+      "applies_to": "neural_network.forward_pass->loss_computation",
+      "runtime_diagnostic": "requires_spatiotemporal_unet_attention",
+      "name": "Spatio-Temporal U-Net Attention",
+      "intent": "Insert a 3D U-Net-style backbone with spatio-temporal attention before task loss computation.",
+      "dejargonized_summary": "Use a 3D U-Net, volumetric U-Net, or U-Net-style frame/slice encoder with spatio-temporal attention for video-like, slice-stack, or volume inputs.",
+      "trigger": {
+        "metric_name": "requires_spatiotemporal_unet_attention",
+        "comparison": "gt",
+        "threshold": 0.0,
+        "required_any_intermediate_keys": [
+          "requires_spatiotemporal_unet_attention",
+          "use_spatiotemporal_unet_attention",
+          "use_3d_unet_attention",
+          "requires_3d_unet"
+        ]
+      },
+      "action_classes": ["replace_stage", "smooth_or_aggregate"],
+      "rewrite": {
+        "before_summary": "Forward-pass features feed a generic head or loss computation.",
+        "after_summary": "Forward-pass features pass through a 3D U-Net-style spatio-temporal attention block before the task head or loss.",
+        "information_flow_effect": "Preserves prediction targets while adding volumetric or temporal context and attention over slices, frames, or local 3D neighborhoods."
+      }
     }
   ],
   "audit": {
