@@ -675,6 +675,34 @@
         "after_summary": "Forward-pass features pass through a 3D U-Net-style spatio-temporal attention block before the task head or loss.",
         "information_flow_effect": "Preserves prediction targets while adding volumetric or temporal context and attention over slices, frames, or local 3D neighborhoods."
       }
+    },
+    {
+      "rule_name": "insert_flow_residual_attention_before_loss",
+      "operation_type": "insert",
+      "applies_to": "neural_network.forward_pass->loss_computation",
+      "runtime_diagnostic": "requires_flow_residual_attention",
+      "name": "Flow-Aware Residual Attention",
+      "intent": "Insert a residual attention block guided by flow, motion, wind, or displacement fields before task loss computation.",
+      "dejargonized_summary": "Use residual attention or flow-aware attention to refine motion-sensitive feature maps before the task head.",
+      "trigger": {
+        "metric_name": "requires_flow_residual_attention",
+        "comparison": "gt",
+        "threshold": 0.0,
+        "required_any_intermediate_keys": [
+          "requires_flow_residual_attention",
+          "use_flow_residual_attention",
+          "requires_residual_attention",
+          "use_residual_attention",
+          "requires_wind_flow_attention",
+          "use_wind_flow_attention"
+        ]
+      },
+      "action_classes": ["replace_stage", "smooth_or_aggregate"],
+      "rewrite": {
+        "before_summary": "Forward-pass feature maps feed a generic task head.",
+        "after_summary": "Forward-pass feature maps are refined by flow-aware residual attention before the task head or loss.",
+        "information_flow_effect": "Preserves prediction targets while adding residual feature refinement and attention over motion, flow, or displacement cues."
+      }
     }
   ],
   "audit": {
