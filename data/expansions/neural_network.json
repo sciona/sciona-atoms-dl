@@ -218,6 +218,34 @@
       }
     },
     {
+      "rule_name": "insert_lightweight_cnn_regression_head_before_loss",
+      "operation_type": "insert",
+      "applies_to": "neural_network.forward_pass->loss_computation",
+      "source_cdg_path": "src/sciona/atoms/dl/architectures/cdg.json",
+      "insert_before": "Loss Computation",
+      "runtime_diagnostic": "requires_lightweight_cnn_regression_head",
+      "name": "Lightweight CNN Regression Head",
+      "intent": "Insert a compact convolutional backbone or head with pooling for image, keypoint, ROI, or continuous target prediction.",
+      "dejargonized_summary": "Use a shallow CNN, small multi-layer CNN, max-pooling CNN, or CNN regressor when the task needs local image features without a large pretrained backbone.",
+      "trigger": {
+        "metric_name": "requires_lightweight_cnn_regression_head",
+        "comparison": "gt",
+        "threshold": 0.0,
+        "required_any_intermediate_keys": [
+          "requires_lightweight_cnn_regression_head",
+          "use_lightweight_cnn_regressor",
+          "use_shallow_cnn_regressor",
+          "use_cnn_maxpool_head"
+        ]
+      },
+      "action_classes": ["replace_stage"],
+      "rewrite": {
+        "before_summary": "Forward-pass features feed a generic head or loss computation.",
+        "after_summary": "Forward-pass features pass through a compact CNN with pooling and a regression or task head before loss computation.",
+        "information_flow_effect": "Preserves sample-level prediction semantics while changing the local feature extractor and output head."
+      }
+    },
+    {
       "rule_name": "insert_gem_pooling_after_forward",
       "operation_type": "insert",
       "applies_to": "neural_network.forward_pass->loss_computation",
