@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "atoms": {
-    "sciona.atoms.dl.architectures.efficientnet_backbone@sciona/atoms/dl/architectures/atoms.py:114": {
+    "sciona.atoms.dl.architectures.efficientnet_backbone@sciona/atoms/dl/architectures/atoms.py:117": {
       "references": [
         {
           "ref_id": "sciona_opaque_nn_research_2026",
@@ -26,7 +26,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.architectures.resnet_family_backbone@sciona/atoms/dl/architectures/atoms.py:135": {
+    "sciona.atoms.dl.architectures.resnet_family_backbone@sciona/atoms/dl/architectures/atoms.py:138": {
       "references": [
         {
           "ref_id": "sciona_opaque_nn_research_2026",
@@ -51,7 +51,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.architectures.densenet_backbone@sciona/atoms/dl/architectures/atoms.py:156": {
+    "sciona.atoms.dl.architectures.densenet_backbone@sciona/atoms/dl/architectures/atoms.py:159": {
       "references": [
         {
           "ref_id": "sciona_opaque_nn_research_2026",
@@ -76,7 +76,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.architectures.swin_transformer_backbone@sciona/atoms/dl/architectures/atoms.py:176": {
+    "sciona.atoms.dl.architectures.swin_transformer_backbone@sciona/atoms/dl/architectures/atoms.py:179": {
       "references": [
         {
           "ref_id": "sciona_opaque_nn_research_2026",
@@ -101,7 +101,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.architectures.unet_2d_segmentation@sciona/atoms/dl/architectures/atoms.py:200": {
+    "sciona.atoms.dl.architectures.unet_2d_segmentation@sciona/atoms/dl/architectures/atoms.py:203": {
       "references": [
         {
           "ref_id": "sciona_opaque_nn_research_2026",
@@ -126,7 +126,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.architectures.unet_1d_sequence@sciona/atoms/dl/architectures/atoms.py:224": {
+    "sciona.atoms.dl.architectures.unet_1d_sequence@sciona/atoms/dl/architectures/atoms.py:227": {
       "references": [
         {
           "ref_id": "sciona_opaque_nn_research_2026",
@@ -141,7 +141,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.architectures.yolo_object_detector@sciona/atoms/dl/architectures/atoms.py:245": {
+    "sciona.atoms.dl.architectures.yolo_object_detector@sciona/atoms/dl/architectures/atoms.py:248": {
       "references": [
         {
           "ref_id": "sciona_opaque_nn_research_2026",
@@ -166,7 +166,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.architectures.whisper_asr_transformer@sciona/atoms/dl/architectures/atoms.py:271": {
+    "sciona.atoms.dl.architectures.whisper_asr_transformer@sciona/atoms/dl/architectures/atoms.py:274": {
       "references": [
         {
           "ref_id": "sciona_opaque_nn_research_2026",
@@ -191,7 +191,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.architectures.autoregressive_transformer_decoder@sciona/atoms/dl/architectures/atoms.py:297": {
+    "sciona.atoms.dl.architectures.autoregressive_transformer_decoder@sciona/atoms/dl/architectures/atoms.py:300": {
       "references": [
         {
           "ref_id": "sciona_opaque_nn_research_2026",
@@ -206,7 +206,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.architectures.recurrent_sequence_model@sciona/atoms/dl/architectures/atoms.py:323": {
+    "sciona.atoms.dl.architectures.recurrent_sequence_model@sciona/atoms/dl/architectures/atoms.py:326": {
       "references": [
         {
           "ref_id": "sciona_opaque_nn_research_2026",
@@ -231,7 +231,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.architectures.slowfast_video_network@sciona/atoms/dl/architectures/atoms.py:357": {
+    "sciona.atoms.dl.architectures.slowfast_video_network@sciona/atoms/dl/architectures/atoms.py:360": {
       "references": [
         {
           "ref_id": "sciona_opaque_nn_research_2026",
@@ -256,7 +256,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.architectures.mil_attention_aggregator@sciona/atoms/dl/architectures/atoms.py:380": {
+    "sciona.atoms.dl.architectures.mil_attention_aggregator@sciona/atoms/dl/architectures/atoms.py:383": {
       "references": [
         {
           "ref_id": "sciona_opaque_nn_research_2026",
@@ -283,4 +283,3 @@
     }
   }
 }
-

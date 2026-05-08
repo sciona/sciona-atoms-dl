@@ -24,7 +24,6 @@ from scipy.ndimage import (
     map_coordinates,
 )
 from scipy.optimize import linear_sum_assignment
-from skimage import measure
 
 import icontract
 from sciona.ghost.registry import register_atom
@@ -52,7 +51,6 @@ from .witnesses import (
 
 _BOX_DELTA_CLIP = float(np.log(1000.0 / 16.0))
 
-
 def _valid_xyxy_boxes(boxes: NDArray[np.float64]) -> bool:
     return bool(
         boxes.ndim == 2
@@ -62,14 +60,11 @@ def _valid_xyxy_boxes(boxes: NDArray[np.float64]) -> bool:
         and np.all(boxes[:, 1] <= boxes[:, 3])
     )
 
-
 def _positive_area_xyxy_boxes(boxes: NDArray[np.float64]) -> bool:
     return bool(_valid_xyxy_boxes(boxes) and np.all(boxes[:, 0] < boxes[:, 2]) and np.all(boxes[:, 1] < boxes[:, 3]))
 
-
 def _valid_normalized_xyxy_boxes(boxes: NDArray[np.float64]) -> bool:
     return bool(_valid_xyxy_boxes(boxes) and np.all((boxes >= 0.0) & (boxes <= 1.0)))
-
 
 def _valid_spans(spans: NDArray[np.float64]) -> bool:
     return bool(
@@ -78,7 +73,6 @@ def _valid_spans(spans: NDArray[np.float64]) -> bool:
         and np.all(np.isfinite(spans))
         and np.all(spans[:, 0] <= spans[:, 1])
     )
-
 
 def _valid_image_array(image: NDArray[np.float64]) -> bool:
     return bool(
@@ -89,10 +83,8 @@ def _valid_image_array(image: NDArray[np.float64]) -> bool:
         and np.all(np.isfinite(image))
     )
 
-
 def _valid_landmarks(landmarks: NDArray[np.float64]) -> bool:
     return bool(landmarks.shape == (5, 2) and np.all(np.isfinite(landmarks)))
-
 
 def _nondegenerate_landmarks(landmarks: NDArray[np.float64]) -> bool:
     if not _valid_landmarks(landmarks):
@@ -100,10 +92,8 @@ def _nondegenerate_landmarks(landmarks: NDArray[np.float64]) -> bool:
     centered = landmarks - np.mean(landmarks, axis=0)
     return bool(np.linalg.matrix_rank(centered) == 2 and np.sum(centered**2) > 0.0)
 
-
 def _positive_output_size(output_size: tuple[int, int]) -> bool:
     return bool(len(output_size) == 2 and output_size[0] > 0 and output_size[1] > 0)
-
 
 def _crop_bounds(
     image_shape: tuple[int, ...],
@@ -122,13 +112,11 @@ def _crop_bounds(
     bottom = min(height, int(np.ceil(y2 + pad_y)))
     return left, top, right, bottom
 
-
 def _crop_has_area(image: NDArray[np.float64], bbox: NDArray[np.float64], margin: float) -> bool:
     if not (_valid_xyxy_boxes(bbox.reshape(1, 4)) and np.isfinite(margin) and margin >= 0.0):
         return False
     left, top, right, bottom = _crop_bounds(image.shape, bbox, margin)
     return bool(right > left and bottom > top)
-
 
 def _estimate_similarity_transform(
     src_landmarks: NDArray[np.float64],
@@ -149,7 +137,6 @@ def _estimate_similarity_transform(
     scale = float(np.sum(singular_values) / np.sum(src_centered**2))
     translation = dst_mean - scale * (src_mean @ rotation)
     return scale, rotation, translation
-
 
 def _sample_similarity_aligned(
     image: NDArray[np.float64],
@@ -172,12 +159,10 @@ def _sample_similarity_aligned(
     ]
     return np.stack(channels, axis=2)
 
-
 def _box_areas(boxes: NDArray[np.float64]) -> NDArray[np.float64]:
     widths = np.maximum(boxes[:, 2] - boxes[:, 0], 0.0)
     heights = np.maximum(boxes[:, 3] - boxes[:, 1], 0.0)
     return widths * heights
-
 
 def _pairwise_iou(
     boxes_a: NDArray[np.float64],
@@ -192,14 +177,12 @@ def _pairwise_iou(
     union = _box_areas(boxes_a)[:, None] + _box_areas(boxes_b)[None, :] - intersection
     return np.divide(intersection, union, out=np.zeros_like(intersection), where=union > 0.0)
 
-
 def _span_iou(span: NDArray[np.float64], spans: NDArray[np.float64]) -> NDArray[np.float64]:
     starts = np.maximum(span[0], spans[:, 0])
     ends = np.minimum(span[1], spans[:, 1])
     intersection = np.maximum(ends - starts, 0.0)
     union = (span[1] - span[0]) + (spans[:, 1] - spans[:, 0]) - intersection
     return np.divide(intersection, union, out=np.zeros_like(intersection), where=union > 0.0)
-
 
 def _lists_aligned(
     boxes_list: list[NDArray[np.float64]],
@@ -219,7 +202,6 @@ def _lists_aligned(
             return False
     return True
 
-
 def _span_lists_aligned(
     spans_list: list[NDArray[np.float64]],
     scores_list: list[NDArray[np.float64]],
@@ -238,11 +220,9 @@ def _span_lists_aligned(
             return False
     return True
 
-
 # ---------------------------------------------------------------------------
 # Private helpers for lung_mask_with_bone_removal
 # ---------------------------------------------------------------------------
-
 
 def _binarize_per_slice(
     image: NDArray[np.float64],
@@ -253,6 +233,7 @@ def _binarize_per_slice(
     eccen_th: float = 0.99,
     bg_patch_size: int = 10,
 ) -> NDArray[np.bool_]:
+    from skimage import measure
     """Gaussian filter each slice, threshold, and keep valid components.
 
     For slices with uniform corner regions (padded scans), a circular NaN mask
@@ -300,7 +281,6 @@ def _binarize_per_slice(
 
     return bw
 
-
 def _all_slice_analysis(
     bw: NDArray[np.bool_],
     spacing: NDArray[np.float64],
@@ -309,6 +289,7 @@ def _all_slice_analysis(
     area_th: float = 6e3,
     dist_th: float = 62.0,
 ) -> tuple[NDArray[np.bool_], int]:
+    from skimage import measure
     """3D connected component analysis: keep lung-like components.
 
     Removes background-touching components, filters by volume (in liters),
@@ -405,8 +386,8 @@ def _all_slice_analysis(
 
     return bw, len(valid_label)
 
-
 def _fill_hole(bw: NDArray[np.bool_]) -> NDArray[np.bool_]:
+    from skimage import measure
     """Fill 3D holes by inverting, labeling, and removing corner components.
 
     Derived from step1.py fill_hole (lines 143-151).
@@ -427,13 +408,13 @@ def _fill_hole(bw: NDArray[np.bool_]) -> NDArray[np.bool_]:
     bw = ~np.isin(label, list(bg_label)).reshape(label.shape)
     return bw
 
-
 def _two_lung_only(
     bw: NDArray[np.bool_],
     spacing: NDArray[np.float64],
     max_iter: int = 22,
     max_ratio: float = 4.8,
 ) -> NDArray[np.bool_]:
+    from skimage import measure
     """Separate left/right lungs via iterative erosion + distance transform.
 
     If two comparably-sized components are found (ratio < max_ratio), assigns
@@ -525,11 +506,9 @@ def _two_lung_only(
     bw = bw1 | bw2
     return bw
 
-
 # ---------------------------------------------------------------------------
 # Atom 1: Lung mask with bone removal
 # ---------------------------------------------------------------------------
-
 
 @register_atom(witness_lung_mask_with_bone_removal)
 @icontract.require(lambda ct_volume: ct_volume.ndim == 3, "ct_volume must be 3D")
@@ -579,11 +558,9 @@ def lung_mask_with_bone_removal(
 
     return bw.astype(np.float64)
 
-
 # ---------------------------------------------------------------------------
 # Private helper for anchor_label_mapping_with_iou_dilation
 # ---------------------------------------------------------------------------
-
 
 def _select_samples(
     bbox: NDArray[np.float64],
@@ -665,11 +642,9 @@ def _select_samples(
     iw = iw[mask]
     return iz, ih, iw
 
-
 # ---------------------------------------------------------------------------
 # Atom 2: Anchor label mapping with IoU dilation
 # ---------------------------------------------------------------------------
-
 
 @register_atom(witness_anchor_label_mapping_with_iou_dilation)
 @icontract.require(lambda stride: stride > 0, "stride must be positive")
@@ -777,11 +752,9 @@ def anchor_label_mapping_with_iou_dilation(
 
     return label.astype(np.float64)
 
-
 # ---------------------------------------------------------------------------
 # Atom 3: Center feature extraction 3D
 # ---------------------------------------------------------------------------
-
 
 @register_atom(witness_center_feature_extraction_3d)
 @icontract.require(
@@ -822,7 +795,6 @@ def center_feature_extraction_3d(
     result: NDArray[np.float64] = np.max(center_cube, axis=(2, 3, 4))
     return result
 
-
 @register_atom(witness_iou_matrix)
 @icontract.require(lambda boxes_a: _valid_xyxy_boxes(boxes_a), "boxes_a must be xyxy boxes")
 @icontract.require(lambda boxes_b: _valid_xyxy_boxes(boxes_b), "boxes_b must be xyxy boxes")
@@ -840,7 +812,6 @@ def iou_matrix(
 ) -> NDArray[np.float64]:
     """Compute pairwise intersection-over-union for xyxy boxes."""
     return _pairwise_iou(boxes_a, boxes_b)
-
 
 @register_atom(witness_giou_matrix)
 @icontract.require(lambda boxes_a: _valid_xyxy_boxes(boxes_a), "boxes_a must be xyxy boxes")
@@ -878,7 +849,6 @@ def giou_matrix(
     )
     return iou - penalty
 
-
 @register_atom(witness_nms)
 @icontract.require(lambda boxes: _valid_xyxy_boxes(boxes), "boxes must be xyxy boxes")
 @icontract.require(
@@ -903,7 +873,6 @@ def nms(
         overlaps = _pairwise_iou(boxes[current : current + 1], boxes[order[1:]])[0]
         order = order[1:][overlaps <= iou_threshold]
     return np.asarray(kept, dtype=np.int64)
-
 
 @register_atom(witness_soft_nms)
 @icontract.require(lambda boxes: _valid_xyxy_boxes(boxes), "boxes must be xyxy boxes")
@@ -960,7 +929,6 @@ def soft_nms(
             np.zeros((0,), dtype=np.float64),
         )
     return np.vstack(selected_boxes).astype(np.float64), np.asarray(selected_scores, dtype=np.float64)
-
 
 @register_atom(witness_wbf)
 @icontract.require(lambda boxes_list, scores_list, labels_list: _lists_aligned(boxes_list, scores_list, labels_list), "box, score, and label lists must align")
@@ -1044,7 +1012,6 @@ def wbf(
         np.asarray([item[2] for item in fused], dtype=np.int64),
     )
 
-
 @register_atom(witness_wbf_1d)
 @icontract.require(lambda spans_list, scores_list, labels_list: _span_lists_aligned(spans_list, scores_list, labels_list), "span, score, and label lists must align")
 @icontract.require(lambda weights, spans_list: len(weights) == len(spans_list) and all(weight > 0.0 for weight in weights), "weights must be positive and match models")
@@ -1126,7 +1093,6 @@ def wbf_1d(
         np.asarray([item[2] for item in fused], dtype=np.int64),
     )
 
-
 @register_atom(witness_generate_anchors)
 @icontract.require(lambda feature_map_size: len(feature_map_size) == 2 and all(size > 0 for size in feature_map_size), "feature_map_size must be positive H,W")
 @icontract.require(lambda stride: stride > 0, "stride must be positive")
@@ -1162,7 +1128,6 @@ def generate_anchors(
     shifts = np.stack([shift_x.ravel(), shift_y.ravel(), shift_x.ravel(), shift_y.ravel()], axis=1)
     return (shifts[:, None, :] + base[None, :, :]).reshape(-1, 4).astype(np.float64)
 
-
 @register_atom(witness_encode_boxes)
 @icontract.require(lambda anchors: _positive_area_xyxy_boxes(anchors), "anchors must be positive-area xyxy boxes")
 @icontract.require(lambda gt_boxes: _positive_area_xyxy_boxes(gt_boxes), "gt boxes must be positive-area xyxy boxes")
@@ -1192,7 +1157,6 @@ def encode_boxes(
     deltas[:, 2] = ww * np.log(gt_widths / anchor_widths)
     deltas[:, 3] = wh * np.log(gt_heights / anchor_heights)
     return deltas
-
 
 @register_atom(witness_decode_boxes)
 @icontract.require(lambda anchors: _positive_area_xyxy_boxes(anchors), "anchors must be positive-area xyxy boxes")
@@ -1228,7 +1192,6 @@ def decode_boxes(
     decoded[:, 2] = pred_ctr_x + 0.5 * pred_w
     decoded[:, 3] = pred_ctr_y + 0.5 * pred_h
     return decoded
-
 
 @register_atom(witness_nms_1d)
 @icontract.require(lambda signal: signal.ndim == 1 and np.all(np.isfinite(signal)), "signal must be a finite vector")
@@ -1266,7 +1229,6 @@ def nms_1d(
             kept.append(int(index))
     return np.asarray(sorted(kept), dtype=np.int64)
 
-
 @register_atom(witness_masks_to_boxes)
 @icontract.require(
     lambda binary_masks: binary_masks.ndim == 3 and binary_masks.dtype == np.bool_,
@@ -1287,7 +1249,6 @@ def masks_to_boxes(binary_masks: NDArray[np.bool_]) -> NDArray[np.float64]:
     boxes[nonempty, 2] = width - 1 - np.argmax(x_projection[nonempty, ::-1], axis=1)
     boxes[nonempty, 3] = height - 1 - np.argmax(y_projection[nonempty, ::-1], axis=1)
     return boxes
-
 
 @register_atom(witness_associate_boxes)
 @icontract.require(lambda boxes_a: _valid_xyxy_boxes(boxes_a), "boxes_a must be xyxy boxes")
@@ -1316,7 +1277,6 @@ def associate_boxes(
     unmatched_b = np.setdiff1d(np.arange(boxes_b.shape[0], dtype=np.int64), matched_b)
     return matched_a, matched_b, unmatched_a, unmatched_b
 
-
 @register_atom(witness_threshold_detections)
 @icontract.require(lambda boxes: _valid_xyxy_boxes(boxes), "boxes must be xyxy boxes")
 @icontract.require(
@@ -1337,7 +1297,6 @@ def threshold_detections(
     keep = scores >= threshold
     return boxes[keep].astype(np.float64, copy=True), scores[keep].astype(np.float64, copy=True)
 
-
 @register_atom(witness_margin_expanded_face_crop)
 @icontract.require(lambda image: _valid_image_array(image), "image must be a finite 2D or HWC numeric array")
 @icontract.require(lambda bbox: isinstance(bbox, np.ndarray) and bbox.shape == (4,), "bbox must be a length-4 xyxy array")
@@ -1354,7 +1313,6 @@ def margin_expanded_face_crop(
     """Expand an xyxy face box by a fractional margin, clip to image bounds, and crop."""
     left, top, right, bottom = _crop_bounds(image.shape, bbox, float(margin))
     return np.asarray(image[top:bottom, left:right], dtype=image.dtype).copy()
-
 
 @register_atom(witness_face_similarity_align)
 @icontract.require(lambda image: _valid_image_array(image), "image must be a finite 2D or HWC numeric array")

@@ -10,8 +10,6 @@ import icontract
 import numpy as np
 from numpy.typing import NDArray
 from scipy import ndimage
-from skimage.draw import polygon as draw_polygon
-from skimage.segmentation import watershed
 
 from sciona.ghost.registry import register_atom
 
@@ -31,15 +29,12 @@ from .witnesses import (
     witness_wkt_to_mask,
 )
 
-
 def _is_binary(mask: NDArray[np.bool_] | NDArray[np.integer]) -> bool:
     values = np.asarray(mask)
     return bool(values.ndim >= 2 and np.all((values == 0) | (values == 1)))
 
-
 def _binary_structure(kernel_size: int) -> NDArray[np.bool_]:
     return np.ones((int(kernel_size), int(kernel_size)), dtype=bool)
-
 
 def _restore_mask_dtype(result: NDArray[np.bool_], mask: NDArray[np.bool_] | NDArray[np.integer]) -> NDArray[np.bool_] | NDArray[np.integer]:
     source = np.asarray(mask)
@@ -47,15 +42,12 @@ def _restore_mask_dtype(result: NDArray[np.bool_], mask: NDArray[np.bool_] | NDA
         return np.asarray(result, dtype=np.bool_)
     return np.asarray(result, dtype=source.dtype)
 
-
 def _same_2d_shape(*arrays: NDArray[np.float64] | NDArray[np.integer] | NDArray[np.bool_]) -> bool:
     shapes = [np.asarray(array).shape for array in arrays]
     return bool(len(set(shapes)) == 1 and len(shapes[0]) == 2)
 
-
 def _positive_shape(shape: tuple[int, int]) -> bool:
     return bool(len(shape) == 2 and int(shape[0]) > 0 and int(shape[1]) > 0)
-
 
 def _valid_rle(rle: Sequence[int]) -> bool:
     if len(rle) % 2 != 0:
@@ -63,11 +55,9 @@ def _valid_rle(rle: Sequence[int]) -> bool:
     values = np.asarray(rle, dtype=np.int64)
     return bool(values.size == 0 or (np.all(values > 0) and np.all(values[1::2] >= 0)))
 
-
 def _points_valid(points: NDArray[np.float64]) -> bool:
     values = np.asarray(points, dtype=np.float64)
     return bool(values.ndim == 2 and values.shape[0] >= 2 and values.shape[1] == 2 and np.all(np.isfinite(values)))
-
 
 def _band_mapping_valid(bands: Mapping[str, NDArray[np.float64]]) -> bool:
     if not {"red", "green", "blue"}.issubset(set(bands)):
@@ -79,7 +69,6 @@ def _band_mapping_valid(bands: Mapping[str, NDArray[np.float64]]) -> bool:
         return False
     return bool(finite and len(set(shapes)) == 1)
 
-
 def _bounds_valid(bounds: Mapping[str, tuple[float, float]]) -> bool:
     if not {"red", "green", "blue"}.issubset(set(bounds)):
         return False
@@ -87,7 +76,6 @@ def _bounds_valid(bounds: Mapping[str, tuple[float, float]]) -> bool:
         return bool(all(np.isfinite(lo) and np.isfinite(hi) and lo < hi for lo, hi in (bounds[key] for key in ("red", "green", "blue"))))
     except (TypeError, ValueError):
         return False
-
 
 def _parse_wkt_rings(wkt_string: str) -> list[NDArray[np.float64]]:
     text = wkt_string.strip()
@@ -108,7 +96,6 @@ def _parse_wkt_rings(wkt_string: str) -> list[NDArray[np.float64]]:
         raise ValueError("No polygon rings found")
     return rings
 
-
 def _world_to_pixel(points: NDArray[np.float64], transform: tuple[float, float, float, float, float, float]) -> NDArray[np.float64]:
     a, b, c, d, e, f = transform
     matrix = np.array([[a, b], [d, e]], dtype=np.float64)
@@ -118,7 +105,6 @@ def _world_to_pixel(points: NDArray[np.float64], transform: tuple[float, float, 
     shifted = np.column_stack((points[:, 0] - c, points[:, 1] - f))
     col_row = shifted @ np.linalg.inv(matrix).T
     return np.column_stack((col_row[:, 1], col_row[:, 0]))
-
 
 def _rdp(points: NDArray[np.float64], epsilon: float) -> NDArray[np.float64]:
     if points.shape[0] <= 2:
@@ -138,7 +124,6 @@ def _rdp(points: NDArray[np.float64], epsilon: float) -> NDArray[np.float64]:
         return np.vstack((left[:-1], right))
     return np.vstack((start, end))
 
-
 @register_atom(witness_morphological_close)
 @icontract.require(lambda mask: _is_binary(mask), "mask must be a binary 2D array")
 @icontract.require(lambda kernel_size: kernel_size > 0, "kernel_size must be positive")
@@ -151,7 +136,6 @@ def morphological_close(
     """Apply binary dilation followed by erosion to close small gaps in a mask."""
     result = ndimage.binary_closing(np.asarray(mask).astype(bool), structure=_binary_structure(kernel_size))
     return _restore_mask_dtype(result, mask)
-
 
 @register_atom(witness_morphological_open)
 @icontract.require(lambda mask: _is_binary(mask), "mask must be a binary 2D array")
@@ -166,7 +150,6 @@ def morphological_open(
     result = ndimage.binary_opening(np.asarray(mask).astype(bool), structure=_binary_structure(kernel_size))
     return _restore_mask_dtype(result, mask)
 
-
 @register_atom(witness_dilate_mask)
 @icontract.require(lambda mask: _is_binary(mask), "mask must be a binary 2D array")
 @icontract.require(lambda iterations: iterations > 0, "iterations must be positive")
@@ -179,7 +162,6 @@ def dilate_mask(
     """Expand foreground regions outward by repeated binary dilation."""
     result = ndimage.binary_dilation(np.asarray(mask).astype(bool), iterations=int(iterations))
     return _restore_mask_dtype(result, mask)
-
 
 @register_atom(witness_erode_mask)
 @icontract.require(lambda mask: _is_binary(mask), "mask must be a binary 2D array")
@@ -194,7 +176,6 @@ def erode_mask(
     result = ndimage.binary_erosion(np.asarray(mask).astype(bool), iterations=int(iterations))
     return _restore_mask_dtype(result, mask)
 
-
 @register_atom(witness_fill_holes)
 @icontract.require(lambda mask: _is_binary(mask), "mask must be a binary 2D array")
 @icontract.ensure(lambda result, mask: result.shape == np.asarray(mask).shape, "filled mask must preserve shape")
@@ -203,7 +184,6 @@ def fill_holes(mask: NDArray[np.bool_] | NDArray[np.integer]) -> NDArray[np.bool
     """Fill enclosed background holes inside foreground components."""
     result = ndimage.binary_fill_holes(np.asarray(mask).astype(bool))
     return _restore_mask_dtype(result, mask)
-
 
 @register_atom(witness_filter_components_by_area)
 @icontract.require(lambda mask: _is_binary(mask), "mask must be a binary 2D array")
@@ -223,7 +203,6 @@ def filter_components_by_area(
     keep = np.zeros(count + 1, dtype=bool)
     keep[1:] = np.asarray(sizes) >= int(min_area)
     return _restore_mask_dtype(keep[labels], mask)
-
 
 @register_atom(witness_dense_crf_2d)
 @icontract.require(lambda image: np.asarray(image).ndim == 3 and np.asarray(image).shape[2] == 3 and np.asarray(image).dtype == np.uint8, "image must be uint8 RGB")
@@ -257,7 +236,6 @@ def dense_crf_2d(
         return np.argmax(refined, axis=0).astype(np.int64)
     return np.argmax(probabilities, axis=0).astype(np.int64)
 
-
 @register_atom(witness_watershed_instances)
 @icontract.require(lambda distance_map: np.asarray(distance_map).ndim == 2 and np.all(np.isfinite(distance_map)), "distance_map must be finite 2D")
 @icontract.require(lambda markers: np.asarray(markers).ndim == 2 and np.all(np.asarray(markers) >= 0), "markers must be nonnegative integer 2D")
@@ -270,10 +248,10 @@ def watershed_instances(
     markers: NDArray[np.integer],
     mask: NDArray[np.bool_] | NDArray[np.integer],
 ) -> NDArray[np.int64]:
+    from skimage.segmentation import watershed
     """Split a semantic foreground mask into instance labels using watershed flooding."""
     labels = watershed(-np.asarray(distance_map, dtype=np.float64), np.asarray(markers, dtype=np.int64), mask=np.asarray(mask).astype(bool))
     return np.asarray(labels, dtype=np.int64)
-
 
 @register_atom(witness_mask_to_rle)
 @icontract.require(lambda mask: _is_binary(mask), "mask must be binary")
@@ -286,7 +264,6 @@ def mask_to_rle(mask: NDArray[np.bool_] | NDArray[np.integer]) -> list[int]:
     runs = np.flatnonzero(padded[1:] != padded[:-1]) + 1
     runs[1::2] -= runs[::2]
     return [int(value) for value in runs]
-
 
 @register_atom(witness_rle_to_mask)
 @icontract.require(lambda rle: _valid_rle(rle), "rle must contain positive start-length pairs")
@@ -304,7 +281,6 @@ def rle_to_mask(rle: Sequence[int], shape: tuple[int, int]) -> NDArray[np.uint8]
         flat[int(start) : int(start + length)] = 1
     return flat.reshape((width, height)).T.astype(np.uint8)
 
-
 @register_atom(witness_smooth_contour)
 @icontract.require(lambda points: _points_valid(points), "points must have shape (N, 2) and be finite")
 @icontract.require(lambda epsilon: np.isfinite(float(epsilon)) and epsilon >= 0.0, "epsilon must be finite and nonnegative")
@@ -312,7 +288,6 @@ def rle_to_mask(rle: Sequence[int], shape: tuple[int, int]) -> NDArray[np.uint8]
 def smooth_contour(points: NDArray[np.float64], epsilon: float) -> NDArray[np.float64]:
     """Simplify an ordered contour with the Ramer-Douglas-Peucker algorithm."""
     return _rdp(np.asarray(points, dtype=np.float64), float(epsilon)).astype(np.float64)
-
 
 @register_atom(witness_wkt_to_mask)
 @icontract.require(lambda wkt_string: isinstance(wkt_string, str) and len(wkt_string.strip()) > 0, "wkt_string must be non-empty")
@@ -325,6 +300,7 @@ def wkt_to_mask(
     image_shape: tuple[int, int],
     transform: tuple[float, float, float, float, float, float],
 ) -> NDArray[np.uint8]:
+    from skimage.draw import polygon as draw_polygon
     """Rasterize a simple POLYGON WKT geometry into a binary mask."""
     output = np.zeros((int(image_shape[0]), int(image_shape[1])), dtype=np.uint8)
     rings = _parse_wkt_rings(wkt_string)
@@ -336,7 +312,6 @@ def wkt_to_mask(
         else:
             output[rr, cc] = 0
     return output
-
 
 @register_atom(witness_false_color_composite)
 @icontract.require(lambda bands: _band_mapping_valid(bands), "bands must contain finite 2D red, green, and blue arrays with identical shape")

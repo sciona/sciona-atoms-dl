@@ -1,7 +1,7 @@
 {
   "schema_version": "1.1",
   "atoms": {
-    "sciona.atoms.dl.training.online_hard_negative_mining@sciona/atoms/dl/training/atoms.py:48": {
+    "sciona.atoms.dl.training.online_hard_negative_mining@sciona/atoms/dl/training/atoms.py:49": {
       "references": [
         {
           "ref_id": "liao2017dsb",
@@ -26,7 +26,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.training.size_aware_nodule_oversampling@sciona/atoms/dl/training/atoms.py:100": {
+    "sciona.atoms.dl.training.size_aware_nodule_oversampling@sciona/atoms/dl/training/atoms.py:101": {
       "references": [
         {
           "ref_id": "liao2017dsb",
@@ -51,7 +51,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.training.softmax_temperature_proposal_sampling@sciona/atoms/dl/training/atoms.py:157": {
+    "sciona.atoms.dl.training.softmax_temperature_proposal_sampling@sciona/atoms/dl/training/atoms.py:158": {
       "references": [
         {
           "ref_id": "liao2017dsb",
@@ -76,7 +76,7 @@
       ],
       "auto_attribution_runs": []
     },
-    "sciona.atoms.dl.training.ternary_search_threshold@sciona/atoms/dl/training/atoms.py:200": {
+    "sciona.atoms.dl.training.ternary_search_threshold@sciona/atoms/dl/training/atoms.py:201": {
       "references": [
         {
           "ref_id": "repo_birdclef_2021",

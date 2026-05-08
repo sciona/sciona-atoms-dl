@@ -5,11 +5,9 @@ from __future__ import annotations
 from collections.abc import Iterable
 
 import icontract
-import networkx as nx
 import numpy as np
 from numpy.typing import NDArray
 from scipy import ndimage
-from skimage.morphology import medial_axis, skeletonize
 
 from sciona.ghost.registry import register_atom
 
@@ -19,22 +17,17 @@ from .witnesses import (
     witness_skeletonize_2d,
 )
 
-
 Pixel = tuple[int, int]
-
 
 def _is_binary_2d(mask: NDArray[np.bool_] | NDArray[np.integer]) -> bool:
     values = np.asarray(mask)
     return bool(values.ndim == 2 and np.all((values == 0) | (values == 1)))
 
-
 def _binary(values: NDArray[np.bool_] | NDArray[np.integer]) -> NDArray[np.bool_]:
     return np.asarray(values).astype(bool)
 
-
 def _subset_of_mask(result: NDArray[np.bool_], mask: NDArray[np.bool_] | NDArray[np.integer]) -> bool:
     return bool(np.all(~np.asarray(result, dtype=bool) | _binary(mask)))
-
 
 def _medial_result_valid(
     result: NDArray[np.bool_] | tuple[NDArray[np.bool_], NDArray[np.float64]],
@@ -54,7 +47,6 @@ def _medial_result_valid(
         )
     return bool(not isinstance(result, tuple) and np.asarray(result).shape == shape and _subset_of_mask(np.asarray(result, dtype=bool), mask))
 
-
 def _neighbor_pixels(pixel: Pixel, shape: tuple[int, int]) -> Iterable[Pixel]:
     row, col = pixel
     height, width = shape
@@ -67,17 +59,14 @@ def _neighbor_pixels(pixel: Pixel, shape: tuple[int, int]) -> Iterable[Pixel]:
             if 0 <= rr < height and 0 <= cc < width:
                 yield (rr, cc)
 
-
 def _foreground_neighbors(skeleton: NDArray[np.bool_], pixel: Pixel) -> list[Pixel]:
     return [other for other in _neighbor_pixels(pixel, skeleton.shape) if bool(skeleton[other])]
-
 
 def _edge_weight(path: list[Pixel]) -> float:
     total = 0.0
     for left, right in zip(path, path[1:]):
         total += float(np.hypot(right[0] - left[0], right[1] - left[1]))
     return total
-
 
 def _add_edge_if_new(
     graph: nx.MultiGraph,
@@ -86,6 +75,7 @@ def _add_edge_if_new(
     end_node: int,
     path: list[Pixel],
 ) -> None:
+    import networkx as nx
     segments = {frozenset((left, right)) for left, right in zip(path, path[1:])}
     if start_node == end_node:
         seen_segments.update(segments)
@@ -100,19 +90,18 @@ def _add_edge_if_new(
         weight=_edge_weight(path),
     )
 
-
 @register_atom(witness_skeletonize_2d)
 @icontract.require(lambda mask: _is_binary_2d(mask), "mask must be a binary 2D array")
 @icontract.ensure(lambda result, mask: result.shape == np.asarray(mask).shape, "skeleton must preserve shape")
 @icontract.ensure(lambda result, mask: _subset_of_mask(result, mask), "skeleton cannot add foreground pixels")
 def skeletonize_2d(mask: NDArray[np.bool_] | NDArray[np.integer]) -> NDArray[np.bool_]:
+    from skimage.morphology import medial_axis, skeletonize
     """Thin a binary 2D mask to a one-pixel-wide skeleton.
 
     The atom uses scikit-image's deterministic Zhang method, which is the
     standard choice for 2D road-mask centerline extraction.
     """
     return np.asarray(skeletonize(_binary(mask), method="zhang"), dtype=np.bool_)
-
 
 @register_atom(witness_medial_axis_2d)
 @icontract.require(lambda mask: _is_binary_2d(mask), "mask must be a binary 2D array")
@@ -123,6 +112,7 @@ def medial_axis_2d(
     return_distance: bool = False,
     rng_seed: int = 42,
 ) -> NDArray[np.bool_] | tuple[NDArray[np.bool_], NDArray[np.float64]]:
+    from skimage.morphology import medial_axis, skeletonize
     """Compute the 2D medial axis with deterministic tie-breaking.
 
     Passing an explicit seed removes scikit-image's default random tie-breaker
@@ -139,7 +129,6 @@ def medial_axis_2d(
         return np.asarray(skeleton, dtype=np.bool_), np.asarray(distance, dtype=np.float64)
     return np.asarray(result, dtype=np.bool_)
 
-
 @register_atom(witness_skeleton_to_graph)
 @icontract.require(lambda skeleton: _is_binary_2d(skeleton), "skeleton must be a binary 2D array")
 @icontract.require(lambda skeleton: np.sum(skeleton) > 0, "skeleton must contain foreground pixels")
@@ -147,6 +136,7 @@ def medial_axis_2d(
 @icontract.ensure(lambda result: all("pts" in data and "o" in data for _, data in result.nodes(data=True)), "nodes must include pixel sets and centroids")
 @icontract.ensure(lambda result: all("pts" in data and "weight" in data and data["weight"] >= 0.0 for _, _, data in result.edges(data=True)), "edges must include paths and lengths")
 def skeleton_to_graph(skeleton: NDArray[np.bool_] | NDArray[np.integer]) -> nx.MultiGraph:
+    import networkx as nx
     """Convert a binary skeleton image into a pixel-centerline graph.
 
     Pixels with degree other than two become graph nodes. Adjacent node pixels
