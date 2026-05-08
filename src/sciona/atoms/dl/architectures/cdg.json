@@ -526,7 +526,7 @@
     },
     {
       "node_id": "ctc_decoder_head",
-      "name": "CTC Decoder Head",
+      "name": "ctc_decoder_head",
       "description": "Opaque pretrained model. CTC decoding head on top of encoder logits, producing decoded token sequences via connectionist temporal classification",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -555,7 +555,7 @@
     },
     {
       "node_id": "protein_embedding_transformer",
-      "name": "Protein Embedding Transformer",
+      "name": "protein_embedding_transformer",
       "description": "Opaque pretrained model. ESM-1b / ESM-2 protein sequence embedding transformer producing fixed-size representations from amino acid sequences",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -590,7 +590,7 @@
     },
     {
       "node_id": "extreme_multilabel_classifier",
-      "name": "Extreme Multi-Label Classifier",
+      "name": "extreme_multilabel_classifier",
       "description": "Opaque pretrained model. GORetrieval-style extreme multi-label text classifier mapping text to high-dimensional label scores",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -620,7 +620,7 @@
     },
     {
       "node_id": "transformer_encoder_layer",
-      "name": "Transformer Encoder Layer",
+      "name": "transformer_encoder_layer",
       "description": "Opaque pretrained model. Single transformer encoder layer with multi-head self-attention and feed-forward network",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -664,7 +664,7 @@
     },
     {
       "node_id": "masked_language_model_pretrain",
-      "name": "Masked Language Model Pretraining",
+      "name": "masked_language_model_pretrain",
       "description": "Opaque pretrained model. MLM pretraining pass (BERT/RoBERTa-style) for domain adaptation via masked token prediction",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -704,7 +704,7 @@
     },
     {
       "node_id": "flex_attention_mask",
-      "name": "Flex Attention Mask",
+      "name": "flex_attention_mask",
       "description": "Opaque pretrained model. Custom causal or structured attention mask pattern for flexible attention computation",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -733,7 +733,7 @@
     },
     {
       "node_id": "graph_transformer_encoder",
-      "name": "Graph Transformer Encoder",
+      "name": "graph_transformer_encoder",
       "description": "Opaque pretrained model. Graph Transformer with edge features for structural message passing (e.g. DynEdge)",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -774,7 +774,7 @@
     },
     {
       "node_id": "soft_attention_alignment",
-      "name": "Soft Attention Alignment",
+      "name": "soft_attention_alignment",
       "description": "Opaque pretrained model. Cross-modal soft attention alignment where text queries attend over image region keys",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -809,7 +809,7 @@
     },
     {
       "node_id": "multimodal_bilinear_fusion",
-      "name": "Multimodal Bilinear Fusion",
+      "name": "multimodal_bilinear_fusion",
       "description": "Opaque pretrained model. Bilinear pooling for fusing two modality feature vectors into a joint representation",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -850,7 +850,7 @@
     },
     {
       "node_id": "lightgbm_train",
-      "name": "LightGBM Training",
+      "name": "lightgbm_train",
       "description": "Opaque pretrained model. LightGBM gradient boosting decision tree training producing a compiled model",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -891,7 +891,7 @@
     },
     {
       "node_id": "xgboost_train",
-      "name": "XGBoost Training",
+      "name": "xgboost_train",
       "description": "Opaque pretrained model. XGBoost gradient boosting training producing a compiled model",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -931,7 +931,7 @@
     },
     {
       "node_id": "denoising_autoencoder",
-      "name": "Denoising Autoencoder",
+      "name": "denoising_autoencoder",
       "description": "Opaque pretrained model. Denoising autoencoder for unsupervised feature extraction via input corruption and reconstruction",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -976,7 +976,7 @@
     },
     {
       "node_id": "stochastic_weight_averaging",
-      "name": "Stochastic Weight Averaging",
+      "name": "stochastic_weight_averaging",
       "description": "Opaque pretrained model. SWA model weight averaging across training checkpoints for improved generalization",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -1011,7 +1011,7 @@
     },
     {
       "node_id": "multi_task_classification_heads",
-      "name": "Multi-Task Classification Heads",
+      "name": "multi_task_classification_heads",
       "description": "Opaque pretrained model. Multiple classification heads on a shared backbone, each producing independent logits",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -1046,7 +1046,7 @@
     },
     {
       "node_id": "linear_prediction_head",
-      "name": "Linear Prediction Head",
+      "name": "linear_prediction_head",
       "description": "Opaque pretrained model. Single linear layer mapping backbone features to target predictions",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -1082,7 +1082,7 @@
     },
     {
       "node_id": "dual_head_regression",
-      "name": "Dual Head Regression",
+      "name": "dual_head_regression",
       "description": "Opaque pretrained model. Two-target regression head with L1 loss for simultaneous prediction of two continuous targets",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -1111,7 +1111,7 @@
     },
     {
       "node_id": "face_detector",
-      "name": "Face Detector",
+      "name": "face_detector",
       "description": "Opaque pretrained model. MTCNN/RetinaFace face detection producing bounding boxes, landmarks, and confidence scores",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -1151,7 +1151,7 @@
     },
     {
       "node_id": "graph_neural_network",
-      "name": "Graph Neural Network",
+      "name": "graph_neural_network",
       "description": "Opaque pretrained model. GCN/GNN message passing forward pass producing updated node representations",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -1197,7 +1197,7 @@
     },
     {
       "node_id": "sentence_transformer",
-      "name": "Sentence Transformer",
+      "name": "sentence_transformer",
       "description": "Opaque pretrained model. Sentence-level text embedding extraction producing fixed-size dense vectors",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -1232,7 +1232,7 @@
     },
     {
       "node_id": "heterogeneous_graph_sampler",
-      "name": "Heterogeneous Graph Sampler",
+      "name": "heterogeneous_graph_sampler",
       "description": "Opaque pretrained model. DGL-style heterogeneous neighborhood sampling for mini-batch training on large graphs",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -1273,7 +1273,7 @@
     },
     {
       "node_id": "htdemucs_source_separation",
-      "name": "HTDemucs Source Separation",
+      "name": "htdemucs_source_separation",
       "description": "Opaque pretrained model. Vocal isolation and source separation via HTDemucs, splitting a mono/stereo waveform into stems (vocals, drums, bass, other)",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -1303,7 +1303,7 @@
     },
     {
       "node_id": "mosaic_augmentation",
-      "name": "Mosaic Augmentation",
+      "name": "mosaic_augmentation",
       "description": "4-image mosaic stitching augmentation for object detection, combining four images and their bounding boxes into a single training sample",
       "concept_type": "sampler",
       "status": "atomic",
@@ -1343,7 +1343,7 @@
     },
     {
       "node_id": "foldseek_structural_similarity",
-      "name": "Foldseek Structural Similarity",
+      "name": "foldseek_structural_similarity",
       "description": "Opaque pretrained model. Protein 3D structure comparison via Foldseek structural alignment, producing a similarity score between two PDB structures",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -1379,7 +1379,7 @@
     },
     {
       "node_id": "spatial_squeeze_excitation",
-      "name": "Spatial Squeeze-Excitation",
+      "name": "spatial_squeeze_excitation",
       "description": "Opaque pretrained model. Spatial squeeze-and-excitation attention block that re-weights feature map channels based on spatial statistics",
       "concept_type": "neural_network",
       "status": "atomic",
@@ -1408,7 +1408,7 @@
     },
     {
       "node_id": "sequence_tagging_trainer",
-      "name": "Sequence Tagging Trainer",
+      "name": "sequence_tagging_trainer",
       "description": "Opaque pretrained model. Token-level BIO sequence classifier training producing a trained model state for named entity recognition and similar tagging tasks",
       "concept_type": "neural_network",
       "status": "atomic",
