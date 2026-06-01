@@ -48,7 +48,11 @@
           "name": "result",
           "type_desc": "NDArray[np.int64]"
         }
-      ]
+      ],
+      "time_complexity": "O(F_target)",
+      "space_complexity": "O(F_target)",
+      "complexity_reasoning": "Computes frame indices approximating target FPS extraction in linear time relative to target frame count.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "uniform_sample_indices",
@@ -75,7 +79,11 @@
           "name": "result",
           "type_desc": "NDArray[np.int64]"
         }
-      ]
+      ],
+      "time_complexity": "O(K)",
+      "space_complexity": "O(K)",
+      "complexity_reasoning": "Selects K uniformly spaced frame indices over the total frame timeline in linear time.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "temporal_mean_pool",
@@ -97,7 +105,11 @@
           "name": "result",
           "type_desc": "NDArray[np.float64]"
         }
-      ]
+      ],
+      "time_complexity": "O(T * D)",
+      "space_complexity": "O(D)",
+      "complexity_reasoning": "Computes the mean activation over the temporal dimension of a sequence of shape (T, D).",
+      "complexity_confidence": 95
     },
     {
       "node_id": "temporal_max_pool",
@@ -119,7 +131,11 @@
           "name": "result",
           "type_desc": "NDArray[np.float64]"
         }
-      ]
+      ],
+      "time_complexity": "O(T * D)",
+      "space_complexity": "O(D)",
+      "complexity_reasoning": "Computes the maximum activation over the temporal dimension of a sequence of shape (T, D).",
+      "complexity_confidence": 95
     },
     {
       "node_id": "temporal_attention_pool",
@@ -156,7 +172,11 @@
           "name": "result",
           "type_desc": "NDArray[np.float64]"
         }
-      ]
+      ],
+      "time_complexity": "O(T^2 + T * D)",
+      "space_complexity": "O(T^2 + T * D)",
+      "complexity_reasoning": "Computes self-attention dot-products of shape (T, T) over T temporal frames with dimension D.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "temporal_median_filter",
@@ -183,7 +203,11 @@
           "name": "result",
           "type_desc": "NDArray[np.float64]"
         }
-      ]
+      ],
+      "time_complexity": "O(T * K)",
+      "space_complexity": "O(T)",
+      "complexity_reasoning": "Applies a local 1D median filter of width K to a sequence of length T in linear time.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "sliding_windows",
@@ -220,7 +244,11 @@
         "chunk_signal",
         "signal_chunking",
         "windowed_extraction"
-      ]
+      ],
+      "time_complexity": "O(W * S)",
+      "space_complexity": "O(W * S)",
+      "complexity_reasoning": "Extracts overlapping temporal windows to output a matrix of shape (W, S) for W windows of size S.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "stack_adjacent_frames",
@@ -252,7 +280,11 @@
           "name": "result",
           "type_desc": "NDArray[np.uint8]"
         }
-      ]
+      ],
+      "time_complexity": "O(H * W * C)",
+      "space_complexity": "O(H * W * C)",
+      "complexity_reasoning": "Stacks neighboring grayscale frames into C channels of shape (H, W) to provide temporal context.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "temporal_unroll",
@@ -283,7 +315,11 @@
       "aliases": [
         "repeat_aggregated_predictions",
         "temporal_unrolling"
-      ]
+      ],
+      "time_complexity": "O(T * D)",
+      "space_complexity": "O(T * D)",
+      "complexity_reasoning": "Repeats block-level predictions of shape (T_block, D) to retrieve original timestep shape (T, D).",
+      "complexity_confidence": 95
     }
   ]
 }

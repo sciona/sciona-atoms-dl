@@ -26,7 +26,11 @@
       "outputs": [
         {"name": "result", "type_desc": "int"}
       ],
-      "aliases": ["string_similarity", "edit_distance"]
+      "aliases": ["string_similarity", "edit_distance"],
+      "time_complexity": "O(L_1 * L_2)",
+      "space_complexity": "O(min(L_1, L_2))",
+      "complexity_reasoning": "Computes minimum edit distance between two strings of lengths L_1 and L_2 using an optimized DP buffer.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "jaro_winkler_similarity",
@@ -44,7 +48,11 @@
       "outputs": [
         {"name": "result", "type_desc": "float"}
       ],
-      "aliases": ["string_similarity_score"]
+      "aliases": ["string_similarity_score"],
+      "time_complexity": "O(L_1 * L_2)",
+      "space_complexity": "O(L_1 + L_2)",
+      "complexity_reasoning": "Computes Jaro-Winkler string similarity by finding matching characters and transpositions between two strings.",
+      "complexity_confidence": 95
     }
   ]
 }

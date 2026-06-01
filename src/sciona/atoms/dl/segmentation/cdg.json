@@ -44,29 +44,11 @@
       "description": "Apply binary dilation followed by erosion to close small gaps in a mask.",
       "concept_type": "signal_filter",
       "inputs": [
-        {
-          "name": "mask",
-          "type_desc": "NDArray[np.bool_] | NDArray[np.integer]",
-          "constraints": "binary 2D",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "kernel_size",
-          "type_desc": "int",
-          "constraints": "positive",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "mask", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "binary 2D", "required": true, "default_value_repr": ""},
+        {"name": "kernel_size", "type_desc": "int", "constraints": "positive", "required": true, "default_value_repr": ""}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.bool_] | NDArray[np.integer]",
-          "constraints": "same shape binary mask",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "result", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "same shape binary mask", "required": true, "default_value_repr": ""}
       ],
       "status": "atomic",
       "children": [],
@@ -76,15 +58,15 @@
         {
           "pattern_id": "morphological_cleanup",
           "description": "Close gaps, fill holes, remove small components from binary mask",
-          "atoms": [
-            "morphological_close",
-            "fill_holes",
-            "filter_components_by_area"
-          ],
+          "atoms": ["morphological_close", "fill_holes", "filter_components_by_area"],
           "ordering": "sequential",
           "when": "Stage describes mask cleanup or morphological post-processing"
         }
-      ]
+      ],
+      "time_complexity": "O(H * W * K^2)",
+      "space_complexity": "O(H * W)",
+      "complexity_reasoning": "Applies a morphological operation on a binary mask of shape (H, W) using a K x K structuring element.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "morphological_open",
@@ -93,34 +75,20 @@
       "description": "Apply binary erosion followed by dilation to remove small foreground artifacts.",
       "concept_type": "signal_filter",
       "inputs": [
-        {
-          "name": "mask",
-          "type_desc": "NDArray[np.bool_] | NDArray[np.integer]",
-          "constraints": "binary 2D",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "kernel_size",
-          "type_desc": "int",
-          "constraints": "positive",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "mask", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "binary 2D", "required": true, "default_value_repr": ""},
+        {"name": "kernel_size", "type_desc": "int", "constraints": "positive", "required": true, "default_value_repr": ""}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.bool_] | NDArray[np.integer]",
-          "constraints": "same shape binary mask",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "result", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "same shape binary mask", "required": true, "default_value_repr": ""}
       ],
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(mask, kernel_size) -> NDArray"
+      "type_signature": "(mask, kernel_size) -> NDArray",
+      "time_complexity": "O(H * W * K^2)",
+      "space_complexity": "O(H * W)",
+      "complexity_reasoning": "Applies a morphological operation on a binary mask of shape (H, W) using a K x K structuring element.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "dilate_mask",
@@ -129,34 +97,20 @@
       "description": "Expand foreground regions outward by repeated binary dilation.",
       "concept_type": "signal_filter",
       "inputs": [
-        {
-          "name": "mask",
-          "type_desc": "NDArray[np.bool_] | NDArray[np.integer]",
-          "constraints": "binary 2D",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "iterations",
-          "type_desc": "int",
-          "constraints": "positive",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "mask", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "binary 2D", "required": true, "default_value_repr": ""},
+        {"name": "iterations", "type_desc": "int", "constraints": "positive", "required": true, "default_value_repr": ""}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.bool_] | NDArray[np.integer]",
-          "constraints": "same shape binary mask",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "result", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "same shape binary mask", "required": true, "default_value_repr": ""}
       ],
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(mask, iterations) -> NDArray"
+      "type_signature": "(mask, iterations) -> NDArray",
+      "time_complexity": "O(H * W * K^2)",
+      "space_complexity": "O(H * W)",
+      "complexity_reasoning": "Applies a morphological operation on a binary mask of shape (H, W) using a K x K structuring element.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "erode_mask",
@@ -165,34 +119,20 @@
       "description": "Shrink foreground regions inward by repeated binary erosion.",
       "concept_type": "signal_filter",
       "inputs": [
-        {
-          "name": "mask",
-          "type_desc": "NDArray[np.bool_] | NDArray[np.integer]",
-          "constraints": "binary 2D",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "iterations",
-          "type_desc": "int",
-          "constraints": "positive",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "mask", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "binary 2D", "required": true, "default_value_repr": ""},
+        {"name": "iterations", "type_desc": "int", "constraints": "positive", "required": true, "default_value_repr": ""}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.bool_] | NDArray[np.integer]",
-          "constraints": "same shape binary mask",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "result", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "same shape binary mask", "required": true, "default_value_repr": ""}
       ],
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(mask, iterations) -> NDArray"
+      "type_signature": "(mask, iterations) -> NDArray",
+      "time_complexity": "O(H * W * K^2)",
+      "space_complexity": "O(H * W)",
+      "complexity_reasoning": "Applies a morphological operation on a binary mask of shape (H, W) using a K x K structuring element.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "fill_holes",
@@ -201,22 +141,10 @@
       "description": "Fill enclosed background holes inside foreground components.",
       "concept_type": "signal_filter",
       "inputs": [
-        {
-          "name": "mask",
-          "type_desc": "NDArray[np.bool_] | NDArray[np.integer]",
-          "constraints": "binary 2D",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "mask", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "binary 2D", "required": true, "default_value_repr": ""}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.bool_] | NDArray[np.integer]",
-          "constraints": "same shape binary mask with foreground area not reduced",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "result", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "same shape binary mask with foreground area not reduced", "required": true, "default_value_repr": ""}
       ],
       "status": "atomic",
       "children": [],
@@ -226,15 +154,15 @@
         {
           "pattern_id": "morphological_cleanup",
           "description": "Close gaps, fill holes, remove small components from binary mask",
-          "atoms": [
-            "morphological_close",
-            "fill_holes",
-            "filter_components_by_area"
-          ],
+          "atoms": ["morphological_close", "fill_holes", "filter_components_by_area"],
           "ordering": "sequential",
           "when": "Stage describes mask cleanup or morphological post-processing"
         }
-      ]
+      ],
+      "time_complexity": "O(H * W)",
+      "space_complexity": "O(H * W)",
+      "complexity_reasoning": "Fills enclosed background holes inside foreground components of a binary mask of shape (H, W).",
+      "complexity_confidence": 95
     },
     {
       "node_id": "filter_components_by_area",
@@ -243,29 +171,11 @@
       "description": "Remove connected foreground components smaller than the requested pixel area.",
       "concept_type": "signal_filter",
       "inputs": [
-        {
-          "name": "mask",
-          "type_desc": "NDArray[np.bool_] | NDArray[np.integer]",
-          "constraints": "binary 2D",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "min_area",
-          "type_desc": "int",
-          "constraints": "nonnegative",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "mask", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "binary 2D", "required": true, "default_value_repr": ""},
+        {"name": "min_area", "type_desc": "int", "constraints": "nonnegative", "required": true, "default_value_repr": ""}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.bool_] | NDArray[np.integer]",
-          "constraints": "same shape binary mask with foreground area not increased",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "result", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "same shape binary mask with foreground area not increased", "required": true, "default_value_repr": ""}
       ],
       "status": "atomic",
       "children": [],
@@ -275,15 +185,15 @@
         {
           "pattern_id": "morphological_cleanup",
           "description": "Close gaps, fill holes, remove small components from binary mask",
-          "atoms": [
-            "morphological_close",
-            "fill_holes",
-            "filter_components_by_area"
-          ],
+          "atoms": ["morphological_close", "fill_holes", "filter_components_by_area"],
           "ordering": "sequential",
           "when": "Stage describes mask cleanup or morphological post-processing"
         }
-      ]
+      ],
+      "time_complexity": "O(H * W)",
+      "space_complexity": "O(H * W)",
+      "complexity_reasoning": "Labels connected components and filters those below a pixel area threshold on a mask of shape (H, W).",
+      "complexity_confidence": 95
     },
     {
       "node_id": "dense_crf_2d",
@@ -292,67 +202,25 @@
       "description": "Refine class probabilities with optional DenseCRF and return hard labels.",
       "concept_type": "analysis",
       "inputs": [
-        {
-          "name": "image",
-          "type_desc": "NDArray[np.uint8]",
-          "constraints": "HxWx3 RGB",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "unary",
-          "type_desc": "NDArray[np.float64]",
-          "constraints": "classes x H x W finite probabilities",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "sxy",
-          "type_desc": "float",
-          "constraints": "positive",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "srgb",
-          "type_desc": "float",
-          "constraints": "positive",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "compat",
-          "type_desc": "float",
-          "constraints": "nonnegative",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "iterations",
-          "type_desc": "int",
-          "constraints": "positive",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "image", "type_desc": "NDArray[np.uint8]", "constraints": "HxWx3 RGB", "required": true, "default_value_repr": ""},
+        {"name": "unary", "type_desc": "NDArray[np.float64]", "constraints": "classes x H x W finite probabilities", "required": true, "default_value_repr": ""},
+        {"name": "sxy", "type_desc": "float", "constraints": "positive", "required": true, "default_value_repr": ""},
+        {"name": "srgb", "type_desc": "float", "constraints": "positive", "required": true, "default_value_repr": ""},
+        {"name": "compat", "type_desc": "float", "constraints": "nonnegative", "required": true, "default_value_repr": ""},
+        {"name": "iterations", "type_desc": "int", "constraints": "positive", "required": true, "default_value_repr": ""}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.int64]",
-          "constraints": "HxW integer labels",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "result", "type_desc": "NDArray[np.int64]", "constraints": "HxW integer labels", "required": true, "default_value_repr": ""}
       ],
       "status": "atomic",
       "children": [],
       "depth": 1,
       "type_signature": "(image, unary, sxy, srgb, compat, iterations) -> NDArray[np.int64]",
-      "aliases": [
-        "conditional_random_field",
-        "conditional_random_fields_crf",
-        "crf_postprocess"
-      ]
+      "aliases": ["conditional_random_field", "conditional_random_fields_crf", "crf_postprocess"],
+      "time_complexity": "O(I * H * W * C)",
+      "space_complexity": "O(H * W * C)",
+      "complexity_reasoning": "Refines class probabilities using a DenseCRF model over H x W pixels and C classes for I iterations.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "watershed_instances",
@@ -361,41 +229,21 @@
       "description": "Split a semantic foreground mask into instance labels using watershed flooding.",
       "concept_type": "analysis",
       "inputs": [
-        {
-          "name": "distance_map",
-          "type_desc": "NDArray[np.float64]",
-          "constraints": "finite 2D",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "markers",
-          "type_desc": "NDArray[np.integer]",
-          "constraints": "nonnegative integer 2D",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "mask",
-          "type_desc": "NDArray[np.bool_] | NDArray[np.integer]",
-          "constraints": "binary 2D same shape",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "distance_map", "type_desc": "NDArray[np.float64]", "constraints": "finite 2D", "required": true, "default_value_repr": ""},
+        {"name": "markers", "type_desc": "NDArray[np.integer]", "constraints": "nonnegative integer 2D", "required": true, "default_value_repr": ""},
+        {"name": "mask", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "binary 2D same shape", "required": true, "default_value_repr": ""}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.int64]",
-          "constraints": "same shape integer instance labels",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "result", "type_desc": "NDArray[np.int64]", "constraints": "same shape integer instance labels", "required": true, "default_value_repr": ""}
       ],
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(distance_map, markers, mask) -> NDArray[np.int64]"
+      "type_signature": "(distance_map, markers, mask) -> NDArray[np.int64]",
+      "time_complexity": "O(H * W log(H * W))",
+      "space_complexity": "O(H * W)",
+      "complexity_reasoning": "Computes distance transform and runs watershed flooding over an image of shape (H, W).",
+      "complexity_confidence": 95
     },
     {
       "node_id": "mask_to_rle",
@@ -404,27 +252,19 @@
       "description": "Encode a binary mask as one-based column-major run-length pairs.",
       "concept_type": "data_extraction",
       "inputs": [
-        {
-          "name": "mask",
-          "type_desc": "NDArray[np.bool_] | NDArray[np.integer]",
-          "constraints": "binary 2D",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "mask", "type_desc": "NDArray[np.bool_] | NDArray[np.integer]", "constraints": "binary 2D", "required": true, "default_value_repr": ""}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "list[int]",
-          "constraints": "positive start-length pairs",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "result", "type_desc": "list[int]", "constraints": "positive start-length pairs", "required": true, "default_value_repr": ""}
       ],
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(mask) -> list[int]"
+      "type_signature": "(mask) -> list[int]",
+      "time_complexity": "O(H * W)",
+      "space_complexity": "O(R)",
+      "complexity_reasoning": "Encodes a binary mask of shape (H, W) into column-major run-length pairs containing R runs.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "rle_to_mask",
@@ -433,34 +273,20 @@
       "description": "Decode one-based column-major run-length pairs into a binary mask.",
       "concept_type": "data_extraction",
       "inputs": [
-        {
-          "name": "rle",
-          "type_desc": "Sequence[int]",
-          "constraints": "positive start-length pairs",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "shape",
-          "type_desc": "tuple[int, int]",
-          "constraints": "positive height and width",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "rle", "type_desc": "Sequence[int]", "constraints": "positive start-length pairs", "required": true, "default_value_repr": ""},
+        {"name": "shape", "type_desc": "tuple[int, int]", "constraints": "positive height and width", "required": true, "default_value_repr": ""}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.uint8]",
-          "constraints": "binary mask with requested shape",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "result", "type_desc": "NDArray[np.uint8]", "constraints": "binary mask with requested shape", "required": true, "default_value_repr": ""}
       ],
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(rle, shape) -> NDArray[np.uint8]"
+      "type_signature": "(rle, shape) -> NDArray[np.uint8]",
+      "time_complexity": "O(H * W)",
+      "space_complexity": "O(H * W)",
+      "complexity_reasoning": "Decodes column-major run-length pairs into a binary mask of shape (H, W).",
+      "complexity_confidence": 95
     },
     {
       "node_id": "smooth_contour",
@@ -469,34 +295,20 @@
       "description": "Simplify an ordered contour with the Ramer-Douglas-Peucker algorithm.",
       "concept_type": "signal_filter",
       "inputs": [
-        {
-          "name": "points",
-          "type_desc": "NDArray[np.float64]",
-          "constraints": "finite Nx2",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "epsilon",
-          "type_desc": "float",
-          "constraints": "finite nonnegative",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "points", "type_desc": "NDArray[np.float64]", "constraints": "finite Nx2", "required": true, "default_value_repr": ""},
+        {"name": "epsilon", "type_desc": "float", "constraints": "finite nonnegative", "required": true, "default_value_repr": ""}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.float64]",
-          "constraints": "M x 2 points with M <= N",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "result", "type_desc": "NDArray[np.float64]", "constraints": "M x 2 points with M <= N", "required": true, "default_value_repr": ""}
       ],
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(points, epsilon) -> NDArray[np.float64]"
+      "type_signature": "(points, epsilon) -> NDArray[np.float64]",
+      "time_complexity": "O(N^2)",
+      "space_complexity": "O(N)",
+      "complexity_reasoning": "Simplifies an ordered contour of N points using the Ramer-Douglas-Peucker algorithm in quadratic worst-case time.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "wkt_to_mask",
@@ -505,41 +317,21 @@
       "description": "Rasterize a simple POLYGON WKT geometry into a binary mask.",
       "concept_type": "data_extraction",
       "inputs": [
-        {
-          "name": "wkt_string",
-          "type_desc": "str",
-          "constraints": "POLYGON WKT",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "image_shape",
-          "type_desc": "tuple[int, int]",
-          "constraints": "positive height and width",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "transform",
-          "type_desc": "tuple[float, float, float, float, float, float]",
-          "constraints": "finite affine tuple",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "wkt_string", "type_desc": "str", "constraints": "POLYGON WKT", "required": true, "default_value_repr": ""},
+        {"name": "image_shape", "type_desc": "tuple[int, int]", "constraints": "positive height and width", "required": true, "default_value_repr": ""},
+        {"name": "transform", "type_desc": "tuple[float, float, float, float, float, float]", "constraints": "finite affine tuple", "required": true, "default_value_repr": ""}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.uint8]",
-          "constraints": "binary raster mask",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "result", "type_desc": "NDArray[np.uint8]", "constraints": "binary raster mask", "required": true, "default_value_repr": ""}
       ],
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(wkt_string, image_shape, transform) -> NDArray[np.uint8]"
+      "type_signature": "(wkt_string, image_shape, transform) -> NDArray[np.uint8]",
+      "time_complexity": "O(P + H * W)",
+      "space_complexity": "O(H * W)",
+      "complexity_reasoning": "Rasterizes a polygon of P vertices into a binary mask of shape (H, W) in linear time.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "false_color_composite",
@@ -548,41 +340,21 @@
       "description": "Stretch red, green, and blue band arrays into an 8-bit false-color image.",
       "concept_type": "signal_filter",
       "inputs": [
-        {
-          "name": "bands",
-          "type_desc": "Mapping[str, NDArray[np.float64]]",
-          "constraints": "red, green, blue 2D arrays with identical shape",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "bounds",
-          "type_desc": "Mapping[str, tuple[float, float]]",
-          "constraints": "strict red, green, blue ranges",
-          "required": true,
-          "default_value_repr": ""
-        },
-        {
-          "name": "gamma",
-          "type_desc": "float",
-          "constraints": "positive",
-          "required": false,
-          "default_value_repr": "1.0"
-        }
+        {"name": "bands", "type_desc": "Mapping[str, NDArray[np.float64]]", "constraints": "red, green, blue 2D arrays with identical shape", "required": true, "default_value_repr": ""},
+        {"name": "bounds", "type_desc": "Mapping[str, tuple[float, float]]", "constraints": "strict red, green, blue ranges", "required": true, "default_value_repr": ""},
+        {"name": "gamma", "type_desc": "float", "constraints": "positive", "required": false, "default_value_repr": "1.0"}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.uint8]",
-          "constraints": "HxWx3 uint8 image",
-          "required": true,
-          "default_value_repr": ""
-        }
+        {"name": "result", "type_desc": "NDArray[np.uint8]", "constraints": "HxWx3 uint8 image", "required": true, "default_value_repr": ""}
       ],
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(bands, bounds, gamma=1.0) -> NDArray[np.uint8]"
+      "type_signature": "(bands, bounds, gamma=1.0) -> NDArray[np.uint8]",
+      "time_complexity": "O(H * W * 3)",
+      "space_complexity": "O(H * W * 3)",
+      "complexity_reasoning": "Stretches three bands of shape (H, W) and stacks them into an 8-bit RGB false-color image.",
+      "complexity_confidence": 95
     }
   ],
   "edges": [],

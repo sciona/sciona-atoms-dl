@@ -64,7 +64,11 @@
       "parallelizable": true,
       "conceptual_summary": "Deterministic 2D morphological thinning for road-mask centerline extraction.",
       "critic_notes": "",
-      "decomposition_rationale": "This is the primary skeletonization atom recommended by the research packet."
+      "decomposition_rationale": "This is the primary skeletonization atom recommended by the research packet.",
+      "time_complexity": "O(I * H * W)",
+      "space_complexity": "O(H * W)",
+      "complexity_reasoning": "Applies iterative thinning to reduce a binary mask of shape (H, W) to a skeleton in I passes.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "medial_axis_2d",
@@ -117,7 +121,11 @@
       "parallelizable": true,
       "conceptual_summary": "Distance-ridge skeleton extraction with explicit deterministic seed control.",
       "critic_notes": "The research notes medial-axis sensitivity to boundary noise; this atom is secondary to skeletonize_2d.",
-      "decomposition_rationale": "Medial axis returns useful width information and has different determinism controls from Zhang thinning."
+      "decomposition_rationale": "Medial axis returns useful width information and has different determinism controls from Zhang thinning.",
+      "time_complexity": "O(H * W)",
+      "space_complexity": "O(H * W)",
+      "complexity_reasoning": "Computes a medial axis skeleton and distance transform over a mask of shape (H, W) in linear time.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "skeleton_to_graph",
@@ -160,7 +168,11 @@
       "parallelizable": true,
       "conceptual_summary": "Endpoint and junction clustering followed by degree-two chain tracing.",
       "critic_notes": "The local implementation avoids the optional sknw dependency while preserving the graph contract needed by the research stage.",
-      "decomposition_rationale": "Graph extraction has a graph output and is separated from raster skeletonization."
+      "decomposition_rationale": "Graph extraction has a graph output and is separated from raster skeletonization.",
+      "time_complexity": "O(S)",
+      "space_complexity": "O(S)",
+      "complexity_reasoning": "Converts a centerline skeleton containing S active pixels into a NetworkX MultiGraph via path tracing.",
+      "complexity_confidence": 95
     }
   ],
   "edges": [

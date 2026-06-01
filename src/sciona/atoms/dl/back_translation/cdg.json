@@ -90,7 +90,11 @@
       "parallelizable": true,
       "conceptual_summary": "Deterministic text-to-text translation through injected frozen model state.",
       "critic_notes": "This atom intentionally does not call from_pretrained or instantiate transformers objects.",
-      "decomposition_rationale": "Back-translation composes two translate_text calls, such as en-to-fr followed by fr-to-en."
+      "decomposition_rationale": "Back-translation composes two translate_text calls, such as en-to-fr followed by fr-to-en.",
+      "time_complexity": "O(L)",
+      "space_complexity": "O(L)",
+      "complexity_reasoning": "Translates an input text string of length L using an opaque translation boundary model.",
+      "complexity_confidence": 95
     }
   ],
   "edges": [],

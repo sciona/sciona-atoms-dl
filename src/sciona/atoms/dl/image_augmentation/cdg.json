@@ -38,38 +38,19 @@
       "type_signature": "(image_a: NDArray[np.float64], image_b: NDArray[np.float64], label_a: NDArray[np.float64], label_b: NDArray[np.float64], bbox: tuple[int, int, int, int]) -> tuple[NDArray[np.float64], NDArray[np.float64]]",
       "depth": 1,
       "inputs": [
-        {
-          "name": "image_a",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "image_b",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "label_a",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "label_b",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "bbox",
-          "type_desc": "tuple[int, int, int, int]",
-          "required": true
-        }
+        {"name": "image_a", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "image_b", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "label_a", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "label_b", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "bbox", "type_desc": "tuple[int, int, int, int]", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "tuple[NDArray[np.float64], NDArray[np.float64]]"
-        }
-      ]
+        {"name": "result", "type_desc": "tuple[NDArray[np.float64], NDArray[np.float64]]"}
+      ],
+      "time_complexity": "O(H * W * C)",
+      "space_complexity": "O(H * W * C)",
+      "complexity_reasoning": "Applies pixel-level transformation to an image of shape (H, W, C) in linear time and space relative to image pixels.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "cutout_apply",
@@ -80,28 +61,17 @@
       "type_signature": "(image: NDArray[np.float64], bbox: tuple[int, int, int, int], fill_value: float) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {
-          "name": "image",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "bbox",
-          "type_desc": "tuple[int, int, int, int]",
-          "required": true
-        },
-        {
-          "name": "fill_value",
-          "type_desc": "float",
-          "required": true
-        }
+        {"name": "image", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "bbox", "type_desc": "tuple[int, int, int, int]", "required": true},
+        {"name": "fill_value", "type_desc": "float", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.float64]"
-        }
-      ]
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ],
+      "time_complexity": "O(H * W * C)",
+      "space_complexity": "O(H * W * C)",
+      "complexity_reasoning": "Applies pixel-level transformation to an image of shape (H, W, C) in linear time and space relative to image pixels.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "gridmask_apply",
@@ -112,43 +82,20 @@
       "type_signature": "(image: NDArray[np.float64], d: int, keep_ratio: float, delta_x: int, delta_y: int, fill_value: float) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {
-          "name": "image",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "d",
-          "type_desc": "int",
-          "required": true
-        },
-        {
-          "name": "keep_ratio",
-          "type_desc": "float",
-          "required": true
-        },
-        {
-          "name": "delta_x",
-          "type_desc": "int",
-          "required": true
-        },
-        {
-          "name": "delta_y",
-          "type_desc": "int",
-          "required": true
-        },
-        {
-          "name": "fill_value",
-          "type_desc": "float",
-          "required": true
-        }
+        {"name": "image", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "d", "type_desc": "int", "required": true},
+        {"name": "keep_ratio", "type_desc": "float", "required": true},
+        {"name": "delta_x", "type_desc": "int", "required": true},
+        {"name": "delta_y", "type_desc": "int", "required": true},
+        {"name": "fill_value", "type_desc": "float", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.float64]"
-        }
-      ]
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ],
+      "time_complexity": "O(H * W * C)",
+      "space_complexity": "O(H * W * C)",
+      "complexity_reasoning": "Applies pixel-level transformation to an image of shape (H, W, C) in linear time and space relative to image pixels.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "mixup_apply",
@@ -159,38 +106,19 @@
       "type_signature": "(image_a: NDArray[np.float64], image_b: NDArray[np.float64], label_a: NDArray[np.float64], label_b: NDArray[np.float64], lam: float) -> tuple[NDArray[np.float64], NDArray[np.float64]]",
       "depth": 1,
       "inputs": [
-        {
-          "name": "image_a",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "image_b",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "label_a",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "label_b",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "lam",
-          "type_desc": "float",
-          "required": true
-        }
+        {"name": "image_a", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "image_b", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "label_a", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "label_b", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "lam", "type_desc": "float", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "tuple[NDArray[np.float64], NDArray[np.float64]]"
-        }
-      ]
+        {"name": "result", "type_desc": "tuple[NDArray[np.float64], NDArray[np.float64]]"}
+      ],
+      "time_complexity": "O(H * W * C)",
+      "space_complexity": "O(H * W * C)",
+      "complexity_reasoning": "Applies pixel-level transformation to an image of shape (H, W, C) in linear time and space relative to image pixels.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "flip_apply",
@@ -201,23 +129,16 @@
       "type_signature": "(image: NDArray[np.float64], axis: int) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {
-          "name": "image",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "axis",
-          "type_desc": "int",
-          "required": true
-        }
+        {"name": "image", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "axis", "type_desc": "int", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.float64]"
-        }
-      ]
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ],
+      "time_complexity": "O(H * W * C)",
+      "space_complexity": "O(H * W * C)",
+      "complexity_reasoning": "Applies pixel-level transformation to an image of shape (H, W, C) in linear time and space relative to image pixels.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "random_crop_resize_apply",
@@ -228,33 +149,18 @@
       "type_signature": "(image: NDArray[np.float64], bbox: tuple[int, int, int, int], target_size: tuple[int, int], order: int) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {
-          "name": "image",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "bbox",
-          "type_desc": "tuple[int, int, int, int]",
-          "required": true
-        },
-        {
-          "name": "target_size",
-          "type_desc": "tuple[int, int]",
-          "required": true
-        },
-        {
-          "name": "order",
-          "type_desc": "int",
-          "required": true
-        }
+        {"name": "image", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "bbox", "type_desc": "tuple[int, int, int, int]", "required": true},
+        {"name": "target_size", "type_desc": "tuple[int, int]", "required": true},
+        {"name": "order", "type_desc": "int", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.float64]"
-        }
-      ]
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ],
+      "time_complexity": "O(H * W * C)",
+      "space_complexity": "O(H * W * C)",
+      "complexity_reasoning": "Applies pixel-level transformation to an image of shape (H, W, C) in linear time and space relative to image pixels.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "affine_transform_centered",
@@ -265,43 +171,20 @@
       "type_signature": "(image: NDArray[np.float64], angle_degrees: float, scale: float, dx: float, dy: float, order: int) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {
-          "name": "image",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "angle_degrees",
-          "type_desc": "float",
-          "required": true
-        },
-        {
-          "name": "scale",
-          "type_desc": "float",
-          "required": true
-        },
-        {
-          "name": "dx",
-          "type_desc": "float",
-          "required": true
-        },
-        {
-          "name": "dy",
-          "type_desc": "float",
-          "required": true
-        },
-        {
-          "name": "order",
-          "type_desc": "int",
-          "required": true
-        }
+        {"name": "image", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "angle_degrees", "type_desc": "float", "required": true},
+        {"name": "scale", "type_desc": "float", "required": true},
+        {"name": "dx", "type_desc": "float", "required": true},
+        {"name": "dy", "type_desc": "float", "required": true},
+        {"name": "order", "type_desc": "int", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.float64]"
-        }
-      ]
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ],
+      "time_complexity": "O(H * W * C)",
+      "space_complexity": "O(H * W * C)",
+      "complexity_reasoning": "Applies pixel-level transformation to an image of shape (H, W, C) in linear time and space relative to image pixels.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "brightness_contrast_apply",
@@ -312,38 +195,19 @@
       "type_signature": "(image: NDArray[np.float64], alpha: float, beta: float, clip_min: float = 0.0, clip_max: float = 1.0) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {
-          "name": "image",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "alpha",
-          "type_desc": "float",
-          "required": true
-        },
-        {
-          "name": "beta",
-          "type_desc": "float",
-          "required": true
-        },
-        {
-          "name": "clip_min",
-          "type_desc": "float",
-          "required": false
-        },
-        {
-          "name": "clip_max",
-          "type_desc": "float",
-          "required": false
-        }
+        {"name": "image", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "alpha", "type_desc": "float", "required": true},
+        {"name": "beta", "type_desc": "float", "required": true},
+        {"name": "clip_min", "type_desc": "float", "required": false},
+        {"name": "clip_max", "type_desc": "float", "required": false}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.float64]"
-        }
-      ]
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ],
+      "time_complexity": "O(H * W * C)",
+      "space_complexity": "O(H * W * C)",
+      "complexity_reasoning": "Applies pixel-level transformation to an image of shape (H, W, C) in linear time and space relative to image pixels.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "hue_saturation_shift",
@@ -354,28 +218,17 @@
       "type_signature": "(image: NDArray[np.float64], hue_shift: float, sat_shift: float) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {
-          "name": "image",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "hue_shift",
-          "type_desc": "float",
-          "required": true
-        },
-        {
-          "name": "sat_shift",
-          "type_desc": "float",
-          "required": true
-        }
+        {"name": "image", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "hue_shift", "type_desc": "float", "required": true},
+        {"name": "sat_shift", "type_desc": "float", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.float64]"
-        }
-      ]
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ],
+      "time_complexity": "O(H * W * C)",
+      "space_complexity": "O(H * W * C)",
+      "complexity_reasoning": "Applies pixel-level transformation to an image of shape (H, W, C) in linear time and space relative to image pixels.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "grayscale_convert_apply",
@@ -386,18 +239,15 @@
       "type_signature": "(image: NDArray[np.float64]) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {
-          "name": "image",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        }
+        {"name": "image", "type_desc": "NDArray[np.float64]", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.float64]"
-        }
-      ]
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ],
+      "time_complexity": "O(H * W * C)",
+      "space_complexity": "O(H * W)",
+      "complexity_reasoning": "Converts an H x W x C color image to a single-channel grayscale image in linear time and space.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "ben_graham_retinal_preprocess",
@@ -408,23 +258,16 @@
       "type_signature": "(image: NDArray[np.float64], sigma: float) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {
-          "name": "image",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "sigma",
-          "type_desc": "float",
-          "required": true
-        }
+        {"name": "image", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "sigma", "type_desc": "float", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.float64]"
-        }
-      ]
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ],
+      "time_complexity": "O(H * W * C)",
+      "space_complexity": "O(H * W * C)",
+      "complexity_reasoning": "Applies Gaussian blurring and local illumination subtraction to a retinal image in linear time.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "tta_geometric_average",
@@ -435,23 +278,16 @@
       "type_signature": "(predictions: NDArray[np.float64], transform_codes: tuple[str, ...]) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {
-          "name": "predictions",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "transform_codes",
-          "type_desc": "tuple[str, ...]",
-          "required": true
-        }
+        {"name": "predictions", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "transform_codes", "type_desc": "tuple[str, ...]", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.float64]"
-        }
-      ]
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ],
+      "time_complexity": "O(T * B * C)",
+      "space_complexity": "O(B * C)",
+      "complexity_reasoning": "Computes the geometric average of class predictions of shape (B, C) across T test-time augmentation runs.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "ten_crop_batch",
@@ -462,23 +298,16 @@
       "type_signature": "(image: NDArray[np.float64], crop_size: int) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {
-          "name": "image",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "crop_size",
-          "type_desc": "int",
-          "required": true
-        }
+        {"name": "image", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "crop_size", "type_desc": "int", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.float64]"
-        }
-      ]
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ],
+      "time_complexity": "O(B * H * W * C)",
+      "space_complexity": "O(B * H * W * C)",
+      "complexity_reasoning": "Generates ten spatial crops of shape (H, W, C) for each image in a batch of size B in linear time and space.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "tta_10crop_average",
@@ -489,32 +318,18 @@
       "type_signature": "(image: NDArray[np.float64], crop_size: int, model_func: Callable[[NDArray[np.float64]], NDArray[np.float64]]) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {
-          "name": "image",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "crop_size",
-          "type_desc": "int",
-          "required": true
-        },
-        {
-          "name": "model_func",
-          "type_desc": "Callable[[NDArray[np.float64]], NDArray[np.float64]]",
-          "required": true
-        }
+        {"name": "image", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "crop_size", "type_desc": "int", "required": true},
+        {"name": "model_func", "type_desc": "Callable[[NDArray[np.float64]], NDArray[np.float64]]", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.float64]"
-        }
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
       ],
-      "aliases": [
-        "test_time_augmentation",
-        "test_time_augmentation_tta"
-      ]
+      "aliases": ["test_time_augmentation", "test_time_augmentation_tta"],
+      "time_complexity": "O(B * C)",
+      "space_complexity": "O(B * C)",
+      "complexity_reasoning": "Averages predicted class probabilities across 10-crop augmentations for a batch of size B.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "fold_ensemble_average",
@@ -525,47 +340,32 @@
       "type_signature": "(predictions_matrix: NDArray[np.float64], method: str) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {
-          "name": "predictions_matrix",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "method",
-          "type_desc": "str",
-          "required": true
-        }
+        {"name": "predictions_matrix", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "method", "type_desc": "str", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.float64]"
-        }
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
       ],
       "common_patterns": [
         {
           "pattern_id": "prediction_averaging",
           "description": "Average predictions from multiple models",
-          "atoms": [
-            "voting_classifier_soft_probabilities",
-            "voting_regressor_average",
-            "ranked_prediction_blend",
-            "fold_ensemble_average"
-          ],
+          "atoms": ["voting_classifier_soft_probabilities", "voting_regressor_average", "ranked_prediction_blend", "fold_ensemble_average"],
           "ordering": "alternatives",
           "when": "Stage describes ensembling, blending, or averaging model predictions"
         },
         {
           "pattern_id": "cross_validation_with_ensemble",
           "description": "Split data into CV folds then average out-of-fold predictions",
-          "atoms": [
-            "cross_validation",
-            "fold_ensemble_average"
-          ],
+          "atoms": ["cross_validation", "fold_ensemble_average"],
           "ordering": "sequential",
           "when": "Stage describes cross-validated training with fold averaging"
         }
-      ]
+      ],
+      "time_complexity": "O(F * B * C)",
+      "space_complexity": "O(B * C)",
+      "complexity_reasoning": "Computes the arithmetic average of class probability predictions across F ensemble folds for batch size B.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "normalize_imagenet",
@@ -576,28 +376,17 @@
       "type_signature": "(image: NDArray[np.float64], mean: tuple[float, float, float], std: tuple[float, float, float]) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {
-          "name": "image",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "mean",
-          "type_desc": "tuple[float, float, float]",
-          "required": true
-        },
-        {
-          "name": "std",
-          "type_desc": "tuple[float, float, float]",
-          "required": true
-        }
+        {"name": "image", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "mean", "type_desc": "tuple[float, float, float]", "required": true},
+        {"name": "std", "type_desc": "tuple[float, float, float]", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.float64]"
-        }
-      ]
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ],
+      "time_complexity": "O(B * C * H * W)",
+      "space_complexity": "O(B * C * H * W)",
+      "complexity_reasoning": "Normalizes a batch of B images of shape (C, H, W) using ImageNet channel mean and standard deviation.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "normalize_per_image",
@@ -608,23 +397,16 @@
       "type_signature": "(image: NDArray[np.float64], eps: float = 1e-8) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {
-          "name": "image",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "eps",
-          "type_desc": "float",
-          "required": false
-        }
+        {"name": "image", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "eps", "type_desc": "float", "required": false}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.float64]"
-        }
-      ]
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ],
+      "time_complexity": "O(B * C * H * W)",
+      "space_complexity": "O(B * C * H * W)",
+      "complexity_reasoning": "Normalizes each image in a batch of size B individually to zero mean and unit variance.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "min_max_scale",
@@ -635,23 +417,16 @@
       "type_signature": "(image: NDArray[np.float64], eps: float = 1e-8) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {
-          "name": "image",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "eps",
-          "type_desc": "float",
-          "required": false
-        }
+        {"name": "image", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "eps", "type_desc": "float", "required": false}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.float64]"
-        }
-      ]
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ],
+      "time_complexity": "O(N)",
+      "space_complexity": "O(N)",
+      "complexity_reasoning": "Scales an input array of size N element-wise into the [0, 1] range in linear time and space.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "resize_and_pad_apply",
@@ -662,33 +437,18 @@
       "type_signature": "(image: NDArray[np.float64], target_size: tuple[int, int], pad_value: float, order: int = 1) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {
-          "name": "image",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "target_size",
-          "type_desc": "tuple[int, int]",
-          "required": true
-        },
-        {
-          "name": "pad_value",
-          "type_desc": "float",
-          "required": true
-        },
-        {
-          "name": "order",
-          "type_desc": "int",
-          "required": false
-        }
+        {"name": "image", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "target_size", "type_desc": "tuple[int, int]", "required": true},
+        {"name": "pad_value", "type_desc": "float", "required": true},
+        {"name": "order", "type_desc": "int", "required": false}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.float64]"
-        }
-      ]
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ],
+      "time_complexity": "O(H * W * C)",
+      "space_complexity": "O(H * W * C)",
+      "complexity_reasoning": "Applies pixel-level transformation to an image of shape (H, W, C) in linear time and space relative to image pixels.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "compose_augmentations",
@@ -699,33 +459,18 @@
       "type_signature": "(image: NDArray[np.float64], transforms: Sequence[Callable[[NDArray[np.float64]], NDArray[np.float64]]], probabilities: Sequence[float], random_values: Sequence[float]) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {
-          "name": "image",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "transforms",
-          "type_desc": "Sequence[Callable[[NDArray[np.float64]], NDArray[np.float64]]]",
-          "required": true
-        },
-        {
-          "name": "probabilities",
-          "type_desc": "Sequence[float]",
-          "required": true
-        },
-        {
-          "name": "random_values",
-          "type_desc": "Sequence[float]",
-          "required": true
-        }
+        {"name": "image", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "transforms", "type_desc": "Sequence[Callable[[NDArray[np.float64]], NDArray[np.float64]]]", "required": true},
+        {"name": "probabilities", "type_desc": "Sequence[float]", "required": true},
+        {"name": "random_values", "type_desc": "Sequence[float]", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.float64]"
-        }
-      ]
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
+      ],
+      "time_complexity": "O(N * H * W * C)",
+      "space_complexity": "O(H * W * C)",
+      "complexity_reasoning": "Applies a chain of N sequential image augmentation functions to an image of shape (H, W, C).",
+      "complexity_confidence": 95
     }
   ]
 }

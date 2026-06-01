@@ -32,28 +32,17 @@
       "type_signature": "(predictions: NDArray[np.float64], labels: NDArray[np.float64], threshold: float = 0.03) -> float",
       "depth": 1,
       "inputs": [
-        {
-          "name": "predictions",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "labels",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "threshold",
-          "type_desc": "float",
-          "required": false
-        }
+        {"name": "predictions", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "labels", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "threshold", "type_desc": "float", "required": false}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "float"
-        }
-      ]
+        {"name": "result", "type_desc": "float"}
+      ],
+      "time_complexity": "O(N)",
+      "space_complexity": "O(1)",
+      "complexity_reasoning": "Computes a linear penalty for positive targets predicted below confidence threshold in linear time over N samples.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "qwk_loss",
@@ -64,28 +53,17 @@
       "type_signature": "(predictions: NDArray[np.float64], targets: NDArray[np.int64], num_classes: int) -> float",
       "depth": 1,
       "inputs": [
-        {
-          "name": "predictions",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "targets",
-          "type_desc": "NDArray[np.int64]",
-          "required": true
-        },
-        {
-          "name": "num_classes",
-          "type_desc": "int",
-          "required": true
-        }
+        {"name": "predictions", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "targets", "type_desc": "NDArray[np.int64]", "required": true},
+        {"name": "num_classes", "type_desc": "int", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "float"
-        }
-      ]
+        {"name": "result", "type_desc": "float"}
+      ],
+      "time_complexity": "O(B * C + C^2)",
+      "space_complexity": "O(C^2)",
+      "complexity_reasoning": "Computes quadratic weighted kappa loss over batch B and classes C using pairwise weight and confusion matrices.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "ctc_loss",
@@ -96,33 +74,18 @@
       "type_signature": "(log_probs: NDArray[np.float64], targets: NDArray[np.int64], input_lengths: NDArray[np.int64], target_lengths: NDArray[np.int64]) -> float",
       "depth": 1,
       "inputs": [
-        {
-          "name": "log_probs",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "targets",
-          "type_desc": "NDArray[np.int64]",
-          "required": true
-        },
-        {
-          "name": "input_lengths",
-          "type_desc": "NDArray[np.int64]",
-          "required": true
-        },
-        {
-          "name": "target_lengths",
-          "type_desc": "NDArray[np.int64]",
-          "required": true
-        }
+        {"name": "log_probs", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "targets", "type_desc": "NDArray[np.int64]", "required": true},
+        {"name": "input_lengths", "type_desc": "NDArray[np.int64]", "required": true},
+        {"name": "target_lengths", "type_desc": "NDArray[np.int64]", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "float"
-        }
-      ]
+        {"name": "result", "type_desc": "float"}
+      ],
+      "time_complexity": "O(B * T * V)",
+      "space_complexity": "O(B * T * V)",
+      "complexity_reasoning": "Computes CTC loss via forward-backward dynamic programming over sequence length T, batch size B, and vocabulary V.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "focal_loss",
@@ -133,33 +96,18 @@
       "type_signature": "(predictions: NDArray[np.float64], targets: NDArray[np.float64], alpha: float = 0.25, gamma: float = 2.0) -> float",
       "depth": 1,
       "inputs": [
-        {
-          "name": "predictions",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "targets",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "alpha",
-          "type_desc": "float",
-          "required": false
-        },
-        {
-          "name": "gamma",
-          "type_desc": "float",
-          "required": false
-        }
+        {"name": "predictions", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "targets", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "alpha", "type_desc": "float", "required": false},
+        {"name": "gamma", "type_desc": "float", "required": false}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "float"
-        }
-      ]
+        {"name": "result", "type_desc": "float"}
+      ],
+      "time_complexity": "O(N)",
+      "space_complexity": "O(N)",
+      "complexity_reasoning": "Computes binary focal loss element-wise over predictions of size N in linear time and space.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "lovasz_softmax_loss",
@@ -170,23 +118,16 @@
       "type_signature": "(probabilities: NDArray[np.float64], targets: NDArray[np.float64]) -> float",
       "depth": 1,
       "inputs": [
-        {
-          "name": "probabilities",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "targets",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        }
+        {"name": "probabilities", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "targets", "type_desc": "NDArray[np.float64]", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "float"
-        }
-      ]
+        {"name": "result", "type_desc": "float"}
+      ],
+      "time_complexity": "O(B * C log C)",
+      "space_complexity": "O(B * C)",
+      "complexity_reasoning": "Computes the Lovasz extension of the Jaccard index using sorting over C classes for batch size B.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "dice_loss",
@@ -197,28 +138,17 @@
       "type_signature": "(predictions: NDArray[np.float64], targets: NDArray[np.float64], smooth: float = 1e-6) -> float",
       "depth": 1,
       "inputs": [
-        {
-          "name": "predictions",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "targets",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "smooth",
-          "type_desc": "float",
-          "required": false
-        }
+        {"name": "predictions", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "targets", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "smooth", "type_desc": "float", "required": false}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "float"
-        }
-      ]
+        {"name": "result", "type_desc": "float"}
+      ],
+      "time_complexity": "O(N)",
+      "space_complexity": "O(N)",
+      "complexity_reasoning": "Computes the intersection and union of predictions and targets of size N in linear time.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "crps_score",
@@ -229,23 +159,16 @@
       "type_signature": "(cdf_predictions: NDArray[np.float64], true_values: NDArray[np.int64]) -> float",
       "depth": 1,
       "inputs": [
-        {
-          "name": "cdf_predictions",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "true_values",
-          "type_desc": "NDArray[np.int64]",
-          "required": true
-        }
+        {"name": "cdf_predictions", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "true_values", "type_desc": "NDArray[np.int64]", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "float"
-        }
-      ]
+        {"name": "result", "type_desc": "float"}
+      ],
+      "time_complexity": "O(B * C)",
+      "space_complexity": "O(1)",
+      "complexity_reasoning": "Computes discrete Continuous Ranked Probability Score over B samples with C CDF bins.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "contrastive_loss",
@@ -256,33 +179,18 @@
       "type_signature": "(embedding_a: NDArray[np.float64], embedding_b: NDArray[np.float64], labels: NDArray[np.float64], margin: float) -> float",
       "depth": 1,
       "inputs": [
-        {
-          "name": "embedding_a",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "embedding_b",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "labels",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "margin",
-          "type_desc": "float",
-          "required": true
-        }
+        {"name": "embedding_a", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "embedding_b", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "labels", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "margin", "type_desc": "float", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "float"
-        }
-      ]
+        {"name": "result", "type_desc": "float"}
+      ],
+      "time_complexity": "O(B * D)",
+      "space_complexity": "O(B)",
+      "complexity_reasoning": "Computes pairwise contrastive loss over B embedding pairs of dimension D in linear time.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "triplet_loss",
@@ -293,33 +201,18 @@
       "type_signature": "(anchor: NDArray[np.float64], positive: NDArray[np.float64], negative: NDArray[np.float64], margin: float) -> float",
       "depth": 1,
       "inputs": [
-        {
-          "name": "anchor",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "positive",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "negative",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "margin",
-          "type_desc": "float",
-          "required": true
-        }
+        {"name": "anchor", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "positive", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "negative", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "margin", "type_desc": "float", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "float"
-        }
-      ]
+        {"name": "result", "type_desc": "float"}
+      ],
+      "time_complexity": "O(B * D)",
+      "space_complexity": "O(B)",
+      "complexity_reasoning": "Computes margin triplet loss over aligned anchor, positive, and negative vectors of shape (B, D).",
+      "complexity_confidence": 95
     },
     {
       "node_id": "label_smoothing_ce",
@@ -330,32 +223,21 @@
       "type_signature": "(logits: NDArray[np.float64], targets: NDArray[np.int64], epsilon: float) -> float",
       "depth": 1,
       "inputs": [
-        {
-          "name": "logits",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "targets",
-          "type_desc": "NDArray[np.int64]",
-          "required": true
-        },
-        {
-          "name": "epsilon",
-          "type_desc": "float",
-          "required": true
-        }
+        {"name": "logits", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "targets", "type_desc": "NDArray[np.int64]", "required": true},
+        {"name": "epsilon", "type_desc": "float", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "float"
-        }
+        {"name": "result", "type_desc": "float"}
       ],
       "aliases": [
         "label_smoothing",
         "label_smoothing_loss"
-      ]
+      ],
+      "time_complexity": "O(B * C)",
+      "space_complexity": "O(B * C)",
+      "complexity_reasoning": "Mixes one-hot labels with uniform mass and computes cross-entropy over batch size B and C classes.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "weighted_multitask_loss",
@@ -366,23 +248,16 @@
       "type_signature": "(losses: list[float], weights: list[float]) -> float",
       "depth": 1,
       "inputs": [
-        {
-          "name": "losses",
-          "type_desc": "list[float]",
-          "required": true
-        },
-        {
-          "name": "weights",
-          "type_desc": "list[float]",
-          "required": true
-        }
+        {"name": "losses", "type_desc": "list[float]", "required": true},
+        {"name": "weights", "type_desc": "list[float]", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "float"
-        }
-      ]
+        {"name": "result", "type_desc": "float"}
+      ],
+      "time_complexity": "O(T)",
+      "space_complexity": "O(1)",
+      "complexity_reasoning": "Computes a weighted sum of T scalar task losses in linear time and constant auxiliary space.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "multimodal_nll_loss",
@@ -393,28 +268,17 @@
       "type_signature": "(ground_truth: NDArray[np.float64], trajectories: NDArray[np.float64], confidences: NDArray[np.float64]) -> float",
       "depth": 1,
       "inputs": [
-        {
-          "name": "ground_truth",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "trajectories",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "confidences",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        }
+        {"name": "ground_truth", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "trajectories", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "confidences", "type_desc": "NDArray[np.float64]", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "float"
-        }
-      ]
+        {"name": "result", "type_desc": "float"}
+      ],
+      "time_complexity": "O(B * M * T * D)",
+      "space_complexity": "O(B * M)",
+      "complexity_reasoning": "Computes mixture trajectory negative log-likelihood over B batches, M modes, T timesteps, and D coordinates.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "weighted_bce_loss",
@@ -425,33 +289,22 @@
       "type_signature": "(logits: NDArray[np.float64], targets: NDArray[np.float64], weights: NDArray[np.float64]) -> float",
       "depth": 1,
       "inputs": [
-        {
-          "name": "logits",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "targets",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "weights",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        }
+        {"name": "logits", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "targets", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "weights", "type_desc": "NDArray[np.float64]", "required": true}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "float"
-        }
+        {"name": "result", "type_desc": "float"}
       ],
       "aliases": [
         "sample_weighted_bce",
         "snr_weighted_loss",
         "target_weighted_loss"
-      ]
+      ],
+      "time_complexity": "O(N)",
+      "space_complexity": "O(N)",
+      "complexity_reasoning": "Computes stable binary cross-entropy element-wise with per-sample weights over arrays of size N.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "quantile_spread_to_confidence",
@@ -462,32 +315,21 @@
       "type_signature": "(q_low: NDArray[np.float64], q_high: NDArray[np.float64], min_sigma: float = 70.0) -> NDArray[np.float64]",
       "depth": 1,
       "inputs": [
-        {
-          "name": "q_low",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "q_high",
-          "type_desc": "NDArray[np.float64]",
-          "required": true
-        },
-        {
-          "name": "min_sigma",
-          "type_desc": "float",
-          "required": false
-        }
+        {"name": "q_low", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "q_high", "type_desc": "NDArray[np.float64]", "required": true},
+        {"name": "min_sigma", "type_desc": "float", "required": false}
       ],
       "outputs": [
-        {
-          "name": "result",
-          "type_desc": "NDArray[np.float64]"
-        }
+        {"name": "result", "type_desc": "NDArray[np.float64]"}
       ],
       "aliases": [
         "confidence_interval_postprocessing",
         "quantile_confidence"
-      ]
+      ],
+      "time_complexity": "O(N)",
+      "space_complexity": "O(N)",
+      "complexity_reasoning": "Converts and clips lower/upper quantile spreads of size N in linear time and space.",
+      "complexity_confidence": 95
     }
   ]
 }

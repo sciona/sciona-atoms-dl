@@ -86,7 +86,11 @@
       "parallelizable": true,
       "conceptual_summary": "Convert unordered point rows into fixed-size voxel buckets for sparse 3D detection backbones.",
       "critic_notes": "This CPU atom does not implement GPU scatter kernels, dynamic voxelization, or learned voxel feature encoders.",
-      "decomposition_rationale": "Voxelization is a preprocessing boundary reused by LiDAR detectors before learned feature extraction."
+      "decomposition_rationale": "Voxelization is a preprocessing boundary reused by LiDAR detectors before learned feature extraction.",
+      "time_complexity": "O(N)",
+      "space_complexity": "O(V)",
+      "complexity_reasoning": "Bins N points into a 3D grid of V active voxels, scaling linearly with the number of points.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "project_image_to_points",
@@ -153,7 +157,11 @@
       "parallelizable": true,
       "conceptual_summary": "Fuse 2D image evidence into 3D point rows through camera projection and interpolation.",
       "critic_notes": "Camera calibration selection, occlusion handling, and neural image feature computation are outside this atom.",
-      "decomposition_rationale": "Projection and bilinear feature lookup are deterministic geometry pieces of multi-modal LiDAR-camera fusion."
+      "decomposition_rationale": "Projection and bilinear feature lookup are deterministic geometry pieces of multi-modal LiDAR-camera fusion.",
+      "time_complexity": "O(N)",
+      "space_complexity": "O(N)",
+      "complexity_reasoning": "Projects N 3D point coordinates into the 2D image plane to sample corresponding color/feature values.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "rasterize_bev",
@@ -220,7 +228,11 @@
       "parallelizable": true,
       "conceptual_summary": "Convert vector scene context into image-like BEV channels for motion models.",
       "critic_notes": "This atom omits semantic color palettes, map API calls, and history/future channel expansion.",
-      "decomposition_rationale": "Rasterization is a deterministic data assembly step distinct from learned motion forecasting."
+      "decomposition_rationale": "Rasterization is a deterministic data assembly step distinct from learned motion forecasting.",
+      "time_complexity": "O(N + H * W)",
+      "space_complexity": "O(H * W)",
+      "complexity_reasoning": "Rasterizes N 3D points onto a birds-eye-view grid of shape (H, W) in linear time.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "ransac_homography",
@@ -287,7 +299,11 @@
       "parallelizable": true,
       "conceptual_summary": "Reject bad feature matches by fitting a planar projective transform and scoring reprojection error.",
       "critic_notes": "Feature detection, descriptor matching, and bundle adjustment are outside this atom.",
-      "decomposition_rationale": "Spatial verification is a reusable geometry primitive in image retrieval and matching pipelines."
+      "decomposition_rationale": "Spatial verification is a reusable geometry primitive in image retrieval and matching pipelines.",
+      "time_complexity": "O(I * N)",
+      "space_complexity": "O(N)",
+      "complexity_reasoning": "Robustly estimates homography matrix using RANSAC over N matched points with I iterations.",
+      "complexity_confidence": 95
     }
   ],
   "edges": [],

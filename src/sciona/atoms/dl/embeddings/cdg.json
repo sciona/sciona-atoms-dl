@@ -84,7 +84,11 @@
           "ordering": "sequential",
           "when": "Stage describes cosine similarity search or embedding retrieval"
         }
-      ]
+      ],
+      "time_complexity": "O(N)",
+      "space_complexity": "O(N)",
+      "complexity_reasoning": "Computes the L2 norm and normalizes the input array of size N element-wise in linear time and space.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "cosine_similarity_matrix",
@@ -139,7 +143,11 @@
           "ordering": "sequential",
           "when": "Stage describes cosine similarity search or embedding retrieval"
         }
-      ]
+      ],
+      "time_complexity": "O(A * B * D)",
+      "space_complexity": "O(A * B)",
+      "complexity_reasoning": "Performs row-wise normalization and a matrix multiplication between embeddings of size (A, D) and (B, D).",
+      "complexity_confidence": 95
     },
     {
       "node_id": "alpha_query_expansion",
@@ -201,7 +209,11 @@
         "database_side_augmentation",
         "database_side_augmentation_query_expansion",
         "query_expansion"
-      ]
+      ],
+      "time_complexity": "O(K * D)",
+      "space_complexity": "O(D)",
+      "complexity_reasoning": "Computes a weighted sum of K neighbor embeddings of dimension D to produce an expanded query vector.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "pca_whiten_reduce",
@@ -244,7 +256,11 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(embeddings, n_components, eps=1e-12) -> NDArray[np.float64]"
+      "type_signature": "(embeddings, n_components, eps=1e-12) -> NDArray[np.float64]",
+      "time_complexity": "O(N * D * min(N, D))",
+      "space_complexity": "O(N * D)",
+      "complexity_reasoning": "Computes the Singular Value Decomposition (SVD) of centered N x D embeddings to project onto principal components.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "embedding_delta",
@@ -280,7 +296,11 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(original, transformed) -> NDArray[np.float64]"
+      "type_signature": "(original, transformed) -> NDArray[np.float64]",
+      "time_complexity": "O(N)",
+      "space_complexity": "O(N)",
+      "complexity_reasoning": "Computes the element-wise difference between original and transformed embeddings of size N.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "build_faiss_flat_ip",
@@ -330,7 +350,11 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(reference_embeddings, query_embeddings, k, eps=1e-12) -> tuple[NDArray[np.float64], NDArray[np.int64]]"
+      "type_signature": "(reference_embeddings, query_embeddings, k, eps=1e-12) -> tuple[NDArray[np.float64], NDArray[np.int64]]",
+      "time_complexity": "O(Q * R * D)",
+      "space_complexity": "O(Q * K)",
+      "complexity_reasoning": "Performs brute-force inner-product search for Q queries against R reference embeddings of dimension D to find top-K.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "rerank_by_distance",
@@ -380,7 +404,11 @@
       "status": "atomic",
       "children": [],
       "depth": 1,
-      "type_signature": "(query, candidates, candidate_ids, k) -> NDArray[np.int64]"
+      "type_signature": "(query, candidates, candidate_ids, k) -> NDArray[np.int64]",
+      "time_complexity": "O(C * D + C log C)",
+      "space_complexity": "O(C)",
+      "complexity_reasoning": "Computes Euclidean distances between query and C candidates of dimension D, then sorts them.",
+      "complexity_confidence": 95
     }
   ],
   "edges": [],

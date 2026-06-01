@@ -84,7 +84,11 @@
           "name": "result",
           "type_desc": "NDArray[np.float32]"
         }
-      ]
+      ],
+      "time_complexity": "O(B * D)",
+      "space_complexity": "O(B * D)",
+      "complexity_reasoning": "Allocates a zero-valued feature vector array of shape (B, D) representing the pooled backbone feature boundary.",
+      "complexity_confidence": 90
     },
     {
       "node_id": "resnet_family_backbone",
@@ -117,7 +121,11 @@
           "name": "result",
           "type_desc": "NDArray[np.float32]"
         }
-      ]
+      ],
+      "time_complexity": "O(B * D)",
+      "space_complexity": "O(B * D)",
+      "complexity_reasoning": "Allocates a zero-valued feature vector array of shape (B, D) representing the pooled backbone feature boundary.",
+      "complexity_confidence": 90
     },
     {
       "node_id": "densenet_backbone",
@@ -150,7 +158,11 @@
           "name": "result",
           "type_desc": "NDArray[np.float32]"
         }
-      ]
+      ],
+      "time_complexity": "O(B * D)",
+      "space_complexity": "O(B * D)",
+      "complexity_reasoning": "Allocates a zero-valued feature vector array of shape (B, D) representing the pooled backbone feature boundary.",
+      "complexity_confidence": 90
     },
     {
       "node_id": "swin_transformer_backbone",
@@ -183,7 +195,11 @@
           "name": "result",
           "type_desc": "NDArray[np.float32]"
         }
-      ]
+      ],
+      "time_complexity": "O(B * D)",
+      "space_complexity": "O(B * D)",
+      "complexity_reasoning": "Allocates a zero-valued feature vector array of shape (B, D) representing the pooled backbone feature boundary.",
+      "complexity_confidence": 90
     },
     {
       "node_id": "unet_2d_segmentation",
@@ -226,7 +242,11 @@
           "name": "result",
           "type_desc": "NDArray[np.float32]"
         }
-      ]
+      ],
+      "time_complexity": "O(B * C * H * W)",
+      "space_complexity": "O(B * C * H * W)",
+      "complexity_reasoning": "Allocates a dense class logits segmentation mask of shape (B, C, H, W) in linear time and space.",
+      "complexity_confidence": 90
     },
     {
       "node_id": "unet_1d_sequence",
@@ -259,7 +279,11 @@
           "name": "result",
           "type_desc": "NDArray[np.float32]"
         }
-      ]
+      ],
+      "time_complexity": "O(B * C * L)",
+      "space_complexity": "O(B * C * L)",
+      "complexity_reasoning": "Allocates sequence logits of shape (B, C, L) where B is batch size, C is classes, and L is sequence length.",
+      "complexity_confidence": 90
     },
     {
       "node_id": "yolo_object_detector",
@@ -302,7 +326,11 @@
         "helmet_detection",
         "object_detection",
         "yolo_detection"
-      ]
+      ],
+      "time_complexity": "O(B * C * P)",
+      "space_complexity": "O(B * C * P)",
+      "complexity_reasoning": "Allocates bounding box detector logits of shape (B, 4 + C, P) where P is the number of raw predictions.",
+      "complexity_confidence": 90
     },
     {
       "node_id": "whisper_asr_transformer",
@@ -345,7 +373,11 @@
           "name": "result",
           "type_desc": "NDArray[np.float32]"
         }
-      ]
+      ],
+      "time_complexity": "O(B * T * V)",
+      "space_complexity": "O(B * T * V)",
+      "complexity_reasoning": "Allocates vocabulary logit tensors of shape (B, T, V) in linear time and space with respect to the output size.",
+      "complexity_confidence": 90
     },
     {
       "node_id": "autoregressive_transformer_decoder",
@@ -393,7 +425,11 @@
           "name": "result",
           "type_desc": "NDArray[np.float32]"
         }
-      ]
+      ],
+      "time_complexity": "O(B * T * V)",
+      "space_complexity": "O(B * T * V)",
+      "complexity_reasoning": "Allocates vocabulary logit tensors of shape (B, T, V) in linear time and space with respect to the output size.",
+      "complexity_confidence": 90
     },
     {
       "node_id": "recurrent_sequence_model",
@@ -446,7 +482,11 @@
           "name": "result",
           "type_desc": "NDArray[np.float32]"
         }
-      ]
+      ],
+      "time_complexity": "O(B * T * H)",
+      "space_complexity": "O(B * T * H)",
+      "complexity_reasoning": "Allocates recurrent hidden states of shape (B, T, H) in linear time and space with respect to the sequence output size.",
+      "complexity_confidence": 90
     },
     {
       "node_id": "slowfast_video_network",
@@ -484,7 +524,11 @@
           "name": "result",
           "type_desc": "NDArray[np.float32]"
         }
-      ]
+      ],
+      "time_complexity": "O(B * C)",
+      "space_complexity": "O(B * C)",
+      "complexity_reasoning": "Allocates class logits of shape (B, C) in linear time and space with respect to the output size.",
+      "complexity_confidence": 90
     },
     {
       "node_id": "mil_attention_aggregator",
@@ -522,7 +566,11 @@
           "name": "result",
           "type_desc": "NDArray[np.float32]"
         }
-      ]
+      ],
+      "time_complexity": "O(B * C)",
+      "space_complexity": "O(B * C)",
+      "complexity_reasoning": "Allocates slide-level class logits of shape (B, C) in linear time and space with respect to the output size.",
+      "complexity_confidence": 90
     },
     {
       "node_id": "ctc_decoder_head",
@@ -551,7 +599,11 @@
           "type_desc": "list[list[int]]",
           "constraints": "list of decoded token index sequences, one per batch element"
         }
-      ]
+      ],
+      "time_complexity": "O(B * T * V)",
+      "space_complexity": "O(B * T)",
+      "complexity_reasoning": "Decodes sequence alignments from encoder logits of shape (B, T, V) to target token sequences of length T.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "protein_embedding_transformer",
@@ -586,7 +638,11 @@
           "type_desc": "NDArray[np.float32]",
           "constraints": "shape (D,) embedding vector"
         }
-      ]
+      ],
+      "time_complexity": "O(L * D)",
+      "space_complexity": "O(D)",
+      "complexity_reasoning": "Extracts a fixed D-dimensional embedding vector from a protein sequence string of length L.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "extreme_multilabel_classifier",
@@ -616,7 +672,11 @@
           "type_desc": "NDArray[np.float32]",
           "constraints": "shape (N_classes,) float32 scores, one per label"
         }
-      ]
+      ],
+      "time_complexity": "O(L + V)",
+      "space_complexity": "O(V)",
+      "complexity_reasoning": "Maps input text of length L to a high-dimensional label score vector of size V in linear time and space.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "transformer_encoder_layer",
@@ -660,7 +720,11 @@
           "type_desc": "NDArray[np.float32]",
           "constraints": "shape (B, T, D) same as input"
         }
-      ]
+      ],
+      "time_complexity": "O(B * T^2 * D)",
+      "space_complexity": "O(B * T^2)",
+      "complexity_reasoning": "Computes scaled dot-product self-attention weights of shape (B, H, T, T) over sequence length T.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "masked_language_model_pretrain",
@@ -700,7 +764,11 @@
           "type_desc": "OpaqueModelState",
           "constraints": "fine-tuned model state (opaque)"
         }
-      ]
+      ],
+      "time_complexity": "O(B * T * D)",
+      "space_complexity": "O(B * T * D)",
+      "complexity_reasoning": "Processes tokens of shape (B, T) to predict masked values using a fine-tuned model state.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "flex_attention_mask",
@@ -729,7 +797,11 @@
           "type_desc": "NDArray[np.float32]",
           "constraints": "shape (B, H, T, T) attention weights"
         }
-      ]
+      ],
+      "time_complexity": "O(B * H * T^2)",
+      "space_complexity": "O(B * H * T^2)",
+      "complexity_reasoning": "Computes attention weights of shape (B, H, T, T) from custom mask patterns.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "graph_transformer_encoder",
@@ -770,7 +842,11 @@
           "type_desc": "NDArray[np.float32]",
           "constraints": "shape (N, D) updated node representations"
         }
-      ]
+      ],
+      "time_complexity": "O(N * D + E * D_e)",
+      "space_complexity": "O(N * D + E * D_e)",
+      "complexity_reasoning": "Updates node representations by passing D-dimensional features across E edges in linear time and space.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "soft_attention_alignment",
@@ -805,7 +881,11 @@
           "type_desc": "NDArray[np.float32]",
           "constraints": "shape (D,) attended feature vector"
         }
-      ]
+      ],
+      "time_complexity": "O(K * D_img)",
+      "space_complexity": "O(K)",
+      "complexity_reasoning": "Aligns a text query vector with K image region keys to produce soft attention weights.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "multimodal_bilinear_fusion",
@@ -846,7 +926,11 @@
           "type_desc": "NDArray[np.float32]",
           "constraints": "shape (D_fused,) fused feature vector"
         }
-      ]
+      ],
+      "time_complexity": "O(B * D_1 * D_2)",
+      "space_complexity": "O(B * D_1 * D_2)",
+      "complexity_reasoning": "Performs a bilinear matrix multiplication to fuse two distinct feature spaces.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "lightgbm_train",
@@ -887,7 +971,11 @@
           "type_desc": "OpaqueModelState",
           "constraints": "trained LightGBM model (opaque)"
         }
-      ]
+      ],
+      "time_complexity": "O(N * M * D * T)",
+      "space_complexity": "O(N * D)",
+      "complexity_reasoning": "Trains a gradient boosted decision tree ensemble over N samples with D features in linear space.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "xgboost_train",
@@ -927,7 +1015,11 @@
           "type_desc": "OpaqueModelState",
           "constraints": "trained XGBoost model (opaque)"
         }
-      ]
+      ],
+      "time_complexity": "O(N * M * D * T)",
+      "space_complexity": "O(N * D)",
+      "complexity_reasoning": "Trains a gradient boosted decision tree ensemble over N samples with D features in linear space.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "denoising_autoencoder",
@@ -972,7 +1064,11 @@
           "type_desc": "NDArray[np.float32]",
           "constraints": "shape (N, H) hidden representations"
         }
-      ]
+      ],
+      "time_complexity": "O(B * D)",
+      "space_complexity": "O(B * D)",
+      "complexity_reasoning": "Reconstructs noise-corrupted features of shape (B, D) in linear time and space.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "stochastic_weight_averaging",
@@ -1007,7 +1103,11 @@
           "type_desc": "OpaqueModelState",
           "constraints": "averaged model state"
         }
-      ]
+      ],
+      "time_complexity": "O(M * P)",
+      "space_complexity": "O(P)",
+      "complexity_reasoning": "Computes the arithmetic average of model weights across M checkpoints containing P parameters.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "multi_task_classification_heads",
@@ -1042,7 +1142,11 @@
           "type_desc": "list[NDArray[np.float32]]",
           "constraints": "list of (B, C_i) logit tensors, one per head"
         }
-      ]
+      ],
+      "time_complexity": "O(B * sum(C_i))",
+      "space_complexity": "O(B * sum(C_i))",
+      "complexity_reasoning": "Allocates classification logits for multiple parallel tasks in linear time and space.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "linear_prediction_head",
@@ -1078,7 +1182,11 @@
           "type_desc": "NDArray[np.float32]",
           "constraints": "shape (B, C) predictions"
         }
-      ]
+      ],
+      "time_complexity": "O(B * D)",
+      "space_complexity": "O(B * D)",
+      "complexity_reasoning": "Performs a linear projection of backbone features to output scores in linear time and space.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "dual_head_regression",
@@ -1107,7 +1215,11 @@
           "type_desc": "NDArray[np.float32]",
           "constraints": "shape (B, 2) two-target predictions"
         }
-      ]
+      ],
+      "time_complexity": "O(B)",
+      "space_complexity": "O(B)",
+      "complexity_reasoning": "Predicts dual continuous targets from batch features in linear time and space.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "face_detector",
@@ -1147,7 +1259,11 @@
           "type_desc": "NDArray[np.float32]",
           "constraints": "shape (K,) detection confidence scores"
         }
-      ]
+      ],
+      "time_complexity": "O(H * W)",
+      "space_complexity": "O(H * W)",
+      "complexity_reasoning": "Detects faces in an image of size H x W, scaling linearly with the image pixel count.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "graph_neural_network",
@@ -1193,7 +1309,11 @@
           "type_desc": "NDArray[np.float32]",
           "constraints": "shape (N, D') updated node features"
         }
-      ]
+      ],
+      "time_complexity": "O(L * (N * D + E * D))",
+      "space_complexity": "O(N * D + E * D)",
+      "complexity_reasoning": "Performs message passing across E edges for N nodes over L graph layers.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "sentence_transformer",
@@ -1228,7 +1348,11 @@
           "type_desc": "NDArray[np.float32]",
           "constraints": "shape (D,) float32 embedding vector"
         }
-      ]
+      ],
+      "time_complexity": "O(L * D)",
+      "space_complexity": "O(D)",
+      "complexity_reasoning": "Extracts a fixed-size dense embedding vector from an input text sentence of length L.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "heterogeneous_graph_sampler",
@@ -1269,7 +1393,11 @@
           "type_desc": "SampledSubgraph",
           "constraints": "sampled subgraph for mini-batch computation"
         }
-      ]
+      ],
+      "time_complexity": "O(B * fanout)",
+      "space_complexity": "O(B * fanout)",
+      "complexity_reasoning": "Samples local neighborhoods recursively for a mini-batch of seed nodes.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "htdemucs_source_separation",
@@ -1299,7 +1427,11 @@
           "type_desc": "NDArray[np.float32]",
           "constraints": "shape (stems, samples) separated audio stems"
         }
-      ]
+      ],
+      "time_complexity": "O(T)",
+      "space_complexity": "O(T)",
+      "complexity_reasoning": "Separates an audio waveform of length T into source stems in linear time and space.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "mosaic_augmentation",
@@ -1339,7 +1471,11 @@
           "type_desc": "NDArray[np.float32]",
           "constraints": "concatenated and offset-adjusted bounding boxes"
         }
-      ]
+      ],
+      "time_complexity": "O(H * W * C)",
+      "space_complexity": "O(H * W * C)",
+      "complexity_reasoning": "Stitches four images of shape (H, W, 3) into a single mosaic image of shape (2H, 2W, 3) in linear time and space.",
+      "complexity_confidence": 90
     },
     {
       "node_id": "foldseek_structural_similarity",
@@ -1375,7 +1511,11 @@
           "type_desc": "float",
           "constraints": "structural similarity score"
         }
-      ]
+      ],
+      "time_complexity": "O(L_a * L_b)",
+      "space_complexity": "O(L_a + L_b)",
+      "complexity_reasoning": "Performs structural sequence alignment between two protein structures of length L_a and L_b.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "spatial_squeeze_excitation",
@@ -1404,7 +1544,11 @@
           "type_desc": "NDArray[np.float32]",
           "constraints": "shape (B, C, H, W) spatially re-weighted feature map"
         }
-      ]
+      ],
+      "time_complexity": "O(C * H * W)",
+      "space_complexity": "O(C)",
+      "complexity_reasoning": "Computes global spatial statistics over feature channels to recalibrate channel-wise weights.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "sequence_tagging_trainer",
@@ -1446,7 +1590,11 @@
           "type_desc": "OpaqueModelState",
           "constraints": "trained sequence tagging model state (opaque)"
         }
-      ]
+      ],
+      "time_complexity": "O(B * T * D)",
+      "space_complexity": "O(B * T * D)",
+      "complexity_reasoning": "Trains a token-level tagging classifier over sequence length T and batch size B in linear space.",
+      "complexity_confidence": 85
     },
     {
       "node_id": "superpoint_extractor",
@@ -1479,14 +1627,18 @@
         {
           "name": "descriptors",
           "type_desc": "NDArray[np.float32]",
-          "constraints": "shape (K, 256) descriptor vectors"
+          "constraints": "shape (K, 256) descriptor descriptors"
         },
         {
           "name": "scores",
           "type_desc": "NDArray[np.float32]",
           "constraints": "shape (K,) keypoint scores"
         }
-      ]
+      ],
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)",
+      "complexity_reasoning": "Extracts keypoints and descriptors in constant time and space for the boundary interface.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "loftr_dense_matcher",
@@ -1532,7 +1684,11 @@
           "type_desc": "NDArray[np.float32]",
           "constraints": "shape (M,) match confidence scores"
         }
-      ]
+      ],
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)",
+      "complexity_reasoning": "Matches dense correspondences in constant time and space for the boundary interface.",
+      "complexity_confidence": 95
     },
     {
       "node_id": "superglue_matcher",
@@ -1585,7 +1741,11 @@
           "type_desc": "NDArray[np.float32]",
           "constraints": "shape (M,) match confidence scores"
         }
-      ]
+      ],
+      "time_complexity": "O(1)",
+      "space_complexity": "O(1)",
+      "complexity_reasoning": "Matches sparse keypoint descriptors in constant time and space for the boundary interface.",
+      "complexity_confidence": 95
     }
   ]
 }
