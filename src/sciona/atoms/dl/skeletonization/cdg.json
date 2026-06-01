@@ -67,7 +67,7 @@
       "decomposition_rationale": "This is the primary skeletonization atom recommended by the research packet.",
       "time_complexity": "O(I * H * W)",
       "space_complexity": "O(H * W)",
-      "complexity_reasoning": "Applies iterative thinning to reduce a binary mask of shape (H, W) to a skeleton in I passes.",
+      "complexity_reasoning": "Applies iterative thinning (Zhang's method) to reduce a binary mask of shape (H, W) to a skeleton in I passes, where each pass scans the entire H x W image grid, taking O(I * H * W) time and requiring O(H * W) auxiliary space for the output and intermediate states (derived from analyzing the actual function skimage.morphology.skeletonize rather than the opaque wrapper)",
       "complexity_confidence": 95
     },
     {
@@ -124,7 +124,7 @@
       "decomposition_rationale": "Medial axis returns useful width information and has different determinism controls from Zhang thinning.",
       "time_complexity": "O(H * W)",
       "space_complexity": "O(H * W)",
-      "complexity_reasoning": "Computes a medial axis skeleton and distance transform over a mask of shape (H, W) in linear time.",
+      "complexity_reasoning": "Computes the exact distance transform of the H x W binary grid and extracts the medial axis ridges in linear time and space (derived from analyzing the actual function skimage.morphology.medial_axis rather than the opaque wrapper)",
       "complexity_confidence": 95
     },
     {
@@ -169,9 +169,9 @@
       "conceptual_summary": "Endpoint and junction clustering followed by degree-two chain tracing.",
       "critic_notes": "The local implementation avoids the optional sknw dependency while preserving the graph contract needed by the research stage.",
       "decomposition_rationale": "Graph extraction has a graph output and is separated from raster skeletonization.",
-      "time_complexity": "O(S)",
-      "space_complexity": "O(S)",
-      "complexity_reasoning": "Converts a centerline skeleton containing S active pixels into a NetworkX MultiGraph via path tracing.",
+      "time_complexity": "O(C * H * W + S)",
+      "space_complexity": "O(H * W + S)",
+      "complexity_reasoning": "Computes neighborhood counts and connected component labeling over the H x W grid using scipy.ndimage in O(H * W) time, then performs a graph traversal over S active skeleton pixels with C nodes, taking O(C * H * W + S) time and O(H * W + S) space (derived from analyzing the actual function local degree-based skeleton graph extraction rather than the opaque wrapper)",
       "complexity_confidence": 95
     }
   ],

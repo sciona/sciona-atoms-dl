@@ -88,8 +88,8 @@
       "critic_notes": "This CPU atom does not implement GPU scatter kernels, dynamic voxelization, or learned voxel feature encoders.",
       "decomposition_rationale": "Voxelization is a preprocessing boundary reused by LiDAR detectors before learned feature extraction.",
       "time_complexity": "O(N)",
-      "space_complexity": "O(V)",
-      "complexity_reasoning": "Bins N points into a 3D grid of V active voxels, scaling linearly with the number of points.",
+      "space_complexity": "O(V * M * D)",
+      "complexity_reasoning": "Bins N points into a 3D grid, finding occupied voxels and populating at most M points per voxel for V active voxels in linear time, requiring O(V * M * D) space for voxel features and O(N) space for voxel assignments (derived from analyzing the actual function hard voxelization rather than the opaque wrapper)",
       "complexity_confidence": 95
     },
     {
@@ -158,9 +158,9 @@
       "conceptual_summary": "Fuse 2D image evidence into 3D point rows through camera projection and interpolation.",
       "critic_notes": "Camera calibration selection, occlusion handling, and neural image feature computation are outside this atom.",
       "decomposition_rationale": "Projection and bilinear feature lookup are deterministic geometry pieces of multi-modal LiDAR-camera fusion.",
-      "time_complexity": "O(N)",
-      "space_complexity": "O(N)",
-      "complexity_reasoning": "Projects N 3D point coordinates into the 2D image plane to sample corresponding color/feature values.",
+      "time_complexity": "O(N * C)",
+      "space_complexity": "O(N * C)",
+      "complexity_reasoning": "Transforms and projects N 3D coordinates using extrinsic/intrinsic matrices in O(N) time and samples C-dimensional features via bilinear interpolation in O(N * C) time, requiring O(N * C) auxiliary space for the output (derived from analyzing the actual function point painting projection rather than the opaque wrapper)",
       "complexity_confidence": 95
     },
     {
@@ -231,7 +231,7 @@
       "decomposition_rationale": "Rasterization is a deterministic data assembly step distinct from learned motion forecasting.",
       "time_complexity": "O(N + H * W)",
       "space_complexity": "O(H * W)",
-      "complexity_reasoning": "Rasterizes N 3D points onto a birds-eye-view grid of shape (H, W) in linear time.",
+      "complexity_reasoning": "Initializes a 2-channel raster grid of shape H x W and projects/draws N trajectory and polyline coordinate segments using a step-based line-drawing algorithm in O(N + H * W) time and O(H * W) auxiliary space (derived from analyzing the actual function BEV rasterization rather than the opaque wrapper)",
       "complexity_confidence": 95
     },
     {
@@ -302,7 +302,7 @@
       "decomposition_rationale": "Spatial verification is a reusable geometry primitive in image retrieval and matching pipelines.",
       "time_complexity": "O(I * N)",
       "space_complexity": "O(N)",
-      "complexity_reasoning": "Robustly estimates homography matrix using RANSAC over N matched points with I iterations.",
+      "complexity_reasoning": "Runs I RANSAC iterations where each iteration fits a homography on a 4-point sample in O(1) time and evaluates reprojection errors on all N points in O(N) time, followed by a final DLT refit on the best inlier set in O(N) time, requiring O(N) auxiliary space (derived from analyzing the actual function DLT homography with RANSAC rather than the opaque wrapper)",
       "complexity_confidence": 95
     }
   ],

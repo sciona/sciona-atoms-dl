@@ -91,9 +91,9 @@
       "conceptual_summary": "Deterministic text-to-text translation through injected frozen model state.",
       "critic_notes": "This atom intentionally does not call from_pretrained or instantiate transformers objects.",
       "decomposition_rationale": "Back-translation composes two translate_text calls, such as en-to-fr followed by fr-to-en.",
-      "time_complexity": "O(L)",
-      "space_complexity": "O(L)",
-      "complexity_reasoning": "Translates an input text string of length L using an opaque translation boundary model.",
+      "time_complexity": "O(N^2 + B * N * M + B * M^2)",
+      "space_complexity": "O(N + B * M)",
+      "complexity_reasoning": "Processes an input of N source tokens and generates M target tokens using an autoregressive Transformer encoder-decoder. Encoding takes O(N^2) time. Autoregressive decoding with KV cache and beam size B takes O(B * N * M + B * M^2) time. The space complexity is O(N + B * M) to store encoder key-value states and the decoder's active KV cache (derived from analyzing the actual function HuggingFace MarianMTModel.generate rather than the opaque wrapper)",
       "complexity_confidence": 95
     }
   ],
