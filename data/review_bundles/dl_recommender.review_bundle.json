@@ -8,11 +8,26 @@
   "review_developer_semantic_verdict": "pass_with_limits",
   "trust_readiness": "reviewed_with_limits",
   "authoritative_sources": [
-    {"kind": "local_wrapper", "path": "src/sciona/atoms/dl/recommender/atoms.py"},
-    {"kind": "local_wrapper", "path": "src/sciona/atoms/dl/recommender/witnesses.py"},
-    {"kind": "local_references", "path": "src/sciona/atoms/dl/recommender/references.json"},
-    {"kind": "local_cdg", "path": "src/sciona/atoms/dl/recommender/cdg.json"},
-    {"kind": "local_test", "path": "tests/test_dl_recommender_behavior.py"}
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/recommender/atoms.py"
+    },
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/recommender/witnesses.py"
+    },
+    {
+      "kind": "local_references",
+      "path": "src/sciona/atoms/dl/recommender/references.json"
+    },
+    {
+      "kind": "local_cdg",
+      "path": "src/sciona/atoms/dl/recommender/cdg.json"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_recommender_behavior.py"
+    }
   ],
   "limitations": [
     "Co-occurrence construction operates in memory over materialized sessions and is intended for bounded batches, not distributed event-log joins.",
@@ -32,7 +47,13 @@
       "review_semantic_verdict": "pass_with_limits",
       "review_developer_semantic_verdict": "pass_with_limits",
       "trust_readiness": "catalog_ready",
-      "source_paths": ["src/sciona/atoms/dl/recommender/atoms.py", "src/sciona/atoms/dl/recommender/witnesses.py", "src/sciona/atoms/dl/recommender/references.json", "src/sciona/atoms/dl/recommender/cdg.json", "tests/test_dl_recommender_behavior.py"],
+      "source_paths": [
+        "src/sciona/atoms/dl/recommender/atoms.py",
+        "src/sciona/atoms/dl/recommender/witnesses.py",
+        "src/sciona/atoms/dl/recommender/references.json",
+        "src/sciona/atoms/dl/recommender/cdg.json",
+        "tests/test_dl_recommender_behavior.py"
+      ],
       "review_record_path": "data/review_bundles/dl_recommender.review_bundle.json",
       "overall_verdict": "pass",
       "structural_status": "pass",
@@ -41,15 +62,24 @@
       "developer_semantics_status": "pass_with_limits",
       "risk_tier": "medium",
       "risk_score": 25,
-      "risk_dimensions": {"provenance": "low", "semantic_drift": "medium", "runtime": "medium", "api_surface": "low"},
-      "risk_reasons": ["Materializes all within-session pairs for the provided batch."],
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "medium",
+        "runtime": "medium",
+        "api_surface": "low"
+      },
+      "risk_reasons": [
+        "Materializes all within-session pairs for the provided batch."
+      ],
       "acceptability_score": 84,
       "acceptability_band": "acceptable_with_limits_candidate",
-      "parity_coverage_level": "usage_equivalent",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_test_status": "pass",
       "parity_fixture_count": 1,
       "parity_case_count": 1,
-      "review_limitations": ["Uses pairwise session expansion and sparse CSR output; billion-scale GPU joins are outside this atom boundary."],
+      "review_limitations": [
+        "Uses pairwise session expansion and sparse CSR output; billion-scale GPU joins are outside this atom boundary."
+      ],
       "review_required_actions": [],
       "trust_blockers": [],
       "has_references": true,
@@ -65,7 +95,13 @@
       "review_semantic_verdict": "pass",
       "review_developer_semantic_verdict": "pass",
       "trust_readiness": "catalog_ready",
-      "source_paths": ["src/sciona/atoms/dl/recommender/atoms.py", "src/sciona/atoms/dl/recommender/witnesses.py", "src/sciona/atoms/dl/recommender/references.json", "src/sciona/atoms/dl/recommender/cdg.json", "tests/test_dl_recommender_behavior.py"],
+      "source_paths": [
+        "src/sciona/atoms/dl/recommender/atoms.py",
+        "src/sciona/atoms/dl/recommender/witnesses.py",
+        "src/sciona/atoms/dl/recommender/references.json",
+        "src/sciona/atoms/dl/recommender/cdg.json",
+        "tests/test_dl_recommender_behavior.py"
+      ],
       "review_record_path": "data/review_bundles/dl_recommender.review_bundle.json",
       "overall_verdict": "pass",
       "structural_status": "pass",
@@ -74,11 +110,16 @@
       "developer_semantics_status": "pass",
       "risk_tier": "low",
       "risk_score": 12,
-      "risk_dimensions": {"provenance": "low", "semantic_drift": "low", "runtime": "low", "api_surface": "low"},
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
       "risk_reasons": [],
       "acceptability_score": 92,
-      "acceptability_band": "acceptable",
-      "parity_coverage_level": "exact_formula",
+      "acceptability_band": "review_ready",
+      "parity_coverage_level": "positive_path",
       "parity_test_status": "pass",
       "parity_fixture_count": 1,
       "parity_case_count": 1,
@@ -98,7 +139,13 @@
       "review_semantic_verdict": "pass_with_limits",
       "review_developer_semantic_verdict": "pass_with_limits",
       "trust_readiness": "catalog_ready",
-      "source_paths": ["src/sciona/atoms/dl/recommender/atoms.py", "src/sciona/atoms/dl/recommender/witnesses.py", "src/sciona/atoms/dl/recommender/references.json", "src/sciona/atoms/dl/recommender/cdg.json", "tests/test_dl_recommender_behavior.py"],
+      "source_paths": [
+        "src/sciona/atoms/dl/recommender/atoms.py",
+        "src/sciona/atoms/dl/recommender/witnesses.py",
+        "src/sciona/atoms/dl/recommender/references.json",
+        "src/sciona/atoms/dl/recommender/cdg.json",
+        "tests/test_dl_recommender_behavior.py"
+      ],
       "review_record_path": "data/review_bundles/dl_recommender.review_bundle.json",
       "overall_verdict": "pass",
       "structural_status": "pass",
@@ -107,15 +154,22 @@
       "developer_semantics_status": "pass_with_limits",
       "risk_tier": "low",
       "risk_score": 15,
-      "risk_dimensions": {"provenance": "low", "semantic_drift": "low", "runtime": "low", "api_surface": "low"},
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
       "risk_reasons": [],
       "acceptability_score": 90,
       "acceptability_band": "acceptable_with_limits_candidate",
-      "parity_coverage_level": "exact_formula",
+      "parity_coverage_level": "positive_path",
       "parity_test_status": "pass",
       "parity_fixture_count": 1,
       "parity_case_count": 1,
-      "review_limitations": ["One update step only; no iterative fitting loop or cold-start fallback."],
+      "review_limitations": [
+        "One update step only; no iterative fitting loop or cold-start fallback."
+      ],
       "review_required_actions": [],
       "trust_blockers": [],
       "has_references": true,
@@ -131,7 +185,13 @@
       "review_semantic_verdict": "pass_with_limits",
       "review_developer_semantic_verdict": "pass_with_limits",
       "trust_readiness": "catalog_ready",
-      "source_paths": ["src/sciona/atoms/dl/recommender/atoms.py", "src/sciona/atoms/dl/recommender/witnesses.py", "src/sciona/atoms/dl/recommender/references.json", "src/sciona/atoms/dl/recommender/cdg.json", "tests/test_dl_recommender_behavior.py"],
+      "source_paths": [
+        "src/sciona/atoms/dl/recommender/atoms.py",
+        "src/sciona/atoms/dl/recommender/witnesses.py",
+        "src/sciona/atoms/dl/recommender/references.json",
+        "src/sciona/atoms/dl/recommender/cdg.json",
+        "tests/test_dl_recommender_behavior.py"
+      ],
       "review_record_path": "data/review_bundles/dl_recommender.review_bundle.json",
       "overall_verdict": "pass",
       "structural_status": "pass",
@@ -140,15 +200,22 @@
       "developer_semantics_status": "pass_with_limits",
       "risk_tier": "low",
       "risk_score": 15,
-      "risk_dimensions": {"provenance": "low", "semantic_drift": "low", "runtime": "low", "api_surface": "low"},
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
       "risk_reasons": [],
       "acceptability_score": 90,
       "acceptability_band": "acceptable_with_limits_candidate",
-      "parity_coverage_level": "exact_formula",
+      "parity_coverage_level": "positive_path",
       "parity_test_status": "pass",
       "parity_fixture_count": 1,
       "parity_case_count": 1,
-      "review_limitations": ["One update step only; no iterative fitting loop or cold-start fallback."],
+      "review_limitations": [
+        "One update step only; no iterative fitting loop or cold-start fallback."
+      ],
       "review_required_actions": [],
       "trust_blockers": [],
       "has_references": true,
@@ -164,7 +231,13 @@
       "review_semantic_verdict": "pass",
       "review_developer_semantic_verdict": "pass",
       "trust_readiness": "catalog_ready",
-      "source_paths": ["src/sciona/atoms/dl/recommender/atoms.py", "src/sciona/atoms/dl/recommender/witnesses.py", "src/sciona/atoms/dl/recommender/references.json", "src/sciona/atoms/dl/recommender/cdg.json", "tests/test_dl_recommender_behavior.py"],
+      "source_paths": [
+        "src/sciona/atoms/dl/recommender/atoms.py",
+        "src/sciona/atoms/dl/recommender/witnesses.py",
+        "src/sciona/atoms/dl/recommender/references.json",
+        "src/sciona/atoms/dl/recommender/cdg.json",
+        "tests/test_dl_recommender_behavior.py"
+      ],
       "review_record_path": "data/review_bundles/dl_recommender.review_bundle.json",
       "overall_verdict": "pass",
       "structural_status": "pass",
@@ -173,11 +246,16 @@
       "developer_semantics_status": "pass",
       "risk_tier": "low",
       "risk_score": 8,
-      "risk_dimensions": {"provenance": "low", "semantic_drift": "low", "runtime": "low", "api_surface": "low"},
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
       "risk_reasons": [],
       "acceptability_score": 95,
-      "acceptability_band": "acceptable",
-      "parity_coverage_level": "exact_formula",
+      "acceptability_band": "review_ready",
+      "parity_coverage_level": "positive_path",
       "parity_test_status": "pass",
       "parity_fixture_count": 1,
       "parity_case_count": 1,
@@ -197,7 +275,13 @@
       "review_semantic_verdict": "pass",
       "review_developer_semantic_verdict": "pass",
       "trust_readiness": "catalog_ready",
-      "source_paths": ["src/sciona/atoms/dl/recommender/atoms.py", "src/sciona/atoms/dl/recommender/witnesses.py", "src/sciona/atoms/dl/recommender/references.json", "src/sciona/atoms/dl/recommender/cdg.json", "tests/test_dl_recommender_behavior.py"],
+      "source_paths": [
+        "src/sciona/atoms/dl/recommender/atoms.py",
+        "src/sciona/atoms/dl/recommender/witnesses.py",
+        "src/sciona/atoms/dl/recommender/references.json",
+        "src/sciona/atoms/dl/recommender/cdg.json",
+        "tests/test_dl_recommender_behavior.py"
+      ],
       "review_record_path": "data/review_bundles/dl_recommender.review_bundle.json",
       "overall_verdict": "pass",
       "structural_status": "pass",
@@ -206,11 +290,16 @@
       "developer_semantics_status": "pass",
       "risk_tier": "low",
       "risk_score": 8,
-      "risk_dimensions": {"provenance": "low", "semantic_drift": "low", "runtime": "low", "api_surface": "low"},
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
       "risk_reasons": [],
       "acceptability_score": 95,
-      "acceptability_band": "acceptable",
-      "parity_coverage_level": "exact_formula",
+      "acceptability_band": "review_ready",
+      "parity_coverage_level": "positive_path",
       "parity_test_status": "pass",
       "parity_fixture_count": 1,
       "parity_case_count": 1,
@@ -230,7 +319,13 @@
       "review_semantic_verdict": "pass",
       "review_developer_semantic_verdict": "pass",
       "trust_readiness": "catalog_ready",
-      "source_paths": ["src/sciona/atoms/dl/recommender/atoms.py", "src/sciona/atoms/dl/recommender/witnesses.py", "src/sciona/atoms/dl/recommender/references.json", "src/sciona/atoms/dl/recommender/cdg.json", "tests/test_dl_recommender_behavior.py"],
+      "source_paths": [
+        "src/sciona/atoms/dl/recommender/atoms.py",
+        "src/sciona/atoms/dl/recommender/witnesses.py",
+        "src/sciona/atoms/dl/recommender/references.json",
+        "src/sciona/atoms/dl/recommender/cdg.json",
+        "tests/test_dl_recommender_behavior.py"
+      ],
       "review_record_path": "data/review_bundles/dl_recommender.review_bundle.json",
       "overall_verdict": "pass",
       "structural_status": "pass",
@@ -239,11 +334,16 @@
       "developer_semantics_status": "pass",
       "risk_tier": "low",
       "risk_score": 8,
-      "risk_dimensions": {"provenance": "low", "semantic_drift": "low", "runtime": "low", "api_surface": "low"},
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
       "risk_reasons": [],
       "acceptability_score": 95,
-      "acceptability_band": "acceptable",
-      "parity_coverage_level": "exact_formula",
+      "acceptability_band": "review_ready",
+      "parity_coverage_level": "positive_path",
       "parity_test_status": "pass",
       "parity_fixture_count": 1,
       "parity_case_count": 1,
@@ -263,7 +363,13 @@
       "review_semantic_verdict": "pass",
       "review_developer_semantic_verdict": "pass",
       "trust_readiness": "catalog_ready",
-      "source_paths": ["src/sciona/atoms/dl/recommender/atoms.py", "src/sciona/atoms/dl/recommender/witnesses.py", "src/sciona/atoms/dl/recommender/references.json", "src/sciona/atoms/dl/recommender/cdg.json", "tests/test_dl_recommender_behavior.py"],
+      "source_paths": [
+        "src/sciona/atoms/dl/recommender/atoms.py",
+        "src/sciona/atoms/dl/recommender/witnesses.py",
+        "src/sciona/atoms/dl/recommender/references.json",
+        "src/sciona/atoms/dl/recommender/cdg.json",
+        "tests/test_dl_recommender_behavior.py"
+      ],
       "review_record_path": "data/review_bundles/dl_recommender.review_bundle.json",
       "overall_verdict": "pass",
       "structural_status": "pass",
@@ -272,11 +378,16 @@
       "developer_semantics_status": "pass",
       "risk_tier": "low",
       "risk_score": 8,
-      "risk_dimensions": {"provenance": "low", "semantic_drift": "low", "runtime": "low", "api_surface": "low"},
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
       "risk_reasons": [],
       "acceptability_score": 95,
-      "acceptability_band": "acceptable",
-      "parity_coverage_level": "exact_formula",
+      "acceptability_band": "review_ready",
+      "parity_coverage_level": "positive_path",
       "parity_test_status": "pass",
       "parity_fixture_count": 1,
       "parity_case_count": 1,
@@ -296,7 +407,13 @@
       "review_semantic_verdict": "pass_with_limits",
       "review_developer_semantic_verdict": "pass_with_limits",
       "trust_readiness": "catalog_ready",
-      "source_paths": ["src/sciona/atoms/dl/recommender/atoms.py", "src/sciona/atoms/dl/recommender/witnesses.py", "src/sciona/atoms/dl/recommender/references.json", "src/sciona/atoms/dl/recommender/cdg.json", "tests/test_dl_recommender_behavior.py"],
+      "source_paths": [
+        "src/sciona/atoms/dl/recommender/atoms.py",
+        "src/sciona/atoms/dl/recommender/witnesses.py",
+        "src/sciona/atoms/dl/recommender/references.json",
+        "src/sciona/atoms/dl/recommender/cdg.json",
+        "tests/test_dl_recommender_behavior.py"
+      ],
       "review_record_path": "data/review_bundles/dl_recommender.review_bundle.json",
       "overall_verdict": "pass",
       "structural_status": "pass",
@@ -305,15 +422,22 @@
       "developer_semantics_status": "pass_with_limits",
       "risk_tier": "low",
       "risk_score": 12,
-      "risk_dimensions": {"provenance": "low", "semantic_drift": "low", "runtime": "low", "api_surface": "low"},
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
       "risk_reasons": [],
       "acceptability_score": 92,
       "acceptability_band": "acceptable_with_limits_candidate",
-      "parity_coverage_level": "exact_formula",
+      "parity_coverage_level": "positive_path",
       "parity_test_status": "pass",
       "parity_fixture_count": 1,
       "parity_case_count": 1,
-      "review_limitations": ["Drops the upstream mask argument and averages over all rows."],
+      "review_limitations": [
+        "Drops the upstream mask argument and averages over all rows."
+      ],
       "review_required_actions": [],
       "trust_blockers": [],
       "has_references": true,
@@ -329,7 +453,13 @@
       "review_semantic_verdict": "pass_with_limits",
       "review_developer_semantic_verdict": "pass_with_limits",
       "trust_readiness": "catalog_ready",
-      "source_paths": ["src/sciona/atoms/dl/recommender/atoms.py", "src/sciona/atoms/dl/recommender/witnesses.py", "src/sciona/atoms/dl/recommender/references.json", "src/sciona/atoms/dl/recommender/cdg.json", "tests/test_dl_recommender_behavior.py"],
+      "source_paths": [
+        "src/sciona/atoms/dl/recommender/atoms.py",
+        "src/sciona/atoms/dl/recommender/witnesses.py",
+        "src/sciona/atoms/dl/recommender/references.json",
+        "src/sciona/atoms/dl/recommender/cdg.json",
+        "tests/test_dl_recommender_behavior.py"
+      ],
       "review_record_path": "data/review_bundles/dl_recommender.review_bundle.json",
       "overall_verdict": "pass",
       "structural_status": "pass",
@@ -338,15 +468,22 @@
       "developer_semantics_status": "pass_with_limits",
       "risk_tier": "low",
       "risk_score": 12,
-      "risk_dimensions": {"provenance": "low", "semantic_drift": "low", "runtime": "low", "api_surface": "low"},
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
       "risk_reasons": [],
       "acceptability_score": 92,
       "acceptability_band": "acceptable_with_limits_candidate",
-      "parity_coverage_level": "exact_formula",
+      "parity_coverage_level": "positive_path",
       "parity_test_status": "pass",
       "parity_fixture_count": 1,
       "parity_case_count": 1,
-      "review_limitations": ["Drops the upstream mask argument and averages over all rows."],
+      "review_limitations": [
+        "Drops the upstream mask argument and averages over all rows."
+      ],
       "review_required_actions": [],
       "trust_blockers": [],
       "has_references": true,
@@ -362,7 +499,13 @@
       "review_semantic_verdict": "pass_with_limits",
       "review_developer_semantic_verdict": "pass_with_limits",
       "trust_readiness": "catalog_ready",
-      "source_paths": ["src/sciona/atoms/dl/recommender/atoms.py", "src/sciona/atoms/dl/recommender/witnesses.py", "src/sciona/atoms/dl/recommender/references.json", "src/sciona/atoms/dl/recommender/cdg.json", "tests/test_dl_recommender_behavior.py"],
+      "source_paths": [
+        "src/sciona/atoms/dl/recommender/atoms.py",
+        "src/sciona/atoms/dl/recommender/witnesses.py",
+        "src/sciona/atoms/dl/recommender/references.json",
+        "src/sciona/atoms/dl/recommender/cdg.json",
+        "tests/test_dl_recommender_behavior.py"
+      ],
       "review_record_path": "data/review_bundles/dl_recommender.review_bundle.json",
       "overall_verdict": "pass",
       "structural_status": "pass",
@@ -371,15 +514,22 @@
       "developer_semantics_status": "pass_with_limits",
       "risk_tier": "low",
       "risk_score": 15,
-      "risk_dimensions": {"provenance": "low", "semantic_drift": "low", "runtime": "low", "api_surface": "low"},
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
       "risk_reasons": [],
       "acceptability_score": 90,
       "acceptability_band": "acceptable_with_limits_candidate",
-      "parity_coverage_level": "usage_equivalent",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_test_status": "pass",
       "parity_fixture_count": 1,
       "parity_case_count": 1,
-      "review_limitations": ["Always rejects the provided excluded items and does not expose TRON's sampling-style shape logic."],
+      "review_limitations": [
+        "Always rejects the provided excluded items and does not expose TRON's sampling-style shape logic."
+      ],
       "review_required_actions": [],
       "trust_blockers": [],
       "has_references": true,
@@ -395,7 +545,13 @@
       "review_semantic_verdict": "pass_with_limits",
       "review_developer_semantic_verdict": "pass_with_limits",
       "trust_readiness": "catalog_ready",
-      "source_paths": ["src/sciona/atoms/dl/recommender/atoms.py", "src/sciona/atoms/dl/recommender/witnesses.py", "src/sciona/atoms/dl/recommender/references.json", "src/sciona/atoms/dl/recommender/cdg.json", "tests/test_dl_recommender_behavior.py"],
+      "source_paths": [
+        "src/sciona/atoms/dl/recommender/atoms.py",
+        "src/sciona/atoms/dl/recommender/witnesses.py",
+        "src/sciona/atoms/dl/recommender/references.json",
+        "src/sciona/atoms/dl/recommender/cdg.json",
+        "tests/test_dl_recommender_behavior.py"
+      ],
       "review_record_path": "data/review_bundles/dl_recommender.review_bundle.json",
       "overall_verdict": "pass",
       "structural_status": "pass",
@@ -404,15 +560,22 @@
       "developer_semantics_status": "pass_with_limits",
       "risk_tier": "low",
       "risk_score": 15,
-      "risk_dimensions": {"provenance": "low", "semantic_drift": "low", "runtime": "low", "api_surface": "low"},
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
       "risk_reasons": [],
       "acceptability_score": 90,
       "acceptability_band": "acceptable_with_limits_candidate",
-      "parity_coverage_level": "usage_equivalent",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_test_status": "pass",
       "parity_fixture_count": 1,
       "parity_case_count": 1,
-      "review_limitations": ["Samples from the batch as a flat pool and does not preserve TRON's per-session boundary metadata."],
+      "review_limitations": [
+        "Samples from the batch as a flat pool and does not preserve TRON's per-session boundary metadata."
+      ],
       "review_required_actions": [],
       "trust_blockers": [],
       "has_references": true,
@@ -428,7 +591,13 @@
       "review_semantic_verdict": "pass_with_limits",
       "review_developer_semantic_verdict": "pass_with_limits",
       "trust_readiness": "catalog_ready",
-      "source_paths": ["src/sciona/atoms/dl/recommender/atoms.py", "src/sciona/atoms/dl/recommender/witnesses.py", "src/sciona/atoms/dl/recommender/references.json", "src/sciona/atoms/dl/recommender/cdg.json", "tests/test_dl_recommender_behavior.py"],
+      "source_paths": [
+        "src/sciona/atoms/dl/recommender/atoms.py",
+        "src/sciona/atoms/dl/recommender/witnesses.py",
+        "src/sciona/atoms/dl/recommender/references.json",
+        "src/sciona/atoms/dl/recommender/cdg.json",
+        "tests/test_dl_recommender_behavior.py"
+      ],
       "review_record_path": "data/review_bundles/dl_recommender.review_bundle.json",
       "overall_verdict": "pass",
       "structural_status": "pass",
@@ -437,15 +606,24 @@
       "developer_semantics_status": "pass_with_limits",
       "risk_tier": "medium",
       "risk_score": 25,
-      "risk_dimensions": {"provenance": "medium", "semantic_drift": "medium", "runtime": "low", "api_surface": "low"},
-      "risk_reasons": ["Derived from an AGPL-3.0 reference repository; implementation is a minimal statistical formula."],
+      "risk_dimensions": {
+        "provenance": "medium",
+        "semantic_drift": "medium",
+        "runtime": "low",
+        "api_surface": "low"
+      },
+      "risk_reasons": [
+        "Derived from an AGPL-3.0 reference repository; implementation is a minimal statistical formula."
+      ],
       "acceptability_score": 82,
       "acceptability_band": "acceptable_with_limits_candidate",
-      "parity_coverage_level": "usage_equivalent",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_test_status": "pass",
       "parity_fixture_count": 1,
       "parity_case_count": 1,
-      "review_limitations": ["Computes only mean, sample standard deviation, skewness, and kurtosis over supplied rank columns."],
+      "review_limitations": [
+        "Computes only mean, sample standard deviation, skewness, and kurtosis over supplied rank columns."
+      ],
       "review_required_actions": [],
       "trust_blockers": [],
       "has_references": true,

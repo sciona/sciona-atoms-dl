@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib.util
+import os
 
 import icontract
 import numpy as np
@@ -219,15 +220,24 @@ def build_faiss_flat_ip(
 ) -> tuple[NDArray[np.float64], NDArray[np.int64]]:
     """Run exact flat inner-product retrieval over L2-normalized embeddings.
 
-    If the optional FAISS package is present, this creates an in-memory
-    IndexFlatIP and searches it. Otherwise it uses the same exact inner-product
-    calculation in NumPy, preserving the atom's input/output contract.
+    NumPy provides the default exact implementation. Set
+    ``SCIONA_ENABLE_FAISS=1`` to opt into an in-memory FAISS IndexFlatIP when
+    that native extension is known to be stable in the hosting process.
     """
-    references = l2_normalize(np.asarray(reference_embeddings, dtype=np.float32), axis=1, eps=eps).astype(np.float32)
-    queries = l2_normalize(np.asarray(query_embeddings, dtype=np.float32), axis=1, eps=eps).astype(np.float32)
+    # FAISS consumes row-major float32 buffers through its native extension.
+    # Normalization may preserve a non-contiguous input view, so materialize
+    # contiguous arrays before crossing that boundary.
+    references = np.ascontiguousarray(
+        l2_normalize(np.asarray(reference_embeddings, dtype=np.float32), axis=1, eps=eps),
+        dtype=np.float32,
+    )
+    queries = np.ascontiguousarray(
+        l2_normalize(np.asarray(query_embeddings, dtype=np.float32), axis=1, eps=eps),
+        dtype=np.float32,
+    )
     top_k = int(k)
 
-    if importlib.util.find_spec("faiss") is not None:
+    if os.environ.get("SCIONA_ENABLE_FAISS") == "1" and importlib.util.find_spec("faiss") is not None:
         import faiss  # type: ignore[import-not-found]
 
         index = faiss.IndexFlatIP(references.shape[1])
@@ -265,4 +275,3 @@ def rerank_by_distance(
     distances = np.linalg.norm(candidate_matrix - query_vector.reshape(1, -1), axis=1)
     order = np.argsort(distances, kind="mergesort")[: int(k)]
     return ids[order].astype(np.int64)
-

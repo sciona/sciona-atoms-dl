@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0",
+  "bundle_id": "sciona.atoms.dl.catalog_gap_inventory.v1",
+  "provider_repo": "sciona-atoms-dl",
+  "family_batch": "catalog_gap_inventory",
+  "review_status": "pending",
+  "review_semantic_verdict": "unknown",
+  "review_developer_semantic_verdict": "unknown",
+  "trust_readiness": "unreviewed",
+  "limitations": [
+    "These rows are cataloged but do not yet have complete semantic and runtime audit evidence."
+  ],
+  "required_actions": [
+    "Complete semantic review and focused behavioral testing before claiming catalog readiness."
+  ],
+  "review_record_path": "data/audit_reviews/catalog_gap_inventory.json",
+  "rows": [
+    {
+      "atom_name": "sciona.atoms.dl.architectures.loftr_dense_matcher",
+      "source_paths": ["src/sciona/atoms/dl/architectures/atoms.py"]
+    },
+    {
+      "atom_name": "sciona.atoms.dl.architectures.superglue_matcher",
+      "source_paths": ["src/sciona/atoms/dl/architectures/atoms.py"]
+    },
+    {
+      "atom_name": "sciona.atoms.dl.architectures.superpoint_extractor",
+      "source_paths": ["src/sciona/atoms/dl/architectures/atoms.py"]
+    },
+    {
+      "atom_name": "sciona.atoms.dl.graph.adjacency_smoothing",
+      "source_paths": ["src/sciona/atoms/dl/graph/atoms.py"]
+    },
+    {
+      "atom_name": "sciona.atoms.dl.graph.feature_clip_standardize",
+      "source_paths": ["src/sciona/atoms/dl/graph/atoms.py"]
+    },
+    {
+      "atom_name": "sciona.atoms.dl.graph.node_degree_bucketing",
+      "source_paths": ["src/sciona/atoms/dl/graph/atoms.py"]
+    },
+    {
+      "atom_name": "sciona.atoms.dl.graph.time_budget_estimator",
+      "source_paths": ["src/sciona/atoms/dl/graph/atoms.py"]
+    },
+    {
+      "atom_name": "sciona.atoms.dl.loss.quantile_spread_to_confidence",
+      "source_paths": ["src/sciona/atoms/dl/loss/atoms.py"]
+    },
+    {
+      "atom_name": "sciona.atoms.dl.tabular.entity_embedding_lookup",
+      "source_paths": ["src/sciona/atoms/dl/tabular/atoms.py"]
+    },
+    {
+      "atom_name": "sciona.atoms.dl.text_similarity.jaro_winkler_similarity",
+      "source_paths": ["src/sciona/atoms/dl/text_similarity/atoms.py"]
+    },
+    {
+      "atom_name": "sciona.atoms.dl.text_similarity.levenshtein_distance",
+      "source_paths": ["src/sciona/atoms/dl/text_similarity/atoms.py"]
+    },
+    {
+      "atom_name": "sciona.atoms.dl.training.multisample_dropout",
+      "source_paths": ["src/sciona/atoms/dl/training/atoms.py"]
+    },
+    {
+      "atom_name": "sciona.atoms.dl.training.ternary_search_threshold",
+      "source_paths": ["src/sciona/atoms/dl/training/atoms.py"]
+    }
+  ]
+}

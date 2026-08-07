@@ -3,10 +3,10 @@
   "bundle_id": "sciona.atoms.dl.review_bundle.time_series.v1",
   "provider_repo": "sciona-atoms-dl",
   "family_batch": "dl_time_series",
-  "review_status": "pending",
-  "review_semantic_verdict": null,
-  "review_developer_semantic_verdict": null,
-  "trust_readiness": "unreviewed",
+  "review_status": "reviewed",
+  "review_semantic_verdict": "pass_with_limits",
+  "review_developer_semantic_verdict": "pass_with_limits",
+  "trust_readiness": "catalog_ready",
   "authoritative_sources": [
     {
       "kind": "local_wrapper",
@@ -39,10 +39,10 @@
   "rows": [
     {
       "atom_key": "sciona.atoms.dl.time_series.exponential_smoothing_level",
-      "review_status": "pending",
-      "review_semantic_verdict": null,
-      "review_developer_semantic_verdict": null,
-      "trust_readiness": "unreviewed",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "catalog_ready",
       "source_paths": [
         "src/sciona/atoms/dl/time_series/atoms.py",
         "src/sciona/atoms/dl/time_series/witnesses.py",
@@ -57,10 +57,10 @@
     },
     {
       "atom_key": "sciona.atoms.dl.time_series.multiplicative_seasonality_decompose",
-      "review_status": "pending",
-      "review_semantic_verdict": null,
-      "review_developer_semantic_verdict": null,
-      "trust_readiness": "unreviewed",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass_with_limits",
+      "trust_readiness": "catalog_ready",
       "source_paths": [
         "src/sciona/atoms/dl/time_series/atoms.py",
         "src/sciona/atoms/dl/time_series/witnesses.py",
@@ -75,10 +75,10 @@
     },
     {
       "atom_key": "sciona.atoms.dl.time_series.smyl_loss",
-      "review_status": "pending",
-      "review_semantic_verdict": null,
-      "review_developer_semantic_verdict": null,
-      "trust_readiness": "unreviewed",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass_with_limits",
+      "review_developer_semantic_verdict": "pass_with_limits",
+      "trust_readiness": "catalog_ready",
       "source_paths": [
         "src/sciona/atoms/dl/time_series/atoms.py",
         "src/sciona/atoms/dl/time_series/witnesses.py",
@@ -95,10 +95,10 @@
     },
     {
       "atom_key": "sciona.atoms.dl.time_series.pinball_loss",
-      "review_status": "pending",
-      "review_semantic_verdict": null,
-      "review_developer_semantic_verdict": null,
-      "trust_readiness": "unreviewed",
+      "review_status": "reviewed",
+      "review_semantic_verdict": "pass",
+      "review_developer_semantic_verdict": "pass",
+      "trust_readiness": "catalog_ready",
       "source_paths": [
         "src/sciona/atoms/dl/time_series/atoms.py",
         "src/sciona/atoms/dl/time_series/witnesses.py",

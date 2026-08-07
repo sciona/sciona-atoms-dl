@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import numpy as np
+import networkx as nx
 import pytest
 
 from sciona.atoms.dl.skeletonization import (
@@ -51,6 +52,7 @@ def test_skeleton_to_graph_extracts_cross_endpoints_and_junction() -> None:
 
     graph = skeleton_to_graph(skeleton)
 
+    assert isinstance(graph, nx.MultiGraph)
     assert graph.number_of_nodes() == 5
     assert graph.number_of_edges() == 4
     degrees = sorted(degree for _, degree in graph.degree())
@@ -63,4 +65,3 @@ def test_skeleton_to_graph_extracts_cross_endpoints_and_junction() -> None:
         assert data["pts"].ndim == 2
         assert data["pts"].shape[1] == 2
         assert data["weight"] > 0.0
-

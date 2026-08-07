@@ -5,6 +5,7 @@ from __future__ import annotations
 from collections.abc import Iterable
 
 import icontract
+import networkx as nx
 import numpy as np
 from numpy.typing import NDArray
 from scipy import ndimage
@@ -75,7 +76,6 @@ def _add_edge_if_new(
     end_node: int,
     path: list[Pixel],
 ) -> None:
-    import networkx as nx
     segments = {frozenset((left, right)) for left, right in zip(path, path[1:])}
     if start_node == end_node:
         seen_segments.update(segments)
@@ -136,7 +136,6 @@ def medial_axis_2d(
 @icontract.ensure(lambda result: all("pts" in data and "o" in data for _, data in result.nodes(data=True)), "nodes must include pixel sets and centroids")
 @icontract.ensure(lambda result: all("pts" in data and "weight" in data and data["weight"] >= 0.0 for _, _, data in result.edges(data=True)), "edges must include paths and lengths")
 def skeleton_to_graph(skeleton: NDArray[np.bool_] | NDArray[np.integer]) -> nx.MultiGraph:
-    import networkx as nx
     """Convert a binary skeleton image into a pixel-centerline graph.
 
     Pixels with degree other than two become graph nodes. Adjacent node pixels

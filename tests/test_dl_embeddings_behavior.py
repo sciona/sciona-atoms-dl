@@ -97,6 +97,23 @@ def test_flat_inner_product_search_returns_sorted_scores_and_indices() -> None:
     assert indices[1, 0] in {1, 2}
 
 
+def test_flat_inner_product_search_accepts_noncontiguous_inputs() -> None:
+    from sciona.atoms.dl.embeddings import build_faiss_flat_ip
+
+    reference_source = np.array([[1.0, 9.0, 0.0, 9.0], [0.0, 9.0, 1.0, 9.0]], dtype=np.float64)
+    query_source = np.array([[1.0, 9.0, 0.0, 9.0]], dtype=np.float64)
+    references = reference_source[:, ::2]
+    queries = query_source[:, ::2]
+    assert not references.flags.c_contiguous
+    assert not queries.flags.c_contiguous
+
+    scores, indices = build_faiss_flat_ip(references, queries, k=1)
+
+    assert scores.shape == (1, 1)
+    assert indices.shape == (1, 1)
+    assert indices[0, 0] == 0
+
+
 def test_rerank_by_distance_sorts_candidate_ids() -> None:
     from sciona.atoms.dl.embeddings import rerank_by_distance
 
@@ -117,4 +134,3 @@ def test_embedding_contracts_reject_invalid_shapes() -> None:
 
     with pytest.raises(ViolationError):
         rerank_by_distance(np.ones(3), np.ones((2, 2)), np.array([1, 2]), k=1)
-

@@ -8,13 +8,34 @@
   "review_developer_semantic_verdict": "pass_with_limits",
   "trust_readiness": "reviewed_with_limits",
   "authoritative_sources": [
-    {"kind": "local_wrapper", "path": "src/sciona/atoms/dl/embeddings/atoms.py"},
-    {"kind": "local_wrapper", "path": "src/sciona/atoms/dl/embeddings/witnesses.py"},
-    {"kind": "local_references", "path": "src/sciona/atoms/dl/embeddings/references.json"},
-    {"kind": "local_cdg", "path": "src/sciona/atoms/dl/embeddings/cdg.json"},
-    {"kind": "local_test", "path": "tests/test_dl_embeddings_behavior.py"},
-    {"kind": "local_test", "path": "tests/test_dl_embeddings_references_metadata.py"},
-    {"kind": "local_test", "path": "tests/test_dl_embeddings_review_bundle.py"}
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/embeddings/atoms.py"
+    },
+    {
+      "kind": "local_wrapper",
+      "path": "src/sciona/atoms/dl/embeddings/witnesses.py"
+    },
+    {
+      "kind": "local_references",
+      "path": "src/sciona/atoms/dl/embeddings/references.json"
+    },
+    {
+      "kind": "local_cdg",
+      "path": "src/sciona/atoms/dl/embeddings/cdg.json"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_embeddings_behavior.py"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_embeddings_references_metadata.py"
+    },
+    {
+      "kind": "local_test",
+      "path": "tests/test_dl_embeddings_review_bundle.py"
+    }
   ],
   "limitations": [
     "Embedding extraction from neural networks is intentionally not included; this family starts after detached embeddings already exist.",
@@ -32,7 +53,13 @@
       "review_semantic_verdict": "pass",
       "review_developer_semantic_verdict": "pass",
       "trust_readiness": "catalog_ready",
-      "source_paths": ["src/sciona/atoms/dl/embeddings/atoms.py", "src/sciona/atoms/dl/embeddings/witnesses.py", "src/sciona/atoms/dl/embeddings/references.json", "src/sciona/atoms/dl/embeddings/cdg.json", "tests/test_dl_embeddings_behavior.py"],
+      "source_paths": [
+        "src/sciona/atoms/dl/embeddings/atoms.py",
+        "src/sciona/atoms/dl/embeddings/witnesses.py",
+        "src/sciona/atoms/dl/embeddings/references.json",
+        "src/sciona/atoms/dl/embeddings/cdg.json",
+        "tests/test_dl_embeddings_behavior.py"
+      ],
       "review_record_path": "data/review_bundles/dl_embeddings.review_bundle.json",
       "overall_verdict": "pass",
       "structural_status": "pass",
@@ -41,11 +68,16 @@
       "developer_semantics_status": "pass",
       "risk_tier": "low",
       "risk_score": 8,
-      "risk_dimensions": {"provenance": "low", "semantic_drift": "low", "runtime": "low", "api_surface": "low"},
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
       "risk_reasons": [],
       "acceptability_score": 95,
-      "acceptability_band": "acceptable",
-      "parity_coverage_level": "exact_formula",
+      "acceptability_band": "review_ready",
+      "parity_coverage_level": "positive_path",
       "parity_test_status": "pass",
       "parity_fixture_count": 1,
       "parity_case_count": 1,
@@ -65,7 +97,13 @@
       "review_semantic_verdict": "pass",
       "review_developer_semantic_verdict": "pass",
       "trust_readiness": "catalog_ready",
-      "source_paths": ["src/sciona/atoms/dl/embeddings/atoms.py", "src/sciona/atoms/dl/embeddings/witnesses.py", "src/sciona/atoms/dl/embeddings/references.json", "src/sciona/atoms/dl/embeddings/cdg.json", "tests/test_dl_embeddings_behavior.py"],
+      "source_paths": [
+        "src/sciona/atoms/dl/embeddings/atoms.py",
+        "src/sciona/atoms/dl/embeddings/witnesses.py",
+        "src/sciona/atoms/dl/embeddings/references.json",
+        "src/sciona/atoms/dl/embeddings/cdg.json",
+        "tests/test_dl_embeddings_behavior.py"
+      ],
       "review_record_path": "data/review_bundles/dl_embeddings.review_bundle.json",
       "overall_verdict": "pass",
       "structural_status": "pass",
@@ -74,11 +112,16 @@
       "developer_semantics_status": "pass",
       "risk_tier": "low",
       "risk_score": 8,
-      "risk_dimensions": {"provenance": "low", "semantic_drift": "low", "runtime": "low", "api_surface": "low"},
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
       "risk_reasons": [],
       "acceptability_score": 95,
-      "acceptability_band": "acceptable",
-      "parity_coverage_level": "exact_formula",
+      "acceptability_band": "review_ready",
+      "parity_coverage_level": "positive_path",
       "parity_test_status": "pass",
       "parity_fixture_count": 1,
       "parity_case_count": 1,
@@ -98,7 +141,13 @@
       "review_semantic_verdict": "pass_with_limits",
       "review_developer_semantic_verdict": "pass_with_limits",
       "trust_readiness": "catalog_ready",
-      "source_paths": ["src/sciona/atoms/dl/embeddings/atoms.py", "src/sciona/atoms/dl/embeddings/witnesses.py", "src/sciona/atoms/dl/embeddings/references.json", "src/sciona/atoms/dl/embeddings/cdg.json", "tests/test_dl_embeddings_behavior.py"],
+      "source_paths": [
+        "src/sciona/atoms/dl/embeddings/atoms.py",
+        "src/sciona/atoms/dl/embeddings/witnesses.py",
+        "src/sciona/atoms/dl/embeddings/references.json",
+        "src/sciona/atoms/dl/embeddings/cdg.json",
+        "tests/test_dl_embeddings_behavior.py"
+      ],
       "review_record_path": "data/review_bundles/dl_embeddings.review_bundle.json",
       "overall_verdict": "pass",
       "structural_status": "pass",
@@ -107,15 +156,22 @@
       "developer_semantics_status": "pass_with_limits",
       "risk_tier": "low",
       "risk_score": 12,
-      "risk_dimensions": {"provenance": "low", "semantic_drift": "low", "runtime": "low", "api_surface": "low"},
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
       "risk_reasons": [],
       "acceptability_score": 92,
       "acceptability_band": "acceptable_with_limits_candidate",
-      "parity_coverage_level": "usage_equivalent",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_test_status": "pass",
       "parity_fixture_count": 1,
       "parity_case_count": 1,
-      "review_limitations": ["Uses nonnegative similarity weights and returns the normalized expanded vector, not a persisted database-side augmentation table."],
+      "review_limitations": [
+        "Uses nonnegative similarity weights and returns the normalized expanded vector, not a persisted database-side augmentation table."
+      ],
       "review_required_actions": [],
       "trust_blockers": [],
       "has_references": true,
@@ -131,7 +187,13 @@
       "review_semantic_verdict": "pass_with_limits",
       "review_developer_semantic_verdict": "pass_with_limits",
       "trust_readiness": "catalog_ready",
-      "source_paths": ["src/sciona/atoms/dl/embeddings/atoms.py", "src/sciona/atoms/dl/embeddings/witnesses.py", "src/sciona/atoms/dl/embeddings/references.json", "src/sciona/atoms/dl/embeddings/cdg.json", "tests/test_dl_embeddings_behavior.py"],
+      "source_paths": [
+        "src/sciona/atoms/dl/embeddings/atoms.py",
+        "src/sciona/atoms/dl/embeddings/witnesses.py",
+        "src/sciona/atoms/dl/embeddings/references.json",
+        "src/sciona/atoms/dl/embeddings/cdg.json",
+        "tests/test_dl_embeddings_behavior.py"
+      ],
       "review_record_path": "data/review_bundles/dl_embeddings.review_bundle.json",
       "overall_verdict": "pass",
       "structural_status": "pass",
@@ -140,15 +202,22 @@
       "developer_semantics_status": "pass_with_limits",
       "risk_tier": "low",
       "risk_score": 15,
-      "risk_dimensions": {"provenance": "low", "semantic_drift": "low", "runtime": "low", "api_surface": "low"},
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
       "risk_reasons": [],
       "acceptability_score": 90,
       "acceptability_band": "acceptable_with_limits_candidate",
-      "parity_coverage_level": "usage_equivalent",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_test_status": "pass",
       "parity_fixture_count": 1,
       "parity_case_count": 1,
-      "review_limitations": ["Fits PCA on the provided batch using dense SVD; very large embedding corpora may require an incremental or persisted-state variant."],
+      "review_limitations": [
+        "Fits PCA on the provided batch using dense SVD; very large embedding corpora may require an incremental or persisted-state variant."
+      ],
       "review_required_actions": [],
       "trust_blockers": [],
       "has_references": true,
@@ -164,7 +233,13 @@
       "review_semantic_verdict": "pass",
       "review_developer_semantic_verdict": "pass",
       "trust_readiness": "catalog_ready",
-      "source_paths": ["src/sciona/atoms/dl/embeddings/atoms.py", "src/sciona/atoms/dl/embeddings/witnesses.py", "src/sciona/atoms/dl/embeddings/references.json", "src/sciona/atoms/dl/embeddings/cdg.json", "tests/test_dl_embeddings_behavior.py"],
+      "source_paths": [
+        "src/sciona/atoms/dl/embeddings/atoms.py",
+        "src/sciona/atoms/dl/embeddings/witnesses.py",
+        "src/sciona/atoms/dl/embeddings/references.json",
+        "src/sciona/atoms/dl/embeddings/cdg.json",
+        "tests/test_dl_embeddings_behavior.py"
+      ],
       "review_record_path": "data/review_bundles/dl_embeddings.review_bundle.json",
       "overall_verdict": "pass",
       "structural_status": "pass",
@@ -173,11 +248,16 @@
       "developer_semantics_status": "pass",
       "risk_tier": "low",
       "risk_score": 5,
-      "risk_dimensions": {"provenance": "low", "semantic_drift": "low", "runtime": "low", "api_surface": "low"},
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
       "risk_reasons": [],
       "acceptability_score": 98,
-      "acceptability_band": "acceptable",
-      "parity_coverage_level": "exact_formula",
+      "acceptability_band": "review_ready",
+      "parity_coverage_level": "positive_path",
       "parity_test_status": "pass",
       "parity_fixture_count": 1,
       "parity_case_count": 1,
@@ -197,7 +277,13 @@
       "review_semantic_verdict": "pass_with_limits",
       "review_developer_semantic_verdict": "pass_with_limits",
       "trust_readiness": "catalog_ready",
-      "source_paths": ["src/sciona/atoms/dl/embeddings/atoms.py", "src/sciona/atoms/dl/embeddings/witnesses.py", "src/sciona/atoms/dl/embeddings/references.json", "src/sciona/atoms/dl/embeddings/cdg.json", "tests/test_dl_embeddings_behavior.py"],
+      "source_paths": [
+        "src/sciona/atoms/dl/embeddings/atoms.py",
+        "src/sciona/atoms/dl/embeddings/witnesses.py",
+        "src/sciona/atoms/dl/embeddings/references.json",
+        "src/sciona/atoms/dl/embeddings/cdg.json",
+        "tests/test_dl_embeddings_behavior.py"
+      ],
       "review_record_path": "data/review_bundles/dl_embeddings.review_bundle.json",
       "overall_verdict": "pass",
       "structural_status": "pass",
@@ -206,15 +292,22 @@
       "developer_semantics_status": "pass_with_limits",
       "risk_tier": "low",
       "risk_score": 15,
-      "risk_dimensions": {"provenance": "low", "semantic_drift": "low", "runtime": "low", "api_surface": "low"},
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
       "risk_reasons": [],
       "acceptability_score": 90,
       "acceptability_band": "acceptable_with_limits_candidate",
-      "parity_coverage_level": "usage_equivalent",
+      "parity_coverage_level": "parity_or_usage_equivalent",
       "parity_test_status": "pass",
       "parity_fixture_count": 1,
       "parity_case_count": 1,
-      "review_limitations": ["Optional FAISS backend is not a required dependency; the NumPy fallback is exact but not indexed or optimized for billion-scale search."],
+      "review_limitations": [
+        "Optional FAISS backend is not a required dependency; the NumPy fallback is exact but not indexed or optimized for billion-scale search."
+      ],
       "review_required_actions": [],
       "trust_blockers": [],
       "has_references": true,
@@ -230,7 +323,13 @@
       "review_semantic_verdict": "pass",
       "review_developer_semantic_verdict": "pass",
       "trust_readiness": "catalog_ready",
-      "source_paths": ["src/sciona/atoms/dl/embeddings/atoms.py", "src/sciona/atoms/dl/embeddings/witnesses.py", "src/sciona/atoms/dl/embeddings/references.json", "src/sciona/atoms/dl/embeddings/cdg.json", "tests/test_dl_embeddings_behavior.py"],
+      "source_paths": [
+        "src/sciona/atoms/dl/embeddings/atoms.py",
+        "src/sciona/atoms/dl/embeddings/witnesses.py",
+        "src/sciona/atoms/dl/embeddings/references.json",
+        "src/sciona/atoms/dl/embeddings/cdg.json",
+        "tests/test_dl_embeddings_behavior.py"
+      ],
       "review_record_path": "data/review_bundles/dl_embeddings.review_bundle.json",
       "overall_verdict": "pass",
       "structural_status": "pass",
@@ -239,11 +338,16 @@
       "developer_semantics_status": "pass",
       "risk_tier": "low",
       "risk_score": 8,
-      "risk_dimensions": {"provenance": "low", "semantic_drift": "low", "runtime": "low", "api_surface": "low"},
+      "risk_dimensions": {
+        "provenance": "low",
+        "semantic_drift": "low",
+        "runtime": "low",
+        "api_surface": "low"
+      },
       "risk_reasons": [],
       "acceptability_score": 95,
-      "acceptability_band": "acceptable",
-      "parity_coverage_level": "exact_formula",
+      "acceptability_band": "review_ready",
+      "parity_coverage_level": "positive_path",
       "parity_test_status": "pass",
       "parity_fixture_count": 1,
       "parity_case_count": 1,
@@ -258,4 +362,3 @@
     }
   ]
 }
-

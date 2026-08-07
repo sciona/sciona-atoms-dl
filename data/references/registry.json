@@ -40,7 +40,7 @@
       "title": "Boosting Adversarial Attacks with Momentum",
       "authors": ["Yinpeng Dong", "Fangzhou Liao", "Tianyu Pang", "Hang Su", "Jun Zhu", "Xiaolin Hu", "Jianguo Li"],
       "year": 2018,
-      "venue": "CVPR",
+      "venue": "IEEE/CVF Conference on Computer Vision and Pattern Recognition",
       "match_metadata": {
         "similarity_score": null,
         "match_type": "manual",
@@ -48,12 +48,13 @@
         "confidence": "high",
         "notes": "MI-FGSM paper. Source for auxiliary logit loss fusion and std-normalized momentum gradient."
       },
-      "url": "https://arxiv.org/abs/1710.06081"
+      "doi": "10.1109/CVPR.2018.00957",
+      "url": "https://doi.org/10.1109/CVPR.2018.00957"
     },
     "repo_adversarial_nontarget": {
       "ref_id": "repo_adversarial_nontarget",
       "type": "repository",
-      "title": "Non-Targeted Adversarial Attacks (NIPS 2017 1st Place)",
+      "title": "1st place solution, NIPS 2017 Non-Targeted Adversarial Attack Competition",
       "authors": ["Yinpeng Dong"],
       "year": 2017,
       "venue": "GitHub",
