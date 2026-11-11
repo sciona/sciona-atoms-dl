@@ -11,6 +11,6 @@ def dsb_decomposed_training_batches(training_arrays: dict, sampling_options: dic
     Cropping, augmentation, labels and model conventions remain source-specific.
     The factory preserves random stream continuity across passes and epochs.
     """
-    from sciona.dsb_decomposed_batches import TrainingBatchFactory
+    from sciona._runtime.dl.dsb_decomposed_batches import TrainingBatchFactory
     witness_dsb_training_batches(training_arrays, sampling_options)
     return TrainingBatchFactory(**training_arrays, **sampling_options)

@@ -14,7 +14,7 @@ def witness_dsb_raw_collections(raw_collections: dict,eligible_image_indices: ob
 @register_atom(witness_dsb_raw_collections)
 def dsb_raw_collections(raw_collections: dict,eligible_image_indices: object) -> tuple:
     """Prepare raw volumes/annotations and label training proposals in memory."""
-    from sciona.dsb_raw_inputs import prepare_raw_collections
+    from sciona._runtime.dl.dsb_raw_inputs import prepare_raw_collections
     return prepare_raw_collections(raw_collections,eligible_image_indices)
 
 
@@ -27,7 +27,7 @@ def witness_dsb_adapt_detector(detector_checkpoint: object,topk: int=5) -> dict:
 @register_atom(witness_dsb_adapt_detector)
 def dsb_adapt_detector(detector_checkpoint: bytes,topk: int=5) -> bytes:
     """Initialize the shared classifier from an explicit detector checkpoint."""
-    from sciona.dsb_checkpoint_adaptation import adapt_detector_checkpoint
+    from sciona._runtime.dl.dsb_checkpoint_adaptation import adapt_detector_checkpoint
     return adapt_detector_checkpoint(detector_checkpoint,topk=topk)
 
 
@@ -40,7 +40,7 @@ def witness_dsb_validation_batches(validation_arrays: dict,validation_options: d
 @register_atom(witness_dsb_validation_batches)
 def dsb_validation_batches(validation_arrays: dict,validation_options: dict) -> object:
     """Construct source validation batches from runtime arrays and annotations."""
-    from sciona.dsb_validation_batches import ValidationBatchFactory
+    from sciona._runtime.dl.dsb_validation_batches import ValidationBatchFactory
     witness_dsb_validation_batches(validation_arrays,validation_options)
     return ValidationBatchFactory(validation_arrays,**validation_options)
 
@@ -62,7 +62,7 @@ def dsb_training_batches(training_arrays: dict, sampling_options: dict) -> objec
     Arrays must already be source-preprocessed. Caller supplies complete epoch
     permutations and owns RNG streams; historical worker scheduling is excluded.
     """
-    from sciona.dsb_batches import TrainingBatchFactory
+    from sciona._runtime.dl.dsb_batches import TrainingBatchFactory
     witness_dsb_training_batches(training_arrays,sampling_options)
     return TrainingBatchFactory(**training_arrays,**sampling_options)
 
@@ -90,8 +90,8 @@ def dsb_train_epoch(initial_classifier_checkpoint: bytes, training_factory: obje
     miss penalty, validation and model-only checkpoint. This node is a warm-restart
     boundary; do not chain it to claim uninterrupted multi-epoch optimizer state.
     """
-    from sciona.dsb_runtime import restore_training_runtime
-    from sciona.dsb_training import run_epoch_lifecycle
+    from sciona._runtime.dl.dsb_runtime import restore_training_runtime
+    from sciona._runtime.dl.dsb_training import run_epoch_lifecycle
     if getattr(training_factory,'topk',None)!=topk:
         raise ValueError('matching DSB training factory required')
     runtime=restore_training_runtime(initial_classifier_checkpoint,topk=topk,start_epoch=start_epoch)
@@ -116,8 +116,8 @@ def dsb_train_range(initial_classifier_checkpoint: bytes,training_factory: objec
                      topk: int=5,classifier_variant: int=3,
                      freeze_batchnorm: bool=False,prepare_epoch: object=None) -> tuple:
     """Restore once, train consecutive epochs with persistent optimizers, export final state."""
-    from sciona.dsb_runtime import restore_training_runtime
-    from sciona.dsb_training_range import run_training_range
+    from sciona._runtime.dl.dsb_runtime import restore_training_runtime
+    from sciona._runtime.dl.dsb_training_range import run_training_range
     if getattr(training_factory,'topk',None)!=topk:
         raise ValueError('matching DSB training factory required')
     runtime=restore_training_runtime(initial_classifier_checkpoint,topk=topk,start_epoch=start_epoch)

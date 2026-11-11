@@ -16,7 +16,7 @@ def witness_restore_dsb_models(detector_checkpoint: object, classifier_checkpoin
 def restore_dsb_models(detector_checkpoint: bytes, classifier_checkpoint: bytes,
                        topk: int=5) -> tuple:
     """Restore separate, explicit metadata-free detector and classifier states."""
-    from sciona.dsb_runtime import restore_inference_runtime
+    from sciona._runtime.dl.dsb_runtime import restore_inference_runtime
     models=restore_inference_runtime(detector_checkpoint,classifier_checkpoint,topk=topk)
     return models['detector'],models['classifier']
 
@@ -33,7 +33,7 @@ def witness_dsb_preprocess(volume: AbstractArray, spacing: object,
 def dsb_preprocess(volume: object, spacing: object,
                    requested_spacing: object=(1.,1.,1.)) -> object:
     """Segment lungs, mask bone, resample and crop using pinned source semantics."""
-    from sciona.dsb_components import preprocess_volume
+    from sciona._runtime.dl.dsb_components import preprocess_volume
     processed,_,_=preprocess_volume(volume,spacing,requested_spacing)
     return processed[None]
 
@@ -65,7 +65,7 @@ def dsb_predict(processed_volume: object, detector: object, classifier: object,
     This inference branch excludes training, oversampling, target assignment and
     training losses. Caller-provided states do not imply predictive quality.
     """
-    from sciona.dsb_pipeline import infer_preprocessed
+    from sciona._runtime.dl.dsb_pipeline import infer_preprocessed
     result=infer_preprocessed(processed_volume,detector,classifier,topk=topk,
         crop_size=crop_size,tile_side=tile_side,margin=margin,tile_batch_size=tile_batch_size)
     return result['case_probability'],result['proposal_probabilities']

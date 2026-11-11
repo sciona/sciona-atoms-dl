@@ -9,7 +9,7 @@ def witness_dfdc_prepare(payload: dict) -> dict:
 @register_atom(witness_dfdc_prepare)
 def dfdc_prepare(payload: dict) -> object:
     """Validate versioned clips, states, pair folds and explicit checkpoint plan."""
-    from sciona.dfdc_runtime import prepare
+    from sciona._runtime.dl.dfdc_runtime import prepare
     return prepare(payload)
 
 
@@ -22,5 +22,5 @@ def witness_dfdc_execute(prepared: object) -> dict:
 @register_atom(witness_dfdc_execute)
 def dfdc_execute(prepared: object) -> dict:
     """Run actual crop/annotation preparation, B7 runs and selected ensemble inference."""
-    from sciona.dfdc_runtime import execute_prepared
+    from sciona._runtime.dl.dfdc_runtime import execute_prepared
     return execute_prepared(prepared)

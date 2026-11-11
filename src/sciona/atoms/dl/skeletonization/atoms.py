@@ -95,12 +95,12 @@ def _add_edge_if_new(
 @icontract.ensure(lambda result, mask: result.shape == np.asarray(mask).shape, "skeleton must preserve shape")
 @icontract.ensure(lambda result, mask: _subset_of_mask(result, mask), "skeleton cannot add foreground pixels")
 def skeletonize_2d(mask: NDArray[np.bool_] | NDArray[np.integer]) -> NDArray[np.bool_]:
-    from skimage.morphology import medial_axis, skeletonize
     """Thin a binary 2D mask to a one-pixel-wide skeleton.
 
     The atom uses scikit-image's deterministic Zhang method, which is the
     standard choice for 2D road-mask centerline extraction.
     """
+    from skimage.morphology import medial_axis, skeletonize
     return np.asarray(skeletonize(_binary(mask), method="zhang"), dtype=np.bool_)
 
 @register_atom(witness_medial_axis_2d)
@@ -112,13 +112,13 @@ def medial_axis_2d(
     return_distance: bool = False,
     rng_seed: int = 42,
 ) -> NDArray[np.bool_] | tuple[NDArray[np.bool_], NDArray[np.float64]]:
-    from skimage.morphology import medial_axis, skeletonize
     """Compute the 2D medial axis with deterministic tie-breaking.
 
     Passing an explicit seed removes scikit-image's default random tie-breaker
     from the atom boundary. With `return_distance=True`, the distance map is
     returned with the skeleton for local width analysis.
     """
+    from skimage.morphology import medial_axis, skeletonize
     result = medial_axis(
         _binary(mask),
         return_distance=return_distance,

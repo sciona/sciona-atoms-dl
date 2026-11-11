@@ -38,7 +38,7 @@ def prepare_inference_geometry(processed_volume: object, tile_side: int=144, mar
     Source constants are explicit outputs. Intensity normalization occurs later.
     Coordinate axes span the full padded volume, never each tile independently.
     """
-    from sciona.dsb_components import _integer
+    from sciona._runtime.dl.dsb_components import _integer
     side=_integer(tile_side,'tile_side');border=_integer(margin,'margin',0)
     volume=np.asarray(processed_volume)
     if (volume.ndim!=4 or min(volume.shape)<1 or volume.dtype.kind not in 'fiu'
@@ -61,7 +61,7 @@ def normalize_and_align_tiles(tiles: object, image_grid: object, coordinate_tile
 @register_atom(concrete_only)
 def predict_detector_tiles(tiles: object, coordinates: object, detector: object, tile_batch_size: int=1) -> object:
     """Run an explicit eval detector in ordered batches without changing its state."""
-    from sciona.dsb_components import _integer
+    from sciona._runtime.dl.dsb_components import _integer
     batch=_integer(tile_batch_size,'tile_batch_size')
     if detector.training:raise ValueError('Eval detector required')
     if len(tiles)!=len(coordinates) or not len(tiles):raise ValueError('Aligned nonempty tile arrays required')
@@ -77,7 +77,7 @@ def predict_detector_tiles(tiles: object, coordinates: object, detector: object,
 @register_atom(concrete_only)
 def decode_detector_proposals(output: object) -> object:
     """Decode the source anchors at stride four and strict score threshold -3."""
-    from sciona.dsb_components import decode_proposals
+    from sciona._runtime.dl.dsb_components import decode_proposals
     proposals,_=decode_proposals(output,-3.)
     return proposals
 
@@ -94,14 +94,14 @@ def filter_classifier_proposals(proposals: object) -> object:
 @register_atom(concrete_only)
 def suppress_classifier_proposals(proposals: object) -> object:
     """Apply source cubic-box NMS at overlap threshold .05."""
-    from sciona.dsb_components import suppress_proposals
+    from sciona._runtime.dl.dsb_components import suppress_proposals
     return suppress_proposals(proposals,.05)
 
 
 @register_atom(concrete_only)
 def prepare_classifier_crops(processed_volume: object, proposals: object, topk: int=5, crop_size: int=96) -> tuple:
     """Form source top-k crops and coordinate channels, retaining empty slots."""
-    from sciona.dsb_components import prepare_classifier_batch
+    from sciona._runtime.dl.dsb_components import prepare_classifier_batch
     crops,coordinates,_=prepare_classifier_batch(processed_volume,proposals,topk,crop_size)
     return crops,coordinates
 

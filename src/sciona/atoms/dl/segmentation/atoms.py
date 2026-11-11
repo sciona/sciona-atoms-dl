@@ -248,8 +248,8 @@ def watershed_instances(
     markers: NDArray[np.integer],
     mask: NDArray[np.bool_] | NDArray[np.integer],
 ) -> NDArray[np.int64]:
-    from skimage.segmentation import watershed
     """Split a semantic foreground mask into instance labels using watershed flooding."""
+    from skimage.segmentation import watershed
     labels = watershed(-np.asarray(distance_map, dtype=np.float64), np.asarray(markers, dtype=np.int64), mask=np.asarray(mask).astype(bool))
     return np.asarray(labels, dtype=np.int64)
 
@@ -300,8 +300,8 @@ def wkt_to_mask(
     image_shape: tuple[int, int],
     transform: tuple[float, float, float, float, float, float],
 ) -> NDArray[np.uint8]:
-    from skimage.draw import polygon as draw_polygon
     """Rasterize a simple POLYGON WKT geometry into a binary mask."""
+    from skimage.draw import polygon as draw_polygon
     output = np.zeros((int(image_shape[0]), int(image_shape[1])), dtype=np.uint8)
     rings = _parse_wkt_rings(wkt_string)
     for ring_index, ring in enumerate(rings):

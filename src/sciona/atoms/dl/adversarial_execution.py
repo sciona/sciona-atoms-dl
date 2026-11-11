@@ -9,7 +9,7 @@ def witness_adversarial_prepare(payload: dict) -> dict:
 @register_atom(witness_adversarial_prepare)
 def adversarial_prepare(payload: dict) -> object:
     """Decode versioned private image/target/state payloads with explicit configuration."""
-    from sciona.adversarial_runtime import prepare
+    from sciona._runtime.dl.adversarial_runtime import prepare
     return prepare(payload)
 
 
@@ -22,5 +22,5 @@ def witness_adversarial_execute(prepared: object) -> dict:
 @register_atom(witness_adversarial_execute)
 def adversarial_execute(prepared: object) -> dict:
     """Run complete padded source ensemble attack and encode real-entry outputs."""
-    from sciona.adversarial_runtime import execute
+    from sciona._runtime.dl.adversarial_runtime import execute
     return execute(prepared)

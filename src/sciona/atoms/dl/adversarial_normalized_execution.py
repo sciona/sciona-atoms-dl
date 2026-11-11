@@ -15,5 +15,5 @@ def execute_with_normalizer(prepared: object, normalizer: object) -> dict:
     Preserve all source model branches, label rules, momentum updates, projection,
     and real-entry PNG encoding. No implicit pretrained state is downloaded.
     """
-    from sciona.decomposed_adversarial_injected import execute
+    from sciona._runtime.dl.decomposed_adversarial_injected import execute
     return execute(prepared, normalizer)

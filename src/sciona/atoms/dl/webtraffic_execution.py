@@ -9,7 +9,7 @@ def witness_webtraffic_prepare(payload: dict) -> dict:
 @register_atom(witness_webtraffic_prepare)
 def webtraffic_prepare(payload: dict) -> object:
     """Validate runtime series/config and prepare complete source-derived features."""
-    from sciona.webtraffic_payload import decode_payload
+    from sciona._runtime.dl.webtraffic_payload import decode_payload
     return decode_payload(payload)
 
 
@@ -21,7 +21,7 @@ def witness_webtraffic_train(prepared: object) -> dict:
 @register_atom(witness_webtraffic_train)
 def webtraffic_train(prepared: object) -> object:
     """Train three GRU models, update declared EMA snapshots and retain checkpoints."""
-    from sciona.webtraffic_payload import train_payload
+    from sciona._runtime.dl.webtraffic_payload import train_payload
     return train_payload(prepared)
 
 
@@ -33,5 +33,5 @@ def witness_webtraffic_forecast(completed: object) -> dict:
 @register_atom(witness_webtraffic_forecast)
 def webtraffic_forecast(completed: object) -> dict:
     """Forecast with saved EMA checkpoints and encode dated integer ensemble output."""
-    from sciona.webtraffic_payload import encode_forecast
+    from sciona._runtime.dl.webtraffic_payload import encode_forecast
     return encode_forecast(completed)

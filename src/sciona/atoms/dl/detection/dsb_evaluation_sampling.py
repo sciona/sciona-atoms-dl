@@ -7,7 +7,7 @@ from sciona.atoms.dl.detection.dsb_inference_steps import concrete_only
 @register_atom(witness_dsb_validation_batches)
 def validation_batches(validation_arrays: dict, validation_options: dict) -> object:
     """Construct three source validation populations with caller-owned random streams."""
-    from sciona.dsb_decomposed_validation_batches import ValidationBatchFactory
+    from sciona._runtime.dl.dsb_decomposed_validation_batches import ValidationBatchFactory
     witness_dsb_validation_batches(validation_arrays, validation_options)
     return ValidationBatchFactory(validation_arrays, **validation_options)
 
@@ -16,6 +16,6 @@ def validation_batches(validation_arrays: dict, validation_options: dict) -> obj
 def prepare_classifier_crops(processed_volume: object, proposals: object,
                              topk: int=5, crop_size: int=96) -> tuple:
     """Build source score-ordered test crops, retaining zero slots and padded coordinates."""
-    from sciona.dsb_decomposed_evaluation_samples import prepare_classifier_batch
+    from sciona._runtime.dl.dsb_decomposed_evaluation_samples import prepare_classifier_batch
     crops, coordinates, _ = prepare_classifier_batch(processed_volume, proposals, topk, crop_size)
     return crops, coordinates

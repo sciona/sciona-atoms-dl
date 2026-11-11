@@ -16,7 +16,7 @@ def crop_detection(volume: object, target: object, boxes: object, *, crop_size: 
     """Source training crop and transformed labels, using an explicit shared RNG.
 
 An explicit RNG is required; the caller retains and advances its state."""
-    from sciona.dsb_detector_crop import crop_detection as implementation
+    from sciona._runtime.dl.dsb_detector_crop import crop_detection as implementation
     if rng is None:
         raise ValueError('Explicit caller-owned RNG required')
     return implementation(volume=volume, target=target, boxes=boxes, crop_size=crop_size, bound_size=bound_size, stride=stride, scale=scale, random_crop=random_crop, pad_value=pad_value, rng=rng)
@@ -26,7 +26,7 @@ def augment_detection(sample: object, target: object, boxes: object, coord: obje
     """augment_detection
 
 An explicit RNG is required; the caller retains and advances its state."""
-    from sciona.dsb_augmentation import augment_detection as implementation
+    from sciona._runtime.dl.dsb_augmentation import augment_detection as implementation
     if rng is None:
         raise ValueError('Explicit caller-owned RNG required')
     return implementation(sample=sample, target=target, boxes=boxes, coord=coord, flip=flip, rotate=rotate, swap=swap, rng=rng)
@@ -36,7 +36,7 @@ def augment_classifier(sample: object, coord: object, *, flip: object=True, rota
     """augment_classifier
 
 An explicit RNG is required; the caller retains and advances its state."""
-    from sciona.dsb_augmentation import augment_classifier as implementation
+    from sciona._runtime.dl.dsb_augmentation import augment_classifier as implementation
     if rng is None:
         raise ValueError('Explicit caller-owned RNG required')
     return implementation(sample=sample, coord=coord, flip=flip, rotate=rotate, swap=swap, filling_value=filling_value, rng=rng)
@@ -50,7 +50,7 @@ they are not coordinates of the original unpadded volume. Python 2 integer
 crop halves are preserved. Returned image is not intensity-normalized yet.
 
 An explicit RNG is required; the caller retains and advances its state."""
-    from sciona.dsb_components import crop_classifier_proposal as implementation
+    from sciona._runtime.dl.dsb_components import crop_classifier_proposal as implementation
     if rng is None:
         raise ValueError('Explicit caller-owned RNG required')
     return implementation(volume=volume, target=target, crop_size=crop_size, stride=stride, phase=phase, scale_enabled=scale_enabled, scale_limits=scale_limits, radius_limits=radius_limits, jitter_range=jitter_range, filling_value=filling_value, random_state=random_state, rng=rng)
@@ -64,7 +64,7 @@ RNG; deterministic seeded parity is against the source under this runtime,
 not a claim about historical Python 2 random.sample sequences.
 
 An explicit RNG is required; the caller retains and advances its state."""
-    from sciona.dsb_components import assign_anchor_labels as implementation
+    from sciona._runtime.dl.dsb_components import assign_anchor_labels as implementation
     if rng is None:
         raise ValueError('Explicit caller-owned RNG required')
     return implementation(input_size=input_size, target=target, boxes=boxes, anchors=anchors, stride=stride, phase=phase, num_neg=num_neg, negative_iou=negative_iou, positive_iou_train=positive_iou_train, positive_iou_val=positive_iou_val, random_state=random_state, rng=rng)

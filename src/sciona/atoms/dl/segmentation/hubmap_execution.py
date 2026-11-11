@@ -11,7 +11,7 @@ def witness_hubmap_initial_training(slides: object,groups: object,initial_stages
 def hubmap_initial_training(slides: object,groups: object,initial_stages: object,
                             initial_selectors: object,tile_size: int=1024) -> tuple:
     """Prepare labeled folds and train fresh full networks with source losses."""
-    from sciona.hubmap_graph_runtime import initial_training
+    from sciona._runtime.dl.hubmap_graph_runtime import initial_training
     return initial_training(slides,groups,initial_stages,initial_selectors,tile_size)
 
 
@@ -24,7 +24,7 @@ def witness_hubmap_restore_models(checkpoints: object,input_resolution: int=320)
 @register_atom(witness_hubmap_restore_models)
 def hubmap_restore_models(checkpoints: object,input_resolution: int=320) -> object:
     """Restore ordered plain-output full networks with batch classifier cutoff."""
-    from sciona.hubmap_graph_runtime import restore_models
+    from sciona._runtime.dl.hubmap_graph_runtime import restore_models
     return restore_models(checkpoints,input_resolution)
 
 
@@ -39,7 +39,7 @@ def witness_hubmap_pseudo_labels(models: object,pseudo_sources: object,pseudo_rn
 def hubmap_pseudo_labels(models: object,pseudo_sources: object,pseudo_rng: object,
                          inference_geometry: object=None) -> object:
     """Generate binary pseudo masks using source four-view TTA and stitching."""
-    from sciona.hubmap_graph_runtime import pseudo_labels
+    from sciona._runtime.dl.hubmap_graph_runtime import pseudo_labels
     return pseudo_labels(models,pseudo_sources,pseudo_rng,inference_geometry)
 
 
@@ -54,7 +54,7 @@ def witness_hubmap_retraining(slides: object,groups: object,retraining_stages: o
 def hubmap_retraining(slides: object,groups: object,retraining_stages: object,
                       final_selectors: object,pseudo_labeled_sources: object,tile_size: int=1024) -> tuple:
     """Append positive pseudo tiles and train fresh encoder-initialized folds."""
-    from sciona.hubmap_graph_runtime import retraining
+    from sciona._runtime.dl.hubmap_graph_runtime import retraining
     return retraining(slides,groups,retraining_stages,final_selectors,pseudo_labeled_sources,tile_size)
 
 
@@ -69,5 +69,5 @@ def witness_hubmap_final_prediction(models: object,final_images: object,final_rn
 def hubmap_final_prediction(models: object,final_images: object,final_rng: object,
                             inference_geometry: object=None) -> object:
     """Predict final binary masks using the notebook's three-view TTA."""
-    from sciona.hubmap_graph_runtime import final_prediction
+    from sciona._runtime.dl.hubmap_graph_runtime import final_prediction
     return final_prediction(models,final_images,final_rng,inference_geometry)

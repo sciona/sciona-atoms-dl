@@ -14,7 +14,7 @@ def restore_shared_training_runtime(initial_classifier_checkpoint: bytes, topk: 
     optimizer momentum buffers and epoch origin throughout subsequent training.
     It does not restore historical optimizer or RNG state from checkpoint bytes.
     """
-    from sciona.dsb_runtime import restore_training_runtime
+    from sciona._runtime.dl.dsb_runtime import restore_training_runtime
     return restore_training_runtime(initial_classifier_checkpoint,topk=topk,start_epoch=start_epoch)
 
 
@@ -28,7 +28,7 @@ def train_shared_runtime(runtime: object, training_factory: object, validation_f
     loop. The final checkpoint and every epoch metric are retained explicitly.
     Loss, validation and checkpoint operations still require separate review.
     """
-    from sciona.dsb_training_range import run_training_range
+    from sciona._runtime.dl.dsb_training_range import run_training_range
     if getattr(training_factory,'topk',None)!=topk:
         raise ValueError('Matching training factory topk required')
     if runtime['classifier'].NoduleNet is not runtime['detector']:

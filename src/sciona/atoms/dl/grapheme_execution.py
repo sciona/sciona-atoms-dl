@@ -17,7 +17,7 @@ def witness_ood(ood_spec: object) -> dict:
 
 @register_atom(witness_ood)
 def train_ood(ood_spec: object) -> object:
-    from sciona.grapheme_workflow_runtime import train_b7
+    from sciona._runtime.dl.grapheme_workflow_runtime import train_b7
     if ood_spec.get('branch') != 'ood':
         raise ValueError('OOD training specification required')
     return train_b7(**ood_spec)
@@ -29,7 +29,7 @@ def witness_seen(seen_spec: object) -> dict:
 
 @register_atom(witness_seen)
 def train_seen(seen_spec: object) -> object:
-    from sciona.grapheme_workflow_runtime import train_b7
+    from sciona._runtime.dl.grapheme_workflow_runtime import train_b7
     if seen_spec.get('branch') != 'seen':
         raise ValueError('Seen training specification required')
     return train_b7(**seen_spec)
@@ -41,7 +41,7 @@ def witness_font_a(font_a_spec: object) -> dict:
 
 @register_atom(witness_font_a)
 def train_font_a(font_a_spec: object) -> object:
-    from sciona.grapheme_workflow_runtime import train_font
+    from sciona._runtime.dl.grapheme_workflow_runtime import train_font
     return train_font(**font_a_spec)
 
 
@@ -51,7 +51,7 @@ def witness_font_b(font_b_spec: object) -> dict:
 
 @register_atom(witness_font_b)
 def train_font_b(font_b_spec: object) -> object:
-    from sciona.grapheme_workflow_runtime import train_font
+    from sciona._runtime.dl.grapheme_workflow_runtime import train_font
     return train_font(**font_b_spec)
 
 
@@ -63,7 +63,7 @@ def witness_generator_a(gan_a_spec: object, classifier_state: object) -> dict:
 
 @register_atom(witness_generator_a)
 def train_generator_a(gan_a_spec: object, classifier_state: object) -> object:
-    from sciona.grapheme_workflow_runtime import train_generator
+    from sciona._runtime.dl.grapheme_workflow_runtime import train_generator
     return train_generator(classifier_state=classifier_state, **gan_a_spec)
 
 
@@ -73,7 +73,7 @@ def witness_generator_b(gan_b_spec: object, classifier_state: object) -> dict:
 
 @register_atom(witness_generator_b)
 def train_generator_b(gan_b_spec: object, classifier_state: object) -> object:
-    from sciona.grapheme_workflow_runtime import train_generator
+    from sciona._runtime.dl.grapheme_workflow_runtime import train_generator
     return train_generator(classifier_state=classifier_state, **gan_b_spec)
 
 
@@ -85,7 +85,7 @@ def witness_b7_prediction(state: object, images: object) -> dict:
 
 @register_atom(witness_b7_prediction)
 def predict_b7(state: object, images: object) -> object:
-    from sciona.grapheme_workflow_runtime import predict_b7 as predict
+    from sciona._runtime.dl.grapheme_workflow_runtime import predict_b7 as predict
     return predict(state, images)
 
 
@@ -97,7 +97,7 @@ def witness_generated_prediction(state: object, images: object) -> dict:
 
 @register_atom(witness_generated_prediction)
 def predict_generated(state: object, images: object) -> object:
-    from sciona.grapheme_workflow_runtime import predict_generated as predict
+    from sciona._runtime.dl.grapheme_workflow_runtime import predict_generated as predict
     return predict(state, images)
 
 
@@ -109,7 +109,7 @@ def witness_scores(ood_logits: object, seen_logits: object) -> dict:
 
 @register_atom(witness_scores)
 def classifier_scores(ood_logits: object, seen_logits: object) -> object:
-    from sciona.grapheme_classifier_inference import classifier_predictions
+    from sciona._runtime.dl.grapheme_classifier_inference import classifier_predictions
     return classifier_predictions(ood_logits, seen_logits)
 
 
@@ -121,7 +121,7 @@ def witness_ensemble(logits_a: object, logits_b: object) -> dict:
 
 @register_atom(witness_ensemble)
 def font_ensemble(logits_a: object, logits_b: object) -> object:
-    from sciona.bengali_unseen_ensemble import marginal_predictions
+    from sciona._runtime.dl.bengali_unseen_ensemble import marginal_predictions
     return marginal_predictions(logits_a, logits_b)
 
 
@@ -135,7 +135,7 @@ def witness_calibration(classifier_scores: object, unseen_predictions: object, t
 @register_atom(witness_calibration)
 def fit_router(classifier_scores: object, unseen_predictions: object, truth_components: object,
                known_class_mask: object, sample_weight: object, thresholds: object) -> object:
-    from sciona.grapheme_routing_calibration import calibrate_grapheme_router
+    from sciona._runtime.dl.grapheme_routing_calibration import calibrate_grapheme_router
     return calibrate_grapheme_router(classifier_scores['ood_confidence'], classifier_scores['seen_joint_classes'],
         unseen_predictions['joint_classes'].numpy(), truth_components, seen_class_mask=known_class_mask,
         sample_weight=sample_weight, thresholds=thresholds)
@@ -152,7 +152,7 @@ def witness_routing(classifier_scores: object, unseen_predictions: object, calib
 @register_atom(witness_routing)
 def route_predictions(classifier_scores: object, unseen_predictions: object, calibration: object,
                       known_class_mask: object) -> object:
-    from sciona.bengali_routing import route_predictions as route
+    from sciona._runtime.dl.bengali_routing import route_predictions as route
     return route(classifier_scores['ood_confidence'], classifier_scores['seen_joint_classes'],
                  unseen_predictions['joint_classes'].numpy(), seen_class_mask=known_class_mask,
                  threshold=calibration['threshold'])
@@ -166,5 +166,5 @@ def witness_submission(joint_classes: object) -> dict:
 
 @register_atom(witness_submission)
 def submission_components(joint_classes: object) -> object:
-    from sciona.grapheme_routing_calibration import submission_components as convert
+    from sciona._runtime.dl.grapheme_routing_calibration import submission_components as convert
     return convert(joint_classes)

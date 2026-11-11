@@ -20,7 +20,7 @@ def validate_detector(model: object, batches: object) -> dict:
     nonempty iterable. Sets eval mode and disables gradients. Does not update
     parameters or optimizers; returning to training mode is caller policy.
     """
-    from sciona.dsb_decomposed_validation import validate_detector as evaluate
+    from sciona._runtime.dl.dsb_decomposed_validation import validate_detector as evaluate
     return evaluate(model, batches)
 
 
@@ -32,7 +32,7 @@ def validate_classifier(model: object, batches: object) -> dict:
     Requires a nonempty iterable. Sets eval mode and disables gradients; strict
     probability > .5 determines predicted case labels. Returns aggregates only.
     """
-    from sciona.dsb_decomposed_validation import validate_classifier as evaluate
+    from sciona._runtime.dl.dsb_decomposed_validation import validate_classifier as evaluate
     return evaluate(model, batches)
 
 
@@ -44,5 +44,5 @@ def export_model_checkpoint(model: object, epoch: int) -> bytes:
     options or input arrays are serialized. Model device, mode, tensors and
     live optimizer state remain unchanged. The caller controls byte storage.
     """
-    from sciona.dsb_checkpoint import checkpoint_bytes
+    from sciona._runtime.dl.dsb_checkpoint import checkpoint_bytes
     return checkpoint_bytes(model, epoch)
